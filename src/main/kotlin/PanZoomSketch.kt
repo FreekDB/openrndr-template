@@ -3,6 +3,7 @@ import org.openrndr.KEY_SPACEBAR
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.isolatedWithTarget
+import org.openrndr.math.IntVector2
 import org.openrndr.shape.Rectangle
 import kotlin.math.cos
 import kotlin.math.sin
@@ -12,6 +13,8 @@ fun main() = application {
     configure {
         width = 600
         height = 400
+        hideWindowDecorations = true
+        position = IntVector2(10, 10)
     }
 
     program {
@@ -36,7 +39,7 @@ fun main() = application {
             val currCanvas = canvases[canvasID]
             drawer.isolatedWithTarget(currCanvas.rt) {
                 drawer.strokeWeight = 5.0
-                drawer.stroke = if(Random.nextBoolean()) ColorRGBa.BLACK else ColorRGBa.WHITE
+                drawer.stroke = if (Random.nextBoolean()) ColorRGBa.BLACK else ColorRGBa.WHITE
                 val angle = frameCount.toDouble()
                 ortho(currCanvas.rt)
                 drawer.lineSegment(
@@ -66,8 +69,7 @@ fun main() = application {
             when (it.key) {
                 KEY_ESCAPE -> application.exit()
                 KEY_SPACEBAR -> {
-                    activeCanvas?.run {
-                        val canvas = this
+                    activeCanvas?.let { canvas ->
                         drawer.isolatedWithTarget(canvas.rt) {
                             ortho(canvas.rt)
                             drawer.circle(canvas.globalToLocal(mouse.position), 20.0)
