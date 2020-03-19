@@ -3,3 +3,9 @@ build
 out
 .idea
 .gradle
+video/
+screenshots/
+print/
+ffmpegOutput.txt
+ShaderError.txt
+
