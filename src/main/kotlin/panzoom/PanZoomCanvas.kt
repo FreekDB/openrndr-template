@@ -1,3 +1,5 @@
+package panzoom
+
 import org.openrndr.MouseEvent
 import org.openrndr.draw.Drawer
 import org.openrndr.draw.renderTarget
