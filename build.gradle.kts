@@ -10,7 +10,7 @@ val applicationMainClass = "TemplateProgramKt"
 
 /*  Which additional (ORX) libraries should be added to this project. */
 val orxFeatures = setOf(
-//  "orx-camera",
+    "orx-camera",
     "orx-compositor",
 //  "orx-easing",
 //  "orx-file-watcher",
@@ -25,7 +25,7 @@ val orxFeatures = setOf(
     "orx-gui",
     "orx-image-fit",
 //  "orx-kdtree",
-//  "orx-mesh-generators",
+    "orx-mesh-generators",
 //  "orx-midi",
 //  "orx-no-clear",
     "orx-noise",
@@ -50,13 +50,13 @@ val openrndrFeatures = setOf(
 )
 
 /*  Which version of OPENRNDR, ORX and Panel should be used? */
-val openrndrUseSnapshot = false
+val openrndrUseSnapshot = true
 val openrndrVersion = if (openrndrUseSnapshot) "0.4.0-SNAPSHOT" else "0.3.39"
 
 val panelUseSnapshot = false
 val panelVersion = if (panelUseSnapshot) "0.4.0-SNAPSHOT" else "0.3.21"
 
-val orxUseSnapshot = false
+val orxUseSnapshot = true
 val orxVersion = if (orxUseSnapshot) "0.4.0-SNAPSHOT" else "0.3.49"
 
 //<editor-fold desc="This is code for OPENRNDR, no need to edit this .. most of the times">
@@ -126,7 +126,7 @@ dependencies {
     /*  This is where you add additional (third-party) dependencies */
 
 //    implementation("org.jsoup:jsoup:1.12.2")
-//    implementation("com.google.code.gson:gson:2.8.6")
+    implementation("com.google.code.gson:gson:2.8.6")
 
     //<editor-fold desc="Managed dependencies">
     runtimeOnly(openrndr("gl3"))
@@ -138,6 +138,7 @@ dependencies {
     implementation(openrndr("animatable"))
     implementation(openrndr("extensions"))
     implementation(openrndr("filter"))
+    implementation(openrndr("dialogs"))
 
     implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-core","1.3.3")
     implementation("io.github.microutils", "kotlin-logging","1.7.8")
@@ -176,6 +177,8 @@ dependencies {
     if ("orx-olive" in orxFeatures) {
         implementation("org.jetbrains.kotlin", "kotlin-scripting-compiler-embeddable")
     }
+
+    //implementation("com.github.weisj:darklaf-core")
 
     implementation(kotlin("stdlib-jdk8"))
     testImplementation("junit", "junit", "4.12")
