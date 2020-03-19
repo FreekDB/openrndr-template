@@ -15,8 +15,8 @@ import org.openrndr.extra.olive.Olive
 
 fun main() = application {
     configure {
-        width = 800
-        height = 800
+        width = 400
+        height = 400
     }
     program {
         extend(Olive<Program>())
