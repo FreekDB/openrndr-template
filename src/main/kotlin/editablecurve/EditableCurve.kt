@@ -47,11 +47,11 @@ class EditableCurve {
         return minDist
     }
 
-    fun randomize() {
+    fun randomize(drawer: Drawer) {
         for (i in 0 until pointCount) {
             controlPoints[i] = Vector2.uniform(
-                Vector2.ZERO,
-                Vector2(768.0, 576.0) // TODO: get screen dimensions
+                Vector2(drawer.width * 0.1, drawer.height * 0.1),
+                Vector2(drawer.width * 0.9, drawer.height * 0.9)
             )
         }
         update()

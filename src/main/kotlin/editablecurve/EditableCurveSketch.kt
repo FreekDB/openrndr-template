@@ -84,7 +84,7 @@ fun main() = application {
 
             activeCurve = curves.lastOrNull()
 
-            c.randomize()
+            c.randomize(drawer)
             c.addSegmentsTo(segments)
             paramNumSubcurves.value = c.getNumSubcurves().toDouble()
             paramSep.value = c.getSep().toDouble()
