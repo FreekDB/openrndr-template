@@ -34,7 +34,7 @@ fun main() = application {
 
         var bgColor = ColorRGBa.WHITE.shade(0.95)
 
-        var activeCurve = 0
+        var activeCurve: EditableCurve? = null
         var curves = mutableListOf<EditableCurve>()
         var segments = mutableListOf<ShapeContour>()
 
@@ -48,18 +48,8 @@ fun main() = application {
 
         EditableCurve.colorEdit = ColorRGBa(0.5, 0.8, 0.9)
 
-        fun selectCurve(pos: Vector2): Int {
-            // try select a curve
-            var maxd = Double.MAX_VALUE
-            var closestCurveId = curves.size - 1
-            for (i in 0 until curves.size) {
-                var d = curves[i].distanceTo(pos)
-                if (d < maxd) {
-                    maxd = d
-                    closestCurveId = i
-                }
-            }
-            return closestCurveId
+        fun selectCurve(pos: Vector2): EditableCurve? {
+            return curves?.minBy { it.distanceTo(pos) }
         }
 
         fun refreshCurves() {
@@ -71,7 +61,7 @@ fun main() = application {
             var c = EditableCurve()
             curves.add(c)
 
-            activeCurve = curves.size - 1;
+            activeCurve = curves.lastOrNull()
 
             c.randomize()
             c.addSegmentsTo(segments)
@@ -96,8 +86,10 @@ fun main() = application {
                 button {
                     label = "Remove curve"
                     clicked {
-                        curves.removeAt(activeCurve)
-                        activeCurve = activeCurve.coerceIn(0, curves.size - 1)
+                        curves.remove(activeCurve)
+                        activeCurve = curves.lastOrNull()
+                        //curves.removeAt(activeCurve)
+                        //activeCurve = activeCurve.coerceIn(0, curves.size - 1)
                     }
                 }
                 button {
@@ -105,7 +97,8 @@ fun main() = application {
                     clicked {
                         segments.clear()
                         curves.clear()
-                        activeCurve = curves.size - 1
+                        //activeCurve = curves.size - 1
+                        activeCurve = null
                     }
                 }
                 button {
@@ -146,7 +139,7 @@ fun main() = application {
                     range = Range(0.0, 30.0)
                     precision = 0
                     events.valueChanged.subscribe {
-                        curves[activeCurve].setNumSubcurves(it.newValue.toInt())
+                        activeCurve?.setNumSubcurves(it.newValue.toInt())
                         refreshCurves()
                     }
                 }
@@ -156,7 +149,7 @@ fun main() = application {
                     range = Range(-50.0, 50.0)
                     precision = 0
                     events.valueChanged.subscribe {
-                        curves[activeCurve].setSep(it.newValue.toInt())
+                        activeCurve?.setSep(it.newValue.toInt())
                         refreshCurves()
                     }
                 }
@@ -182,27 +175,24 @@ fun main() = application {
             //ofSetColor(jsonToColor(cfg["lineColor"]));
 
             segments.forEach { drawer.contour(it) }
-
-            curves.forEachIndexed { i, curve -> curve.draw(drawer, i == activeCurve) }
-        }
-
-        keyboard.keyDown.listen {
-            if (it.key == KEY_ESCAPE) {
-                application.exit()
+            curves.forEach {
+                it.draw(drawer, it == activeCurve)
             }
-        }
 
-        mouse.buttonDown.listen {
-            if (activeCurve < curves.size) {
-                curves[activeCurve].mousePressed(it.position)
+            keyboard.keyDown.listen {
+                if (it.key == KEY_ESCAPE) {
+                    application.exit()
+                }
             }
-            mouseClickStart = it.position;
 
-        }
+            mouse.buttonDown.listen {
+                activeCurve?.mousePressed(it.position)
+                mouseClickStart = it.position;
 
-        mouse.dragged.listen {
-            if (activeCurve < curves.size) {
-                curves[activeCurve].mouseDragged(
+            }
+
+            mouse.dragged.listen {
+                activeCurve?.mouseDragged(
                     Vector2(
                         clamp(it.position.x, 0.0, width.toDouble()),
                         clamp(it.position.y, 0.0, height.toDouble())
@@ -212,24 +202,23 @@ fun main() = application {
                 curvesNeedUpdate = true
             }
 
-        }
-
-        mouse.buttonUp.listen { mouse ->
-            if (curves.size == 0) {
-                return@listen
+            mouse.buttonUp.listen { mouse ->
+                if (curves.size == 0) {
+                    return@listen
+                }
+                val dist = (mouse.position - mouseClickStart).length
+                if (dist < 10) {
+                    activeCurve = selectCurve(mouse.position)
+                    activeCurve?.let {
+                        paramNumSubcurves.value = it.getNumSubcurves().toDouble()
+                        paramSep.value = it.getSep().toDouble()
+                    }
+                }
+                if (curvesNeedUpdate) {
+                    refreshCurves()
+                    curvesNeedUpdate = false
+                }
             }
-            val dist = (mouse.position - mouseClickStart).length
-            if (dist < 10) {
-                activeCurve = selectCurve(mouse.position)
-                var curve = curves[activeCurve]
-                paramNumSubcurves.value = curve.getNumSubcurves().toDouble()
-                paramSep.value = curve.getSep().toDouble()
-            }
-            if (curvesNeedUpdate) {
-                refreshCurves()
-                curvesNeedUpdate = false
-            }
-
         }
     }
 }
