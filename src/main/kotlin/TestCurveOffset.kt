@@ -16,8 +16,8 @@ import org.openrndr.shape.contour
 
 fun main() = application {
     configure {
-        width = 400
-        height = 400
+        width = 600
+        height = 600
         hideWindowDecorations = true
         position = IntVector2(10, 10)
     }
@@ -25,14 +25,15 @@ fun main() = application {
     program {
         var curves = mutableListOf<ShapeContour>()
         curves.add(contour {
-            moveTo(Vector2(60.0, 200.0))
-            continueTo(Vector2(300.0, 300.0))
-            continueTo(Vector2(280.0, 200.0))
-            continueTo(Vector2(60.0, 200.0))
+            moveTo(Vector2(180.0, 280.0))
+            continueTo(Vector2(380.0, 380.0))
+            continueTo(Vector2(360.0, 280.0))
+            continueTo(Vector2(180.0, 280.0))
             close()
         })
-        curves.add(curves[0].offset(20.0, SegmentJoin.MITER))
-        curves.add(curves[1].offset(20.0, SegmentJoin.MITER)) // fail on 0.4.0
+        for(i in 0..6) {
+            curves.add(curves[i].offset(15.0, SegmentJoin.MITER))
+        }
 
         extend(Screenshots())
 
