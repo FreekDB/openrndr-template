@@ -3,6 +3,17 @@ import java.awt.event.KeyEvent
 import javax.swing.*
 import kotlin.system.exitProcess
 
+/**
+ * Test using Swing from Kotlin. No OPENRNDR here yet.
+ * I thought that maybe it's interesting for designing complex UIs
+ * and then somehow communicating the UI application with the
+ * OPENRNDR application.
+ *
+ * Passing lots of variables via OSC or some other method is not as
+ * convenient as having direct access to variables and methods, as
+ * one has when writing only one program instead of two. Is that solvable?
+ */
+
 class KotlinSwingSimpleEx(title: String) : JFrame() {
     init {
         createUI(title)
