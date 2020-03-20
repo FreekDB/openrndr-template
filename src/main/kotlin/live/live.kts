@@ -55,7 +55,7 @@ import org.openrndr.shape.contour
 
                 drawer.fill = ColorRGBa(0.878, 0.556, 0.474)
                 drawer.translate(
-                    width * 0.5 + width * 0.2 * simplex(123, 0.2, 0.4, 0.8, seconds),
+                    width * 0.5 + width * 0.2 * simplex(123, 0.2, 0.8, seconds),
                     height * 0.5
                 )
                 drawer.circle(0.0, 0.0, 100.0)
