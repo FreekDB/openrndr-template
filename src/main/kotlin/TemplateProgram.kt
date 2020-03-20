@@ -10,7 +10,6 @@ import org.openrndr.math.IntVector2
 import org.openrndr.math.Vector2
 import org.openrndr.math.Vector3
 import org.openrndr.panel.ControlManager
-import org.openrndr.panel.controlManager
 import org.openrndr.panel.elements.*
 import org.openrndr.panel.layout
 import org.openrndr.panel.style.*
@@ -20,6 +19,12 @@ import org.openrndr.shape.contour
 import kotlin.math.cos
 import kotlin.math.floor
 import kotlin.math.sin
+
+/**
+ * One more test program, including a dodecahedron
+ * and showing the font bitmap. Also combines
+ * ortho with perspective.
+ */
 
 fun main() = application {
     configure {
@@ -31,12 +36,14 @@ fun main() = application {
 
     program {
         val image = loadImage("data/images/pm5544.png")
-        val font = loadFont("file:/home/funpro/src/OR/openrndr-template/data/fonts/slkscr.ttf",
-            14.0)
+        val font = loadFont(
+            "file:/home/funpro/src/OR/openrndr-template/data/fonts/slkscr.ttf",
+            14.0
+        )
 
         var bgColor = ColorRGBa.GRAY.shade(0.250)
 
-        var curves = emptyList<EditableCurve>()
+        var curves = emptyList<editablecurve.EditableCurve>()
 
         val curve = contour {
             moveTo(Vector2(0.1 * width, 0.1 * height))
@@ -205,7 +212,6 @@ fun main() = application {
                 application.exit()
             }
         }
-
 
     }
 }
