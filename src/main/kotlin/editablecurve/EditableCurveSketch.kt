@@ -22,6 +22,7 @@ import org.openrndr.shape.CompositionDrawer
 import org.openrndr.shape.ShapeContour
 import org.openrndr.svg.writeSVG
 import java.io.File
+import kotlin.system.exitProcess
 
 fun main() = application {
     configure {
@@ -201,7 +202,7 @@ fun main() = application {
 
             keyboard.keyDown.listen {
                 if (it.key == KEY_ESCAPE) {
-                    application.exit()
+                    exitProcess(0)
                 }
             }
 
