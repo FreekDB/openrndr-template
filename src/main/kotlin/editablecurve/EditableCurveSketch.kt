@@ -204,6 +204,7 @@ fun main() = application {
                 if (it.key == KEY_ESCAPE) {
                     exitProcess(0)
                 }
+                //mf.controlChange(0, Random.int0(16), Random.int0(128))
             }
 
             mouse.buttonDown.listen {
