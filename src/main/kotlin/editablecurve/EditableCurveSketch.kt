@@ -7,6 +7,7 @@ import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.dialogs.openFileDialog
 import org.openrndr.dialogs.saveFileDialog
+import org.openrndr.extra.midi.MidiTransceiver
 import org.openrndr.ffmpeg.ScreenRecorder
 import org.openrndr.math.IntVector2
 import org.openrndr.math.Vector2
@@ -48,13 +49,32 @@ fun main() = application {
 
         EditableCurve.colorEdit = ColorRGBa(0.5, 0.8, 0.9)
 
-        fun selectCurve(pos: Vector2): EditableCurve? {
-            return curves?.minBy { it.distanceTo(pos) }
-        }
+//        MidiDeviceDescription.list().forEach {
+//            println("${it.name}, ${it.vendor} r:${it.receive} t:${it.transmit}")
+//        }
 
         fun refreshCurves() {
             segments.clear()
             curves.forEach { it.addSegmentsTo(segments) }
+        }
+
+        val mf = MidiTransceiver.fromDeviceVendor("Twister [hw:2,0,0]", "ALSA (http://www.alsa-project.org)")
+        mf.controlChanged.listen {
+            when (it.control) {
+                12 -> {
+                    activeCurve?.setNumSubcurves(it.value / 4)
+                    refreshCurves()
+                }
+                13 -> {
+                    activeCurve?.setSep(it.value - 64)
+                    refreshCurves()
+                }
+                else -> println("${it.channel} ${it.control} ${it.value}")
+            }
+        }
+
+        fun selectCurve(pos: Vector2): EditableCurve? {
+            return curves?.minBy { it.distanceTo(pos) }
         }
 
         fun addCurve() {
