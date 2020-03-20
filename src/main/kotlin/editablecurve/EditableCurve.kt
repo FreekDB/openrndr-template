@@ -1,3 +1,5 @@
+package editablecurve
+
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.Drawer
 import org.openrndr.extra.noise.Random.simplex
@@ -6,8 +8,6 @@ import org.openrndr.math.Vector2
 import org.openrndr.shape.ContourBuilder
 import org.openrndr.shape.ShapeContour
 import org.openrndr.shape.contour
-import org.openrndr.shape.intersection
-import kotlin.math.PI
 import kotlin.math.abs
 
 class EditableCurve {
@@ -27,7 +27,7 @@ class EditableCurve {
     @Transient
     private var line: ShapeContour = ShapeContour(emptyList(), false)
     @Transient
-    private var activePoint = EditableCurve.pointCount
+    private var activePoint = pointCount
 
     fun update() {
         line = contour {
@@ -90,23 +90,6 @@ class EditableCurve {
         update()
     }
 
-    // TODO: move to aBeLibs
-    private fun makeParallelCurve(line: ShapeContour, dist: Double): ShapeContour {
-        var points = mutableListOf<Vector2>()
-        var prevNorm = Vector2.ZERO
-        val len = line.segments.size.toDouble()
-        line.segments.forEachIndexed { i, it ->
-            val pc = i / len
-            val wi = 0.5 - 0.5 * Math.cos(pc * PI * 2)
-            val norm = (it.end - it.start).normalized.perpendicular
-            points.add(it.start + (norm + prevNorm).normalized * wi * dist)
-            prevNorm = norm
-        }
-        points.add(line.segments.last().end + prevNorm * 0.0 * dist)
-
-        return ShapeContour.fromPoints(points, false)
-    }
-
     fun addSegmentsTo(segments: MutableList<ShapeContour>) {
         if (separations.size > numCopies) {
             separations = separations.subList(0, numCopies)
@@ -120,20 +103,10 @@ class EditableCurve {
             val start = 0.02 + abs(0.2 * simplex(i * 0.03, 7.0))
             val end = 0.98 - abs(0.2 * simplex(i * 0.03, 3.0))
             dist += 1 + sepMultiplier * sep * sep * sep
-            val c2 = makeParallelCurve(line.sub(start, end), dist)
+            //val c2 = makeParallelCurve(line.sub(start, end), dist)
+            val c2 = line.sub(start, end).makeParallelCurve(dist)
             addSegmentsOfLineTo(c2, segments)
         }
-    }
-
-    // TODO: move to aBeLibs
-    private fun intersects(p0: Vector2, p1: Vector2, shape: ShapeContour): Pair<Boolean, Vector2> {
-        shape.segments.forEach {
-            val isec = intersection(p0, p1, it.start, it.end)
-            if (isec != Vector2.INFINITY) {
-                return Pair(true, isec)
-            }
-        }
-        return Pair(false, Vector2.ZERO)
     }
 
     // IDEA: Have a method that returns all intersections between two lines
@@ -148,27 +121,20 @@ class EditableCurve {
 
         var drawing = true;
         l.segments.indices.forEach { i ->
-            // get segment
-            val pThis0 = l.segments[i].start
-            val pThis1 = l.segments[i].end
-
-            var intersection = Vector2(0.0)
-            var isecFound: Boolean = false
+            var intersection = Vector2.INFINITY
             // test for intersections against
             // all other segments in all other lines
             for (segment in segments) {
-                val (found, isec) = intersects(pThis0, pThis1, segment)
-                if (found) {
-                    isecFound = true
-                    intersection = isec
+                intersection = segment.intersects(l.segments[i])
+                if (intersection != Vector2.INFINITY) {
                     break
                 }
             }
 
             if (drawing) {
-                builder.moveOrLineTo(pThis0)
+                builder.moveOrLineTo(l.segments[i].start)
             }
-            if (isecFound) {
+            if (intersection != Vector2.INFINITY) {
                 if (drawing) {
                     drawing = false
                     builder.moveOrLineTo(intersection)
