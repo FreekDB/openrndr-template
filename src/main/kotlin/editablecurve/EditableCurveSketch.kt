@@ -212,15 +212,17 @@ fun main() = application {
 
             }
 
-            mouse.dragged.listen {
-                activeCurve?.mouseDragged(
-                    Vector2(
-                        clamp(it.position.x, 0.0, width.toDouble()),
-                        clamp(it.position.y, 0.0, height.toDouble())
+            mouse.dragged.listen { mouse ->
+                activeCurve?.let {
+                    it.mouseDragged(
+                        Vector2(
+                            clamp(mouse.position.x, 0.0, width.toDouble()),
+                            clamp(mouse.position.y, 0.0, height.toDouble())
+                        )
                     )
-                )
-                // TODO: can be optimized by observing if a curve was modified
-                curvesNeedUpdate = true
+                    // TODO: can be optimized by observing if a curve was modified
+                    curvesNeedUpdate = true
+                }
             }
 
             mouse.buttonUp.listen { mouse ->
