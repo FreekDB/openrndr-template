@@ -14,7 +14,7 @@ val orxFeatures = setOf(
     "orx-compositor",
 //  "orx-easing",
 //  "orx-file-watcher",
-//  "orx-parameters",
+  "orx-parameters",
 //  "orx-filter-extension",
     "orx-fx",
 //  "orx-glslify",
@@ -32,12 +32,13 @@ val orxFeatures = setOf(
 //  "orx-obj-loader",
     "orx-olive",
 //  "orx-osc",
-//  "orx-palette",
+    "orx-palette",
+    "orx-panel",
 //  "orx-poisson-fill",
 //  "orx-runway",
 //  "orx-shader-phrases",
-    "orx-shade-styles"
-//  "orx-shapes",
+    "orx-shade-styles",
+    "orx-shapes"
 //  "orx-syphon",
 //  "orx-temporal-blur",
 //  "orx-kinect-v1"
@@ -45,7 +46,7 @@ val orxFeatures = setOf(
 
 /* Which OPENRNDR libraries should be added to this project? */
 val openrndrFeatures = setOf(
-    "panel",
+    //"panel",
     "video"
 )
 
