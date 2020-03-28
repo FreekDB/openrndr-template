@@ -27,7 +27,7 @@ fun ShapeContour.makeParallelCurve(dist: Double): ShapeContour {
  * Do simple line-to-line intersection test. Assuming
  * the Segments don't have any control points.
  */
-fun intersection(a: Segment, b:Segment, eps: Double = 0.01): Vector2 {
+fun intersection(a: Segment, b: Segment, eps: Double = 0.01): Vector2 {
     return intersection(a.start, a.end, b.start, b.end, eps)
 }
 
@@ -39,6 +39,21 @@ fun ShapeContour.intersects(segment: Segment): Vector2 {
         val p = intersection(it, segment)
         if (p != Vector2.INFINITY) {
             return p
+        }
+    }
+    return Vector2.INFINITY
+}
+
+/**
+ * Check for ShapeContour-to-ShapeContour intersections
+ */
+fun ShapeContour.intersects(other: ShapeContour): Vector2 {
+    segments.forEach { thisSegment ->
+        other.segments.forEach { otherSegment ->
+            val p = intersection(thisSegment, otherSegment)
+            if (p != Vector2.INFINITY) {
+                return p
+            }
         }
     }
     return Vector2.INFINITY

@@ -22,8 +22,8 @@ class EditableCurve {
         Vector2.ZERO
     }
     private var separations = mutableListOf<Double>()
-    private var numCopies = 1
-    private var sepMultiplier = 25
+    var numSubcurves = 1
+    var separation = 25.0
     @Transient
     private var line: ShapeContour = ShapeContour(emptyList(), false)
     @Transient
@@ -33,25 +33,19 @@ class EditableCurve {
         line = contour {
             moveTo(controlPoints[0])
             curveTo(controlPoints[1], controlPoints[2], controlPoints[3])
-        }.sampleEquidistant(curveResolution.toInt())
+        } //.sampleEquidistant(curveResolution.toInt())
     }
 
     fun distanceTo(p: Vector2): Double {
-        var minDist = Double.MAX_VALUE
-        for (segment in line.segments) {
-            val len = (segment.start - p).squaredLength
-            if (len < minDist) {
-                minDist = len
-            }
-        }
-        return minDist
+        val lineCopy = line.sampleEquidistant(10)
+        return lineCopy.segments.map { (it.start - p).squaredLength }.min()!!
     }
 
-    fun randomize(drawer: Drawer) {
+    fun randomize(screenSize: Vector2) {
         for (i in 0 until pointCount) {
             controlPoints[i] = Vector2.uniform(
-                Vector2(drawer.width * 0.1, drawer.height * 0.1),
-                Vector2(drawer.width * 0.9, drawer.height * 0.9)
+                Vector2(screenSize.x * 0.1, screenSize.x * 0.1),
+                Vector2(screenSize.x * 0.9, screenSize.y * 0.9)
             )
         }
         update()
@@ -91,20 +85,21 @@ class EditableCurve {
     }
 
     fun addSegmentsTo(segments: MutableList<ShapeContour>) {
-        if (separations.size > numCopies) {
-            separations = separations.subList(0, numCopies)
+        if (separations.size > numSubcurves) {
+            separations = separations.subList(0, numSubcurves)
         }
-        while (separations.size < numCopies) {
+        while (separations.size < numSubcurves) {
             separations.add(Math.random());
         }
         var dist = 0.0;
-        for (i in 0 until numCopies) {
+        val lineCopy = line.sampleEquidistant(curveResolution.toInt())
+        for (i in 0 until numSubcurves) {
             val sep = separations[i]
             val start = 0.02 + abs(0.2 * simplex(i * 0.03, 7.0))
             val end = 0.98 - abs(0.2 * simplex(i * 0.03, 3.0))
-            dist += 1 + sepMultiplier * sep * sep * sep
+            dist += 1 + separation * sep * sep * sep
             //val c2 = makeParallelCurve(line.sub(start, end), dist)
-            val c2 = line.sub(start, end).makeParallelCurve(dist)
+            val c2 = lineCopy.sub(start, end).makeParallelCurve(dist)
             addSegmentsOfLineTo(c2, segments)
         }
     }
@@ -116,7 +111,6 @@ class EditableCurve {
     // saves a lot of computation: but how do you know if a line cuts through a box? By comparing
     // if the first line intersects with any of the 4 lines defining the bounding box.
     private fun addSegmentsOfLineTo(l: ShapeContour, segments: MutableList<ShapeContour>) {
-
         var builder = ContourBuilder()
 
         var drawing = true;
@@ -150,21 +144,5 @@ class EditableCurve {
             builder.moveOrLineTo(l.segments.last().end)
             segments.add(ShapeContour(builder.segments, false))
         }
-    }
-
-    fun setNumSubcurves(num: Int) {
-        numCopies = num
-    }
-
-    fun setSep(sep: Int) {
-        sepMultiplier = sep
-    }
-
-    fun getNumSubcurves(): Int {
-        return numCopies
-    }
-
-    fun getSep(): Int {
-        return sepMultiplier
     }
 }
