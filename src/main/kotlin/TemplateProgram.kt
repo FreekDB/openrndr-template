@@ -29,7 +29,7 @@ fun main() = application {
         val image = loadImage("data/images/pm5544.png")
         val font = loadFont(
             "file:/home/funpro/src/OR/openrndr-template/data/fonts/slkscr.ttf",
-            14.0
+            20.0
         )
 
         var curves = emptyList<editablecurve.EditableCurve>()
@@ -80,6 +80,7 @@ fun main() = application {
             drawer.circle(0.0, 0.0, 140.0)
             drawer.popTransforms()
 
+            // Draw font texture
             drawer.isolated {
                 drawer.shadeStyle = shadeStyle {
                     fragmentTransform = """x_fill.gb = vec2(x_fill.r);"""

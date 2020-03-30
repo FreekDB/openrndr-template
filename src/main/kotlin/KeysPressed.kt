@@ -1,22 +1,10 @@
-import editablecurve.intersects
-import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
-import org.openrndr.draw.isolated
 import org.openrndr.draw.loadFont
-import org.openrndr.extensions.Screenshots
-import org.openrndr.extra.palette.PaletteStudio
-import org.openrndr.extra.shapes.regularStar
-import org.openrndr.ffmpeg.ScreenRecorder
-import org.openrndr.ffmpeg.VideoWriter
-import org.openrndr.math.IntVector2
-import org.openrndr.math.Vector2
-import org.openrndr.shape.ShapeContour
-import org.openrndr.shape.contour
 import kotlin.math.PI
+import kotlin.math.abs
 import kotlin.math.cos
-import kotlin.math.sin
-import kotlin.random.Random
+
 
 fun main() = application {
     configure {
