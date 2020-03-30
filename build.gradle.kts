@@ -10,6 +10,7 @@ val applicationMainClass = "TemplateProgramKt"
 
 /*  Which additional (ORX) libraries should be added to this project. */
 val orxFeatures = setOf(
+//    "poc-orx-keyframer",
     "orx-camera",
     "orx-compositor",
 //  "orx-easing",
@@ -27,7 +28,7 @@ val orxFeatures = setOf(
 //  "orx-kdtree",
     "orx-mesh-generators",
     "orx-midi",
-//  "orx-no-clear",
+    "orx-no-clear",
     "orx-noise",
 //  "orx-obj-loader",
     "orx-olive",
