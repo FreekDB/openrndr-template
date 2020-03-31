@@ -1,12 +1,13 @@
-import org.openrndr.KEY_ESCAPE
-import org.openrndr.application
+import org.openrndr.*
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.isolated
 import org.openrndr.draw.loadFont
 import org.openrndr.extensions.Screenshots
 import org.openrndr.math.Polar
+import org.openrndr.math.Vector2
 import org.openrndr.shape.SegmentJoin
 import org.openrndr.shape.ShapeContour
+import org.openrndr.shape.contour
 import org.openrndr.text.writer
 import kotlin.system.exitProcess
 
@@ -24,47 +25,98 @@ fun main() = application {
         val font = loadFont("data/fonts/IBMPlexMono-Regular.ttf", 24.0)
         val curves = mutableListOf<ShapeContour>()
         val itemsPerSet = 7
+        var headline = ""
 
-        for (sides in 3..6) {
-            val original = ShapeContour.fromPoints(List(sides) {
-                Polar(it * (360.0 / sides), 50.0).cartesian
-            }, true)
-            curves.add(original)
-            curves.add(original.offset(-10.0, SegmentJoin.MITER))
-            curves.add(original.offset(10.0, SegmentJoin.MITER))
-            curves.add(original.offset(-10.0, SegmentJoin.BEVEL))
-            curves.add(original.offset(10.0, SegmentJoin.BEVEL))
-            curves.add(original.offset(-10.0, SegmentJoin.ROUND))
-            curves.add(original.offset(10.0, SegmentJoin.ROUND))
+        fun Int.toCartesian(): Vector2 {
+            return Polar(this.toDouble(), 50.0).cartesian
         }
+
+        fun populate(type: Int) {
+            curves.clear()
+
+            headline = when(type) {
+                3 -> "curves, increasing angle"
+                2 -> "curves, decreasing angle"
+                1 -> "lines, decreasing angle"
+                else -> "lines, increasing angle"
+            }
+
+            for (sides in 3..6) {
+                val original = when (type) {
+                    3 -> contour {
+                        moveTo(0.toCartesian())
+                        for (it in 1..sides) {
+                            curveTo(
+                                ((it * 2 - 1) * (180 / sides)).toCartesian(),
+                                (it * (360 / sides)).toCartesian()
+                            )
+                        }
+                        close()
+                    }
+                    2 -> contour {
+                        moveTo(0.toCartesian())
+                        for (it in sides-1 downTo 0) {
+                            curveTo(
+                                ((it * 2 + 1) * (180 / sides)).toCartesian(),
+                                (it * (360 / sides)).toCartesian()
+                            )
+                        }
+                        close()
+                    }
+                    1 -> ShapeContour.fromPoints(List(sides) {
+                        ((sides - it) * (360 / sides)).toCartesian()
+                    }, true)
+                    else -> ShapeContour.fromPoints(List(sides) {
+                        (it * (360 / sides)).toCartesian()
+                    }, true)
+                }
+
+                curves.add(original)
+                curves.add(original.offset(-10.0, SegmentJoin.MITER))
+                curves.add(original.offset(10.0, SegmentJoin.MITER))
+                curves.add(original.offset(-10.0, SegmentJoin.BEVEL))
+                curves.add(original.offset(10.0, SegmentJoin.BEVEL))
+                curves.add(original.offset(-10.0, SegmentJoin.ROUND))
+                curves.add(original.offset(10.0, SegmentJoin.ROUND))
+            }
+        }
+
+        populate(1)
 
         extend(Screenshots())
 
         extend {
-            drawer.background(ColorRGBa.WHITE)
-            drawer.stroke = ColorRGBa(0.0, 0.0, 0.0, 0.05)
-            drawer.fill = ColorRGBa.PINK.opacify(0.4)
-            drawer.fontMap = font
-
             fun write(txt: String) {
                 drawer.isolated {
-                    drawer.fill = ColorRGBa.BLACK.opacify(0.8)
+                    fill = ColorRGBa.BLACK.opacify(0.8)
                     writer {
-                        drawer.translate(-textWidth(txt) * 0.5, 75.0)
+                        translate(-textWidth(txt) * 0.5, 75.0)
                         text(txt);
                     }
 
                 }
             }
 
-            curves.forEachIndexed {i, c ->
+            with(drawer) {
+                background(ColorRGBa.WHITE)
+                stroke = ColorRGBa(0.0, 0.0, 0.0, 0.05)
+                fontMap = font
+            }
+
+            curves.forEachIndexed { i, c ->
                 drawer.isolated {
-                    drawer.translate(
-                        width * (0.12 + (i % itemsPerSet) * 0.122),
-                        height * (0.15 + (i / itemsPerSet) * 0.22)
+                    val x = i % itemsPerSet
+                    val y = i / itemsPerSet
+                    translate(
+                        width * (0.12 + x * 0.122),
+                        height * (0.19 + y * 0.21)
                     )
-                    drawer.contour(curves[itemsPerSet * (i / itemsPerSet)])
-                    drawer.contour(c)
+                    fill = ColorRGBa.PINK.opacify(0.4)
+                    contour(curves[itemsPerSet * (i / itemsPerSet)])
+                    if(x > 0) {
+                        fill = ColorRGBa.GREEN.opacify(0.4)
+                        contour(c)
+                    }
                     write(
                         when (i % itemsPerSet) {
                             0 -> "original"
@@ -79,13 +131,20 @@ fun main() = application {
                     )
                 }
             }
-        }
-
-        keyboard.keyDown.listen {
-            if (it.key == KEY_ESCAPE) {
-                exitProcess(0)
+            drawer.isolated {
+                translate(width * 0.5, -22.0)
+                write(headline)
             }
         }
 
+        keyboard.keyDown.listen {
+            when (it.key) {
+                KEY_ESCAPE -> exitProcess(0)
+                KEY_ARROW_UP -> populate(0)
+                KEY_ARROW_DOWN -> populate(1)
+                KEY_ARROW_LEFT -> populate(2)
+                KEY_ARROW_RIGHT -> populate(3)
+            }
+        }
     }
 }
