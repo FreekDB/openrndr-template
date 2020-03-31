@@ -9,6 +9,7 @@ import org.openrndr.shape.SegmentJoin
 import org.openrndr.shape.ShapeContour
 import org.openrndr.shape.contour
 import org.openrndr.text.writer
+import java.lang.Math.abs
 import kotlin.system.exitProcess
 
 /**
@@ -35,6 +36,7 @@ fun main() = application {
             curves.clear()
 
             headline = when(type) {
+                4 -> "concave shape"
                 3 -> "curves, increasing angle"
                 2 -> "curves, decreasing angle"
                 1 -> "lines, decreasing angle"
@@ -43,6 +45,11 @@ fun main() = application {
 
             for (sides in 3..6) {
                 val original = when (type) {
+                    4 -> ShapeContour.fromPoints(List(sides * 2) {
+                        val i = abs(it - sides + 0.5).toInt()
+                        val k = if (it < sides) 1.0 else 1.4
+                        (i * (360 / sides)).toCartesian() * k
+                    }, true)
                     3 -> contour {
                         moveTo(0.toCartesian())
                         for (it in 1..sides) {
@@ -140,10 +147,13 @@ fun main() = application {
         keyboard.keyDown.listen {
             when (it.key) {
                 KEY_ESCAPE -> exitProcess(0)
-                KEY_ARROW_UP -> populate(0)
-                KEY_ARROW_DOWN -> populate(1)
-                KEY_ARROW_LEFT -> populate(2)
-                KEY_ARROW_RIGHT -> populate(3)
+                else -> when(it.name) {
+                    "0" -> populate(0)
+                    "1" -> populate(1)
+                    "2" -> populate(2)
+                    "3" -> populate(3)
+                    "4" -> populate(4)
+                }
             }
         }
     }
