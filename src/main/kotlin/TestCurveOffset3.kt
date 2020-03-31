@@ -36,6 +36,7 @@ fun main() = application {
             curves.clear()
 
             headline = when(type) {
+                5 -> "pointy concave shape"
                 4 -> "concave shape"
                 3 -> "curves, increasing angle"
                 2 -> "curves, decreasing angle"
@@ -45,6 +46,11 @@ fun main() = application {
 
             for (sides in 3..6) {
                 val original = when (type) {
+                    5 -> ShapeContour.fromPoints(List(sides * 2) {
+                        val i = abs(it - sides).toInt()
+                        val k = if (it < sides) 1.0 else 1.4
+                        (i * (360 / sides)).toCartesian() * k
+                    }, true)
                     4 -> ShapeContour.fromPoints(List(sides * 2) {
                         val i = abs(it - sides + 0.5).toInt()
                         val k = if (it < sides) 1.0 else 1.4
@@ -153,6 +159,7 @@ fun main() = application {
                     "2" -> populate(2)
                     "3" -> populate(3)
                     "4" -> populate(4)
+                    "5" -> populate(5)
                 }
             }
         }
