@@ -14,7 +14,7 @@ fun ShapeContour.makeParallelCurve(dist: Double): ShapeContour {
     segments.forEachIndexed { i, it ->
         val pc = i / len
         val wi = 0.5 - 0.5 * cos(pc * PI * 2)
-        val norm = (it.end - it.start).normalized.perpendicular
+        val norm = (it.end - it.start).normalized.perpendicular()
         points.add(it.start + (norm + prevNorm).normalized * wi * dist)
         prevNorm = norm
     }
@@ -42,6 +42,29 @@ fun ShapeContour.intersects(segment: Segment): Vector2 {
         }
     }
     return Vector2.INFINITY
+}
+
+/**
+ * Split a ShapeContour into two with a segment
+ */
+fun ShapeContour.split(segment: Segment): Pair<ShapeContour, ShapeContour> {
+    val a = listOf(mutableListOf<Vector2>(), mutableListOf())
+    var which = 0
+    var hits = 0
+    segments.forEach {
+        val p = intersection(it, segment)
+        a[which].add(it.start)
+        if (p != Vector2.INFINITY) {
+            a[which].add(p)
+            which = (which + 1) % 2
+            a[which].add(p)
+            hits++
+        }
+    }
+    if(hits != 2) {
+        println("Hits != 2!")
+    }
+    return Pair(ShapeContour.fromPoints(a[0], true), ShapeContour.fromPoints(a[1], true))
 }
 
 /**
