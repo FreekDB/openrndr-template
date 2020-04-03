@@ -1,0 +1,67 @@
+[
+  {
+    "time": 0.0,
+    "easing": "cubic-in-out",
+    "rotx": 0.0,
+    "roty": 30.0,
+    "x": 0.0,
+    "y": 0.0,
+    "scale": 1.0,
+    "jitter": 0.0
+  },
+  {
+    "time": 1.0,
+    "easing": "cubic-in-out",
+    "rotx": 0.0,
+    "x": 20.0,
+    "y": 0.0,
+    "scale": 1.0
+  },
+  {
+    "time": 1.3,
+    "easing": "cubic-in-out",
+    "rotx": 90.0,
+    "x": 0.0,
+    "y": 0.0,
+    "scale": 1.5
+  },
+  {
+    "time": 1.8,
+    "easing": "cubic-in-out",
+    "y": 40.0
+  },
+  {
+    "time": 2.1,
+    "easing": "cubic-in-out",
+    "rotx": 90.0,
+    "roty": 60.0,
+    "x": 0.0,
+    "scale": 1.0
+  },
+  {
+    "time": 2.2,
+    "easing": "cubic-out",
+    "x": 0.0,
+    "y": 0.0,
+    "rotx": 45.0,
+    "jitter": 0.0
+  },
+  {
+    "time": 2.5,
+    "easing": "cubic-out",
+    "jitter": 1.0
+  },
+  {
+    "time": 3.0,
+    "easing": "cubic-out",
+    "jitter": 0.0
+  },
+  {
+    "time": 4.0,
+    "easing": "cubic-in-out",
+    "rotx": 0.0,
+    "roty": 30.0,
+    "x": 0.0,
+    "y": 0.0
+  }
+]

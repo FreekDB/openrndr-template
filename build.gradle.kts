@@ -10,7 +10,7 @@ val applicationMainClass = "TemplateProgramKt"
 
 /*  Which additional (ORX) libraries should be added to this project. */
 val orxFeatures = setOf(
-//    "poc-orx-keyframer",
+    "poc-orx-keyframer",
     "orx-camera",
     "orx-compositor",
 //  "orx-easing",
@@ -105,6 +105,9 @@ repositories {
         mavenLocal()
     }
     maven(url = "https://dl.bintray.com/openrndr/openrndr")
+
+    maven("https://jitpack.io")
+    jcenter()
 }
 
 fun DependencyHandler.orx(module: String): Any {
