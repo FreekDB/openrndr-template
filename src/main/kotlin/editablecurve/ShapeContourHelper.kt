@@ -6,6 +6,8 @@ import org.openrndr.shape.ShapeContour
 import org.openrndr.shape.intersection
 import kotlin.math.PI
 import kotlin.math.cos
+import kotlin.math.max
+import kotlin.math.min
 
 fun ShapeContour.makeParallelCurve(dist: Double): ShapeContour {
     var points = mutableListOf<Vector2>()
@@ -80,4 +82,31 @@ fun ShapeContour.intersects(other: ShapeContour): Vector2 {
         }
     }
     return Vector2.INFINITY
+}
+
+/**
+ * Check if ShapeContour contains a point.
+ * From openFrameworks
+ */
+fun ShapeContour.contains(pos: Vector2): Boolean {
+    var counter = 0
+    var xinters = 0.0
+    var n = segments.size
+    var p1 = segments[0].start;
+    for (i in 1..n) {
+        var p2 = segments[i % n].start;
+        if (pos.y > min(p1.y, p2.y)) {
+            if (pos.y <= max(p1.y, p2.y)) {
+                if (pos.x <= max(p1.x, p2.x)) {
+                    if (p1.y != p2.y) {
+                        xinters = (pos.y - p1.y) * (p2.x - p1.x) / (p2.y - p1.y) + p1.x
+                        if (p1.x == p2.x || pos.x <= xinters)
+                            counter++
+                    }
+                }
+            }
+        }
+        p1 = p2;
+    }
+    return counter % 2 != 0;
 }
