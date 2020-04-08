@@ -1,4 +1,5 @@
 import editablecurve.ensureExtension
+import geometry.mix
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.dialogs.saveFileDialog
@@ -31,14 +32,21 @@ fun main() = application {
         val svg = CompositionDrawer()
 
         val pts = listOf(
-            Vector2(0.0, 0.0),    // 0
+            Vector2(0.0, 0.0),    // 0  0->1=Horz, 1->2=Vert
             Vector2(50.0, 0.0),   // 1
             Vector2(50.0, 50.0),  // 2
-            Vector2(50.0, 100.0), // 3
+            Vector2(50.0, 100.0), // 3 3->4=Horz, 4->5=Vert
             Vector2(0.0, 100.0),  // 4
             Vector2(0.0, 60.0)    // 5
         )
 
+        /**
+         * Screen: one might expect that moveTo does not draw anything,
+         * but after calling lineTo(), moveTo() is equivalent to lineTo()
+         *
+         * SVG: it seems like the second moveTo() is ignored. The expected
+         * result is two horizontal lines.
+         */
         val contourEquals =
             contour {
                 moveTo(pts[0])
@@ -47,6 +55,10 @@ fun main() = application {
                 lineTo(pts[4])
             }
 
+        /**
+         * Draws correctly in SVG
+         * Invisible on screen
+         */
         val shapeEquals = shape {
             contour {
                 moveTo(pts[0])
@@ -58,6 +70,13 @@ fun main() = application {
             }
         }
 
+        /**
+         * Correct on SVG, on the screen it seems
+         * to draw the vertical segment (1,2) and
+         * the horizontal segment (3,4)
+         * The  last two points in the first  segment
+         * The first two points in the second segment
+         */
         val shapeTwoL = shape {
             contour {
                 moveTo(pts[0])
@@ -71,6 +90,9 @@ fun main() = application {
             }
         }
 
+        /**
+         * Closed shapes look correct and identical on screen and SVG.
+         */
         val shapeSandclock = shape {
             contour {
                 moveTo(pts[0])
@@ -86,6 +108,10 @@ fun main() = application {
             }
         }
 
+        /**
+         * When drawing multiple open contours inside a shape (not calling close() )
+         * the contours are still closed on screen, but open on SVG.
+         */
         val shapeUnclosedLines = shape {
             (0 until 360 step 36).forEach { angle ->
                 val p0 = Polar(angle + 5.0, 30.0).cartesian
