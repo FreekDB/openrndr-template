@@ -1,15 +1,12 @@
-import org.openrndr.*
+import org.openrndr.KEY_ESCAPE
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
-import org.openrndr.draw.isolated
 import org.openrndr.draw.loadFont
 import org.openrndr.extensions.Screenshots
-import org.openrndr.math.Polar
 import org.openrndr.math.Vector2
-import org.openrndr.shape.SegmentJoin
-import org.openrndr.shape.ShapeContour
-import org.openrndr.shape.contour
-import org.openrndr.text.writer
-import java.lang.Math.abs
+import org.openrndr.shape.LineSegment
+import org.openrndr.shape.Segment
+import org.openrndr.shape.intersection
 import kotlin.system.exitProcess
 
 /**
@@ -23,21 +20,27 @@ fun main() = application {
     }
 
     program {
-        val font = loadFont("data/fonts/IBMPlexMono-Regular.ttf", 24.0)
+        val s = listOf(
+            LineSegment(Vector2(766.7664464471056, 452.5984489875642), Vector2(753.577266431925, 452.5984489875639)),
+            LineSegment(Vector2(753.577266431925, 452.5984489875639), Vector2(741.4490637297909, 431.5917857029747)),
+            LineSegment(Vector2(741.4490637297909, 431.5917857029747), Vector2(761.0097317710685, 397.7117148254943)),
+            LineSegment(Vector2(761.0097317710685, 397.7117148254943), Vector2(779.7325244807926, 430.1405430583163)),
+            LineSegment(Vector2(779.7325244807926, 430.1405430583163), Vector2(766.7664464471056, 452.5984489875642))
+            )
+        val knife = LineSegment(Vector2(3760.629961242148, 429.92128244121415), Vector2(-2239.370038757852, 429.92128244121415))
+
+        s.forEachIndexed { id, other ->
+            print("$id: ")
+            println( intersection(other, knife))
+        }
 
         extend(Screenshots())
-
         extend {
-            with(drawer) {
-                background(ColorRGBa.WHITE)
-                stroke = ColorRGBa(0.0, 0.0, 0.0, 0.05)
-                fill = ColorRGBa.PINK
-                fontMap = font
-            }
-
-            drawer.isolated {
-                translate(width * 0.5, height * 0.5)
-                drawer.circle(Vector2.ZERO, 200.0)
+            drawer.stroke = ColorRGBa.GREEN
+            drawer.lineSegment(knife)
+            drawer.stroke = ColorRGBa.RED
+            s.forEach {
+                drawer.lineSegment(it)
             }
         }
 

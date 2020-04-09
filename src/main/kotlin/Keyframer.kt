@@ -5,18 +5,15 @@ import org.openrndr.draw.DrawPrimitive
 import org.openrndr.draw.isolatedWithTarget
 import org.openrndr.draw.renderTarget
 import org.openrndr.draw.shadeStyle
+import org.openrndr.extra.keyframer.Keyframer
 import org.openrndr.extra.noise.Random
 import org.openrndr.extras.camera.OrbitalCamera
 import org.openrndr.extras.camera.isolated
 import org.openrndr.extras.meshgenerators.dodecahedronMesh
-import org.openrndr.ffmpeg.ScreenRecorder
 import org.openrndr.ffmpeg.VideoWriter
 import org.openrndr.math.Vector3
 import org.openrndr.math.map
-import org.operndr.extra.keyframer.Keyframer
 import java.io.File
-import kotlin.math.PI
-import kotlin.math.sin
 import kotlin.system.exitProcess
 
 /**
