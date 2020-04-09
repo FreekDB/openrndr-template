@@ -1,6 +1,5 @@
 package p5
 
-import org.openrndr.KEY_ESCAPE
 import org.openrndr.WindowMultisample
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
@@ -8,11 +7,9 @@ import org.openrndr.draw.DepthTestPass
 import org.openrndr.draw.DrawPrimitive
 import org.openrndr.draw.loadImage
 import org.openrndr.draw.shadeStyle
-import org.openrndr.extensions.Screenshots
 import org.openrndr.extras.meshgenerators.boxMesh
 import org.openrndr.math.Vector2
 import org.openrndr.math.Vector3
-import kotlin.system.exitProcess
 
 
 fun main() = application {
@@ -26,7 +23,6 @@ fun main() = application {
         var rot = Vector2(45.0)
         val tex = loadImage("/usr/share/processing/modes/java/examples/Topics/Textures/TextureCube/data/berlin-1.jpg")
 
-        extend(Screenshots())
         extend {
             drawer.background(ColorRGBa.WHITE)
             drawer.perspective(60.0, width * 1.0 / height, 0.01, 1000.0)
@@ -47,9 +43,6 @@ fun main() = application {
         mouse.dragged.listen {
             val rate = 0.5
             rot += it.dragDisplacement.yx * rate
-        }
-        keyboard.keyDown.listen {
-            if (it.key == KEY_ESCAPE) exitProcess(0)
         }
     }
 }
