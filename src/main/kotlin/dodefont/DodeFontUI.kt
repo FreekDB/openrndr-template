@@ -1,3 +1,5 @@
+package dodefont
+
 import org.openrndr.Program
 import org.openrndr.color.ColorRGBa
 import org.openrndr.panel.controlManager
@@ -37,19 +39,19 @@ fun Program.setupUI() =
             dropdownButton(label = "I/O") {
                 item {
                     label = "Save SVG"
-                    events.picked.subscribe {
+                    events.picked.listen {
                         println("Save SVG")
                     }
                 }
                 item {
                     label = "Save design"
-                    events.picked.subscribe {
+                    events.picked.listen {
                         println("Save design")
                     }
                 }
                 item {
                     label = "Load design"
-                    events.picked.subscribe {
+                    events.picked.listen {
                         println("Load design")
                     }
                 }
@@ -57,7 +59,7 @@ fun Program.setupUI() =
 
             toggle {
                 label = "camera interaction"
-                events.valueChanged.subscribe {
+                events.valueChanged.listen {
                     TPState.controls.enabled = it.newValue
                 }
             }
@@ -71,7 +73,7 @@ fun Program.setupUI() =
                 value = 0.0
                 range = Range(0.0, 30.0)
                 precision = 0
-                events.valueChanged.subscribe {
+                events.valueChanged.listen {
                     println("subcurves ${it.newValue}")
                 }
             }
@@ -80,7 +82,7 @@ fun Program.setupUI() =
                 value = 1.0
                 range = Range(-50.0, 50.0)
                 precision = 0
-                events.valueChanged.subscribe {
+                events.valueChanged.listen {
                     println("separation ${it.newValue}")
                 }
             }

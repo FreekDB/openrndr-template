@@ -1,3 +1,5 @@
+package dodefont
+
 import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
@@ -12,9 +14,9 @@ import kotlin.math.floor
 import kotlin.math.sin
 
 /**
- * One more test program, including a dodecahedron
- * and showing the font bitmap. Also combines
- * ortho with perspective.
+ * Test dodecahedron, camera.
+ * Show font bitmap which looks unsharp in my system.
+ * Combine ortho with perspective.
  */
 
 fun main() = application {
