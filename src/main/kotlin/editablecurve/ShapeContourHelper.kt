@@ -4,10 +4,7 @@ import org.openrndr.math.Vector2
 import org.openrndr.shape.Segment
 import org.openrndr.shape.ShapeContour
 import org.openrndr.shape.intersection
-import kotlin.math.PI
-import kotlin.math.cos
-import kotlin.math.max
-import kotlin.math.min
+import kotlin.math.*
 
 fun ShapeContour.makeParallelCurve(dist: Double): ShapeContour {
     var points = mutableListOf<Vector2>()
@@ -38,7 +35,7 @@ fun intersection(a: Segment, b: Segment, eps: Double = 0.01): Vector2 {
  */
 fun ShapeContour.intersects(segment: Segment): Vector2 {
     segments.forEach {
-        val p = intersection(it, segment)
+        val p = intersection(it, segment, 0.1)
         if (p != Vector2.INFINITY) {
             return p
         }
@@ -49,22 +46,27 @@ fun ShapeContour.intersects(segment: Segment): Vector2 {
 /**
  * Split a ShapeContour into two with a segment
  */
-fun ShapeContour.split(segment: Segment): Pair<ShapeContour, ShapeContour> {
+fun ShapeContour.split(knife: Segment): Pair<ShapeContour, ShapeContour> {
     val a = listOf(mutableListOf<Vector2>(), mutableListOf())
     var which = 0
     var hits = 0
+    var previousp = Vector2.INFINITY
     segments.forEach {
-        val p = intersection(it, segment)
+        val p = intersection(it, knife)
         a[which].add(it.start)
         if (p != Vector2.INFINITY) {
             a[which].add(p)
             which = (which + 1) % 2
             a[which].add(p)
             hits++
+            println((p-previousp).length)
+            previousp = p
         }
     }
-    if(hits != 2) {
-        println("Hits != 2!")
+    if (hits != 2) {
+        println("Hits = $hits!")
+        println(this)
+        println(knife)
     }
     return Pair(ShapeContour.fromPoints(a[0], true), ShapeContour.fromPoints(a[1], true))
 }
@@ -109,4 +111,19 @@ fun ShapeContour.contains(pos: Vector2): Boolean {
         p1 = p2;
     }
     return counter % 2 != 0;
+}
+
+/**
+ * Find the orientation of the longest segment of a ShapeContour
+ */
+fun ShapeContour.longestOrientation(): Double {
+    val dir = this.longest().direction()
+    return Math.toDegrees(atan2(dir.y, dir.x))
+}
+
+/**
+ * Find the longest segment of a ShapeContour
+ */
+fun ShapeContour.longest(): Segment {
+    return this.segments.maxBy { it.length }!!
 }
