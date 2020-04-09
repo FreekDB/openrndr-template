@@ -1,6 +1,5 @@
 package geometry
 
-import mix
 import org.openrndr.extra.noise.Random
 import org.openrndr.math.Polar
 import org.openrndr.math.Vector2
