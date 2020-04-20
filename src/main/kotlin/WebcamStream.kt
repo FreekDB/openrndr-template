@@ -32,12 +32,18 @@ fun main() = application {
             colorBuffer(ColorFormat.BGR, ColorType.UINT8)
         }
 
+        // Virtual camera data structures
         val sz = width * height * 3
         val virtualCam = FileOutputStream(virtualCamDevice)
         val pixels = rt.colorBuffer(0)
         val buffer = ByteBuffer.allocateDirect(sz)
         val bytes = ByteArray(sz)
 
+        // Real webcam
+        val webcam = VideoPlayerFFMPEG.fromDevice(realCamDevice, PlayMode.VIDEO)
+        webcam.play()
+
+        // For the animated circles
         val positions = List(10) {
             Vector2(
                 Random.double0(width * 1.0),
@@ -46,22 +52,22 @@ fun main() = application {
         }
         val radii = MutableList(positions.size) { 0.0 }
 
-        val webcam = VideoPlayerFFMPEG.fromDevice(realCamDevice, PlayMode.VIDEO)
-        webcam.play()
-
         extend {
+            // Update circle radii
             radii.forEachIndexed { i, _ -> radii[i] = 50.0 + 30 * sin(seconds * 5.0 + i) }
+
+            // Draw webcam and circles on a layer
             drawer.isolatedWithTarget(rt) {
                 webcam.draw(this)
                 fill = ColorRGBa.PINK
                 stroke = null
-                Random.resetState()
                 circles(positions, radii)
             }
-            // show graphics
+
+            // Show that layer
             drawer.image(rt.colorBuffer(0));
-            // Stream graphics
-            // I tried to avoid this but buffer does NOT have a backing byte[]
+
+            // Stream that layer out
             pixels.read(buffer)
             for (i in 0 until sz) {
                 bytes[i] = buffer[sz - i - 1]
