@@ -54,7 +54,9 @@ fun main() = application {
 
         extend {
             // Update circle radii
-            radii.forEachIndexed { i, _ -> radii[i] = 50.0 + 30 * sin(seconds * 5.0 + i) }
+            for (i in 0 until radii.size) {
+                radii[i] = 50.0 + 30 * sin(seconds * 5.0 + i)
+            }
 
             // Draw webcam and circles on a layer
             drawer.isolatedWithTarget(rt) {
