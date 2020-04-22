@@ -43,23 +43,19 @@ fun main() = application {
         // in which each vertex has a different offset
         // create a contour we can query.
         val polyline = ShapeContour.fromPoints(points, false)
-        // calculate normals per vertex (average of two consecutive segments)
-        // and scale them randomly
-        val normals = List(points.size) { i ->
-            polyline.segments.run {
-                when (i) {
-                    0 -> first().normal(0.0)
-                    points.size - 1 -> last().normal(1.0)
-                    else -> (get(i - 1).normal(0.0) + get(i).normal(0.0)).normalized
-                } * Random.double(10.0, 30.0)
-            }
-        }
+
+        var normals = listOf(polyline.segments.first().normal(0.0)) +
+                polyline.segments.zipWithNext { a, b -> (a.normal(1.0) + b.normal(0.0)).normalized } +
+                polyline.segments.last().normal(1.0)
+
+        normals = normals.map { it * Random.double(10.0, 30.0) }
+
         // construct shape. First add one side, then the other in reverse.
         val thick = ShapeContour.fromPoints(
-            points.mapIndexed { i, it ->
-                it + normals[i]
-            } + points.reversed().mapIndexed { i, it ->
-                it - normals[points.size - i - 1]
+            points.mapIndexed { i, p ->
+                p + normals[i]
+            } + points.reversed().mapIndexed { i, p ->
+                p - normals.reversed()[i]
             }, true
         )
 
