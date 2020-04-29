@@ -4,7 +4,7 @@ import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
 
 /* the name of this project, default is the template version but you are free to change these */
 group = "org.openrndr.template"
-version = "0.3.11"
+version = "0.3.12"
 
 val applicationMainClass = "TemplateProgramKt"
 
@@ -18,7 +18,7 @@ val orxFeatures = setOf(
   "orx-parameters",
 //  "orx-filter-extension",
     "orx-fx",
-//  "orx-glslify",
+    "orx-glslify",
 //  "orx-gradient-descent",
 //  "orx-integral-image",
 //  "orx-interval-tree",
@@ -31,18 +31,18 @@ val orxFeatures = setOf(
     "orx-no-clear",
     "orx-noise",
 //  "orx-obj-loader",
-    "orx-olive",
+//  "orx-olive",
 //  "orx-osc",
     "orx-palette",
-    "orx-panel",
 //  "orx-poisson-fill",
 //  "orx-runway",
 //  "orx-shader-phrases",
     "orx-shade-styles",
-    "orx-shapes"
+    "orx-shapes",
 //  "orx-syphon",
 //  "orx-temporal-blur",
-//  "orx-kinect-v1"
+//  "orx-kinect-v1",
+    "orx-panel"
 )
 
 /* Which OPENRNDR libraries should be added to this project? */
@@ -52,14 +52,11 @@ val openrndrFeatures = setOf(
 )
 
 /*  Which version of OPENRNDR, ORX and Panel should be used? */
-val openrndrUseSnapshot = true
-val openrndrVersion = if (openrndrUseSnapshot) "0.4.0-SNAPSHOT" else "0.3.39"
-
-val panelUseSnapshot = false
-val panelVersion = if (panelUseSnapshot) "0.4.0-SNAPSHOT" else "0.3.21"
+val openrndrUseSnapshot = false
+val openrndrVersion = if (openrndrUseSnapshot) "0.4.0-SNAPSHOT" else "0.3.42-rc.2"
 
 val orxUseSnapshot = true
-val orxVersion = if (orxUseSnapshot) "0.4.0-SNAPSHOT" else "0.3.49"
+val orxVersion = if (orxUseSnapshot) "0.4.0-SNAPSHOT" else "0.3.51-rc.3"
 
 //<editor-fold desc="This is code for OPENRNDR, no need to edit this .. most of the times">
 val supportedPlatforms = setOf("windows", "macos", "linux-x64", "linux-arm64")
@@ -90,18 +87,18 @@ enum class Logging {
 }
 
 /*  What type of logging should this project use? */
-val applicationLogging = Logging.SIMPLE
+val applicationLogging = Logging.FULL
 
-val kotlinVersion = "1.3.61"
+val kotlinVersion = "1.3.72"
 
 plugins {
     java
-    kotlin("jvm") version("1.3.61")
+    kotlin("jvm") version("1.3.71")
 }
 
 repositories {
     mavenCentral()
-    if (openrndrUseSnapshot || orxUseSnapshot || panelUseSnapshot) {
+    if (openrndrUseSnapshot || orxUseSnapshot) {
         mavenLocal()
     }
     maven(url = "https://dl.bintray.com/openrndr/openrndr")
@@ -167,10 +164,6 @@ dependencies {
         runtimeOnly(openrndrNatives("ffmpeg"))
     }
 
-    if ("panel" in openrndrFeatures) {
-        implementation("org.openrndr.panel:openrndr-panel:$panelVersion")
-    }
-
     for (feature in orxFeatures) {
         implementation(orx(feature))
     }
@@ -200,6 +193,7 @@ tasks.withType<KotlinCompile> {
 }
 
 tasks.withType<Jar> {
+    isZip64 = true
     manifest {
         attributes["Main-Class"] = applicationMainClass
     }
