@@ -29,10 +29,7 @@ fun main() = application {
 
     program {
         val image = loadImage("data/images/pm5544.png")
-        val font = loadFont(
-            "file:/home/funpro/src/OR/openrndr-template/data/fonts/slkscr.ttf",
-            20.0
-        )
+        val font = loadFont("data/fonts/slkscr.ttf",20.0)
 
         var curves = emptyList<editablecurve.EditableCurve>()
 
