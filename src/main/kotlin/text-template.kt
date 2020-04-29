@@ -1,14 +1,18 @@
 import org.openrndr.KEY_ESCAPE
+import org.openrndr.KEY_INSERT
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
+import org.openrndr.dialogs.saveFileDialog
 import org.openrndr.draw.LineJoin
 import org.openrndr.draw.isolated
 import org.openrndr.extensions.Screenshots
 import org.openrndr.math.transforms.transform
+import org.openrndr.shape.CompositionDrawer
 import org.openrndr.shape.Rectangle
 import org.openrndr.shape.ShapeContour
 import org.openrndr.shape.rectangleBounds
 import org.openrndr.svg.loadSVG
+import org.openrndr.svg.writeSVG
 import kotlin.system.exitProcess
 
 /**
@@ -68,6 +72,36 @@ fun main() = application {
             "Microdosing narwhal fanny pack dreamcatcher ramps godard."
         )
 
+        fun CompositionDrawer.isolated(function: CompositionDrawer.() -> Unit ) {
+            pushModel()
+            function()
+            popModel()
+        }
+
+        fun exportSVG() {
+            val svg = CompositionDrawer()
+            svg.run {
+                fill = null
+                stroke = ColorRGBa.BLACK
+                text.forEach { line ->
+                    isolated {
+                        line.trimIndent().toUpperCase().forEach {
+                            letters[it]?.run {
+                                val letterBounds = rectangleBounds(this.map { c -> c.bounds })
+                                translate(-letterBounds.x, 0.0)
+                                contours(this)
+                                translate(letterBounds.x + letterBounds.width + 3.0, 0.0)
+                            } ?: translate(10.0, 0.0)
+                        }
+                    }
+                    translate(0.0, 20.0)
+                }
+            }
+            saveFileDialog(supportedExtensions = listOf("svg")) {
+                it.writeText(writeSVG(svg.composition))
+            }
+        }
+
         extend(Screenshots())
         extend {
             drawer.background(ColorRGBa.WHITE)
@@ -93,6 +127,7 @@ fun main() = application {
         keyboard.keyDown.listen {
             when (it.key) {
                 KEY_ESCAPE -> exitProcess(0)
+                KEY_INSERT -> exportSVG()
             }
         }
     }
