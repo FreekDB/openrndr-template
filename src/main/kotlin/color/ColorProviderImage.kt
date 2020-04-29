@@ -40,6 +40,8 @@ class ColorProviderImage(private val path: String = "/home/funpro/Pictures/n1/In
             val n = it.name.toLowerCase()
             n.endsWith(".jpg") || n.endsWith(".jpeg") || n.endsWith(".png")
         }.toList()
-        return loadImage(Random.pick(images))
+        val chosen = Random.pick(images)
+        println(chosen.name)
+        return loadImage(chosen)
     }
 }
