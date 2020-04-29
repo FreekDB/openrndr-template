@@ -46,7 +46,7 @@ fun main() = application {
             svg.contour(mother)
             svg.contours(hairs)
             saveFileDialog(supportedExtensions = listOf("svg")) {
-                it.ensureExtension(".svg").writeText(writeSVG(svg.composition))
+                it.writeText(writeSVG(svg.composition))
             }
         }
 
