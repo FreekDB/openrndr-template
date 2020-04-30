@@ -52,23 +52,31 @@ fun ShapeContour.split(knife: Segment): Pair<ShapeContour, ShapeContour> {
     var hits = 0
     var previousp = Vector2.INFINITY
     segments.forEach {
-        val p = intersection(it, knife)
+        val p = intersection(it, knife, 0.0)
         a[which].add(it.start)
-        if (p != Vector2.INFINITY) {
+        // Skip intersections farther away than eps (in normalized distance!)
+        if (p != Vector2.INFINITY && p.distanceTo(previousp) >= 1.0) {
             a[which].add(p)
             which = (which + 1) % 2
             a[which].add(p)
             hits++
-            println((p-previousp).length)
             previousp = p
         }
     }
-    if (hits != 2) {
+    return if(hits == 2) {
+        Pair(
+            ShapeContour.fromPoints(a[0], true),
+            ShapeContour.fromPoints(a[1], true)
+        )
+    } else {
         println("Hits = $hits!")
         println(this)
         println(knife)
+        Pair(
+            ShapeContour.EMPTY,
+            ShapeContour.EMPTY
+        )
     }
-    return Pair(ShapeContour.fromPoints(a[0], true), ShapeContour.fromPoints(a[1], true))
 }
 
 /**

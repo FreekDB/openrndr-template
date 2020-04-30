@@ -59,7 +59,7 @@ fun main() = application {
 
         extend(setupUI())
         //extend(ScreenRecorder())
-        extend(FPSDisplay())
+        extend(FPSDisplay(font))
 
         extend {
             // midi events

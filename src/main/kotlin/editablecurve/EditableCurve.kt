@@ -111,7 +111,7 @@ class EditableCurve {
     // saves a lot of computation: but how do you know if a line cuts through a box? By comparing
     // if the first line intersects with any of the 4 lines defining the bounding box.
     private fun addSegmentsOfLineTo(l: ShapeContour, segments: MutableList<ShapeContour>) {
-        var builder = ContourBuilder()
+        var builder = ContourBuilder(true)
 
         var drawing = true;
         l.segments.indices.forEach { i ->
@@ -135,7 +135,7 @@ class EditableCurve {
                     segments.add(ShapeContour(builder.segments, false))
                 } else {
                     drawing = true
-                    builder = ContourBuilder()
+                    builder = ContourBuilder(true)
                     builder.moveOrLineTo(intersection)
                 }
             }
