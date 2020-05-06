@@ -31,7 +31,7 @@ fun main() = application {
             3.0 to 300
         )
 
-        val allCircles = mutableListOf<ColorCircle>()
+        val circles = mutableListOf<ColorCircle>()
 
         for ((circleRadius, circleCount) in circleSizeCounts) {
             for (i in 1..circleCount) {
@@ -46,7 +46,7 @@ fun main() = application {
                     // allow circles overlapping canvas
                     //val circlePosition = Random.Vector2() * drawer.bounds.center + drawer.bounds.center
                     val newCircle = Circle(circlePosition, circleRadius)
-                    if (allCircles.all { newCircle.center.distanceTo(it.circle.center) > it.circle.radius + newCircle.radius }) {
+                    if (circles.all { newCircle.center.distanceTo(it.circle.center) > it.circle.radius + newCircle.radius }) {
                         // get random color
                         val color = pickWeighted(
                             listOf(
@@ -55,7 +55,7 @@ fun main() = application {
                                 hsl(Random.double0(20.0), 0.8, 0.4).toRGBa()
                             ), listOf(0.6, 0.3, 0.1)
                         )
-                        allCircles.add(ColorCircle(newCircle, color))
+                        circles.add(ColorCircle(newCircle, color))
                         break
                     }
                 }
@@ -68,7 +68,7 @@ fun main() = application {
                 clear(rgb(0.27))
                 stroke = null
                 strokeWeight = 0.0
-                allCircles.forEach {
+                circles.forEach {
                     fill = it.color
                     circle(it.circle)
                 }
