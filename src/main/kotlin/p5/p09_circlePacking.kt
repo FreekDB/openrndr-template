@@ -4,6 +4,7 @@ import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.hsl
 import org.openrndr.color.rgb
+import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.noise.Random
 import org.openrndr.math.Vector2
 import org.openrndr.shape.Circle
@@ -32,9 +33,7 @@ fun main() = application {
 
         val allCircles = mutableListOf<ColorCircle>()
 
-        for (circleSizeCount in circleSizeCounts) {
-            val circleRadius = circleSizeCount.first
-            val circleCount = circleSizeCount.second
+        for ((circleRadius, circleCount) in circleSizeCounts) {
             for (i in 1..circleCount) {
                 // allow up to 100 collisions
                 for (c in 0..1000) {
@@ -63,10 +62,12 @@ fun main() = application {
             }
         }
 
+        extend(Screenshots())
         extend {
             drawer.run {
                 clear(rgb(0.27))
                 stroke = null
+                strokeWeight = 0.0
                 allCircles.forEach {
                     fill = it.color
                     circle(it.circle)
