@@ -79,8 +79,8 @@ fun main() = application {
         }
 
         fun exportSVG() {
-            val svg = CompositionDrawer()
-            svg.run {
+            val svgComposition = CompositionDrawer()
+            svgComposition.run {
                 fill = null
                 stroke = ColorRGBa.BLACK
                 text.forEach { line ->
@@ -98,7 +98,7 @@ fun main() = application {
                 }
             }
             saveFileDialog(supportedExtensions = listOf("svg")) {
-                it.writeText(writeSVG(svg.composition))
+                it.writeText(writeSVG(svgComposition.composition))
             }
         }
 

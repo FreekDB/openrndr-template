@@ -1,8 +1,6 @@
-import editablecurve.ensureExtension
-import editablecurve.intersects
+import geometry.intersects
 import geometry.noisified
 import org.openrndr.*
-import org.openrndr.color.ColorLUVa
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.ColorXSVa
 import org.openrndr.dialogs.saveFileDialog
@@ -71,7 +69,7 @@ fun main() = application {
 
         extend(Screenshots())
         extend {
-            if(hairContours.size < maxNumOfHairs - 1) {
+            if (hairContours.size < maxNumOfHairs - 1) {
                 // figure out which slots to connect
                 val jmp = (15 + seconds * 20).toInt()
                 var v1: Int
@@ -86,7 +84,7 @@ fun main() = application {
                     v2 = (v.second - offset + maxNumOfHairs) % maxNumOfHairs
                 }
 
-                if(!motherSlots[v1] && !motherSlots[v2] && v1 != v2) {
+                if (!motherSlots[v1] && !motherSlots[v2] && v1 != v2) {
                     val normalize = 1.0 / maxNumOfHairs
                     val n1 = mother.normal(v1 * normalize)
                     val n2 = mother.normal(v2 * normalize)
@@ -102,8 +100,8 @@ fun main() = application {
                     val hair = c.sampleLinear(1.0)
                     if (hairContours.all { it.intersects(hair) == Vector2.INFINITY }) {
                         hairContours.add(hair)
-                        if(Random.bool(0.2)) {
-                            for(i in 1..5) {
+                        if (Random.bool(0.2)) {
+                            for (i in 1..5) {
                                 hairContours.add(hair.noisified(i, false, 0.01))
                             }
                         }
@@ -126,10 +124,10 @@ fun main() = application {
         }
 
         mouse.dragged.listen {
-            if(mouse.pressedButtons.contains(MouseButton.LEFT)) {
+            if (mouse.pressedButtons.contains(MouseButton.LEFT)) {
                 center += it.dragDisplacement
             }
-            if(mouse.pressedButtons.contains(MouseButton.RIGHT)) {
+            if (mouse.pressedButtons.contains(MouseButton.RIGHT)) {
                 rotation += it.dragDisplacement.x
             }
         }

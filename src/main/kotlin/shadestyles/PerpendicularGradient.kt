@@ -13,7 +13,8 @@ class PerpendicularGradient(
     color1: ColorRGBa,
     offset: Vector2,
     rotation: Double = 0.0,
-    exponent: Double = 1.0) : ShadeStyle() {
+    exponent: Double = 1.0
+) : ShadeStyle() {
 
     @ColorParameter("start color", order = 0)
     var color0: ColorRGBa by Parameter()
@@ -65,6 +66,6 @@ fun perpendicularGradient(
     offset: Vector2 = Vector2.ZERO,
     rotation: Double = 0.0,
     exponent: Double = 1.0
-) : ShadeStyle {
+): ShadeStyle {
     return PerpendicularGradient(color0, color1, offset, rotation, exponent)
 }

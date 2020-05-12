@@ -70,7 +70,7 @@ fun main() = application {
         extend(Screenshots())
         extend {
             drawer.apply {
-                background(bgcolor)
+                clear(bgcolor)
                 translate(bounds.center)
                 stroke = ColorRGBa.BLACK
                 fill = null

@@ -1,8 +1,6 @@
 import color.ColorProviderTetrahedron
 import math.doubleExponentialSigmoid
-import org.openrndr.KEY_ENTER
 import org.openrndr.KEY_ESCAPE
-import org.openrndr.KEY_INSERT
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.extensions.Screenshots
@@ -16,7 +14,6 @@ import org.openrndr.panel.elements.requestRedraw
 import org.openrndr.panel.layout
 import org.openrndr.panel.style.*
 import org.openrndr.panel.styleSheet
-import kotlin.math.pow
 import kotlin.system.exitProcess
 
 /**

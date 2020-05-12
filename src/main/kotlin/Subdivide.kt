@@ -91,7 +91,7 @@ fun main() = application {
                     val dir = longest.direction()
                     val orientation = Math.toDegrees(atan2(dir.y, dir.x))
                     drawer.shadeStyle = perpendicularGradient(
-                        rgb, rgb.shade(0.3),
+                        rgb.shade(1.2), rgb.shade(0.3),
                         rotation = orientation + 90.0,
                         offset = longest.start,
                         exponent = 0.1
@@ -99,7 +99,7 @@ fun main() = application {
                     drawer.contour(it)
                 }
             }
-            if(params.bloomEnabled) {
+            if (params.bloomEnabled) {
                 bloom.apply(src.colorBuffer(0), target)
                 drawer.image(target)
             } else {
