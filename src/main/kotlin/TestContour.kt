@@ -8,7 +8,7 @@ import org.openrndr.math.Polar
 import org.openrndr.math.Vector2
 import org.openrndr.math.mix
 import org.openrndr.shape.CompositionDrawer
-import org.openrndr.shape.contour
+import org.openrndr.shape.contours
 import org.openrndr.shape.shape
 import org.openrndr.svg.writeSVG
 import org.openrndr.text.writer
@@ -47,7 +47,7 @@ fun main() = application {
          * result is two horizontal lines.
          */
         val contourEquals =
-            contour {
+            contours {
                 moveTo(pts[0])
                 lineTo(pts[1])
                 moveTo(pts[3])
@@ -62,10 +62,12 @@ fun main() = application {
             contour {
                 moveTo(pts[0])
                 lineTo(pts[1])
+                close() // ADDED
             }
             contour {
                 moveTo(pts[3])
                 lineTo(pts[4])
+                close() // ADDED
             }
         }
 
@@ -81,11 +83,13 @@ fun main() = application {
                 moveTo(pts[0])
                 lineTo(pts[1])
                 lineTo(pts[2])
+                close() // ADDED
             }
             contour {
                 moveTo(pts[3])
                 lineTo(pts[4])
                 lineTo(pts[5])
+                close() // ADDED
             }
         }
 
@@ -131,7 +135,7 @@ fun main() = application {
             svg.fill = null
             svg.stroke = ColorRGBa.BLACK
             svg.translate(100.0, 150.0)
-            svg.contour(contourEquals)
+            svg.contours(contourEquals)
             svg.translate(200.0, 0.0)
             svg.shape(shapeEquals)
             svg.translate(200.0, 0.0)
@@ -166,7 +170,7 @@ fun main() = application {
             drawer.fill = null
 
             drawer.translate(100.0, 150.0)
-            drawer.contour(contourEquals)
+            drawer.contours(contourEquals)
             write("contour equals")
 
             drawer.translate(200.0, 0.0)
