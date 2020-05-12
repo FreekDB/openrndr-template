@@ -1,4 +1,3 @@
-import geometry.mix
 import geometry.noisified
 import geometry.smoothed
 import org.openrndr.*
@@ -11,6 +10,7 @@ import org.openrndr.extra.noise.Random
 import org.openrndr.extra.noise.perlin
 import org.openrndr.extra.noise.simplex
 import org.openrndr.math.Polar
+import org.openrndr.math.mix
 import org.openrndr.shape.CompositionDrawer
 import org.openrndr.shape.ShapeContour
 import org.openrndr.svg.writeSVG

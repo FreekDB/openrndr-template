@@ -1,5 +1,4 @@
 import editablecurve.ensureExtension
-import geometry.mix
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.dialogs.saveFileDialog
@@ -8,6 +7,7 @@ import org.openrndr.draw.loadFont
 import org.openrndr.extensions.Screenshots
 import org.openrndr.math.Polar
 import org.openrndr.math.Vector2
+import org.openrndr.math.mix
 import org.openrndr.shape.CompositionDrawer
 import org.openrndr.shape.contour
 import org.openrndr.shape.shape

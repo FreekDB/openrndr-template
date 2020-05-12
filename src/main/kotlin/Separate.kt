@@ -40,7 +40,6 @@ fun main() = application {
         for (i in 0..70) {
             positions = positions.separate(50.0)
         }
-
         positions.forEach { center ->
             var a = 0.0
             val powFactor = Random.simplex(center.x * 0.01, center.y * 0.01).map(-1.0, 1.0, 0.7, 3.0)
