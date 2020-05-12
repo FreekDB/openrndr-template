@@ -31,7 +31,7 @@ val orxFeatures = setOf(
     "orx-no-clear",
     "orx-noise",
 //  "orx-obj-loader",
-//  "orx-olive",
+    "orx-olive",
 //  "orx-osc",
     "orx-palette",
 //  "orx-poisson-fill",
@@ -52,11 +52,11 @@ val openrndrFeatures = setOf(
 )
 
 /*  Which version of OPENRNDR, ORX and Panel should be used? */
-val openrndrUseSnapshot = false
-val openrndrVersion = if (openrndrUseSnapshot) "0.4.0-SNAPSHOT" else "0.3.42-rc.2"
+val openrndrUseSnapshot = true
+val openrndrVersion = if (openrndrUseSnapshot) "0.4.0-SNAPSHOT" else "0.3.42-rc.5"
 
 val orxUseSnapshot = true
-val orxVersion = if (orxUseSnapshot) "0.4.0-SNAPSHOT" else "0.3.51-rc.3"
+val orxVersion = if (orxUseSnapshot) "0.4.0-SNAPSHOT" else "0.3.51-rc.4"
 
 //<editor-fold desc="This is code for OPENRNDR, no need to edit this .. most of the times">
 val supportedPlatforms = setOf("windows", "macos", "linux-x64", "linux-arm64")
@@ -93,7 +93,7 @@ val kotlinVersion = "1.3.72"
 
 plugins {
     java
-    kotlin("jvm") version("1.3.71")
+    kotlin("jvm") version("1.3.72")
 }
 
 repositories {
@@ -173,7 +173,7 @@ dependencies {
     }
 
     if ("orx-olive" in orxFeatures) {
-        implementation("org.jetbrains.kotlin", "kotlin-scripting-compiler-embeddable")
+        implementation("org.jetbrains.kotlin:kotlin-script-runtime:$kotlinVersion")
     }
 
     //implementation("com.github.weisj:darklaf-core")
