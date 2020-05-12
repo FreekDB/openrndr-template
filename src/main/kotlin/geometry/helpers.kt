@@ -2,24 +2,39 @@ package geometry
 
 import org.openrndr.math.Vector2
 
-/*
-PVector intersectRays(Ray a, Ray b) {
-  PVector d = PVector.sub(b.start, a.start);
-  float det = b.direction.x * a.direction.y - b.direction.y * a.direction.x;
-  if (det != 0) {
-    float u = (d.y * b.direction.x - d.x * b.direction.y) / det;
-    float v = (d.y * a.direction.x - d.x * a.direction.y) / det;
-    if (u > 0 && v > 0) {
-      // front side
-      fill(255);
-      return PVector.add(a.start, PVector.mult(a.direction, u));
+/**
+ * Calculate the convex hull of a list of 2D points
+ * https://rosettacode.org/wiki/Convex_hull#Kotlin
+ */
+// counter-clockwise turn
+fun cw(a: Vector2, b: Vector2, c: Vector2) =
+    ((b.x - a.x) * (c.y - a.y)) < ((b.y - a.y) * (c.x - a.x))
+
+@ExperimentalStdlibApi
+fun convexHull(p: List<Vector2>): List<Vector2> {
+    if (p.size <= 3) return p
+    val sorted = p.sortedBy { it.x }
+    val result = mutableListOf<Vector2>()
+
+    sorted.forEach {
+        result.run {
+            while (size >= 2 && cw(this[size - 2], last(), it)) {
+                removeLast()
+            }
+            add(it)
+        }
     }
-    if (u < 0 && v < 0) {
-      // backside
-      fill(#FF0000);
-      return PVector.add(a.start, PVector.mult(a.direction, u));
+
+    val t = result.size + 1
+    for (i in sorted.size - 2 downTo 0) {
+        val it = sorted[i]
+        result.run {
+            while (size >= t && cw(this[size - 2], last(), it)) {
+                removeLast()
+            }
+            add(it)
+        }
     }
-  }
-  return new PVector(); // Deal with this later
+    result.removeLast()
+    return result
 }
-*/
