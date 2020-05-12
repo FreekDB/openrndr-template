@@ -2,6 +2,7 @@ package shadestyles
 
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.ShadeStyle
+import org.openrndr.extra.glslify.preprocessGlslify
 import org.openrndr.extra.parameters.ColorParameter
 import org.openrndr.extra.parameters.Description
 import org.openrndr.extra.parameters.DoubleParameter
@@ -33,6 +34,12 @@ class PerpendicularGradient(
         this.rotation = rotation
         this.exponent = exponent
 
+        fragmentPreamble = preprocessGlslify(
+            """
+                #pragma glslify: simplex = require(glsl-noise/simplex/2d)
+            """.trimIndent()
+        )
+
         fragmentTransform = """
             vec2 coord = gl_FragCoord.xy - p_offset;
 
@@ -48,7 +55,10 @@ class PerpendicularGradient(
             vec4 color1 = p_color1; 
             color1.rgb *= color1.a;
 
+            //coord = rotateY(vec3(coord.xyy), 1.0).xy;
+
             vec4 gradient = mix(color0, color1, f);
+            //gradient.rgb *= 1.0 + 0.03 * simplex(coord * 0.2) * simplex(coord * 0.001 + gradient.xy); 
 
             vec4 fn = vec4(x_fill.rgb, 1.0) * x_fill.a;            
             
