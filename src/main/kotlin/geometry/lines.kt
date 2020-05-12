@@ -3,6 +3,7 @@ package geometry
 import org.openrndr.extra.noise.Random
 import org.openrndr.math.Polar
 import org.openrndr.math.Vector2
+import org.openrndr.math.mix
 import kotlin.math.*
 
 fun fromIrregularLine(p0: Vector2, p1: Vector2, pc: Double, time: Double = 0.0): Vector2 {
