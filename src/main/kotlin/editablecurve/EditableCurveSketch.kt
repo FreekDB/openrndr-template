@@ -118,14 +118,14 @@ fun exportSVG() {
     ECState.segments.forEach { svg.contour(it) }
 
     saveFileDialog(supportedExtensions = listOf("svg")) {
-        it.ensureExtension(".svg").writeText(writeSVG(svg.composition))
+        it.writeText(writeSVG(svg.composition))
     }
 }
 
-fun File.ensureExtension(ext: String): File {
-    return if (this.absolutePath.toLowerCase().endsWith(ext)) {
-        this
-    } else {
-        File(this.absolutePath + ext)
-    }
-}
+//fun File.ensureExtension(ext: String): File {
+//    return if (this.absolutePath.toLowerCase().endsWith(ext)) {
+//        this
+//    } else {
+//        File(this.absolutePath + ext)
+//    }
+//}

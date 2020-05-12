@@ -47,7 +47,7 @@ fun Program.setupUI() = controlManager {
                 // https://github.com/openrndr/orx/blob/master/orx-gui/src/main/kotlin/Gui.kt
                 // and https://github.com/edwinRNDR/panel-examples/tree/master/src/main/kotlin
                 saveFileDialog(supportedExtensions = listOf("json")) {
-                    ECState.saveFile(it.ensureExtension(".json"))
+                    ECState.saveFile(it)
                 }
             }
         }

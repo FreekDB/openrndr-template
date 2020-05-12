@@ -1,4 +1,3 @@
-import editablecurve.ensureExtension
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.dialogs.saveFileDialog
@@ -142,7 +141,7 @@ fun main() = application {
             svg.translate(200.0, 0.0)
             svg.shape(shapeUnclosedLines)
             saveFileDialog(supportedExtensions = listOf("svg")) {
-                it.ensureExtension(".svg").writeText(writeSVG(svg.composition))
+                it.writeText(writeSVG(svg.composition))
             }
         }
 

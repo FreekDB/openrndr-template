@@ -1,4 +1,3 @@
-import editablecurve.ensureExtension
 import geometry.angleToSquare
 import geometry.fromIrregularLine
 import org.openrndr.KEY_ENTER
@@ -55,7 +54,7 @@ fun main() = application {
             svg.stroke = ColorRGBa.BLACK
             svg.shape(lines)
             saveFileDialog(supportedExtensions = listOf("svg")) {
-                it.ensureExtension(".svg").writeText(writeSVG(svg.composition))
+                it.writeText(writeSVG(svg.composition))
             }
         }
 
