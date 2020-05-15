@@ -57,7 +57,7 @@ fun main() = application {
         gradient.exponent = 5.0
 
         val colorIndex = extContours.map {
-            listOf(0, 1, 2, 3, 4).pickWeighted(palette.colors.mapIndexed { i, _ -> i * i * 1.0 })
+            listOf(0, 1, 2, 3, 4).pickWeighted(palette.colors.mapIndexed { i, _ -> i * i + 1.0 })
         }
 
         extend(palette)
