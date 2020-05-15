@@ -129,6 +129,7 @@ dependencies {
 
 //    implementation("org.jsoup:jsoup:1.12.2")
     implementation("com.google.code.gson:gson:2.8.6")
+    implementation("org.boofcv:boofcv-core:0.35")
 
     //<editor-fold desc="Managed dependencies">
     runtimeOnly(openrndr("gl3"))

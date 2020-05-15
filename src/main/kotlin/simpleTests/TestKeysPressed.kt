@@ -1,9 +1,8 @@
+package simpleTests
+
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.loadFont
-import kotlin.math.PI
-import kotlin.math.abs
-import kotlin.math.cos
 
 
 fun main() = application {

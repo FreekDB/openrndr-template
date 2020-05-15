@@ -1,3 +1,5 @@
+package simpleTests
+
 import java.awt.EventQueue
 import java.awt.event.KeyEvent
 import javax.swing.*

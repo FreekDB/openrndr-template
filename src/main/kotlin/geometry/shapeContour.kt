@@ -96,6 +96,9 @@ fun ShapeContour.makeParallelCurve(dist: Double): ShapeContour {
  * Check for ShapeContour-to-segment intersections
  */
 fun ShapeContour.intersects(segment: Segment): Vector2 {
+//    var p = Vector2.INFINITY
+//    segments.any { p = it.intersects(segment); p != Vector2.INFINITY }
+//    return p
     segments.forEach {
         val p = it.intersects(segment)
         if (p != Vector2.INFINITY) {

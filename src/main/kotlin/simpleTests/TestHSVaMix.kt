@@ -1,17 +1,25 @@
+package simpleTests
+
 import org.openrndr.application
 import org.openrndr.color.ColorHSVa
+import org.openrndr.color.ColorRGBa
+import org.openrndr.color.mix
+import org.openrndr.extensions.Screenshots
 
 fun main() = application {
     configure {
-        width = 1500
-        height = 800
+        width = 300
+        height = 300
     }
 
     program {
         val left = ColorHSVa(20.0, 1.0, 1.0)
         val right = ColorHSVa(340.0, 1.0, 1.0)
-        val middle = left.mix(right, 0.5)
+        val middle = mix(left, right, 0.5)
+        extend(Screenshots())
         extend {
+            drawer.clear(ColorRGBa.WHITE)
+
             drawer.fill = left.toRGBa()
             drawer.rectangle(50.0, 50.0, 40.0, 200.0)
 

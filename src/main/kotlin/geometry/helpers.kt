@@ -24,10 +24,9 @@ fun convexHull(p: List<Vector2>): List<Vector2> {
         add(point)
     }
 
-    sorted.forEach {
-        result.tryAdd(it, 2)
+    for(point in sorted) {
+        result.tryAdd(point, 2)
     }
-
     val cutIndex = result.size + 1
     for (i in sorted.size - 2 downTo 0) {
         result.tryAdd(sorted[i], cutIndex)
