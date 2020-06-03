@@ -40,8 +40,8 @@ fun main() = application {
 
         // -------------------
         // B. more complex approach imitating the original behavior
-        // in which each vertex has a different offset
-        // create a contour we can query.
+        // in which each vertex has a different offset.
+        // Create a contour we can query.
         val polyline = ShapeContour.fromPoints(points, false)
 
         var normals = listOf(polyline.segments.first().normal(0.0)) +
@@ -63,7 +63,7 @@ fun main() = application {
         extend(Screenshots())
         extend {
             drawer.run {
-                background(ColorRGBa.WHITE)
+                clear(ColorRGBa.WHITE)
 
                 // draw calculated thick line
                 stroke = null
