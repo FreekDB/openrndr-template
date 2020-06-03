@@ -1,6 +1,7 @@
 package random
 
 import org.openrndr.extra.noise.Random
+import kotlin.math.sign
 
 /**
  * Usage: listOf('a', 'b', 'c').pickWeighted(listOf(0.1, 0.6, 0.3)) ---> 'b' (60% chance)
@@ -13,4 +14,12 @@ fun <E> Collection<E>.pickWeighted(weights: Collection<Double>): E {
     var sum = 0.0
     val index = weights.indexOfFirst { sum += it; sum > rnd }
     return toList()[index]
+}
+
+/**
+ * Get a random double between -1 and +1, weighted towards 0
+ */
+fun Random.signedSquared(): Double {
+    val r = Math.random()
+    return r * r * (double0() - 0.5).sign
 }

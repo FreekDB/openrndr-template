@@ -16,10 +16,3 @@ fun fromIrregularLine(p0: Vector2, p1: Vector2, pc: Double, time: Double = 0.0):
     )
 }
 
-fun angleToSquare(angle: Double, radius: Double): Vector2 {
-    val square = min(
-        1 / abs(cos(Math.toRadians(angle))),
-        1 / abs(sin(Math.toRadians(angle)))
-    );
-    return Polar(angle, radius * square).cartesian
-}
