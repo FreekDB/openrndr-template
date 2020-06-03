@@ -1,3 +1,5 @@
+package apps
+
 import geometry.noisified
 import geometry.smoothed
 import org.openrndr.*

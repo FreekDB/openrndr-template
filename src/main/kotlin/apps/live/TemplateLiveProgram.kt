@@ -1,11 +1,11 @@
-package live
+package apps.live
 
 //import org.openrndr.Program
 //import org.openrndr.application
 //import org.openrndr.extra.olive.Olive
 
 /**
- *  This is a template for a live program.
+ *  This is a template for a apps.live program.
  *  The first you will run this program it will create a script file at src/main/kotlin/live.kaats
  *  This script file can be modified while the program is running.
  *

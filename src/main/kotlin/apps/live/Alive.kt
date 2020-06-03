@@ -1,4 +1,4 @@
-package live
+package apps.live
 
 import org.openrndr.application
 import org.openrndr.color.rgb

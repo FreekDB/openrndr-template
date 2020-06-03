@@ -1,3 +1,5 @@
+package apps
+
 import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
 import org.openrndr.color.rgb

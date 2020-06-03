@@ -1,3 +1,5 @@
+package apps
+
 import org.openrndr.KEY_ARROW_DOWN
 import org.openrndr.KEY_ARROW_UP
 import org.openrndr.application

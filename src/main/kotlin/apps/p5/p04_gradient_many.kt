@@ -1,13 +1,8 @@
-package p5
+package apps.p5
 
-import org.openrndr.KEY_ESCAPE
-import org.openrndr.PresentationMode
 import org.openrndr.application
-import org.openrndr.color.ColorRGBa
 import org.openrndr.color.rgb
-import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.shadestyles.linearGradient
-import kotlin.system.exitProcess
 
 fun main() = application {
     configure {

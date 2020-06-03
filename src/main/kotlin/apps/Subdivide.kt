@@ -1,3 +1,5 @@
+package apps
+
 import color.ColorProviderImage
 import extensions.FPSDisplay
 import geometry.contains

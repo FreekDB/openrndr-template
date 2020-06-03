@@ -1,4 +1,4 @@
-package panzoom
+package apps
 
 import org.openrndr.KEY_ESCAPE
 import org.openrndr.KEY_SPACEBAR

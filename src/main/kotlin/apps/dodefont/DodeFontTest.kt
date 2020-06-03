@@ -1,4 +1,4 @@
-package dodefont
+package apps.dodefont
 
 import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
@@ -31,7 +31,7 @@ fun main() = application {
         val image = loadImage("data/images/pm5544.png")
         val font = loadFont("data/fonts/slkscr.ttf",20.0)
 
-        var curves = emptyList<editablecurve.EditableCurve>()
+        var curves = emptyList<apps.editablecurve.EditableCurve>()
 
         val curve = contour {
             moveTo(Vector2(0.1 * width, 0.1 * height))

@@ -1,4 +1,4 @@
-package editablecurve
+package apps.editablecurve
 
 import geometry.intersects
 import geometry.makeParallelCurve

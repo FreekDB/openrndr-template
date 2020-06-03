@@ -1,4 +1,4 @@
-package editablecurve
+package apps.editablecurve
 
 import org.openrndr.Program
 import org.openrndr.color.ColorRGBa

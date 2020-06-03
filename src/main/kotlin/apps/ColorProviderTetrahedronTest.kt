@@ -1,3 +1,5 @@
+package apps
+
 import color.ColorProviderTetrahedron
 import math.doubleExponentialSigmoid
 import org.openrndr.KEY_ESCAPE

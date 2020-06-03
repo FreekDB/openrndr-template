@@ -1,3 +1,5 @@
+package apps
+
 import geometry.angleToSquare
 import geometry.fromIrregularLine
 import org.openrndr.KEY_ENTER

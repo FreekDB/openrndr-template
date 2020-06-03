@@ -1,3 +1,5 @@
+package apps
+
 import geometry.convexHull
 import org.openrndr.KEY_ENTER
 import org.openrndr.KEY_ESCAPE

@@ -1,3 +1,5 @@
+package apps
+
 import boofcv.alg.filter.binary.BinaryImageOps
 import boofcv.alg.filter.binary.GThresholdImageOps
 import boofcv.alg.filter.binary.ThresholdImageOps

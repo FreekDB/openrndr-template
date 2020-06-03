@@ -1,3 +1,5 @@
+package apps
+
 import extensions.Handwritten
 import geometry.eraseEndsWithCircles
 import geometry.localDistortion

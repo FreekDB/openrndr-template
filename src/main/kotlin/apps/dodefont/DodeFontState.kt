@@ -1,4 +1,4 @@
-package dodefont
+package apps.dodefont
 
 import org.openrndr.color.ColorRGBa
 import org.openrndr.extras.camera.OrbitalCamera

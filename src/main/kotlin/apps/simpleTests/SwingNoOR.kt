@@ -1,4 +1,4 @@
-package simpleTests
+package apps.simpleTests
 
 import java.awt.EventQueue
 import java.awt.event.KeyEvent

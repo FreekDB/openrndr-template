@@ -1,3 +1,5 @@
+package apps
+
 import org.openrndr.application
 import org.openrndr.draw.loadImage
 import org.openrndr.draw.shadeStyle

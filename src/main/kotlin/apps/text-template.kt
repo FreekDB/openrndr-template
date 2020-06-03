@@ -1,3 +1,5 @@
+package apps
+
 import org.openrndr.KEY_ESCAPE
 import org.openrndr.KEY_INSERT
 import org.openrndr.application

@@ -1,4 +1,4 @@
-package p5
+package apps.p5
 
 import org.openrndr.WindowMultisample
 import org.openrndr.application

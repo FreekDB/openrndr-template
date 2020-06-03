@@ -1,8 +1,7 @@
-package p5
+package apps.p5
 
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
-import org.openrndr.draw.DrawQuality
 import org.openrndr.draw.Drawer
 import org.openrndr.draw.LineCap
 import org.openrndr.draw.isolated

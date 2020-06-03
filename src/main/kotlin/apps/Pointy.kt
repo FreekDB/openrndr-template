@@ -1,3 +1,5 @@
+package apps
+
 import geometry.intersects
 import geometry.noisified
 import org.openrndr.*

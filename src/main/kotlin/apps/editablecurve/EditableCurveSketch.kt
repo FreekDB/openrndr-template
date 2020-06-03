@@ -1,4 +1,4 @@
-package editablecurve
+package apps.editablecurve
 
 import extensions.FPSDisplay
 import org.openrndr.KEY_ESCAPE
@@ -11,7 +11,6 @@ import org.openrndr.extra.midi.MidiTransceiver
 import org.openrndr.math.IntVector2
 import org.openrndr.shape.CompositionDrawer
 import org.openrndr.svg.writeSVG
-import java.io.File
 import kotlin.system.exitProcess
 
 fun main() = application {
