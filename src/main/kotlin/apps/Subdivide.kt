@@ -2,14 +2,11 @@ package apps
 
 import color.ColorProviderImage
 import extensions.FPSDisplay
-import geometry.contains
 import geometry.longest
 import geometry.split
 import math.angleDiff
-import org.openrndr.KEY_ENTER
-import org.openrndr.KEY_ESCAPE
-import org.openrndr.KeyModifier
-import org.openrndr.application
+import org.openrndr.*
+import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.*
 import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.fx.blur.GaussianBloom
@@ -36,11 +33,12 @@ import kotlin.system.exitProcess
  * - [x] Implement multilevel undo. Currently it removes one curve and adds two. Instead of removing it,
  *      move it to the undo stack.
  * - [x] Fix no intersection but collision
- * - [x] Add int slider for number of angles 2, 3, 5, 7
+ * - [x] Add int slider for number of apps.getAngles 2, 3, 5, 7
  * - [x] Add Clear button
- * - [x] Broke opposite angles. Fix it.
+ * - [x] Broke opposite apps.getAngles. Fix it.
  * - [] Apply colors via shader? Why
- * - [] Allow setting color manually for each shape?
+ * - [] Allow setting color manually for each shape? Currently curves is a list of ShapeContour, but that can't
+store extra info. Make a new data class? With ShapeContour + ColorRGBa?
  * - [] Add slider for rotation offset (currently it's 0°)
  * - [] Textures. Image based? Shader based?
  * - [] Adjustable brightness
@@ -50,6 +48,8 @@ import kotlin.system.exitProcess
 enum class Cuts { THREE, FOUR, FIVE, SEVEN }
 
 val angles = mapOf(Cuts.THREE to 360.0 / 3, Cuts.FOUR to 360.0 / 4, Cuts.FIVE to 360.0 / 5, Cuts.SEVEN to 360.0 / 7)
+
+data class ColoredContour(val shape: ShapeContour, val color: ColorRGBa)
 
 @ExperimentalStdlibApi
 fun main() = application {
@@ -63,6 +63,7 @@ fun main() = application {
         var validDrag = false
         val font = loadFont("data/fonts/IBMPlexMono-Regular.ttf", 24.0)
         val curves = mutableListOf<ShapeContour>()
+        var curve: ShapeContour? = null
         val undo = mutableListOf<ShapeContour>()
         val colors = ColorProviderImage()
         val src = renderTarget(width, height) {
@@ -85,10 +86,13 @@ fun main() = application {
         val params = @Description("parameters") object {
             @BooleanParameter("bloom")
             var bloomEnabled = false
+
             @DoubleParameter("color shift", 0.0, 360.0)
             var colorShift = 0.0
+
             @DoubleParameter("angle offset", 0.0, 360.0)
             var angleOffset = 0.0
+
             @OptionParameter("Subdivisions")
             var cuts = Cuts.THREE
 
@@ -145,10 +149,10 @@ fun main() = application {
                 }
 
                 Random.resetState()
-                curves.forEach {
-                    val pos = it.bounds.center
+                curves.forEach { contour ->
+                    val pos = contour.bounds.center
                     val rgb = colors.getColor(360 * Random.simplex(pos.x, pos.y) + params.colorShift)
-                    val longest = it.longest()
+                    val longest = contour.longest()
                     val dir = longest.direction()
                     val orientation = Math.toDegrees(atan2(dir.y, dir.x))
                     drawer.shadeStyle = perpendicularGradient(
@@ -157,7 +161,7 @@ fun main() = application {
                         offset = longest.start,
                         exponent = 0.1
                     )
-                    drawer.contour(it)
+                    drawer.contour(contour)
                 }
             }
             if (params.bloomEnabled) {
@@ -170,23 +174,27 @@ fun main() = application {
         extend(FPSDisplay(font))
 
         // -------- Interaction -------------
-        mouse.buttonDown.listen {
-            validDrag = !it.propagationCancelled
+        mouse.buttonDown.listen { event ->
+            validDrag = !event.propagationCancelled
             totalDrag = Vector2.ZERO
+            curve = curves.firstOrNull { it.contains(event.position) }
         }
-        mouse.dragged.listen {
-            totalDrag += it.dragDisplacement
+        mouse.dragged.listen { event ->
+            totalDrag += event.dragDisplacement
+            if (curve != null && event.button == MouseButton.RIGHT) {
+                // TODO: adjust color when right dragging
+            }
         }
-        mouse.buttonUp.listen {
+        mouse.buttonUp.listen { event ->
             // avoid UI panel
-            if (validDrag) {
+            if (validDrag && event.button == MouseButton.LEFT) {
                 val requested = Polar.fromVector(totalDrag).theta
                 val opposite = requested + 180
                 val quantized = (requested / angleInc()).roundToLong() * angleInc()
                 val quantizedOpposite = (opposite / angleInc()).roundToLong() * angleInc()
                 val diff = abs(angleDiff(quantized, requested))
                 val diffOpposite = abs(angleDiff(quantizedOpposite, opposite))
-                doSplit(it.position, if (diff < diffOpposite) quantized else quantizedOpposite)
+                doSplit(event.position, if (diff < diffOpposite) quantized else quantizedOpposite)
             }
         }
         keyboard.keyDown.listen {
