@@ -8,6 +8,7 @@ import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.noise.Random
 import org.openrndr.math.Vector2
 import org.openrndr.shape.Circle
+import random.pickWeighted
 
 /**
  * example from
@@ -48,12 +49,12 @@ fun main() = application {
                     val newCircle = Circle(circlePosition, circleRadius)
                     if (circles.all { newCircle.center.distanceTo(it.circle.center) > it.circle.radius + newCircle.radius }) {
                         // get random color
-                        val color = pickWeighted(
-                            listOf(
-                                rgb(Random.double(0.9, 1.0)),
-                                hsl(Random.double(180.0, 220.0), 0.5, 0.25).toRGBa(),
-                                hsl(Random.double0(20.0), 0.8, 0.4).toRGBa()
-                            ), listOf(0.6, 0.3, 0.1)
+                        val color = listOf(
+                            rgb(Random.double(0.9, 1.0)),
+                            hsl(Random.double(180.0, 220.0), 0.5, 0.25).toRGBa(),
+                            hsl(Random.double0(20.0), 0.8, 0.4).toRGBa()
+                        ).pickWeighted(
+                            listOf(0.6, 0.3, 0.1)
                         )
                         circles.add(ColorCircle(newCircle, color))
                         break
@@ -75,17 +76,4 @@ fun main() = application {
             }
         }
     }
-}
-
-/**
- * Usage: pickWeighted(listOf('a', 'b', 'c'), listOf(0.1, 0.6, 0.3)) ---> 'b' (60% chance)
- */
-fun <T> pickWeighted(coll: Collection<T>, weights: Collection<Double>): T {
-    if (coll.size != weights.size) {
-        error("pickWeighted() requires two collections with the same number of elements")
-    }
-    val rnd = Random.double0(weights.sum())
-    var sum = 0.0
-    val index = weights.indexOfFirst { sum += it; sum > rnd }
-    return coll.toList()[index]
 }
