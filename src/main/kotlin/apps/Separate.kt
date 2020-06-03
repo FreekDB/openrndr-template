@@ -1,5 +1,6 @@
 package apps
 
+import geometry.separated
 import org.openrndr.KEY_ENTER
 import org.openrndr.KEY_ESCAPE
 import org.openrndr.KEY_INSERT
@@ -7,15 +8,21 @@ import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.ColorXSVa
 import org.openrndr.dialogs.saveFileDialog
+import org.openrndr.draw.LineCap
+import org.openrndr.draw.LineJoin
 import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.noise.Random
+import org.openrndr.extra.noise.simplex
 import org.openrndr.math.Polar
 import org.openrndr.math.Vector2
-import org.openrndr.math.map
+import org.openrndr.shape.Circle
 import org.openrndr.shape.CompositionDrawer
 import org.openrndr.shape.ShapeContour
 import org.openrndr.svg.writeSVG
+import kotlin.math.PI
+import kotlin.math.cos
 import kotlin.math.pow
+import kotlin.math.sin
 import kotlin.system.exitProcess
 
 /**
@@ -31,31 +38,30 @@ fun main() = application {
         height = 800
     }
 
-    // TODO: change order of: separate centers -> generate shapes
-    // to: generate shapes -> separate shapes (using center + radius)
+    // - [x] Change to separate using shape radius, not just shape center
 
     program {
         var bgcolor = ColorRGBa.PINK
         var dots = mutableListOf<ShapeContour>()
 
-        var positions = Random.ring2d(150.0, 200.0, 128) as List<Vector2>
-        for (i in 0..70) {
-            positions = positions.separate(50.0)
+        var positions = (Random.ring2d(180.0, 190.0, 200) as List<Vector2>).map {
+            val rnd = Random.double0()
+            val radius = 1 + (rnd.pow(5.0) * 20.0)
+            Circle(it, radius)
         }
-        positions.forEach { center ->
-            var a = 0.0
-            val powFactor = Random.simplex(center.x * 0.01, center.y * 0.01).map(-1.0, 1.0, 0.7, 3.0)
-            //val radFactor = Random.simplex(center.y * 0.01, center.x * 0.01).map(-1.0, 1.0, 0.01, 0.25)
-            var radius = 0.0
-            dots.add(ShapeContour.fromPoints(List(Random.int(12, 100)) {
-                // irregular
-                //a += it.toDouble().pow(powFactor)
-
-                // smooth
-                a += 30.0
-                radius += 0.1 / (1.0 + it * 0.01)
-                center + Polar(a, radius).cartesian
-            }, false))
+        for (i in 0..100) {
+            positions = positions.separated(10.0)
+        }
+        positions.forEach { cir ->
+            val seed = System.nanoTime().toInt()
+            val maxRadius = cir.radius.toInt()
+            for (radius in 1..maxRadius) {
+                val points = 2 * (2 * PI * radius).toInt()
+                dots.add(ShapeContour.fromPoints(List(points) {
+                    val a = 2 * PI * it / points
+                    cir.center + Polar(Math.toDegrees(a), radius + 1.0 * simplex(seed, cos(a), sin(a))).cartesian
+                }, true))
+            }
         }
 
         fun exportSVG() {
@@ -74,6 +80,8 @@ fun main() = application {
             drawer.apply {
                 clear(bgcolor)
                 translate(bounds.center)
+                lineJoin = LineJoin.BEVEL
+                lineCap = LineCap.BUTT
                 stroke = ColorRGBa.BLACK
                 fill = null
                 contours(dots)
@@ -90,23 +98,3 @@ fun main() = application {
     }
 }
 
-fun List<Vector2>.separate(separation: Double): List<Vector2> {
-    return this.map { me ->
-        var sum = Vector2.ZERO
-        var count = 0
-        this.forEach { other ->
-            val d = me.distanceTo(other)
-            if (d > 0.0 && d < separation) {
-                var force = (me - other).normalized
-                force /= d
-                sum += force
-                count++;
-            }
-        }
-        if (count > 0) {
-            sum = sum.normalized
-        }
-        me + sum
-    }
-
-}
