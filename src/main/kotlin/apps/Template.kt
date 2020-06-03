@@ -3,11 +3,9 @@ package apps
 import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
-import org.openrndr.draw.loadFont
 import org.openrndr.extensions.Screenshots
 import org.openrndr.math.Vector2
 import org.openrndr.shape.LineSegment
-import org.openrndr.shape.Segment
 import org.openrndr.shape.intersection
 import kotlin.system.exitProcess
 

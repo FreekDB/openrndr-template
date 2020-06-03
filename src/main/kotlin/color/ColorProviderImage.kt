@@ -19,9 +19,9 @@ class ColorProviderImage(private val path: String = "/home/funpro/Pictures/n1/In
         reset()
     }
 
-    override fun getColor(i: Double): ColorRGBa {
+    override fun getColor(angle: Double): ColorRGBa {
         val p = center + Polar(
-            (i + offset) * 0.05,
+            (angle + offset) * 0.05,
             min(center.x, center.y) * 0.9
         ).cartesian
         return shadow[p.x.toInt(), p.y.toInt()]

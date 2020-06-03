@@ -43,7 +43,7 @@ fun main() = application {
         extend(Screenshots())
 
         extend {
-            drawer.background(ColorRGBa.WHITE)
+            drawer.clear(ColorRGBa.WHITE)
             drawer.stroke = ColorRGBa(0.0, 0.0, 0.0, 0.05)
             drawer.translate(width * 0.5, height * 0.5)
             for (i in curves.size - 1 downTo 0) {

@@ -20,7 +20,6 @@ import org.openrndr.math.Vector2
 import org.openrndr.math.map
 import org.openrndr.shape.*
 import org.openrndr.svg.writeSVG
-import java.io.File
 import kotlin.math.abs
 import kotlin.math.pow
 import kotlin.math.sign

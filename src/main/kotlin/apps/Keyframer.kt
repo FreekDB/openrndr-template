@@ -74,7 +74,7 @@ fun main() = application {
                         )
                         drawer.translate(
                             animation.position.vector3(z = 0.0) +
-                                    Random.Vector3(-5.0, 5.0) * animation.jitter
+                                    Random.vector3(-5.0, 5.0) * animation.jitter
                         )
                         drawer.rotate(Vector3.UNIT_Y, animation.rot.y)
                         drawer.rotate(Vector3.UNIT_X, animation.rot.x)

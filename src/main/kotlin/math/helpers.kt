@@ -12,6 +12,7 @@ fun angleDiff(a: Double, b: Double): Double {
 }
 
 // TODO: this is weird. noise of min, max???
+// Not the original function. Why?
 fun doubleExponentialSigmoid(min: Double, max: Double): Double {
     val x = Random.simplex(min, max) * 0.5 + 0.5
     val a = 0.15
