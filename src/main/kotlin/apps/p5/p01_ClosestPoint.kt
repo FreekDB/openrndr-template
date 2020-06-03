@@ -6,7 +6,7 @@ import org.openrndr.extra.noise.Random
 
 fun main() = application {
     program {
-        val points = List(30) { drawer.bounds.center + drawer.bounds.center * Random.Vector2() }
+        val points = List(30) { drawer.bounds.center + drawer.bounds.center * Random.vector2() }
         extend {
             drawer.background(ColorRGBa.WHITE)
             val closest = points.minBy { (mouse.position - it).squaredLength }
