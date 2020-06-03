@@ -1,8 +1,12 @@
 package geometry
 
+import org.openrndr.math.Polar
 import org.openrndr.math.Vector2
 import org.openrndr.shape.Circle
 import kotlin.math.abs
+import kotlin.math.cos
+import kotlin.math.min
+import kotlin.math.sin
 
 /**
  * Calculate the convex hull of a list of 2D points
@@ -79,4 +83,15 @@ fun List<Circle>.separated(separation: Double): List<Circle> {
         }
         Circle(me.center + sum, me.radius)
     }
+}
+
+/**
+ * SDF square
+ */
+fun angleToSquare(angle: Double, radius: Double): Vector2 {
+    val square = min(
+        1 / abs(cos(Math.toRadians(angle))),
+        1 / abs(sin(Math.toRadians(angle)))
+    );
+    return Polar(angle, radius * square).cartesian
 }
