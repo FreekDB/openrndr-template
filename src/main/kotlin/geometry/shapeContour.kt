@@ -3,11 +3,11 @@ package geometry
 import math.cosEnv
 import org.openrndr.extra.noise.Random
 import org.openrndr.extra.noise.uniformRing
-import org.openrndr.math.Polar
-import org.openrndr.math.Vector2
-import org.openrndr.math.clamp
-import org.openrndr.math.map
-import org.openrndr.shape.*
+import org.openrndr.math.*
+import org.openrndr.shape.Circle
+import org.openrndr.shape.Segment
+import org.openrndr.shape.ShapeContour
+import org.openrndr.shape.contour
 import kotlin.math.PI
 import kotlin.math.atan2
 import kotlin.math.cos
@@ -93,22 +93,6 @@ fun ShapeContour.makeParallelCurve(dist: Double): ShapeContour {
 }
 
 /**
- * Check for ShapeContour-to-segment intersections
- */
-fun ShapeContour.intersects(segment: Segment): Vector2 {
-//    var p = Vector2.INFINITY
-//    segments.any { p = it.intersects(segment); p != Vector2.INFINITY }
-//    return p
-    segments.forEach {
-        val p = it.intersects(segment)
-        if (p != Vector2.INFINITY) {
-            return p
-        }
-    }
-    return Vector2.INFINITY
-}
-
-/**
  * Split an open ShapeContour with a Circle, erasing what's inside it
  */
 
@@ -118,15 +102,15 @@ fun ShapeContour.split(knife: Circle, resolution: Int = 100): List<ShapeContour>
     var points = mutableListOf<Vector2>()
     var last = Vector2.INFINITY
     segments.forEach {
-        last = if(knife.contains(it)) {
-            if(last != Vector2.INFINITY) {
+        last = if (knife.contains(it)) {
+            if (last != Vector2.INFINITY) {
                 // entering circle
             } else {
                 // inside circle
             }
             Vector2.INFINITY
         } else {
-            if(last == Vector2.INFINITY) {
+            if (last == Vector2.INFINITY) {
                 //leaving circle
             } else {
                 // outside circle
@@ -171,21 +155,6 @@ fun ShapeContour.split(knife: Segment): Pair<ShapeContour, ShapeContour> {
             ShapeContour.EMPTY
         )
     }
-}
-
-/**
- * Check for ShapeContour-to-ShapeContour intersections
- */
-fun ShapeContour.intersects(other: ShapeContour): Vector2 {
-    segments.forEach { thisSegment ->
-        other.segments.forEach { otherSegment ->
-            val p = thisSegment.intersects(otherSegment)
-            if (p != Vector2.INFINITY) {
-                return p
-            }
-        }
-    }
-    return Vector2.INFINITY
 }
 
 /**
@@ -260,7 +229,7 @@ fun ShapeContour.localDistortion(
     steps: Int = 100
 ): List<ShapeContour> {
     val parts = mutableListOf(this)
-    for((start, end, offset) in data) {
+    for ((start, end, offset) in data) {
         val seg = this.sub(start, end)
         parts.add(
             ShapeContour.fromPoints(
@@ -298,4 +267,40 @@ fun ShapeContour.eraseEndsWithCircles(a: Circle, b: Circle): ShapeContour {
     // 5. Make new curve skipping start and end (the parts where the curve
     // when into the circles
     return result.sub(u0, u1)
+}
+
+/**
+ * Creates a variable width contour from a list of Vector3 where
+ * `xy` = 2D location
+ * `z` = normal length
+ */
+fun variableWidthContour(points: List<Vector3>): ShapeContour {
+    val points2d = points.map { it.xy }
+
+    // TODO: optimize. No need to create a contour to query normals, that was just
+    // the easiest. I can calculate the normals directly from points2d
+
+    var i = 1
+//    val normals = listOf((points2d[1]-points2d[0]).perpendicular() * points.first().z) +
+//            points2d.zipWithNext { p0, p1 -> ((p1-p0).perpendicular()).normalized * points[i++].z } +
+//            (points2d.last()-points2d[points2d.size-2]).perpendicular() * points.last().z
+//    println("${points2d.size} ${normals.size}")
+
+    // Create a contour we can query.
+    val polyline = ShapeContour.fromPoints(points2d, false)
+
+    var normals = listOf(polyline.segments.first().normal(0.0)) +
+            polyline.segments.zipWithNext { a, b -> (a.normal(1.0) + b.normal(0.0)).normalized } +
+            polyline.segments.last().normal(1.0)
+
+    normals = normals.mapIndexed { i, it -> it * points[i].z }
+
+    // construct shape. First add one side, then the other in reverse.
+    return ShapeContour.fromPoints(
+        points2d.mapIndexed { i, p ->
+            p + normals[i]
+        } + points2d.reversed().mapIndexed { i, p ->
+            p - normals.reversed()[i]
+        }, true
+    )
 }

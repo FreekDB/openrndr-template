@@ -4,6 +4,7 @@ import org.openrndr.math.Vector2
 import org.openrndr.math.mix
 import org.openrndr.shape.Circle
 import org.openrndr.shape.Segment
+import org.openrndr.shape.ShapeContour
 import org.openrndr.shape.intersection
 import kotlin.math.sqrt
 
@@ -52,6 +53,9 @@ fun Segment.intersections(cir: Circle): List<Vector2> {
 
 data class Ray(val start: Vector2, val direction: Vector2)
 
+/**
+ * Ray-to-ray intersection
+ */
 fun Ray.intersects(other: Ray): Vector2 {
     val d = other.start - start
     val det = other.direction.x * direction.y - other.direction.y * direction.x
@@ -68,4 +72,35 @@ fun Ray.intersects(other: Ray): Vector2 {
         }
     }
     return Vector2.INFINITY // Deal with this later
+}
+
+/**
+ * ShapeContour-to-ShapeContour intersections
+ */
+fun ShapeContour.intersects(other: ShapeContour): Vector2 {
+    segments.forEach { thisSegment ->
+        other.segments.forEach { otherSegment ->
+            val p = thisSegment.intersects(otherSegment)
+            if (p != Vector2.INFINITY) {
+                return p
+            }
+        }
+    }
+    return Vector2.INFINITY
+}
+
+/**
+ * Check for ShapeContour-to-segment intersections
+ */
+fun ShapeContour.intersects(segment: Segment): Vector2 {
+//    var p = Vector2.INFINITY
+//    segments.any { p = it.intersects(segment); p != Vector2.INFINITY }
+//    return p
+    segments.forEach {
+        val p = it.intersects(segment)
+        if (p != Vector2.INFINITY) {
+            return p
+        }
+    }
+    return Vector2.INFINITY
 }
