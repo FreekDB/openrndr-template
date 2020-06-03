@@ -1,3 +1,4 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.gradle.internal.os.OperatingSystem
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
@@ -11,6 +12,7 @@ val applicationMainClass = "TemplateProgramKt"
 /*  Which additional (ORX) libraries should be added to this project. */
 val orxFeatures = setOf(
     "poc-orx-keyframer",
+    "orx-boofcv",
     "orx-camera",
     "orx-compositor",
 //  "orx-easing",
@@ -20,7 +22,7 @@ val orxFeatures = setOf(
     "orx-fx",
     "orx-glslify",
 //  "orx-gradient-descent",
-//  "orx-integral-image",
+    "orx-integral-image",
 //  "orx-interval-tree",
 //  "orx-jumpflood",
     "orx-gui",
@@ -32,31 +34,31 @@ val orxFeatures = setOf(
     "orx-noise",
 //  "orx-obj-loader",
     "orx-olive",
-//  "orx-osc",
+    "orx-osc",
     "orx-palette",
-//  "orx-poisson-fill",
+    "orx-poisson-fill",
 //  "orx-runway",
 //  "orx-shader-phrases",
     "orx-shade-styles",
     "orx-shapes",
 //  "orx-syphon",
 //  "orx-temporal-blur",
+//  "orx-time-operators,
 //  "orx-kinect-v1",
     "orx-panel"
 )
 
 /* Which OPENRNDR libraries should be added to this project? */
 val openrndrFeatures = setOf(
-    //"panel",
     "video"
 )
 
-/*  Which version of OPENRNDR, ORX and Panel should be used? */
+/*  Which version of OPENRNDR and ORX should be used? */
 val openrndrUseSnapshot = true
-val openrndrVersion = if (openrndrUseSnapshot) "0.4.0-SNAPSHOT" else "0.3.42-rc.5"
+val openrndrVersion = if (openrndrUseSnapshot) "0.4.0-SNAPSHOT" else "0.3.42"
 
 val orxUseSnapshot = true
-val orxVersion = if (orxUseSnapshot) "0.4.0-SNAPSHOT" else "0.3.51-rc.4"
+val orxVersion = if (orxUseSnapshot) "0.4.0-SNAPSHOT" else "0.3.51"
 
 //<editor-fold desc="This is code for OPENRNDR, no need to edit this .. most of the times">
 val supportedPlatforms = setOf("windows", "macos", "linux-x64", "linux-arm64")
@@ -94,6 +96,8 @@ val kotlinVersion = "1.3.72"
 plugins {
     java
     kotlin("jvm") version("1.3.72")
+    id("com.github.johnrengelman.shadow") version ("5.2.0")
+    id("org.beryx.runtime") version ("1.8.1")
 }
 
 repositories {
@@ -124,14 +128,11 @@ fun DependencyHandler.orxNatives(module: String): Any {
 }
 
 dependencies {
-
     /*  This is where you add additional (third-party) dependencies */
 
 //    implementation("org.jsoup:jsoup:1.12.2")
     implementation("com.google.code.gson:gson:2.8.6")
-    implementation("org.boofcv:boofcv-core:0.35")
 
-    //<editor-fold desc="Managed dependencies">
     runtimeOnly(openrndr("gl3"))
     runtimeOnly(openrndrNatives("gl3"))
     implementation(openrndr("openal"))
@@ -143,20 +144,20 @@ dependencies {
     implementation(openrndr("filter"))
     implementation(openrndr("dialogs"))
 
-    implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-core","1.3.3")
-    implementation("io.github.microutils", "kotlin-logging","1.7.8")
+    implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-core","1.3.6")
+    implementation("io.github.microutils", "kotlin-logging","1.7.9")
 
     when(applicationLogging) {
         Logging.NONE -> {
-            runtimeOnly("org.slf4j","slf4j-nop","1.7.29")
+            runtimeOnly("org.slf4j","slf4j-nop","1.7.30")
         }
         Logging.SIMPLE -> {
-            runtimeOnly("org.slf4j","slf4j-simple","1.7.29")
+            runtimeOnly("org.slf4j","slf4j-simple","1.7.30")
         }
         Logging.FULL -> {
-            runtimeOnly("org.apache.logging.log4j", "log4j-slf4j-impl", "2.13.0")
-            runtimeOnly("com.fasterxml.jackson.core", "jackson-databind", "2.10.1")
-            runtimeOnly("com.fasterxml.jackson.dataformat", "jackson-dataformat-yaml", "2.10.1")
+            runtimeOnly("org.apache.logging.log4j", "log4j-slf4j-impl", "2.13.1")
+            runtimeOnly("com.fasterxml.jackson.core", "jackson-databind", "2.10.3")
+            runtimeOnly("com.fasterxml.jackson.dataformat", "jackson-dataformat-yaml", "2.10.3")
         }
     }
 
@@ -177,11 +178,14 @@ dependencies {
         implementation("org.jetbrains.kotlin:kotlin-script-runtime:$kotlinVersion")
     }
 
+    if ("orx-boofcv" in orxFeatures) {
+        implementation("org.boofcv:boofcv-core:0.36")
+    }
+
     //implementation("com.github.weisj:darklaf-core")
 
     implementation(kotlin("stdlib-jdk8"))
     testImplementation("junit", "junit", "4.12")
-    //</editor-fold>
 }
 
 // --------------------------------------------------------------------------------------------------------------------
@@ -193,29 +197,64 @@ tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
 }
 
-tasks.withType<Jar> {
-    isZip64 = true
-    manifest {
-        attributes["Main-Class"] = applicationMainClass
-    }
-    doFirst {
-        from(configurations.compileClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
-        from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
-    }
 
-    exclude(listOf("META-INF/*.RSA", "META-INF/*.SF", "META-INF/*.DSA", "**/module-info*"))
-    archiveFileName.set("application-$openrndrOs.jar")
+project.setProperty("mainClassName", applicationMainClass)
+tasks {
+    named<ShadowJar>("shadowJar") {
+        manifest {
+            attributes["Main-Class"] = applicationMainClass
+        }
+        minimize {
+            exclude(dependency("org.openrndr:openrndr-gl3:.*"))
+            exclude(dependency("org.jetbrains.kotlin:kotlin-reflect:.*"))
+        }
+    }
+    named<org.beryx.runtime.JPackageTask>("jpackage") {
+        doLast {
+            when (OperatingSystem.current()) {
+                OperatingSystem.WINDOWS, OperatingSystem.LINUX -> {
+                    copy {
+                        from("data") {
+                            include("**/*")
+                        }
+                        into("build/jpackage/openrndr-application/data")
+                    }
+                }
+                OperatingSystem.MAC_OS -> {
+                    copy {
+                        from("data") {
+                            include("**/*")
+                        }
+                        into("build/jpackage/openrndr-application.app/data")
+                    }
+                }
+            }
+        }
+    }
 }
 
-tasks.create("zipDistribution", Zip::class.java) {
-    archiveFileName.set("application-$openrndrOs.zip")
-    from("./") {
-        include("data/**")
+tasks.register<Zip>("jpackageZip") {
+    archiveFileName.set("openrndr-application-$openrndrOs.zip")
+    from("$buildDir/jpackage") {
+        include("**/*")
     }
-    from("$buildDir/libs/application-$openrndrOs.jar")
-}.dependsOn(tasks.jar)
+}
+tasks.findByName("jpackageZip")?.dependsOn("jpackage")
 
-tasks.create("run", JavaExec::class.java) {
-    main = applicationMainClass
-    classpath = sourceSets.main.get().runtimeClasspath
-}.dependsOn(tasks.build)
+runtime {
+    jpackage {
+        imageName = "openrndr-application"
+        skipInstaller = true
+        if (OperatingSystem.current() == OperatingSystem.MAC_OS) {
+            jvmArgs.add("-XstartOnFirstThread")
+        }
+    }
+    options.empty()
+    options.add("--strip-debug")
+    options.add("--compress")
+    options.add("1")
+    options.add("--no-header-files")
+    options.add("--no-man-pages")
+    modules.empty()
+    modules.add("jdk.unsupported")
+}
