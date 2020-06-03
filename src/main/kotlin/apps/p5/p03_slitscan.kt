@@ -15,6 +15,11 @@ fun main() = application {
 //        val shadow = img.shadow
 //        shadow.download()
 
+        val slitStyle = shadeStyle {
+            fragmentTransform = "x_fill = texture(p_img, vec2(c_boundsPosition.x, fract(p_time)));"
+            parameter("img", img)
+        }
+
         extend(Screenshots())
         extend {
 //            val yy = frameCount % img.height
@@ -23,11 +28,8 @@ fun main() = application {
 //                drawer.stroke = shadow[xx, yy]
 //                drawer.lineSegment(x.toDouble(), 0.0, x.toDouble(), height.toDouble())
 //            }
-            drawer.shadeStyle = shadeStyle {
-                fragmentTransform = "x_fill = texture(p_img, vec2(c_boundsPosition.x, fract(p_time)));"
-                parameter("img", img)
-                parameter("time", seconds * 0.05)
-            }
+            slitStyle.parameter("time", seconds * 0.05)
+            drawer.shadeStyle = slitStyle
             drawer.rectangle(drawer.bounds)
         }
     }
