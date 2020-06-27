@@ -1,8 +1,10 @@
 package geometry
 
+import org.openrndr.extra.noise.uniform
 import org.openrndr.math.Polar
 import org.openrndr.math.Vector2
 import org.openrndr.shape.Circle
+import org.openrndr.shape.Rectangle
 import kotlin.math.abs
 import kotlin.math.cos
 import kotlin.math.min
@@ -94,4 +96,11 @@ fun angleToSquare(angle: Double, radius: Double): Vector2 {
         1 / abs(sin(Math.toRadians(angle)))
     );
     return Polar(angle, radius * square).cartesian
+}
+
+/**
+ * Returns a random point inside a rectangle
+ */
+fun Rectangle.randomPoint(): Vector2 {
+    return Vector2.uniform(Vector2.ZERO, dimensions)
 }
