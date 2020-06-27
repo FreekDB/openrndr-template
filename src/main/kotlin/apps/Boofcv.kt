@@ -1,16 +1,9 @@
 package apps
 
-import boofcv.alg.filter.binary.BinaryImageOps
-import boofcv.alg.filter.binary.ThresholdImageOps
-import boofcv.struct.ConnectRule
-import boofcv.struct.image.GrayS32
-import boofcv.struct.image.GrayU8
 import geometry.toContours
 import org.openrndr.KEY_ENTER
 import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
-import org.openrndr.boofcv.binding.toGrayF32
-import org.openrndr.boofcv.binding.toVector2s
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.rgb
 import org.openrndr.draw.*

@@ -1,19 +1,16 @@
 package apps
 
-import boofcv.alg.filter.binary.BinaryImageOps
-import boofcv.alg.filter.binary.ThresholdImageOps
-import boofcv.struct.ConnectRule
-import boofcv.struct.image.GrayS32
-import boofcv.struct.image.GrayU8
 import extensions.NoJitter
 import geometry.Human
+import geometry.toContours
 import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
-import org.openrndr.boofcv.binding.toGrayF32
-import org.openrndr.boofcv.binding.toVector2s
 import org.openrndr.color.ColorRGBa
 import org.openrndr.dialogs.saveFileDialog
-import org.openrndr.draw.*
+import org.openrndr.draw.colorBuffer
+import org.openrndr.draw.isolated
+import org.openrndr.draw.isolatedWithTarget
+import org.openrndr.draw.renderTarget
 import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.fx.blur.ApproximateGaussianBlur
 import org.openrndr.extra.fx.distort.Perturb
@@ -114,7 +111,7 @@ fun main() = application {
                                             if (mirror == 1) {
                                                 scale(-1.0, 1.0)
                                             }
-                                            if(cartesian) {
+                                            if (cartesian) {
                                                 translate(cir.center + Vector2(0.0, ang - 180))
                                             } else {
                                                 translate(cir.center + Polar(ang, radius).cartesian)
