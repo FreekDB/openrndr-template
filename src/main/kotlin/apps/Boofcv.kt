@@ -5,6 +5,7 @@ import boofcv.alg.filter.binary.ThresholdImageOps
 import boofcv.struct.ConnectRule
 import boofcv.struct.image.GrayS32
 import boofcv.struct.image.GrayU8
+import geometry.toContours
 import org.openrndr.KEY_ENTER
 import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
@@ -105,7 +106,7 @@ fun main() = application {
                     blur.gain = 1.0
                     blur.sigma = 10.0 - i * 2.0
                     blur.apply(bw.colorBuffer(0), bwBlurred)
-                    extContours.addAll(bwBlurred.toContours(0.3 + i * 0.2))
+                    extContours.addAll(bwBlurred.toContours(0.3 + i * 0.2, false))
                 }
 
                 colorIndex = extContours.map {
@@ -186,24 +187,4 @@ fun main() = application {
             }
         }
     }
-}
-
-private fun ColorBuffer.toContours(threshold: Double): List<ShapeContour> {
-    val input = this.toGrayF32()
-
-    val binary = GrayU8(input.width, input.height)
-    val label = GrayS32(input.width, input.height)
-    ThresholdImageOps.threshold(input, binary, threshold.toFloat() * 255, false)
-    var filtered = BinaryImageOps.erode8(binary, 1, null)
-    filtered = BinaryImageOps.dilate8(filtered, 1, null)
-    val contours = BinaryImageOps.contour(filtered, ConnectRule.EIGHT, label)
-
-    val result = mutableListOf<ShapeContour>()
-    contours.forEach {
-        result.add(ShapeContour.fromPoints(it.external.toVector2s(), true))
-//            it.internal.forEach { internalContour ->
-//                intContours.add(ShapeContour.fromPoints(internalContour.map { p -> vector2(p) }, true))
-//            }
-    }
-    return result
 }

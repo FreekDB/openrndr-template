@@ -1,6 +1,14 @@
 package geometry
 
+import boofcv.alg.filter.binary.BinaryImageOps
+import boofcv.alg.filter.binary.ThresholdImageOps
+import boofcv.struct.ConnectRule
+import boofcv.struct.image.GrayS32
+import boofcv.struct.image.GrayU8
 import math.cosEnv
+import org.openrndr.boofcv.binding.toGrayF32
+import org.openrndr.boofcv.binding.toVector2s
+import org.openrndr.draw.ColorBuffer
 import org.openrndr.extra.noise.Random
 import org.openrndr.extra.noise.uniformRing
 import org.openrndr.math.*
@@ -76,6 +84,9 @@ fun ShapeContour.noisified(distance: Int, closed: Boolean = true, zoom: Double =
     }, closed)
 }
 
+/**
+ *
+ */
 fun ShapeContour.makeParallelCurve(dist: Double): ShapeContour {
     var points = mutableListOf<Vector2>()
     var prevNorm = Vector2.ZERO
@@ -95,7 +106,6 @@ fun ShapeContour.makeParallelCurve(dist: Double): ShapeContour {
 /**
  * Split an open ShapeContour with a Circle, erasing what's inside it
  */
-
 fun ShapeContour.split(knife: Circle, resolution: Int = 100): List<ShapeContour> {
     val result = mutableListOf<ShapeContour>()
     val segments = this.equidistantPositions(resolution)
@@ -303,4 +313,29 @@ fun variableWidthContour(points: List<Vector3>): ShapeContour {
             p - normals.reversed()[i]
         }, true
     )
+}
+
+/**
+ * Convert a ColorBuffer to contours using boofcv
+ */
+fun ColorBuffer.toContours(threshold: Double, internal: Boolean = true): List<ShapeContour> {
+    val input = this.toGrayF32()
+
+    val binary = GrayU8(input.width, input.height)
+    val label = GrayS32(input.width, input.height)
+    ThresholdImageOps.threshold(input, binary, threshold.toFloat() * 255, false)
+    var filtered = BinaryImageOps.erode8(binary, 1, null)
+    filtered = BinaryImageOps.dilate8(filtered, 1, null)
+    val contours = BinaryImageOps.contour(filtered, ConnectRule.EIGHT, label)
+
+    val result = mutableListOf<ShapeContour>()
+    contours.forEach {
+        result.add(ShapeContour.fromPoints(it.external.toVector2s(), true))
+        if (internal) {
+            it.internal.forEach { internalContour ->
+                result.add(ShapeContour.fromPoints(internalContour.toVector2s(), true))
+            }
+        }
+    }
+    return result
 }

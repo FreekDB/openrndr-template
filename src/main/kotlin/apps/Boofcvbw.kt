@@ -254,23 +254,3 @@ fun main() = application {
         gui.loadParameters(File("data/parameters/Boofcvbw001.json"))
     }
 }
-
-private fun ColorBuffer.toContours(threshold: Double): List<ShapeContour> {
-    val input = this.toGrayF32()
-
-    val binary = GrayU8(input.width, input.height)
-    val label = GrayS32(input.width, input.height)
-    ThresholdImageOps.threshold(input, binary, threshold.toFloat() * 255, false)
-    var filtered = BinaryImageOps.erode8(binary, 1, null)
-    filtered = BinaryImageOps.dilate8(filtered, 1, null)
-    val contours = BinaryImageOps.contour(filtered, ConnectRule.EIGHT, label)
-
-    val result = mutableListOf<ShapeContour>()
-    contours.forEach {
-        result.add(ShapeContour.fromPoints(it.external.toVector2s(), true))
-        it.internal.forEach { internalContour ->
-            result.add(ShapeContour.fromPoints(internalContour.toVector2s(), true))
-        }
-    }
-    return result
-}
