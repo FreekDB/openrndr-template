@@ -3,6 +3,8 @@ package extensions
 import org.openrndr.Extension
 import org.openrndr.Program
 import org.openrndr.draw.Drawer
+import org.openrndr.draw.LineCap
+import org.openrndr.draw.LineJoin
 import org.openrndr.draw.isolated
 import org.openrndr.math.Vector2
 import org.openrndr.math.transforms.transform
@@ -16,11 +18,11 @@ import kotlin.math.max
 class Handwritten() : Extension {
     override var enabled: Boolean = true
 
-    private var svg = loadSVG("data/text-template-3.svg")
+    private val svg = loadSVG("data/text-template-3.svg")
     private val bounds = mutableMapOf<Char, Rectangle>()
     private val letters = mutableMapOf<Char, MutableList<ShapeContour>>()
-
-    private var lines = mutableListOf<Pair<String, Vector2>>()
+    private val lines = mutableListOf<Pair<String, Vector2>>()
+    var scale = 1.0
 
     fun add(txt: String, pos: Vector2, align: Vector2 = Vector2.ZERO) {
         val word = txt.trimIndent().toUpperCase()
@@ -37,6 +39,8 @@ class Handwritten() : Extension {
 
         lines.add(Pair(word, pos - align * size))
     }
+
+    fun hasGlyph(letter: Char) = letters.containsKey(letter)
 
     private fun CompositionDrawer.isolated(function: CompositionDrawer.() -> Unit) {
         pushModel()
@@ -69,6 +73,7 @@ class Handwritten() : Extension {
         for ((word, pos) in lines) {
             svg.isolated {
                 translate(pos)
+                scale(scale)
                 word.forEach { letter ->
                     letters[letter]?.run {
                         val letterBounds = rectangleBounds(this.map { it.bounds })
@@ -85,6 +90,8 @@ class Handwritten() : Extension {
         for ((word, pos) in lines) {
             drawer.isolated {
                 translate(pos)
+                scale(scale)
+                lineJoin = LineJoin.BEVEL
                 word.forEach { letter ->
                     letters[letter]?.run {
                         val letterBounds = rectangleBounds(this.map { it.bounds })

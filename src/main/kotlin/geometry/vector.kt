@@ -16,7 +16,7 @@ import org.openrndr.panel.elements.round
 /**
  *
  */
-fun Polar.rotate(theta: Double): Polar {
+fun Polar.rotated(theta: Double): Polar {
     return Polar(this.theta + theta, radius)
 }
 

@@ -8,8 +8,7 @@ import org.openrndr.math.Vector2
 import org.openrndr.shape.contour
 import kotlin.math.PI
 import kotlin.math.sin
-
-const val TAU = PI * 2.0
+import math.TAU
 
 /**
  * Port of

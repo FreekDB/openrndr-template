@@ -2,10 +2,7 @@ package geometry
 
 import org.openrndr.math.Vector2
 import org.openrndr.math.mix
-import org.openrndr.shape.Circle
-import org.openrndr.shape.Segment
-import org.openrndr.shape.ShapeContour
-import org.openrndr.shape.intersection
+import org.openrndr.shape.*
 import kotlin.math.sqrt
 
 /**
@@ -14,6 +11,10 @@ import kotlin.math.sqrt
  */
 fun Segment.intersects(other: Segment, eps: Double = 0.00): Vector2 {
     return intersection(this.start, this.end, other.start, other.end, eps)
+}
+
+fun Segment.intersects(start: Vector2, end: Vector2, eps: Double = 0.00): Vector2 {
+    return intersection(this.start, this.end, start, end, eps)
 }
 
 /**
@@ -75,7 +76,7 @@ fun Ray.intersects(other: Ray): Vector2 {
 }
 
 /**
- * ShapeContour-to-ShapeContour intersections
+ * ShapeContour-to-ShapeContour first intersection
  */
 fun ShapeContour.intersects(other: ShapeContour): Vector2 {
     segments.forEach { thisSegment ->
@@ -90,15 +91,46 @@ fun ShapeContour.intersects(other: ShapeContour): Vector2 {
 }
 
 /**
+ * ShapeContour-to-ShapeContour first intersection
+ */
+fun ShapeContour.intersections(other: ShapeContour): List<Vector2> {
+    val result = mutableListOf<Vector2>()
+    segments.forEach { thisSegment ->
+        other.segments.forEach { otherSegment ->
+            val p = thisSegment.intersects(otherSegment)
+            if (p != Vector2.INFINITY) {
+                result.add(p)
+            }
+        }
+    }
+    return if(result.isEmpty()) listOf(Vector2.INFINITY) else result
+}
+
+/**
  * Check for ShapeContour-to-segment intersections
  */
-fun ShapeContour.intersects(segment: Segment): Vector2 {
+fun ShapeContour.intersects(otherSeg: Segment): Vector2 {
 //    var p = Vector2.INFINITY
 //    segments.any { p = it.intersects(segment); p != Vector2.INFINITY }
 //    return p
-    segments.forEach {
-        val p = it.intersects(segment)
-        if (p != Vector2.INFINITY) {
+    segments.forEach { thisSeg ->
+        val p = thisSeg.intersects(otherSeg)
+        // if intersects and not consecutive
+        if (p != Vector2.INFINITY && thisSeg.start != otherSeg.end && thisSeg.end != otherSeg.start) {
+            return p
+        }
+    }
+    return Vector2.INFINITY
+}
+
+/**
+ * Check for ShapeContour-to-linesegment intersections
+ */
+fun ShapeContour.intersects(otherSeg: LineSegment): Vector2 {
+    segments.forEach { thisSeg ->
+        val p = thisSeg.intersects(otherSeg.start, otherSeg.end)
+        // if intersects and not consecutive
+        if (p != Vector2.INFINITY && thisSeg.start != otherSeg.end && thisSeg.end != otherSeg.start) {
             return p
         }
     }

@@ -1,16 +1,33 @@
 package math
 
 import org.openrndr.extra.noise.Random
+import org.openrndr.math.Vector2
 import org.openrndr.math.clamp
 import org.openrndr.math.map
+import org.openrndr.math.mod
+import org.openrndr.shape.Rectangle
 import kotlin.math.PI
+import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.pow
 
-fun angleDiff(a: Double, b: Double): Double {
-    val dist: Double = (a - b + 360) % 360
+const val TAU = PI * 2.0
+
+fun angleDiff(degrees0: Double, degrees1: Double): Double {
+    val dist: Double = (degrees0 - degrees1 + 360) % 360
     return if (dist > 180) dist - 360 else dist
 }
+
+/**
+ * Angle formed by 3 points <
+ */
+fun angle(center: Vector2, p1: Vector2, p2: Vector2) =
+    atan2(p1.y - center.y, p1.x - center.x) - atan2(p2.y - center.y, p2.x - center.x)
+
+/**
+ * Is angle reflex? (PI, TAU)°
+ */
+fun isAngleReflex(angle: Double) = mod(angle + 1.5 * TAU, TAU) > PI
 
 // TODO: this is weird. noise of min, max???
 // Not the original function. Why?
@@ -33,12 +50,12 @@ fun cosEnv(x: Double, start: Double = 0.0, end: Double = 1.0, clamped: Boolean =
     if (clamped && (x < start || x > end)) {
         return 0.0;
     }
-    val xNorm = x.map(start, end, 0.0, PI * 2)
+    val xNorm = x.map(start, end, 0.0, TAU)
     return 0.5 - 0.5 * cos(xNorm)
 }
 
 /**
- * Shift values below a threshold up or down. Example
+ * Shift normalized values below a threshold up or down. Example
  * compress(val, 0.3, 0.9); compresses
  * [0.0..0.3..1.0] => [0.0..0.9..1.0]
  *
@@ -86,3 +103,10 @@ fun normClipped(value: Double, start: Double, stop: Double) = clamp((value - sta
  * @return a value between 0.0f and 1.0f
  */
 fun clamp(value: Double): Double = clamp(value, 0.0, 1.0)
+
+/** maps a vector2 from one Rectangle to another Rectangle */
+fun Vector2.map(before: Rectangle, after: Rectangle) =
+    this.map(
+        before.corner, before.corner + before.dimensions,
+        after.corner, after.corner + after.dimensions
+    )

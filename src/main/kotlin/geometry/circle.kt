@@ -7,6 +7,9 @@ import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.sqrt
 
+/**
+ *
+ */
 fun Circle.tangentLines(other: Circle): List<LineSegment> {
     val result = mutableListOf<LineSegment>()
     val distSq = center.squaredDistanceTo(other.center)
@@ -27,14 +30,11 @@ fun Circle.tangentLines(other: Circle): List<LineSegment> {
     return result
 }
 
-fun Circle.tangentCircle(other: Circle, tangentRadius: Double): List<Circle> {
+/**
+ *
+ */
+fun Circle.tangentCirclesConvex(other: Circle, tangentRadius: Double): List<Circle> {
     val result = mutableListOf<Circle>()
-
-    val a = this.scaledTo(radius + tangentRadius)
-    val b = other.scaledTo(other.radius + tangentRadius)
-    a.intersections(b).forEach {
-        result.add(Circle(it, tangentRadius))
-    }
 
     val c = this.scaledTo(tangentRadius - radius)
     val d = other.scaledTo(tangentRadius - other.radius)
@@ -45,6 +45,26 @@ fun Circle.tangentCircle(other: Circle, tangentRadius: Double): List<Circle> {
     return result
 }
 
+fun Circle.overlap(other: Circle) = this.center.distanceTo(other.center) < this.radius + other.radius
+
+/**
+ *
+ */
+fun Circle.tangentCirclesConcave(other: Circle, tangentRadius: Double): List<Circle> {
+    val result = mutableListOf<Circle>()
+
+    val a = this.scaledTo(radius + tangentRadius)
+    val b = other.scaledTo(other.radius + tangentRadius)
+    a.intersections(b).forEach {
+        result.add(Circle(it, tangentRadius))
+    }
+
+    return result
+}
+
+/**
+ *
+ */
 fun Circle.intersections(other: Circle): List<Vector2> {
     val diff = other.center - center
     val d = diff.length
