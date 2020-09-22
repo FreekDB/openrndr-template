@@ -1,0 +1,45 @@
+package apps2
+
+import geometry.spiralContour
+import org.openrndr.application
+import org.openrndr.color.ColorRGBa
+import org.openrndr.extensions.Screenshots
+import org.openrndr.math.Vector2
+import org.openrndr.shape.Circle
+
+/**
+ * Create a spiral connecting two points in two concentric circles
+ */
+
+fun main() = application {
+    program {
+        var p0 = Vector2(100.0, 100.0)
+        var p1 = Vector2(300.0, 300.0)
+        var center = drawer.bounds.center
+
+        extend(Screenshots())
+        extend {
+            drawer.run {
+                clear(ColorRGBa.WHITE)
+                fill = null
+                stroke = ColorRGBa.GRAY
+                lineSegment(p0, center)
+                lineSegment(p1, center)
+                circler(Circle(center, center.distanceTo(p0)))
+                circler(Circle(center, center.distanceTo(p1)))
+
+                stroke = ColorRGBa.BLACK
+                contour(spiralContour(p0, p1, center, if (keyboard.pressedKeys.contains("left-shift")) 2 else -2))
+            }
+        }
+
+        mouse.dragged.listen {
+            when (listOf(p0, p1, center).minBy { p -> p.squaredDistanceTo(it.position) }) {
+                p0 -> p0 = it.position
+                p1 -> p1 = it.position
+                center -> center = it.position
+            }
+        }
+    }
+}
+
