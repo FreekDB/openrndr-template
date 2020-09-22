@@ -166,7 +166,7 @@ fun main() = application {
         exportSVG()
 
         extend {
-            drawer.background(ColorRGBa.WHITE)
+            drawer.clear(ColorRGBa.WHITE)
 
             drawer.stroke = ColorRGBa(0.0, 0.0, 0.0, 0.5)
             drawer.fill = null

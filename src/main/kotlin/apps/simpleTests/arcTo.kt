@@ -2,8 +2,10 @@ package apps.simpleTests
 
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
+import org.openrndr.draw.Drawer
 import org.openrndr.extra.noise.Random
 import org.openrndr.math.Polar
+import org.openrndr.shape.Circle
 import org.openrndr.shape.contour
 
 fun main() = application {
@@ -41,8 +43,28 @@ fun main() = application {
                         sweepFlag = true, // side
                         end = drawer.bounds.center - end
                     )
+                },
+                contour {
+                    moveTo(50.0, 200.0)
+                    arcTo(
+                        150.0,
+                        150.0,
+                        0.0,
+                        false,
+                        true,
+                        200.0, 50.0
+                    )
                 }
             ))
+
+            drawer.rectangle(50.0, 50.0, 200.0, 100.0)
+            drawer.rectangle(50.0, 50.0, 100.0, 200.0)
+            drawer.circler(Circle(200.0, 100.0, 50.0))
+            drawer.circler(Circle(100.0, 200.0, 50.0))
         }
     }
+}
+
+private fun Drawer.circler(c: Circle) {
+    circle(c.scaledTo(c.radius + 1))
 }

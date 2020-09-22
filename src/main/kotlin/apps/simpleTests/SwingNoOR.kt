@@ -84,6 +84,6 @@ private fun createAndShowGUI() {
     frame.isVisible = true
 }
 
-fun main(args: Array<String>) {
+fun main() {
     EventQueue.invokeLater(::createAndShowGUI)
 }
