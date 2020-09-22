@@ -5,16 +5,17 @@ import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
 
 /* the name of this project, default is the template version but you are free to change these */
 group = "org.openrndr.template"
-version = "0.3.12"
+version = "0.3.13"
 
 val applicationMainClass = "TemplateProgramKt"
 
 /*  Which additional (ORX) libraries should be added to this project. */
 val orxFeatures = setOf(
-    "poc-orx-keyframer",
     "orx-boofcv",
     "orx-camera",
+//  "orx-chataigne",
     "orx-compositor",
+//  "orx-dnk3"
 //  "orx-easing",
 //  "orx-file-watcher",
   "orx-parameters",
@@ -22,11 +23,11 @@ val orxFeatures = setOf(
     "orx-fx",
     "orx-glslify",
 //  "orx-gradient-descent",
-    "orx-integral-image",
-//  "orx-interval-tree",
-//  "orx-jumpflood",
     "orx-gui",
     "orx-image-fit",
+    "orx-integral-image",
+//  "orx-interval-tree",
+    "orx-jumpflood",
 //  "orx-kdtree",
     "orx-mesh-generators",
     "orx-midi",
@@ -37,15 +38,18 @@ val orxFeatures = setOf(
     "orx-osc",
     "orx-palette",
     "orx-poisson-fill",
+//  "orx-rabbit-control
 //  "orx-runway",
-//  "orx-shader-phrases",
     "orx-shade-styles",
+//  "orx-shader-phrases",
     "orx-shapes",
 //  "orx-syphon",
 //  "orx-temporal-blur",
 //  "orx-time-operators,
 //  "orx-kinect-v1",
-    "orx-panel"
+    "orx-panel",
+    "poc-orx-keyframer",
+    "orx-video-profiles"
 )
 
 /* Which OPENRNDR libraries should be added to this project? */
@@ -55,10 +59,10 @@ val openrndrFeatures = setOf(
 
 /*  Which version of OPENRNDR and ORX should be used? */
 val openrndrUseSnapshot = true
-val openrndrVersion = if (openrndrUseSnapshot) "0.4.0-SNAPSHOT" else "0.3.42"
+val openrndrVersion = if (openrndrUseSnapshot) "0.4.0-SNAPSHOT" else "0.3.43"
 
 val orxUseSnapshot = true
-val orxVersion = if (orxUseSnapshot) "0.4.0-SNAPSHOT" else "0.3.51"
+val orxVersion = if (orxUseSnapshot) "0.4.0-SNAPSHOT" else "0.3.52"
 
 //<editor-fold desc="This is code for OPENRNDR, no need to edit this .. most of the times">
 val supportedPlatforms = setOf("windows", "macos", "linux-x64", "linux-arm64")
@@ -91,13 +95,14 @@ enum class Logging {
 /*  What type of logging should this project use? */
 val applicationLogging = Logging.FULL
 
-val kotlinVersion = "1.3.72"
+val kotlinVersion = "1.4.0"
 
 plugins {
     java
-    kotlin("jvm") version("1.3.72")
-    id("com.github.johnrengelman.shadow") version ("5.2.0")
-    id("org.beryx.runtime") version ("1.8.1")
+    kotlin("jvm") version("1.4.0")
+    //kotlin("plugin.serialization") version "1.3.70"
+    id("com.github.johnrengelman.shadow") version ("6.0.0")
+    id("org.beryx.runtime") version ("1.9.1")
 }
 
 repositories {
@@ -106,7 +111,6 @@ repositories {
         mavenLocal()
     }
     maven(url = "https://dl.bintray.com/openrndr/openrndr")
-
     maven("https://jitpack.io")
     jcenter()
 }
@@ -144,8 +148,12 @@ dependencies {
     implementation(openrndr("filter"))
     implementation(openrndr("dialogs"))
 
+    //implementation("org.jetbrains.kotlinx","kotlinx-serialization-runtime", "0.20.0") // JVM dependency
     implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-core","1.3.6")
     implementation("io.github.microutils", "kotlin-logging","1.7.9")
+
+    implementation("com.soywiz.korlibs.korma","korma-jvm","1.9.1")
+    implementation("com.soywiz.korlibs.korma","korma-shape","1.9.1")
 
     when(applicationLogging) {
         Logging.NONE -> {
@@ -178,14 +186,11 @@ dependencies {
         implementation("org.jetbrains.kotlin:kotlin-script-runtime:$kotlinVersion")
     }
 
-    if ("orx-boofcv" in orxFeatures) {
-        implementation("org.boofcv:boofcv-core:0.36")
-    }
-
     //implementation("com.github.weisj:darklaf-core")
 
     implementation(kotlin("stdlib-jdk8"))
     testImplementation("junit", "junit", "4.12")
+    implementation(kotlin("reflect"))
 }
 
 // --------------------------------------------------------------------------------------------------------------------
@@ -257,4 +262,5 @@ runtime {
     options.add("--no-man-pages")
     modules.empty()
     modules.add("jdk.unsupported")
+    modules.add("java.management")
 }
