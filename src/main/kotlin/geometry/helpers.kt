@@ -4,11 +4,9 @@ import org.openrndr.extra.noise.uniform
 import org.openrndr.math.Polar
 import org.openrndr.math.Vector2
 import org.openrndr.shape.Circle
+import org.openrndr.shape.LineSegment
 import org.openrndr.shape.Rectangle
-import kotlin.math.abs
-import kotlin.math.cos
-import kotlin.math.min
-import kotlin.math.sin
+import kotlin.math.*
 
 /**
  * Calculate the convex hull of a list of 2D points
@@ -102,5 +100,5 @@ fun angleToSquare(angle: Double, radius: Double): Vector2 {
  * Returns a random point inside a rectangle
  */
 fun Rectangle.randomPoint(): Vector2 {
-    return Vector2.uniform(Vector2.ZERO, dimensions)
+    return Vector2.uniform(this.corner, this.corner + this.dimensions)
 }
