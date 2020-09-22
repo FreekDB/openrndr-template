@@ -23,6 +23,7 @@ var wordCursor = Vector2.ZERO
 
 /**
  * Writing text
+ * - #exhibition
  * - Algorithmic text generation
  * - Inspired by P5 wordsToShapes from 2013/06
  *   https://github.com/hamoid/Fun-Programming/tree/master/processing/ideas/2013/06/wordsToShapes
@@ -136,7 +137,7 @@ fun main() = application {
         extend(Screenshots())
         extend {
             drawer.run {
-                background(ColorRGBa.WHITE)
+                clear(ColorRGBa.WHITE)
                 fill = null
                 stroke = ColorRGBa.BLACK
                 words.forEach {

@@ -20,6 +20,7 @@ import org.openrndr.shape.Segment
 /**
  * Ported from
  * https://github.com/hamoid/Fun-Programming/tree/master/processing/ideas/2016/07/two_circles_line_tangents
+ * then added concave and convex circle tangents.
  */
 
 fun main() = application {

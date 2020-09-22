@@ -36,13 +36,29 @@ import kotlin.system.exitProcess
  * - [x] Add int slider for number of apps.getAngles 2, 3, 5, 7
  * - [x] Add Clear button
  * - [x] Broke opposite apps.getAngles. Fix it.
- * - [] Apply colors via shader? Why
- * - [] Allow setting color manually for each shape? Currently curves is a list of ShapeContour, but that can't
+ * - [x] Allow setting color manually for each shape? Currently curves is a list of ShapeContour, but that can't
 store extra info. Make a new data class? With ShapeContour + ColorRGBa?
- * - [] Add slider for rotation offset (currently it's 0°)
- * - [] Textures. Image based? Shader based?
- * - [] Adjustable brightness
- * - [] Adjustable contrast
+ * - [x] Add slider for rotation offset (currently it's 0°)
+ * - [x] Textures. Image based? Shader based?
+ * - [x] Adjustable brightness
+ * - [x] Adjustable contrast
+ * - [x] Adjustable bloom cutoff
+ * - [x] Add radial gradient for metallic/highlight effect. Maybe add pos2 to PerpendicularGradient.kt?
+ * - [x] Optimization: don't redraw the whole thing on every frame, only when it changes.
+ * - [x] Initial state odd. Nothing shown until I interact. Even if I set dirty = true at start.
+ * - [x] Implement save and load json
+ * - [x] Implement "tree leaf shadows" by creating an additive texture concentrated around branches, blurred.
+ * - [ ] Spray delete. Delete also any lines leading to the current line. Do I need a data structure to keep
+ *       track of which lines lines end at?
+ *       What about undo delete?
+ * - [ ] Sometimes there's unexpected behavior. Colors can't be changed, borders look pixelated. Is it
+ *       from overlapping lines? Print debug info on every action to figure out.
+ * - [ ] Record all interactions to be able to animate the creation?
+ * - [ ] Snap mouse pos at start, choose target at end. Show snapping point.
+ * - [ ] Change data structure? It's actually a tree. Draw only items with no children. If you delete a shape,
+ *       also delete all siblings.
+ *       How would undo/redo work then? Apparently the way to have undo/redo is to have a stack of commands.
+ *       Commands are Split, SetColor, Delete
  */
 
 enum class Cuts { THREE, FOUR, FIVE, SEVEN }

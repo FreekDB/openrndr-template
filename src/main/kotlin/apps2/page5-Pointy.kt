@@ -115,7 +115,7 @@ fun main() = application {
             }
 
             drawer.isolated {
-                background(bgcolor)
+                clear(bgcolor)
                 translate(center)
                 rotate(rotation)
                 fill = null

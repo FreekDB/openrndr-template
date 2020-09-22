@@ -65,7 +65,7 @@ fun Program.setupUI() = controlManager {
             value = 0.0
             range = Range(0.0, 30.0)
             precision = 0
-            events.valueChanged.subscribe {
+            events.valueChanged.listen {
                 ECState.setSubcurves(it.newValue)
             }
         }
@@ -74,7 +74,7 @@ fun Program.setupUI() = controlManager {
             value = 1.0
             range = Range(-50.0, 50.0)
             precision = 0
-            events.valueChanged.subscribe {
+            events.valueChanged.listen {
                 ECState.setSeparation(it.newValue)
             }
         }

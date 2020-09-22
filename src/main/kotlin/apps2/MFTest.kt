@@ -7,6 +7,12 @@ import org.openrndr.launch
 /**
  * Here I'm considering if it makes sense to use annotations
  * in variables to link them to midi knobs and buttons.
+ *
+ * Q: Midi to object seems clear.
+ * Q: How to use annotations? Look at the UI classes
+ * Q: What's the goal of annotations in this file? They set the cc-number, detent, style
+ * Q: Could I use midi-learn instead of hardcoding the cc-number? For that I would need a list of variables
+ *    I can control, then keys to highlight one of those variables, then turn a knob or press a button
  */
 
 /*

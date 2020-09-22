@@ -28,7 +28,7 @@ import kotlin.system.exitProcess
  *   using that hand writing without creating a font. Also, the shapes are made out
  *   of lines, better for the axidraw
  *
- * See ===> `Handwritten` class used in page3.kt
+ * See ===> `Handwritten` class used in page3-Extinct.kt
  */
 
 fun main() = application {

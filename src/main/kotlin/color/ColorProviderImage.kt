@@ -44,4 +44,16 @@ class ColorProviderImage(private val path: String = "/home/funpro/Pictures/n1/In
         println(chosen.name)
         return loadImage(chosen)
     }
+
+//    fun loadImage(path: File) {
+//        img = org.openrndr.draw.loadImage(path)
+//        center = img.bounds.center
+//        radius = min(center.x, center.y)
+//        shadow = img.shadow
+//        shadow.download()
+//    }
+
+//    fun getPath(): String {
+//        return imgPath
+//    }
 }
