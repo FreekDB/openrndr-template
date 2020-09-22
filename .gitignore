@@ -6,6 +6,7 @@ out
 video/
 screenshots/
 print/
+json/
 ffmpegOutput.txt
 ShaderError.txt
 

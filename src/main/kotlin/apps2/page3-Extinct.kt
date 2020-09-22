@@ -101,7 +101,7 @@ fun main() = application {
                     dist
                 )
             }
-            val copies = baseContour.localDistortion(distortionData)
+            val copies = baseContour.localDistortion(distortionData, 300)
 
             lines.addAll(copies)
             circlePair.forEach { circle ->

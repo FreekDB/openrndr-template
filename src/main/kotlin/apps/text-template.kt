@@ -28,6 +28,7 @@ import kotlin.system.exitProcess
  *   using that hand writing without creating a font. Also, the shapes are made out
  *   of lines, better for the axidraw
  *
+ * See ===> `Handwritten` class used in page3.kt
  */
 
 fun main() = application {
@@ -37,7 +38,7 @@ fun main() = application {
     }
 
     program {
-        var svg = loadSVG("data/text-template-3.svg")
+        val svg = loadSVG("data/text-template-3.svg")
 
         val bounds = mutableMapOf<Char, Rectangle>()
         val letters = mutableMapOf<Char, MutableList<ShapeContour>>()
@@ -81,8 +82,8 @@ fun main() = application {
         }
 
         fun exportSVG() {
-            val svgComposition = CompositionDrawer()
-            svgComposition.run {
+            val svg = CompositionDrawer()
+            svg.run {
                 fill = null
                 stroke = ColorRGBa.BLACK
                 text.forEach { line ->
@@ -100,29 +101,31 @@ fun main() = application {
                 }
             }
             saveFileDialog(supportedExtensions = listOf("svg")) {
-                it.writeText(writeSVG(svgComposition.composition))
+                it.writeText(writeSVG(svg.composition))
             }
         }
 
         extend(Screenshots())
         extend {
-            drawer.background(ColorRGBa.WHITE)
-            drawer.fill = null
-            drawer.stroke = ColorRGBa.BLACK
-            drawer.lineJoin = LineJoin.BEVEL
-            drawer.translate(100.0, 100.0)
-            text.forEach { line ->
-                drawer.isolated {
-                    line.trimIndent().toUpperCase().forEach {
-                        letters[it]?.run {
-                            val letterBounds = rectangleBounds(this.map { c -> c.bounds })
-                            drawer.translate(-letterBounds.x, 0.0)
-                            drawer.contours(this)
-                            drawer.translate(letterBounds.x + letterBounds.width + 3.0, 0.0)
-                        } ?: drawer.translate(10.0, 0.0)
+            drawer.run {
+                clear(ColorRGBa.WHITE)
+                fill = null
+                stroke = ColorRGBa.BLACK
+                lineJoin = LineJoin.BEVEL
+                translate(100.0, 100.0)
+                text.forEach { line ->
+                    isolated {
+                        line.trimIndent().toUpperCase().forEach {
+                            letters[it]?.run {
+                                val letterBounds = rectangleBounds(this.map { c -> c.bounds })
+                                translate(-letterBounds.x, 0.0)
+                                contours(this)
+                                translate(letterBounds.x + letterBounds.width + 3.0, 0.0)
+                            } ?: translate(10.0, 0.0)
+                        }
                     }
+                    translate(0.0, 20.0)
                 }
-                drawer.translate(0.0, 20.0)
             }
         }
 
