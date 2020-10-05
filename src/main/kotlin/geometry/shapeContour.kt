@@ -454,3 +454,166 @@ private fun makeTangentWrapContours(
         close()
     }
 }
+
+fun List<ShapeContour>.bend(knife: ShapeContour) = this.map { contour ->
+    val points = contour.equidistantPositions(contour.length.toInt())
+            .toMutableList()
+
+    if(points.isEmpty()) {
+        return@map contour
+    }
+
+    // TODO: remove hardcoded 50. Should be an argument.
+    // Or make it based on distance as I tried earlier.
+    // So effect strength increases with distance to cut tip and
+    // decreases with distance to cut-line.
+    val pointCount = min(points.size, 50)
+    if(knife.on(points.first(), 1.0) != null) {
+        for (i in 0 until pointCount) {
+            val origin = points[i].copy()
+            val f = Random.simplex(points[i] * 0.03) * 200.0
+//            val f = j.toDouble().map(i * 1.0, 0.0, 0.0, 1.0)
+//                    .pow(2.0) * 10.0
+            //val f = 1.0 / (d * 0.2)
+            val nearest = knife.nearest(points[i])
+            val d = nearest.position.distanceTo(points[i])
+            val n = nearest.contourT
+            for (j in i downTo 0) {
+                points[j] = points[j].rotate(f / (d + 1), origin)
+            }
+        }
+    }
+    if(knife.on(points.last(), 1.0) != null) {
+        for (i in points.size - pointCount until points.size - 1) {
+            val origin = points[i].copy()
+            val f = -Random.simplex(points[i] * 0.03) * 200.0
+//            val f = j.toDouble().map(i2 * 1.0, points.size - 1.0, 0.0, 1.0)
+//                    .pow(2.0) * 10.0
+            //val f = -1.0 / (d * 0.2)
+            val nearest = knife.nearest(points[i])
+            val d = nearest.position.distanceTo(points[i])
+            val n = nearest.contourT
+            for (j in i until points.size) {
+                points[j] = points[j].rotate(f / (d + 1), origin)
+            }
+        }
+    }
+
+    ShapeContour.fromPoints(points, false)
+}
+
+fun ShapeContour.onAll(point: Vector2, error: Double = 5.0): List<Double> {
+    val result = mutableListOf<Double>()
+    for (i in segments.indices) {
+        val st = segments[i].on(point, error)
+        if (st != null) {
+            result.add((i + st) / segments.size)
+        }
+    }
+    return result
+}
+
+fun ShapeContour.selfIntersections(): List<Double> {
+    val result = mutableListOf<Double>()
+    val intersections = mutableListOf<Vector2>()
+    this.segments.forEachIndexed { i, seg ->
+        val p = this.intersects(seg)
+        if (p != Vector2.INFINITY) {
+            intersections.add(p)
+        }
+    }
+    intersections.distinctBy { it.x.toInt() * 5000 + it.y.toInt() }.forEach { p ->
+        result.add(this.onAll(p, 1.0).random())
+    }
+    return result.sorted()
+}
+
+fun ShapeContour.shorten(d: Double): ShapeContour {
+    val step = 1.0 / length
+    var startPc = 0.0
+    var endPc = 1.0
+    val start = position(startPc)
+    val end = position(endPc)
+    while (start.distanceTo(position(startPc)) < d && startPc < 0.4) {
+        startPc += step
+    }
+    while (end.distanceTo(position(endPc)) < d && endPc > 0.6) {
+        endPc -= step
+    }
+    return sub(startPc, endPc)
+}
+
+fun ShapeContour.removeSelfIntersections(margin: Double = 10.0):
+        List<ShapeContour> {
+    // find all self intersections (normalized positions in the curve)
+    val intPcs = selfIntersections()
+
+    // Show found intersections
+//                intPcs.forEachIndexed { i, it ->
+//                    println("$i -> $it")
+//                    val p = uncut.position(it)
+//                    svg.lineSegment(p - Vector2(5.0, 0.0),
+//                            p + Vector2(5.0, 0.0))
+//                    svg.lineSegment(p - Vector2(0.0, 5.0),
+//                            p + Vector2(0.0, 5.0))
+//                }
+
+    println("Intersections: ${intPcs.size}")
+    if (intPcs.isNotEmpty()) {
+        val result = mutableListOf<ShapeContour>()
+        for (index in intPcs.indices) {
+            if (index < intPcs.size - 1) {
+                result.add(sub(intPcs[index],
+                        intPcs[index + 1]).shorten(margin))
+            } else {
+                // Last one crosses the curve starting point
+                // LAST .. END + START .. FIRST
+                result.add((sub(intPcs[index], 1.0) +
+                        sub(0.0, intPcs[0])).shorten(margin))
+            }
+        }
+        return result
+    } else {
+        return listOf(this)
+    }
+}
+
+fun MutableList<ShapeContour>.removeIntersections(margin: Double):
+        List<ShapeContour> {
+    var intersectionsFound: Boolean
+    main@ do {
+        intersectionsFound = false
+        for (aIndex in 0 until size - 1) {
+            val a = this[aIndex]
+            for (bIndex in aIndex + 1 until size) {
+                val b = this[bIndex]
+                val intersections = a.intersections(b)
+                if (intersections[0] != Vector2.INFINITY) {
+                    val parts = listOf(
+                            a.split(b).toMutableList(),
+                            b.split(a).toMutableList()
+                    )
+                    removeAll(listOf(a, b))
+                    intersections.forEach { intersection ->
+                        val part = parts.random(Random.rnd)
+                        part.forEachIndexed { i, c ->
+                            val cutLen = margin / c.length
+                            c.onAll(intersection, 1.0).forEach {
+                                if (it < 0.2) {
+                                    part[i] = c.sub(cutLen, 1.0)
+                                } else if (it > 0.8) {
+                                    part[i] = c.sub(0.0, 1.0 - cutLen)
+                                }
+                            }
+                        }
+                    }
+
+                    addAll(parts.flatten())
+                    intersectionsFound = true
+                    continue@main
+                }
+            }
+        }
+    } while (intersectionsFound)
+    return this
+}

@@ -7,42 +7,54 @@ import org.openrndr.draw.loadImage
 import org.openrndr.extra.noise.Random
 import org.openrndr.math.Polar
 import org.openrndr.math.Vector2
+import org.openrndr.math.clamp
 import java.io.File
 import kotlin.math.min
 
-class ColorProviderImage(private val path: String = "/home/funpro/Pictures/n1/Instagram/") : ColorProvider {
-    private lateinit var center: Vector2
+class ColorProviderImage(private val path: String) : ColorProvider {
+    @Transient
     private lateinit var shadow: ColorBufferShadow
-    override var offset = 0.0
 
-    init {
-        reset()
-    }
+    @Transient
+    private var img: ColorBuffer? = null
+
+    var center = Vector2.ZERO
+    var imgPath = ""
+        set(value) {
+            field = value
+            println("ColorProviderImage.imgPath set! Loading: $imgPath")
+            img = loadImage(File(value))
+            center = img!!.bounds.center
+            radius = min(center.x, center.y)
+            shadow = img!!.shadow
+            shadow.download()
+        }
+    override var offset = 0.0
+    var radius = 100.0
 
     override fun getColor(angle: Double): ColorRGBa {
-        val p = center + Polar(
-            (angle + offset) * 0.05,
-            min(center.x, center.y) * 0.9
-        ).cartesian
-        return shadow[p.x.toInt(), p.y.toInt()]
+        if (imgPath.isEmpty()) {
+            reset()
+        }
+        img?.let {
+            val p = center + Polar(angle + offset, radius).cartesian
+            val q = p.clamp(Vector2.ZERO, it.bounds.dimensions)
+            return shadow[q.x.toInt(), q.y.toInt()]
+        }
+        return ColorRGBa.PINK
     }
 
     override fun reset() {
         Random.seed = System.currentTimeMillis().toString()
-        val img = loadRandomImage(path)
-        center = img.bounds.center
-        shadow = img.shadow
-        shadow.download()
-    }
-
-    private fun loadRandomImage(path: String): ColorBuffer {
         val images = File(path).walk().maxDepth(1).filter {
             val n = it.name.toLowerCase()
             n.endsWith(".jpg") || n.endsWith(".jpeg") || n.endsWith(".png")
         }.toList()
-        val chosen = Random.pick(images)
-        println(chosen.name)
-        return loadImage(chosen)
+        imgPath = Random.pick(images).absolutePath
+    }
+
+    fun getImage(): ColorBuffer? {
+        return img
     }
 
 //    fun loadImage(path: File) {

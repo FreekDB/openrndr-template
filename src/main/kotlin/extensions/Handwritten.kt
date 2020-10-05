@@ -3,7 +3,6 @@ package extensions
 import org.openrndr.Extension
 import org.openrndr.Program
 import org.openrndr.draw.Drawer
-import org.openrndr.draw.LineCap
 import org.openrndr.draw.LineJoin
 import org.openrndr.draw.isolated
 import org.openrndr.math.Vector2
@@ -25,9 +24,8 @@ class Handwritten() : Extension {
     var scale = 1.0
 
     fun add(txt: String, pos: Vector2, align: Vector2 = Vector2.ZERO) {
-        val word = txt.trimIndent().toUpperCase()
         var size = Vector2.ZERO
-        word.forEach { letter ->
+        txt.forEach { letter ->
             size = letters[letter]?.run {
                 val letterBounds = rectangleBounds(this.map { it.bounds })
                 Vector2(
@@ -37,7 +35,7 @@ class Handwritten() : Extension {
             } ?: Vector2(size.x + 10.0, size.y)
         }
 
-        lines.add(Pair(word, pos - align * size))
+        lines.add(Pair(txt, pos - align * size))
     }
 
     fun hasGlyph(letter: Char) = letters.containsKey(letter)
