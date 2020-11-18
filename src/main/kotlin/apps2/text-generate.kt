@@ -1,5 +1,6 @@
 package apps2
 
+import geometry.localDistortion
 import org.openrndr.KEY_ESCAPE
 import org.openrndr.KEY_INSERT
 import org.openrndr.application
@@ -95,7 +96,7 @@ fun main() = application {
         }
 
         wordCursor += Vector2(15.0, 0.0)
-        if (wordCursor.x > 350) {
+        if (wordCursor.x > 400) {
             wordCursor = Vector2(200.0, wordCursor.y + 30)
         }
 
@@ -105,18 +106,41 @@ fun main() = application {
     wordCursor = Vector2(200.0, 200.0)
 
     val words = mutableListOf<List<ShapeContour>>()
-    """have most of the important
-      | things been said already ?
-      | that will depend on how long
-      | we survive as a species .
-      | if most of the important
-      | things are yet to come that
-      | probably means we have a long
-      | future ahead of us .""".trimMargin()
-        .split(" ")
-        .forEach {
-            words.add(word(it))
-        }
+
+    """On the face of it there is something rather strange about 
+| human psychology . Human beings live in a state of mind
+| called sanity , on a small planet in space . They are not 
+| quite sure whether the space around them is infinite or not , 
+| either way it is unthinkable . If they think about time , 
+| they find that it is inconceivable that it had a beginning . 
+| It is also inconceivable that it did not have a beginning . 
+| Thoughts of this kind are not disturbing to sanity , 
+| which is obviously a remarkable phenomenon 
+| that deserves more recognition .""".trimMargin().toLowerCase()
+
+//    """have most of the important
+//      | things been said already ?
+//      | that will depend on how long
+//      | we survive as a species .
+//      | if most of the important
+//      | things are yet to come that
+//      | probably means we have a long
+//      | future ahead of us .""".trimMargin()
+
+            .split(" ")
+            .forEach {
+                words.add(word(it))
+            }
+
+    val distortionData = List(3) {
+        Triple(0.0, 1.0, 0.3 + 0.3 * it)
+    }
+    val copies = words.map { word ->
+        word.map {
+            it.localDistortion(distortionData)
+        }.flatten()
+    }
+    words.addAll(copies)
 
     program {
 

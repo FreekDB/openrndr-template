@@ -1,7 +1,9 @@
 package apps2
 
-import geometry.intersects
+import geometry.removeIntersections
+import geometry.removeSelfIntersections
 import org.openrndr.KEY_ENTER
+import org.openrndr.KEY_INSERT
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.dialogs.saveFileDialog
@@ -10,19 +12,17 @@ import org.openrndr.extra.noise.Random
 import org.openrndr.math.CatmullRomChain2
 import org.openrndr.math.Polar
 import org.openrndr.math.Vector2
-import org.openrndr.math.transforms.transform
 import org.openrndr.shape.CompositionDrawer
-import org.openrndr.shape.SegmentJoin
 import org.openrndr.shape.ShapeContour
 import org.openrndr.shape.rectangleBounds
 import org.openrndr.svg.writeSVG
-import kotlin.math.min
 import kotlin.math.roundToInt
+import kotlin.math.sin
 
 fun main() = application {
     configure {
-        width = 1024
-        height = 1024
+        width = 1200
+        height = 554
     }
     program {
         Random.seed = System.currentTimeMillis().toString()
@@ -30,79 +30,63 @@ fun main() = application {
         var svg = CompositionDrawer()
         val contours = mutableListOf<ShapeContour>()
         var centering = Vector2.ZERO
-        //val intersections = mutableListOf<Vector2>()
 
-        fun generate() {
-            contours.clear()
-            //intersections.clear()
+        fun makeRing(steps: Int, angleInc: Double, radius: Double,
+                     radiusDelta: Double, frq: Double, pos: Vector2):
+                List<ShapeContour> {
 
-//        val n = 5
-//        val points = List(n * 2) {
-//            val a = (it / 2) * (360.0 / n)
-//            val b = (it % 2) * 20.0
-//            Polar(a - b, 160.0 - b).cartesian + drawer.bounds.center
-//        }
-            //val points = List(6) { drawer.bounds.randomPoint() }
-
-            val cores = Random.int(2, 5)
-            val points = mutableListOf<Vector2>()
-            for (i in 0 until cores) {
-                val center = drawer.bounds.position(Random.double(0.2, 0.8), Random.double(0.2, 0.8))
-                val count = Random.int(6, 20)
-                val startAngle = Random.double0(360.0)
-                for (j in 0 until count) {
-                    points.add(
-                        center + Polar(startAngle + j * 35.0, Random.double(50.0, 100.0)).cartesian
-                    )
-                }
+            val points = List(steps) {
+                pos + Polar(it * angleInc,
+                        radius + radiusDelta * sin(it * frq))
+                        .cartesian
             }
+
             val cmr = CatmullRomChain2(points, 2.5, loop = true)
 
             // Use this curve to calculate the length and bounds of the curve
             var blueprint = ShapeContour.fromPoints(cmr.positions(200), true)
-            // Create a scaling transform to cover 80% of the screen
-            val tr = transform {
-                scale(min(width / blueprint.bounds.width, height / blueprint.bounds.height) * 0.8)
-            }
+
+            // Create a scaling transform to cover % of the screen
+//            val tr = transform {
+//                scale(min(width / blueprint.bounds.width,
+//                        height / blueprint.bounds.height) * 0.5)
+//            }
             // Get the length of the scaled curve
-            val len = blueprint.transform(tr).length.roundToInt()
+            val len = blueprint
+                    //.transform(tr)
+                    .length.roundToInt()
             println("len: $len")
 
-            // Now build a curve with so many points as the calculated length, scale it.
-            val uncut = ShapeContour.fromPoints(cmr.positions(len / 4), true).transform(tr)
+            // Build a curve with so many points as the calculated length,
+            // scale it.
 
-            for(copy in 0 until 4) {
-                val displaced = if(copy == 0) {
-                    uncut
-                } else {
-                    uncut.offset(copy * 5.0, SegmentJoin.MITER)
-                }
-                // For the new contour find all self intersections (the normalized positions in the curve)
-                val intPcs = displaced.selfIntersections()
-                println("Intersections: ${intPcs.size}")
-                val margin = 20.0
-                if (intPcs.isNotEmpty()) {
-                    for (i in intPcs.indices step 2) {
-                        if (i < intPcs.size - 3) {
-                            contours.add(displaced.sub(intPcs[i], intPcs[i + 2]).shorten(margin))
-                        } else {
-                            contours.add((displaced.sub(intPcs[i], 1.0) + displaced.sub(0.0, intPcs[0])).shorten(margin))
-                        }
-                    }
-                    //intersections.addAll(intPcs.map { displaced.position(it) })
-                } else {
-                    contours.add(displaced)
-                }
-            }
+            return ShapeContour.fromPoints(cmr.positions(len), true)
+                    //.transform(tr)
+                    .removeSelfIntersections(10.0)
+        }
 
-            centering = rectangleBounds(contours.map { it.bounds }).center
-
+        fun generate() {
             svg = CompositionDrawer()
             svg.fill = null
             svg.stroke = ColorRGBa.BLACK
+
+            contours.clear()
+            contours.addAll(makeRing(15, 100.0, 100.0, 75.0, 0.42, // BL
+                    drawer.bounds.position(0.328, 0.656)))
+            contours.addAll(makeRing(12, 90.0, 95.0, 75.0, 0.6, // BR
+                    drawer.bounds.position(0.669, 0.656)))
+            contours.addAll(makeRing(20, 72.0, 95.0, 80.0, 0.32, // TL
+                    drawer.bounds.position(0.156, 0.339)))
+            contours.addAll(makeRing(10, 72.0, 134.0, 50.0, -1.7, // TM
+                    drawer.bounds.position(0.510, 0.32)))
+            contours.addAll(makeRing(40, 36.0, 90.0, 75.0, 0.44, // TR
+                    drawer.bounds.position(0.842, 0.339)))
+
+            centering = rectangleBounds(contours.map { it.bounds }).center
+
             //svg.translate(drawer.bounds.center - centering)
             svg.strokeWeight = 2.0
-            svg.contours(contours)
+            svg.contours(contours.removeIntersections(10.0))
         }
         generate()
 
@@ -115,40 +99,13 @@ fun main() = application {
             }
         }
         keyboard.keyDown.listen {
-            if (it.key == KEY_ENTER) {
-                generate()
-            }
-            if (it.name == "s") {
-                saveFileDialog(supportedExtensions = listOf("svg")) { f ->
-                    f.writeText(writeSVG(svg.composition))
-                }
+            when (it.key) {
+                KEY_ENTER -> generate()
+                KEY_INSERT ->
+                    saveFileDialog(supportedExtensions = listOf("svg")) { f ->
+                        f.writeText(writeSVG(svg.composition))
+                    }
             }
         }
     }
-}
-
-private fun ShapeContour.shorten(d: Double): ShapeContour {
-    val step = 1.0 / length
-    var startPc = 0.0
-    var endPc = 1.0
-    val start = position(startPc)
-    val end = position(endPc)
-    while (start.distanceTo(position(startPc)) < d && startPc < 0.4) {
-        startPc += step
-    }
-    while (end.distanceTo(position(endPc)) < d && endPc > 0.6) {
-        endPc -= step
-    }
-    return sub(startPc, endPc)
-}
-
-private fun ShapeContour.selfIntersections(): List<Double> {
-    val result = mutableListOf<Double>()
-    this.segments.forEachIndexed { i, seg ->
-        val p = this.intersects(seg)
-        if (p != Vector2.INFINITY) {
-            result.add((i + (seg.on(p) ?: 0.0)) / (this.segments.size + 0.5))
-        }
-    }
-    return result
 }

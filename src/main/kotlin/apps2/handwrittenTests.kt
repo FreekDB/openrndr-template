@@ -1,5 +1,35 @@
 package apps2
 
+import extensions.Handwritten
+import org.openrndr.KEY_ESCAPE
+import org.openrndr.KEY_INSERT
+import org.openrndr.application
+import org.openrndr.color.ColorRGBa
+import org.openrndr.color.rgb
+import org.openrndr.dialogs.saveFileDialog
+import org.openrndr.draw.LineJoin
+import org.openrndr.draw.shadeStyle
+import org.openrndr.extensions.Screenshots
+import org.openrndr.math.Vector2
+import org.openrndr.shape.CompositionDrawer
+import org.openrndr.svg.writeSVG
+import kotlin.system.exitProcess
+
+fun main() = application {
+
+    configure {
+        width = 1500
+        height = 800
+    }
+
+    program {
+        val handwritten = Handwritten()
+
+        extend(handwritten)
+
+        """
+package apps2
+
 import extensions.NoJitter
 import geometry.smoothed
 import geometry.toContours
@@ -226,6 +256,40 @@ fun main() = application {
         mouse.buttonUp.listen {
             blur.apply(bw.colorBuffer(0), bwBlurred)
             fx.apply(bwBlurred, withFX)
+        }
+    }
+}
+        """.split("\n")
+                .forEachIndexed { i, n ->
+            handwritten.add(n, Vector2(100.0, 100.0 + i * 20.0))
+        }
+
+        fun exportSVG() {
+            val svg = CompositionDrawer()
+            svg.fill = null
+            svg.stroke = ColorRGBa.BLACK
+            handwritten.drawToSVG(svg)
+            saveFileDialog(supportedExtensions = listOf("svg")) {
+                it.writeText(writeSVG(svg.composition))
+            }
+        }
+
+        extend(Screenshots())
+        extend {
+            drawer.run {
+                clear(ColorRGBa.WHITE)
+                lineJoin = LineJoin.BEVEL
+                stroke = ColorRGBa.BLACK
+                fill = null
+                handwritten.draw(this)
+            }
+        }
+
+        keyboard.keyDown.listen {
+            when (it.key) {
+                KEY_ESCAPE -> exitProcess(0)
+                KEY_INSERT -> exportSVG()
+            }
         }
     }
 }

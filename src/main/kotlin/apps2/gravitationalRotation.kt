@@ -3,13 +3,14 @@ package apps2
 import extensions.Handwritten
 import math.angleDiff
 import org.openrndr.KEY_ENTER
+import org.openrndr.KEY_ESCAPE
+import org.openrndr.KEY_INSERT
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.dialogs.saveFileDialog
 import org.openrndr.draw.Drawer
 import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.noise.Random
-import org.openrndr.math.Polar
 import org.openrndr.math.Vector2
 import org.openrndr.math.map
 import org.openrndr.shape.CompositionDrawer
@@ -18,12 +19,14 @@ import org.openrndr.svg.writeSVG
 import kotlin.math.atan2
 import kotlin.math.max
 import kotlin.math.sin
+import kotlin.system.exitProcess
 
 /**
  * Gravitational rotation
  */
 
 class Thing(drawer: Drawer) {
+    /*
     private val numPoints = 1 + 6
     private val sep = drawer.height * 0.3
     private val waypoints = List(numPoints) {
@@ -39,6 +42,37 @@ class Thing(drawer: Drawer) {
 //        listOf(2, 4, 6), listOf(2), listOf(0, 1, 3), listOf(2), listOf(0), listOf(6), listOf(0, 5)
 //        listOf(2, 4, 6), listOf(2), listOf(0, 1), listOf(4), listOf(0, 3), listOf(6), listOf(0, 5) // spiral
     )
+     */
+
+    private val sep = drawer.height * 0.2
+    private val waypoints = mutableListOf<Vector2>()
+
+    init {
+        for (x in -3 until 3) {
+            for (y in -2 until 3) {
+                val off = if (y % 2 == 0) 0.8 else 0.3
+                val p = Vector2(x * 1.0 + off, y * 0.85)
+                if (Vector2.ZERO.distanceTo(p) < 2.3) {
+                    waypoints.add(p * sep + drawer.bounds.position(0.6, 0.5))
+                }
+            }
+        }
+    }
+
+    private val numPoints = waypoints.size
+    private var waypointsNext: List<List<Int>>
+
+    init {
+        do {
+            waypointsNext = waypoints.map { current ->
+                waypoints.indices.filter { other ->
+                    val d = current.distanceTo(waypoints[other])
+                    d > 0.1 && d < sep * 1.1
+                }.shuffled().take(if (Random.bool(0.5)) 3 else 2)
+            }
+        } while(!waypointsNext.flatten().sorted().toSet().containsAll(
+                        (0 until numPoints).toList()))
+    }
 
     private val maxSpeed = 0.02
     private var velocity = Vector2.ZERO
@@ -107,7 +141,7 @@ class Thing(drawer: Drawer) {
         turns += angleDiff(Math.toDegrees(bRad), Math.toDegrees(aRad))
 
         radius[waypointId] += //map(0.0, 45000.0, radiusIncStart, radiusIncEnd, history.size.toDouble(), true)
-            map(radius[waypointId] * 1.1, radius[waypointId], 0.0, 0.1 / radius[waypointId], distanceToOrbit, true)
+                map(radius[waypointId] * 1.1, radius[waypointId], 0.0, 0.1 / radius[waypointId], distanceToOrbit, true)
 
         attractToRadius(waypoints[waypointId], radius[waypointId] * (1 + 0.5 * sin(bRad * 6)))
         orbit(waypoints)
@@ -149,7 +183,7 @@ class Thing(drawer: Drawer) {
     fun draw(drawer: Drawer) {
         drawer.run {
             stroke = ColorRGBa.GRAY
-            circles(waypoints, 5.0)
+            circles(waypoints, 2.0)
             stroke = ColorRGBa.RED
             circle(location, 6.0)
             circle(waypoints[waypointId], 3.0)
@@ -206,7 +240,7 @@ fun main() = application {
         extend(handwritten)
         extend(Screenshots())
         extend {
-            for (i in 0..30) {
+            for (i in 0..50) {
                 thing.update(frameCount * 1.0)
             }
 
@@ -220,13 +254,11 @@ fun main() = application {
             }
         }
         keyboard.keyDown.listen {
-            if (it.key == KEY_ENTER) {
-                thing.nextWaypoint()
-            }
-            if (it.name == "s") {
-                exportSVG()
+            when (it.key) {
+                KEY_ESCAPE -> exitProcess(0)
+                KEY_ENTER -> thing.nextWaypoint()
+                KEY_INSERT -> exportSVG()
             }
         }
     }
 }
-

@@ -1,4 +1,4 @@
-package apps
+package apps2
 
 import geometry.intersects
 import geometry.noisified
@@ -52,9 +52,14 @@ fun main() = application {
 
         val seed = System.currentTimeMillis().toInt()
 
-        val mother = ShapeContour.fromPoints(List(100) {
-            val a = 2 * PI * it / 100.0
-            Polar(Math.toDegrees(a), 200.0 + 80.0 * simplex(seed, cos(a), sin(a))).cartesian
+        val mother = ShapeContour.fromPoints(List(200) {
+            val a = 2 * PI * it / 200.0
+            Polar(Math.toDegrees(a),
+                    200.0 + 80.0 * simplex(seed, cos(a), sin(a)))
+                    .cartesian +
+                    Polar(Math.toDegrees(a),
+                            80.0 * simplex(seed, cos(a + 1), sin(a + 1)))
+                            .cartesian
         }, true)
 
         fun exportSVG() {
@@ -94,17 +99,21 @@ fun main() = application {
                     val p2 = mother.position(v2 * normalize)
 
                     val d = p1.distanceTo(p2)
+                    val sharpness = Random.double(0.5, 1.0)
                     val side = Random.int0(2) * 2.0 - 1.0
                     val c = contour {
-                        moveTo(p1)
-                        curveTo(p1 + n1 * d * side, p2 + n2 * d * side, p2)
+                        moveTo(p1 + n1 * side)
+                        curveTo(p1 + n1 * d * sharpness * side,
+                                p2 + n2 * d * sharpness * side,
+                                p2 + n2 * side)
                     }
-                    val hair = c.sampleLinear(1.0)
+                    val hair = c.sampleLinear(0.5)
                     if (hairContours.all { it.intersects(hair) == Vector2.INFINITY }) {
                         hairContours.add(hair)
-                        if (Random.bool(0.2)) {
-                            for (i in 1..5) {
-                                hairContours.add(hair.noisified(i, false, 0.01))
+                        if (Random.bool(0.5) && side > 0) {
+                            val copies = 1 + (d / 80).toInt()
+                            for (i in 1..copies) {
+                                hairContours.add(hair.noisified(i, false, 0.02))
                             }
                         }
                         hairLocations.add(Pair(v1, v2))

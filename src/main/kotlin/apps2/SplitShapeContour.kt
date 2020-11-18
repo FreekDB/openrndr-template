@@ -1,12 +1,15 @@
 package apps2
 
+import geometry.bend
 import geometry.split
 import org.openrndr.application
 import org.openrndr.color.ColorHSLa
 import org.openrndr.color.ColorRGBa
 import org.openrndr.math.Polar
-import org.openrndr.math.Vector2
-import org.openrndr.shape.*
+import org.openrndr.shape.Circle
+import org.openrndr.shape.Rectangle
+import org.openrndr.shape.ShapeContour
+import org.openrndr.shape.contour
 import kotlin.math.PI
 import kotlin.math.cos
 
@@ -25,11 +28,6 @@ fun main() = application {
         }
         lines.add(Circle(center, 65.0).contour.sampleEquidistant(80))
 
-//        extend(ScreenRecorder()) {
-//            profile = GIFProfile()
-//            maximumFrames = 314
-//            outputFile = "/tmp/vid/split3.gif"
-//        }
         extend {
             val a = frameCount * 0.02
             val knife = contour {
@@ -45,7 +43,8 @@ fun main() = application {
                 )
             }.sampleEquidistant(80)
 
-            val cutLines = lines.map { it.split(knife) }.flatten().bend(knife)
+            val cutLines = lines.map { it.split(knife) }.flatten()
+                    .bend(knife)
 
             drawer.run {
                 clear(ColorRGBa.WHITE)
@@ -67,22 +66,4 @@ fun main() = application {
         }
     }
 }
-
-/**
- * TODO: bend line
- * - if the line starts and ends in the same place, bend both ends.
- * - bend: find points that are close enough to the knife,
- * then rotate them repeatedly in a shrinking selection
- * (rotate 50 points around the first one, then 49, 48, 47).
- * - bend strength depends on the distance to the knife
- * and the distance to the beginning
-*/
-private fun List<ShapeContour>.bend(knife: ShapeContour) = this.map {
-    val points = mutableListOf<Vector2>()
-    val tmp = Vector2(5.0, 0.0)
-    tmp.rotate(5.0, Vector2.ZERO)
-    //it.equidistantPositions()
-    ShapeContour.fromPoints(points, false)
-}
-
 
