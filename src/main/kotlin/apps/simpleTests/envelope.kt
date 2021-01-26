@@ -1,6 +1,6 @@
 package apps.simpleTests
 
-import anim.Envelope
+import aBeLibs.anim.Envelope
 import org.openrndr.application
 import org.openrndr.extra.noise.Random
 

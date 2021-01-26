@@ -1,6 +1,6 @@
 package apps.editablecurve
 
-import extensions.FPSDisplay
+import aBeLibs.extensions.FPSDisplay
 import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa

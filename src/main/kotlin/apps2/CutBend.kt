@@ -1,19 +1,14 @@
 package apps2
 
-import geometry.bend
-import geometry.split
+import aBeLibs.geometry.bend
+import aBeLibs.geometry.split
 import org.openrndr.application
-import org.openrndr.color.ColorHSLa
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.LineJoin
 import org.openrndr.extra.noise.Random
-import org.openrndr.math.Polar
 import org.openrndr.shape.LineSegment
 import org.openrndr.shape.Rectangle
 import org.openrndr.shape.ShapeContour
-import org.openrndr.shape.contour
-import kotlin.math.PI
-import kotlin.math.cos
 
 /**
  * Example of splitting ShapeContours with a ShapeContour
@@ -32,8 +27,8 @@ fun main() = application {
         }
 
         val knife = LineSegment(
-                drawer.bounds.position(0.0, 0.4),
-                drawer.bounds.position(0.5, 0.6)
+            drawer.bounds.position(0.0, 0.4),
+            drawer.bounds.position(0.5, 0.6)
         ).contour.sampleEquidistant(3)
 
         val cutLines = lines.map { it.split(knife) }.flatten().bend(knife)

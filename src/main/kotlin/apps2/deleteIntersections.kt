@@ -1,7 +1,7 @@
 package apps2
 
-import geometry.removeIntersections
-import geometry.removeSelfIntersections
+import aBeLibs.geometry.removeIntersections
+import aBeLibs.geometry.removeSelfIntersections
 import org.openrndr.KEY_ENTER
 import org.openrndr.KEY_INSERT
 import org.openrndr.application

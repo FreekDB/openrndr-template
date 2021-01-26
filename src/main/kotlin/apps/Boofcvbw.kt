@@ -1,8 +1,8 @@
 package apps
 
-import extensions.NoJitter
-import geometry.Human
-import geometry.toContours
+import aBeLibs.extensions.NoJitter
+import aBeLibs.geometry.Human
+import aBeLibs.geometry.toContours
 import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa

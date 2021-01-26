@@ -1,6 +1,6 @@
 package apps2.rubick2D
 
-import data.CircularArray
+import aBeLibs.data.CircularArray
 import org.openrndr.draw.Drawer
 import org.openrndr.extra.noise.Random
 import kotlin.math.sign

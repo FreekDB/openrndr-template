@@ -5,7 +5,7 @@ import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.*
 import org.openrndr.extra.jumpfill.directionFieldFromBitmap
 import org.openrndr.extra.jumpfill.distanceFieldFromBitmap
-import shadestyles.PushAway
+import aBeLibs.shadestyles.PushAway
 
 /**
  * Creative Code Jam June 20th, 2020
@@ -71,12 +71,16 @@ fun main() = application {
         mouse.dragged.listen {
             drawer.isolatedWithTarget(rt) {
                 stroke = ColorRGBa.WHITE
+                fill = null
                 strokeWeight = 2.0 //it.dragDisplacement.length
-                lineSegment(it.position - it.dragDisplacement, it.position)
+                lineJoin = LineJoin.ROUND
+                lineCap = LineCap.ROUND
+                lineSegment(it.position, it.position - it.dragDisplacement)
+                println(it.dragDisplacement)
             }
         }
         keyboard.keyDown.listen {
-            if (it.name == "delete") {
+            if(it.name == "delete") {
                 drawer.isolatedWithTarget(rt) {
                     clear(ColorRGBa.BLACK)
                 }

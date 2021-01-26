@@ -6,9 +6,7 @@ import org.openrndr.draw.*
 import org.openrndr.extra.fx.blur.ApproximateGaussianBlur
 import org.openrndr.extra.noise.Random
 import org.openrndr.extra.noise.uniform
-import org.openrndr.extra.olive.oliveProgram
 import org.openrndr.math.Vector2
-import shadestyles.FilterInvert
 
 fun main() {
     application {

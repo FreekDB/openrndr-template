@@ -5,9 +5,9 @@ import boofcv.alg.filter.binary.ThresholdImageOps
 import boofcv.struct.ConnectRule
 import boofcv.struct.image.GrayS32
 import boofcv.struct.image.GrayU8
-import extensions.NoJitter
-import geometry.Human
-import geometry.toContours
+import aBeLibs.extensions.NoJitter
+import aBeLibs.geometry.Human
+import aBeLibs.geometry.toContours
 import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
 import org.openrndr.boofcv.binding.toGrayF32

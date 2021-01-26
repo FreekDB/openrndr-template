@@ -1,14 +1,13 @@
 package apps
 
+import aBeLibs.math.TAU
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.isolated
 import org.openrndr.math.Polar
 import org.openrndr.math.Vector2
 import org.openrndr.shape.contour
-import kotlin.math.PI
 import kotlin.math.sin
-import math.TAU
 
 /**
  * Port of
@@ -45,8 +44,18 @@ fun main() = application {
                             (if (shift) aDelta * 2.0 else 0.0)
                     moveOrLineTo(Polar(a + aDelta * 0, radius).cartesian)
                     moveOrLineTo(Polar(a + aDelta * 1, radius).cartesian)
-                    moveOrLineTo(Polar(a + aDelta * 2, radius - interlocking).cartesian)
-                    moveOrLineTo(Polar(a + aDelta * 3, radius - interlocking).cartesian)
+                    moveOrLineTo(
+                        Polar(
+                            a + aDelta * 2,
+                            radius - interlocking
+                        ).cartesian
+                    )
+                    moveOrLineTo(
+                        Polar(
+                            a + aDelta * 3,
+                            radius - interlocking
+                        ).cartesian
+                    )
                 }
                 close()
             }
@@ -76,10 +85,22 @@ fun main() = application {
         )
 
         gears[0].pos = drawer.bounds.center
-        gears[1].pos = drawer.bounds.center + Vector2(gears[0].iRadius + gears[1].iRadius, 0.0);
-        gears[2].pos = drawer.bounds.center + Vector2(-gears[0].iRadius - gears[2].iRadius, 0.0);
-        gears[3].pos = drawer.bounds.center + Vector2(0.0, gears[0].iRadius + gears[3].iRadius);
-        gears[4].pos = drawer.bounds.center + Vector2(0.0, -gears[0].iRadius - gears[4].iRadius);
+        gears[1].pos = drawer.bounds.center + Vector2(
+            gears[0].iRadius + gears[1].iRadius,
+            0.0
+        );
+        gears[2].pos = drawer.bounds.center + Vector2(
+            -gears[0].iRadius - gears[2].iRadius,
+            0.0
+        );
+        gears[3].pos = drawer.bounds.center + Vector2(
+            0.0,
+            gears[0].iRadius + gears[3].iRadius
+        );
+        gears[4].pos = drawer.bounds.center + Vector2(
+            0.0,
+            -gears[0].iRadius - gears[4].iRadius
+        );
 
         extend {
             drawer.run {

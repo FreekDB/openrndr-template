@@ -1,15 +1,15 @@
 package apps
 
 import apps.live.TreeShadowTexture
-import color.ColorProviderImage
+import aBeLibs.color.ColorProviderImage
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
-import extensions.NoJitter
-import fx.WideColorCorrection
-import geometry.longest
-import geometry.split
-import math.angleDiff
+import aBeLibs.extensions.NoJitter
+import aBeLibs.fx.WideColorCorrection
+import aBeLibs.geometry.longest
+import aBeLibs.geometry.split
+import aBeLibs.math.angleDiff
 import org.openrndr.*
 import org.openrndr.color.ColorRGBa
 import org.openrndr.dialogs.openFileDialog
@@ -29,8 +29,8 @@ import org.openrndr.math.Vector2
 import org.openrndr.shape.Rectangle
 import org.openrndr.shape.Segment
 import org.openrndr.shape.ShapeContour
-import shadestyles.Addjust
-import shadestyles.PerpendicularGradient
+import aBeLibs.shadestyles.Addjust
+import aBeLibs.shadestyles.PerpendicularGradient
 import kotlin.math.abs
 import kotlin.math.atan2
 import kotlin.math.roundToLong

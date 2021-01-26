@@ -1,9 +1,10 @@
 package apps2
 
-import extensions.Description
-import extensions.MidiAction
-import extensions.MidiFighter
-import extensions.MidiSigned
+import aBeLibs.extensions.Description
+import aBeLibs.extensions.MFAction
+import aBeLibs.extensions.MidiFighter
+import aBeLibs.extensions.MFSigned
+import aBeLibs.extensions.MidiFighter.Color.BLUE
 import org.openrndr.application
 import org.openrndr.color.rgb
 import org.openrndr.math.Vector2
@@ -28,7 +29,7 @@ fun main() = application {
         var bri = 1.0
         val conf = @Description("world") object {
             // from -1.0 to +1.0 ?
-            @MidiSigned("Angular rotation", ccnum = 12, detent = true, style = 15)
+            @MFSigned("Angular rotation", ccnum = 12, style = 15)
             var rotation = -0.5
 
             // Does it provide some kind of benefit to split the
@@ -39,7 +40,7 @@ fun main() = application {
             //@MidiDouble("Speed", ccnum = 23)
             //val speed = Interpolated(0.1, speed = 0.3)
 
-            @MidiAction("Centered flash", ccnum = 15, color = 23, style = 4)
+            @MFAction("Centered flash", ccnum = 15, color = BLUE)
             fun flash() {
                 bri = 1.0
             }

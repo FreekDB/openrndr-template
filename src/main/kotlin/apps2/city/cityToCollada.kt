@@ -1,6 +1,6 @@
 package apps2.city
 
-import geometry.randomPoint
+import aBeLibs.geometry.randomPoint
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.dialogs.saveFileDialog

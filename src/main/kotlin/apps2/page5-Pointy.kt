@@ -1,7 +1,7 @@
 package apps2
 
-import geometry.intersects
-import geometry.noisified
+import aBeLibs.geometry.intersects
+import aBeLibs.geometry.noisified
 import org.openrndr.*
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.ColorXSVa

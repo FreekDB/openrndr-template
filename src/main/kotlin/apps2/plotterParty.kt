@@ -1,8 +1,8 @@
 package apps2
 
-import extensions.Handwritten
-import geometry.localDistortion
-import geometry.softJitter
+import aBeLibs.extensions.Handwritten
+import aBeLibs.geometry.localDistortion
+import aBeLibs.geometry.softJitter
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.dialogs.*

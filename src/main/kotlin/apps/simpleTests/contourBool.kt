@@ -21,7 +21,7 @@ fun main() = application {
         for (a in 0 until 360 step 45) {
             val pos = Polar(a * 1.0, 200.0).cartesian + drawer.bounds.center
             val cookieCutter: Shape2d = Shape2d.Circle(pos.x, pos.y, 70.0)
-            s1 = cookieCutter - s1
+            s1 = cookieCutter - s1 // s1 xor cookieCutter
         }
         for (a in 0 until 360 step 45) {
             val pos = Polar(a * 1.0 + 22.5, 200.0).cartesian + drawer.bounds.center

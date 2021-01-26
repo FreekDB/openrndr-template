@@ -1,9 +1,7 @@
 package apps2
 
-import geometry.*
-import math.angle
-import math.isAngleReflex
-import math.map
+import aBeLibs.geometry.round
+import aBeLibs.geometry.tangentWrapConcave
 import org.openrndr.application
 import org.openrndr.color.ColorHSLa
 import org.openrndr.color.ColorRGBa
@@ -16,7 +14,9 @@ import org.openrndr.extra.noise.uniform
 import org.openrndr.math.Vector2
 import org.openrndr.math.map
 import org.openrndr.panel.elements.round
-import org.openrndr.shape.*
+import org.openrndr.shape.Circle
+import org.openrndr.shape.Rectangle
+import org.openrndr.shape.map
 
 /**
  * Ported from
@@ -60,23 +60,54 @@ fun main() = application {
                         val columns = 3
                         val rows = 1
                         for (i in 0 until 3) {
-                            val yy = map(0.0, rows - 1.0, height * 0.5, height * 0.5, (i / columns).toDouble())
-                            val xx = map(0.0, columns - 1.0, width * 0.25, width * 0.75, (i % columns).toDouble())
-                            val to = Rectangle.fromCenter(Vector2(xx, yy), height * 0.3, height * 0.3)
+                            val yy = map(
+                                0.0,
+                                rows - 1.0,
+                                height * 0.5,
+                                height * 0.5,
+                                (i / columns).toDouble()
+                            )
+                            val xx = map(
+                                0.0,
+                                columns - 1.0,
+                                width * 0.25,
+                                width * 0.75,
+                                (i % columns).toDouble()
+                            )
+                            val to = Rectangle.fromCenter(
+                                Vector2(xx, yy),
+                                height * 0.3,
+                                height * 0.3
+                            )
 
                             var found = 0
                             while (found < 15) {
                                 fill = Random.pick(colors)
 
-                                val p0 = Vector2.uniform(-Vector2.ONE, Vector2.ONE).round(0)
-                                val p1 = Vector2.uniform(-Vector2.ONE, Vector2.ONE).round(0)
+                                val p0 =
+                                    Vector2.uniform(-Vector2.ONE, Vector2.ONE)
+                                        .round(0)
+                                val p1 =
+                                    Vector2.uniform(-Vector2.ONE, Vector2.ONE)
+                                        .round(0)
                                 val d = p0.distanceTo(p1)
                                 if (d > 0.9 && d < 1.5) {
-                                    val leftCirc = Circle(p0.map(from, to), to.height * 0.2 - found * to.height * 0.02)
-                                    val rightCirc = Circle(p1.map(from, to), to.height * 0.1 - found * to.height * 0.01)
+                                    val leftCirc = Circle(
+                                        p0.map(from, to),
+                                        to.height * 0.2 - found * to.height * 0.02
+                                    )
+                                    val rightCirc = Circle(
+                                        p1.map(from, to),
+                                        to.height * 0.1 - found * to.height * 0.01
+                                    )
                                     contour(
                                         tangentWrapConcave(
-                                            rightCirc, leftCirc, Random.double(to.height * 0.5, to.height * 0.7)
+                                            rightCirc,
+                                            leftCirc,
+                                            Random.double(
+                                                to.height * 0.5,
+                                                to.height * 0.7
+                                            )
                                         )
                                     )
                                     found++

@@ -1,7 +1,7 @@
 package apps.editablecurve
 
-import geometry.intersects
-import geometry.makeParallelCurve
+import aBeLibs.geometry.intersects
+import aBeLibs.geometry.makeParallelCurve
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.Drawer
 import org.openrndr.extra.noise.Random.simplex

@@ -1,7 +1,7 @@
 package apps
 
-import color.ColorProviderTetrahedron
-import math.doubleExponentialSigmoid
+import aBeLibs.color.ColorProviderTetrahedron
+import aBeLibs.math.doubleExponentialSigmoid
 import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa

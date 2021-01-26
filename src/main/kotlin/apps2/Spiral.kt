@@ -1,6 +1,6 @@
 package apps2
 
-import geometry.spiralContour
+import aBeLibs.geometry.spiralContour
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.extensions.Screenshots

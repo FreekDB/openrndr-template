@@ -1,8 +1,8 @@
 package apps2
 
-import extensions.NoJitter
-import geometry.smoothed
-import geometry.toContours
+import aBeLibs.extensions.NoJitter
+import aBeLibs.geometry.smoothed
+import aBeLibs.geometry.toContours
 import org.openrndr.KEY_ENTER
 import org.openrndr.KEY_ESCAPE
 import org.openrndr.application

@@ -1,7 +1,7 @@
 package apps2
 
-import geometry.bend
-import geometry.split
+import aBeLibs.geometry.bend
+import aBeLibs.geometry.split
 import org.openrndr.application
 import org.openrndr.color.ColorHSLa
 import org.openrndr.color.ColorRGBa

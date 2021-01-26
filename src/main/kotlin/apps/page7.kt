@@ -1,7 +1,7 @@
 package apps
 
-import geometry.noisified
-import geometry.smoothed
+import aBeLibs.geometry.noisified
+import aBeLibs.geometry.smoothed
 import org.openrndr.*
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.ColorXSVa

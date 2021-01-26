@@ -1,11 +1,11 @@
 package apps
 
-import geometry.intersections
-import geometry.overlap
-import geometry.tangentCirclesConcave
-import geometry.tangentCirclesConvex
-import math.angle
-import math.isAngleReflex
+import aBeLibs.geometry.intersections
+import aBeLibs.geometry.overlap
+import aBeLibs.geometry.tangentCirclesConcave
+import aBeLibs.geometry.tangentCirclesConvex
+import aBeLibs.math.angle
+import aBeLibs.math.isAngleReflex
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.mix

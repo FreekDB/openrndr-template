@@ -1,9 +1,8 @@
 package apps2.city
 
-import geometry.intersects
+import aBeLibs.geometry.intersects
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
-import org.openrndr.dialogs.saveFileDialog
 import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.noise.Random
 import org.openrndr.math.Polar

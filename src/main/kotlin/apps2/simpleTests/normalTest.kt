@@ -1,6 +1,6 @@
 package apps2.simpleTests
 
-import geometry.randomPoint
+import aBeLibs.geometry.randomPoint
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.extensions.Screenshots

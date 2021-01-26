@@ -1,11 +1,10 @@
 package apps2
 
-import geometry.bend
-import geometry.split
+import aBeLibs.geometry.bend
+import aBeLibs.geometry.split
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.dialogs.saveFileDialog
-import org.openrndr.shape.LineSegment
 import org.openrndr.shape.drawComposition
 import org.openrndr.svg.loadSVG
 import org.openrndr.svg.writeSVG
@@ -17,12 +16,13 @@ fun main() = application {
     }
     program {
         val shapes = loadSVG(
-                // "/home/funpro/src/OR/openrndr-template/print/exhibition-growth-2.svg"
-                "/tmp/map.svg")
-                .findShapes().map { it.shape }
+            // "/home/funpro/src/OR/openrndr-template/print/exhibition-growth-2.svg"
+            "/tmp/map.svg"
+        )
+            .findShapes().map { it.shape }
 
         val heart = loadSVG("/tmp/heart.svg")
-                .findShapes().map { it.shape }
+            .findShapes().map { it.shape }
 
         //val knife = LineSegment(870.0, 0.0, 870.0 + 1200 * 0.4, 1200 * 1.0)
 //        val knife = LineSegment(-800.0, -1000.0, 1200.0, 1000.0)
@@ -39,7 +39,7 @@ fun main() = application {
         }.flatten().map { it.split(heart1) }.flatten().bend(heart1)
 
         val cutLinesAgain = cutLines.map { it.split(heart2) }
-                .flatten().bend(heart2)
+            .flatten().bend(heart2)
 
         val svg = drawComposition {
             fill = null

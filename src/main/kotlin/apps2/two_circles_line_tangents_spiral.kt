@@ -1,14 +1,10 @@
 package apps2
 
-import geometry.spiralContour
-import geometry.tangentWrapConcave
-import math.TAU
+import aBeLibs.geometry.spiralContour
+import aBeLibs.geometry.tangentWrapConcave
+import aBeLibs.math.TAU
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
-import org.openrndr.draw.isolatedWithTarget
-import org.openrndr.draw.renderTarget
-import org.openrndr.extra.videoprofiles.GIFProfile
-import org.openrndr.ffmpeg.VideoWriter
 import org.openrndr.math.Polar
 import org.openrndr.shape.Circle
 import java.lang.Math.toDegrees
@@ -33,8 +29,14 @@ fun main() = application {
                 fill = null
 
                 val r = width * 0.01
-                val p0 = bounds.position(0.28, 0.28) + Polar(toDegrees(pc + 1), r).cartesian
-                val p1 = bounds.position(0.6, 0.6) + Polar(toDegrees(pc + 4), r).cartesian
+                val p0 = bounds.position(0.28, 0.28) + Polar(
+                    toDegrees(pc + 1),
+                    r
+                ).cartesian
+                val p1 = bounds.position(0.6, 0.6) + Polar(
+                    toDegrees(pc + 4),
+                    r
+                ).cartesian
 
                 val c = listOf(
                     Circle(p0, width * 0.15 + sin(pc, 10)),
@@ -49,16 +51,28 @@ fun main() = application {
 
                 stroke = ColorRGBa.fromHex("41A97F")
                 strokeWeight = 4.0
-                val wrap0 = tangentWrapConcave(c[0], c[1], 250 + sin(pc + 2, r * 20))
+                val wrap0 =
+                    tangentWrapConcave(c[0], c[1], 250 + sin(pc + 2, r * 20))
                 segment(wrap0.segments[0])
 
-                val wrap1 = tangentWrapConcave(c[2], c[3], 250 + sin(pc + 5, r * 20))
+                val wrap1 =
+                    tangentWrapConcave(c[2], c[3], 250 + sin(pc + 5, r * 20))
                 segment(wrap1.segments[4])
 
-                val spiral0 = spiralContour(wrap0.segments[0].start, wrap1.segments[4].end, c[0].center, -3)
+                val spiral0 = spiralContour(
+                    wrap0.segments[0].start,
+                    wrap1.segments[4].end,
+                    c[0].center,
+                    -3
+                )
                 contour(spiral0)
 
-                val spiral1 = spiralContour(wrap1.segments[4].start, wrap0.segments[0].end, c[1].center, -3)
+                val spiral1 = spiralContour(
+                    wrap1.segments[4].start,
+                    wrap0.segments[0].end,
+                    c[1].center,
+                    -3
+                )
                 contour(spiral1)
 
                 stroke = ColorRGBa.fromHex("FE7008")

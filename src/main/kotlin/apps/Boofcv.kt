@@ -1,6 +1,6 @@
 package apps
 
-import geometry.toContours
+import aBeLibs.geometry.toContours
 import org.openrndr.KEY_ENTER
 import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
@@ -23,7 +23,7 @@ import org.openrndr.panel.style.*
 import org.openrndr.poissonfill.PoissonFill
 import org.openrndr.shape.Rectangle
 import org.openrndr.shape.ShapeContour
-import random.pickWeighted
+import aBeLibs.random.pickWeighted
 import kotlin.math.pow
 import kotlin.system.exitProcess
 

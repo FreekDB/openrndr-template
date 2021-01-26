@@ -1,7 +1,7 @@
 package apps
 
-import geometry.angleToSquare
-import geometry.fromIrregularLine
+import aBeLibs.geometry.angleToSquare
+import aBeLibs.geometry.fromIrregularLine
 import org.openrndr.KEY_ENTER
 import org.openrndr.KEY_ESCAPE
 import org.openrndr.KEY_INSERT

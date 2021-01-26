@@ -32,7 +32,13 @@ fun main() = application {
             }
             drawer.image(font.texture)
             drawer.fontMap = font
-            drawer.text("Hello there! #tags @mentions then 3+4*5-6/7...", mouse.position+0.5)
+            for(i in 0 until 20) {
+                val off = i / 20.0
+                val y = 20.0 + 23 * i
+                drawer.text("Hello there! #tags @mentions then 3+4*5-6/7...", Vector2(334.5, y))
+                drawer.text("Hello there! #tags @mentions then 3+4*5-6/7... ${off}", Vector2(334.5, y + off + 10))
+            }
+            drawer.text("Hello there! #tags @mentions then 3+4*5-6/7...", mouse.position)
         }
 
         fun changeFontSize(inc: Double) {
@@ -45,11 +51,9 @@ fun main() = application {
         }
 
         keyboard.keyDown.listen {
-            if (it.key == KEY_ARROW_UP) {
-                changeFontSize(0.01)
-            }
-            if (it.key == KEY_ARROW_DOWN) {
-                changeFontSize(-0.01)
+            when (it.key) {
+                KEY_ARROW_UP -> changeFontSize(0.01)
+                KEY_ARROW_DOWN -> changeFontSize(-0.01)
             }
         }
 

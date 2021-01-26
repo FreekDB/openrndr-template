@@ -7,7 +7,7 @@ import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.isolatedWithTarget
 import org.openrndr.math.IntVector2
 import org.openrndr.shape.Rectangle
-import panzoom.PanZoomCanvas
+import aBeLibs.panzoom.PanZoomCanvas
 import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.random.Random

@@ -1,6 +1,6 @@
 package apps2
 
-import geometry.*
+import aBeLibs.geometry.*
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.extra.noise.Random

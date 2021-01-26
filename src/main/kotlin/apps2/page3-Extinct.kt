@@ -1,10 +1,10 @@
 package apps
 
-import extensions.Handwritten
-import geometry.eraseEndsWithCircles
-import geometry.localDistortion
-import geometry.noised
-import geometry.softJitter
+import aBeLibs.extensions.Handwritten
+import aBeLibs.geometry.eraseEndsWithCircles
+import aBeLibs.geometry.localDistortion
+import aBeLibs.geometry.noised
+import aBeLibs.geometry.softJitter
 import org.openrndr.KEY_ESCAPE
 import org.openrndr.KEY_INSERT
 import org.openrndr.application

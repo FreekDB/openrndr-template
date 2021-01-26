@@ -1,6 +1,6 @@
 package apps
 
-import geometry.separated
+import aBeLibs.geometry.separated
 import org.openrndr.KEY_ENTER
 import org.openrndr.KEY_ESCAPE
 import org.openrndr.KEY_INSERT
@@ -42,11 +42,10 @@ fun main() = application {
 
     program {
         var bgcolor = ColorRGBa.PINK
-        var dots = mutableListOf<ShapeContour>()
+        val dots = mutableListOf<ShapeContour>()
 
         var positions = (Random.ring2d(180.0, 190.0, 200) as List<Vector2>).map {
-            val rnd = Random.double0()
-            val radius = 1 + (rnd.pow(5.0) * 20.0)
+            val radius = 1 + 20 * Random.double0().pow(5.0)
             Circle(it, radius)
         }
         for (i in 0..100) {

@@ -1,7 +1,7 @@
 package apps2
 
-import extensions.Handwritten
-import math.angleDiff
+import aBeLibs.extensions.Handwritten
+import aBeLibs.math.angleDiff
 import org.openrndr.KEY_ENTER
 import org.openrndr.KEY_ESCAPE
 import org.openrndr.KEY_INSERT

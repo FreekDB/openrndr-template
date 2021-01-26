@@ -1,6 +1,6 @@
 package apps
 
-import geometry.convexHull
+import aBeLibs.geometry.convexHull
 import org.openrndr.KEY_ENTER
 import org.openrndr.KEY_ESCAPE
 import org.openrndr.application

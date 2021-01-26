@@ -1,6 +1,6 @@
 package apps.simpleTests
 
-import math.Interpolator
+import aBeLibs.math.Interpolator
 import org.openrndr.application
 import org.openrndr.math.Vector2
 
@@ -11,18 +11,18 @@ fun main() = application {
         val x = Interpolator(0.0, 0.0001, 0.01, 0.25)
         val y = Interpolator(0.0, 0.0001, 0.01, 0.25)
 
-        var target = Vector2.ONE * 0.5
-
         extend {
             drawer.circle(
-                x.getNextForTarget(target.x) * width,
-                y.getNextForTarget(target.y) * height,
+                x.getNext() * width,
+                y.getNext() * height,
                 50.0
             )
         }
 
-        mouse.clicked.listen {
-            target = it.position / drawer.bounds.dimensions
+        mouse.buttonDown.listen {
+            val target = it.position / drawer.bounds.dimensions
+            x.targetValue = target.x
+            y.targetValue = target.y
         }
     }
 }
