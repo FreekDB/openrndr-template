@@ -1,7 +1,8 @@
 package aBeLibs.panzoom
 
 import org.openrndr.MouseEvent
-import org.openrndr.draw.Drawer
+import org.openrndr.Program
+import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.renderTarget
 import org.openrndr.math.Vector2
 import org.openrndr.math.clamp
@@ -9,20 +10,44 @@ import org.openrndr.shape.Rectangle
 import kotlin.math.max
 import kotlin.math.min
 
-class PanZoomCanvas(w: Int, h: Int) {
+class PanZoomCanvas(
+    val program: Program,
+    val w: Int,
+    val h: Int,
+    bgColor: ColorRGBa = ColorRGBa.PINK
+) {
     private var zoom = 1.0
     private var zoomCurr = 1.0
     private var offset = Vector2(0.0)
     private var offsetCurr = Vector2(0.0)
+    val center = Vector2(w * 0.5, h * 0.5)
+    var active = false
+    var viewport = program.drawer.bounds
 
-    private lateinit var viewport: Rectangle
+    init {
+        with(program.mouse) {
+            moved.listen {
+                active = inside(it.position)
+            }
+            scrolled.listen {
+                if (active) {
+                    wheel(it)
+                }
+            }
+            dragged.listen {
+                if (active) {
+                    drag(it)
+                }
+            }
+        }
+    }
 
     val rt = renderTarget(w, h) {
         colorBuffer()
-    }
-
-    fun setViewport(viewport: Rectangle) {
-        this.viewport = viewport
+        depthBuffer()
+    }.apply {
+        clearDepth(0.0)
+        clearColor(0, bgColor)
     }
 
     private fun constrainView() {
@@ -32,15 +57,15 @@ class PanZoomCanvas(w: Int, h: Int) {
         )
     }
 
-    fun draw(drawer: Drawer) {
+    fun draw() {
         zoomCurr = zoomCurr * 0.8 + zoom * 0.2 // lerp() or mix()
         offsetCurr = offsetCurr * 0.8 + offset * 0.2
         val sz = max(rt.width, rt.height)
         val source = Rectangle(offsetCurr, sz * zoomCurr, sz * zoomCurr)
-        drawer.image(rt.colorBuffer(0), source, viewport)
+        program.drawer.image(rt.colorBuffer(0), source, viewport)
     }
 
-    fun inside(pos: Vector2): Boolean {
+    private fun inside(pos: Vector2): Boolean {
         return viewport.contains(pos)
     }
 
@@ -51,12 +76,12 @@ class PanZoomCanvas(w: Int, h: Int) {
         ) * zoomCurr
     }
 
-    fun drag(ev: MouseEvent) {
+    private fun drag(ev: MouseEvent) {
         offset -= ev.dragDisplacement
         constrainView()
     }
 
-    fun wheel(ev: MouseEvent) {
+    private fun wheel(ev: MouseEvent) {
         var newZoom = zoom * (1.0 - 0.1 * ev.rotation.y)
         val k = min(
             viewport.width / rt.width,

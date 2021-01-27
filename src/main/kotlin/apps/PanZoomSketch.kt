@@ -26,11 +26,8 @@ fun main() = application {
         val w = width.toDouble() / columns
         val h = height.toDouble() / rows
         val canvases = List(6) {
-            val c = PanZoomCanvas(900, 900)
-            c.setViewport(Rectangle((it % 3) * w, (it / 3) * h, w, h))
-            drawer.isolatedWithTarget(c.rt) {
-                drawer.background(ColorRGBa.PINK)
-            }
+            val c = PanZoomCanvas(this,900, 900, ColorRGBa.PINK)
+            c.viewport = Rectangle((it % 3) * w, (it / 3) * h, w, h)
             c
         }
         var activeCanvas: PanZoomCanvas? = canvases[0]
@@ -53,20 +50,20 @@ fun main() = application {
                 )
             }
             // Show them all
-            canvases.forEach { it.draw(drawer) }
+            canvases.forEach { it.draw() }
         }
 
-        mouse.moved.listen {
-            activeCanvas = canvases.firstOrNull { it.inside(mouse.position) }
-        }
-
-        mouse.scrolled.listen {
-            activeCanvas?.wheel(it)
-        }
-
-        mouse.dragged.listen {
-            activeCanvas?.drag(it)
-        }
+//        mouse.moved.listen {
+//            activeCanvas = canvases.firstOrNull { it.inside(mouse.position) }
+//        }
+//
+//        mouse.scrolled.listen {
+//            activeCanvas?.wheel(it)
+//        }
+//
+//        mouse.dragged.listen {
+//            activeCanvas?.drag(it)
+//        }
 
         keyboard.keyDown.listen {
             when (it.key) {

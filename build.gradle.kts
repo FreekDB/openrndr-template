@@ -175,9 +175,9 @@ dependencies {
     //implementation("org.jetbrains.kotlinx","kotlinx-serialization-runtime", "0.20.0") // JVM dependency
     implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-core","1.3.9")
     implementation("io.github.microutils", "kotlin-logging","1.12.0")
-
     implementation("com.soywiz.korlibs.korma","korma-jvm","1.9.1")
     implementation("com.soywiz.korlibs.korma","korma-shape","1.9.1")
+    implementation("org.jgrapht", "jgrapht-core", "1.5.0")
 
     when(applicationLogging) {
         Logging.NONE -> {

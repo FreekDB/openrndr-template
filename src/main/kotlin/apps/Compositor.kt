@@ -1,21 +1,23 @@
-package apps
-
+import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.rgb
 import org.openrndr.draw.Drawer
+import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.compositor.compose
 import org.openrndr.extra.compositor.draw
 import org.openrndr.extra.compositor.layer
 import org.openrndr.extra.compositor.post
 import org.openrndr.extra.fx.blur.ApproximateGaussianBlur
 import org.openrndr.extra.noise.Random
+import org.openrndr.extra.noise.uniform
 import org.openrndr.math.Vector3
+import kotlin.system.exitProcess
 
-/*
-  Test `composite` by drawing 3 layers containing moving rings of different sizes
-  to simulate depth of field: the top and bottom layers are blurry, the middle one is sharp.
+/**
+ * Basic template
  */
+
 
 fun main() = application {
     configure {
@@ -32,13 +34,13 @@ fun main() = application {
                 }
                 drawer.fill = null
                 drawer.stroke = color
-                drawer.strokeWeight = 2.0 + ((pos.z * 30.0) % 5.0)
+                drawer.strokeWeight = 5.0 + 5.0 * pos.z
                 drawer.circle(pos.xy, 10.0 + 90.0 * pos.z)
             }
         }
 
         val items = List(50) {
-            val pos = Vector3(Random.double0() * width, Random.double(0.3, 0.7) * height, Random.double0())
+            val pos = Vector3(Random.double() * width, Random.double(0.1, 0.9) * height, Random.double())
             Item(pos, ColorRGBa.PINK.shade(Random.double(0.2, 0.9)))
         }.sortedBy { it.pos.z }
 
@@ -74,14 +76,22 @@ fun main() = application {
                 }
                 post(ApproximateGaussianBlur()) {
                     window = 25
+                    spread = 4.0
                     sigma = 5.00
                 }
             }
         }
 
+        extend(Screenshots())
         extend {
             drawer.clear(rgb(0.2))
             composite.draw(drawer)
+        }
+
+        keyboard.keyDown.listen {
+            when (it.key) {
+                KEY_ESCAPE -> exitProcess(0)
+            }
         }
     }
 }

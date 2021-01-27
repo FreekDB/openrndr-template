@@ -30,11 +30,11 @@ import kotlin.math.*
 
 fun ShapeContour.smoothed(smoothingSize: Int, smoothingShape: Double = 0.0): ShapeContour {
     val n = segments.size
-    val sSize = clamp(smoothingSize, 0, n);
-    val sShape = clamp(smoothingShape, 0.0, 1.0);
+    val sSize = clamp(smoothingSize, 0, n)
+    val sShape = clamp(smoothingShape, 0.0, 1.0)
 
     // precompute weights and normalization
-    var weights = List(sSize) {
+    val weights = List(sSize) {
         map(0.0, sSize * 1.0, 1.0, sShape, it * 1.0)
     }
 
@@ -50,7 +50,7 @@ fun ShapeContour.smoothed(smoothingSize: Int, smoothingShape: Double = 0.0): Sha
                 leftPosition += n
             }
             if (leftPosition >= 0) {
-                cur += segments[leftPosition].start;
+                cur += segments[leftPosition].start
                 sum += weights[j]
             }
             if (rightPosition >= n && closed) {
@@ -86,7 +86,7 @@ fun ShapeContour.noisified(distance: Int, closed: Boolean = true, zoom: Double =
  *
  */
 fun ShapeContour.makeParallelCurve(dist: Double): ShapeContour {
-    var points = mutableListOf<Vector2>()
+    val points = mutableListOf<Vector2>()
     var prevNorm = Vector2.ZERO
     val len = segments.size.toDouble()
     segments.forEachIndexed { i, it ->
@@ -107,15 +107,15 @@ fun ShapeContour.makeParallelCurve(dist: Double): ShapeContour {
 fun ShapeContour.split(knife: Circle, resolution: Int = 100): List<ShapeContour> {
     val result = mutableListOf<ShapeContour>()
     val segments = this.equidistantPositions(resolution)
-    var points = mutableListOf<Vector2>()
+    val points = mutableListOf<Vector2>()
     var last = Vector2.INFINITY
     segments.forEach {
         last = if (knife.contains(it)) {
-            if (last != Vector2.INFINITY) {
-                // entering circle
-            } else {
-                // inside circle
-            }
+//            if (last != Vector2.INFINITY) {
+//                // entering circle
+//            } else {
+//                // inside circle
+//            }
             Vector2.INFINITY
         } else {
             if (last == Vector2.INFINITY) {
@@ -153,14 +153,14 @@ fun ShapeContour.split(knife: Segment): Pair<ShapeContour, ShapeContour> {
     }
     return if (hits == 2) {
         Pair(
-                ShapeContour.fromPoints(points[0], true),
-                ShapeContour.fromPoints(points[1], true)
+            ShapeContour.fromPoints(points[0], true),
+            ShapeContour.fromPoints(points[1], true)
         )
     } else {
         println("Hits = $hits! $this $knife")
         Pair(
-                ShapeContour.EMPTY,
-                ShapeContour.EMPTY
+            ShapeContour.EMPTY,
+            ShapeContour.EMPTY
         )
     }
 }
@@ -207,10 +207,10 @@ fun ShapeContour.split(knife: ShapeContour): List<ShapeContour> {
 fun ShapeContour.contains(pos: Vector2): Boolean {
     var counter = 0
     var xinters = 0.0
-    var n = segments.size
-    var p1 = segments[0].start;
+    val n = segments.size
+    var p1 = segments[0].start
     for (i in 1..n) {
-        var p2 = segments[i % n].start;
+        val p2 = segments[i % n].start
         if (pos.y > kotlin.math.min(p1.y, p2.y)) {
             if (pos.y <= max(p1.y, p2.y)) {
                 if (pos.x <= max(p1.x, p2.x)) {
@@ -222,9 +222,9 @@ fun ShapeContour.contains(pos: Vector2): Boolean {
                 }
             }
         }
-        p1 = p2;
+        p1 = p2
     }
-    return counter % 2 != 0;
+    return counter % 2 != 0
 }
 
 /**
@@ -269,21 +269,21 @@ fun ShapeContour.softJitter(steps: Int, minRadius: Double, maxRadius: Double): S
  * (start percent, end percent, offset)
  */
 fun ShapeContour.localDistortion(
-        data: List<Triple<Double, Double, Double>>,
-        steps: Int = 100
+    data: List<Triple<Double, Double, Double>>,
+    steps: Int = 100
 ): List<ShapeContour> {
     val parts = mutableListOf(this)
     for ((start, end, offset) in data) {
         val seg = this.sub(start, end)
         parts.add(
-                ShapeContour.fromPoints(
-                        List(steps) {
-                            val pc = it / (steps - 1.0)
-                            val dry = seg.position(pc)
-                            val wet = Polar(Random.simplex(dry * 0.005) * 360.0, offset * cosEnv(pc)).cartesian
-                            dry + wet
-                        }, false
-                )
+            ShapeContour.fromPoints(
+                List(steps) {
+                    val pc = it / (steps - 1.0)
+                    val dry = seg.position(pc)
+                    val wet = Polar(Random.simplex(dry * 0.005) * 360.0, offset * cosEnv(pc)).cartesian
+                    dry + wet
+                }, false
+            )
         )
     }
     return parts
@@ -341,11 +341,11 @@ fun variableWidthContour(points: List<Vector3>): ShapeContour {
 
     // construct shape. First add one side, then the other in reverse.
     return ShapeContour.fromPoints(
-            points2d.mapIndexed { i, p ->
-                p + normals[i]
-            } + points2d.reversed().mapIndexed { i, p ->
-                p - normals.reversed()[i]
-            }, true
+        points2d.mapIndexed { i, p ->
+            p + normals[i]
+        } + points2d.reversed().mapIndexed { i, p ->
+            p - normals.reversed()[i]
+        }, true
     )
 }
 
