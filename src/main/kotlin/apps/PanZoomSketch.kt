@@ -1,15 +1,14 @@
-package apps
+package apps2
 
+import aBeLibs.panzoom.PanZoomCanvas
 import org.openrndr.KEY_ESCAPE
 import org.openrndr.KEY_SPACEBAR
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.isolatedWithTarget
 import org.openrndr.math.IntVector2
+import org.openrndr.math.Polar
 import org.openrndr.shape.Rectangle
-import aBeLibs.panzoom.PanZoomCanvas
-import kotlin.math.cos
-import kotlin.math.sin
 import kotlin.random.Random
 
 fun main() = application {
@@ -26,53 +25,43 @@ fun main() = application {
         val w = width.toDouble() / columns
         val h = height.toDouble() / rows
         val canvases = List(6) {
-            val c = PanZoomCanvas(this,900, 900, ColorRGBa.PINK)
-            c.viewport = Rectangle((it % 3) * w, (it / 3) * h, w, h)
-            c
-        }
-        var activeCanvas: PanZoomCanvas? = canvases[0]
+            val canvas = PanZoomCanvas(
+                this, 900, 900,
+                ColorRGBa.PINK
+            )
+            canvas.viewport = Rectangle(
+                (it % columns) * w,
+                (it / columns) * h, w, h
+            )
 
+            canvas
+        }
 
         extend {
             // Paint in one canvas per frame
-            val canvasID = frameCount % canvases.size
-            val currCanvas = canvases[canvasID]
+            val currCanvas = canvases[frameCount % canvases.size]
             drawer.isolatedWithTarget(currCanvas.rt) {
-                drawer.strokeWeight = 5.0
-                drawer.stroke = if (Random.nextBoolean()) ColorRGBa.BLACK else ColorRGBa.WHITE
+                strokeWeight = 5.0
+                stroke = if (Random.nextBoolean()) ColorRGBa.BLACK else ColorRGBa.WHITE
                 val angle = frameCount.toDouble()
                 ortho(currCanvas.rt)
-                drawer.lineSegment(
-                    currCanvas.rt.width * 0.5 + 200 * cos(angle),
-                    currCanvas.rt.height * 0.5 + 200 * sin(angle),
-                    currCanvas.rt.width * 0.5 + 400 * cos(angle),
-                    currCanvas.rt.height * 0.5 + 400 * sin(angle)
+                lineSegment(
+                    currCanvas.center + Polar(angle, 200.0).cartesian,
+                    currCanvas.center + Polar(angle, 400.0).cartesian
                 )
             }
             // Show them all
             canvases.forEach { it.draw() }
         }
 
-//        mouse.moved.listen {
-//            activeCanvas = canvases.firstOrNull { it.inside(mouse.position) }
-//        }
-//
-//        mouse.scrolled.listen {
-//            activeCanvas?.wheel(it)
-//        }
-//
-//        mouse.dragged.listen {
-//            activeCanvas?.drag(it)
-//        }
-
         keyboard.keyDown.listen {
             when (it.key) {
                 KEY_ESCAPE -> application.exit()
                 KEY_SPACEBAR -> {
-                    activeCanvas?.let { canvas ->
-                        drawer.isolatedWithTarget(canvas.rt) {
-                            ortho(canvas.rt)
-                            drawer.circle(canvas.globalToLocal(mouse.position), 20.0)
+                    canvases.firstOrNull { it.active }?.apply {
+                        drawer.isolatedWithTarget(rt) {
+                            ortho(rt)
+                            drawer.circle(globalToLocal(mouse.position), 20.0)
                         }
                     }
                 }
