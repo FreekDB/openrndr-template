@@ -13,7 +13,8 @@ import org.openrndr.shape.Rectangle
 import kotlin.random.Random
 
 /**
- * Making PanZoomCanvas work for non 1:1 aspect ratio
+ * Making PanZoomCanvas work for non 1:1 aspect ratio.
+ * Unfinished. The working version was accidentally lost.
  */
 fun main() = application {
     configure {
