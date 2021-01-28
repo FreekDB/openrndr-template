@@ -46,6 +46,7 @@ val orxFeatures = setOf(
 //  "orx-syphon",
 //  "orx-temporal-blur",
 //  "orx-time-operators,
+    "orx-triangulation",
 //  "orx-kinect-v1",
 //  "orx-tensorflow",
     "orx-panel",
@@ -115,11 +116,11 @@ enum class Logging {
 /*  What type of logging should this project use? */
 val applicationLogging = Logging.FULL
 
-val kotlinVersion = "1.4.10"
+val kotlinVersion = "1.4.21"
 
 plugins {
     java
-    kotlin("jvm") version("1.4.10")
+    kotlin("jvm") version("1.4.21")
     //kotlin("plugin.serialization") version "1.3.70"
     id("com.github.johnrengelman.shadow") version ("6.1.0")
     id("org.beryx.runtime") version ("1.11.4")
