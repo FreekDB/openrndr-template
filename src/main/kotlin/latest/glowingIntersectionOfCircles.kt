@@ -63,15 +63,16 @@ fun main() = application {
             }
             drawer.isolatedWithTarget(dry) {
                 clear(ColorRGBa.TRANSPARENT)
-                fill = ColorRGBa.WHITE.shade(Random.double(0.4, 1.0))
                 stroke = null
-                val intersections = mutableListOf<Circle>()
-                circles.uniquePairs().forEach {
-                    val (first, second) = it.toList()
-                    intersections.addAll(first.circle.intersections(second.circle)
-                        .map { pos -> Circle(pos, 5.0) })
+                drawer.circles {
+                    circles.uniquePairs().forEach {
+                        val (first, second) = it.toList()
+                        first.circle.intersections(second.circle).forEach {
+                            fill = ColorRGBa.WHITE.shade(Random.double(0.4, 1.0))
+                            circle(it, 5.0)
+                        }
+                    }
                 }
-                circles(intersections)
             }
             glow.apply(dry.colorBuffer(0), wet)
             drawer.image(wet)
