@@ -115,11 +115,14 @@ fun Rectangle.randomPoint(): Vector2 {
 fun Composition.dedupe(): Composition {
     val segments = this.findShapes()
         .map { it.shape.contours.map { it.segments }.flatten() }.flatten()
-    val deduped = segments.filter { curr ->
-        segments.none { other -> other.contains(curr, 1.0) }
-    }.map { it.contour }
+    val deduped = mutableListOf<Segment>()
+    segments.forEach { curr ->
+        if(deduped.none { other -> other.contains(curr, 1.0) }) {
+            deduped.add(curr)
+        }
+    }
     return drawComposition {
-        contours(deduped)
+        contours(deduped.map { it.contour })
     }
 }
 
