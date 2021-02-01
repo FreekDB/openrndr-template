@@ -1,4 +1,4 @@
-package apps2
+package latest
 
 import aBeLibs.geometry.dedupe
 import org.openrndr.KEY_SPACEBAR
@@ -21,7 +21,6 @@ fun main() {
                 circle(width / 2.0, height / 2.0, 100.0)
             }
 
-            val s = svg.findShapes().map { it.shape.contours.map { it.segments }.flatten() }.flatten()
             val nonDupes = svg.dedupe()
 
             extend {
@@ -39,10 +38,3 @@ fun main() {
         }
     }
 }
-
-private fun Segment.contains(other: Segment, error: Double = 0.5): Boolean = this !== other &&
-        this.on(other.start, error) != null &&
-        this.on(other.end, error) != null &&
-        this.on(other.position(1.0 / 3), error) != null &&
-        this.on(other.position(2.0 / 3), error) != null
-
