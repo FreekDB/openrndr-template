@@ -86,18 +86,18 @@ fun main() = application {
         }
 
         val guiData = @Description("Actions") object {
-            @ActionParameter("new")
+            @ActionParameter("new") @Suppress("unused")
             fun doNew() {
                 final.clearColor(0, ColorRGBa.WHITE)
                 contours.clear()
             }
 
-            @ActionParameter("screenshot")
+            @ActionParameter("screenshot") @Suppress("unused")
             fun doScreenshot() {
                 screenshots.trigger()
             }
 
-            @ActionParameter("save svg")
+            @ActionParameter("save svg") @Suppress("unused")
             fun doSaveSVG() {
                 exportSVG()
             }

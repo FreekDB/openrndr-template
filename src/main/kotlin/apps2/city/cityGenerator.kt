@@ -3,12 +3,10 @@ package apps2.city
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.rgb
-import org.openrndr.draw.LineCap
 import org.openrndr.draw.shadeStyle
 import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.glslify.preprocessGlslify
 import org.openrndr.math.Vector2
-import org.openrndr.shape.LineSegment
 import kotlin.math.absoluteValue
 
 const val sz = 160.0
@@ -32,9 +30,9 @@ fun main() = application {
         }.sortedBy {
             it.length
         }.forEach {
-            val t = Tile(it);
-            t.build();
-            tiles.add(t);
+            val t = Tile(it)
+            t.build()
+            tiles.add(t)
         }
 
         val glslSimplex = preprocessGlslify(

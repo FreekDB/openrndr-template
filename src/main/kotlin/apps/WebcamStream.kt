@@ -69,14 +69,14 @@ fun main() = application {
             }
 
             // Show that layer
-            drawer.image(rt.colorBuffer(0));
+            drawer.image(rt.colorBuffer(0))
 
             // Stream that layer out
             pixels.read(buffer)
             for (i in 0 until sz) {
                 bytes[i] = buffer[sz - i - 1]
             }
-            virtualCam.write(bytes);
+            virtualCam.write(bytes)
         }
     }
 }

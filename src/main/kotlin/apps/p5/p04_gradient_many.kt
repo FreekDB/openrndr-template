@@ -20,7 +20,7 @@ fun main() = application {
             val sz = width.toDouble() / parts
             for (x in 0 until parts) {
                 for (y in 0 until parts) {
-                    drawer.rectangle(x * sz, y * sz, sz, sz);
+                    drawer.rectangle(x * sz, y * sz, sz, sz)
                 }
             }
         }

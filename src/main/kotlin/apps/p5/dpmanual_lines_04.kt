@@ -28,7 +28,7 @@ fun main() = application {
 
         extend {
             Random.seed = randSeed
-            drawer.background(ColorRGBa.BLACK)
+            drawer.clear(ColorRGBa.BLACK)
             drawer.stroke = ColorRGBa.WHITE
             drawer.translate(drawer.bounds.center)
 

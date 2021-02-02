@@ -63,7 +63,7 @@ fun main() {
                     g.addVertex(b)
                     g.addEdge(a, b)
                 }
-                val cycles = AbeCycle(g)
+                val cycles = abeCycle(g)
 
                 return drawComposition {
                     lineSegments(linesAfter.map { LineSegment(it.start, it.end) })

@@ -112,6 +112,7 @@ fun main() = application {
         newImage()
 
         val actions = @Description("Actions") object {
+            @Suppress("unused")
             @ActionParameter("new image")
             fun doNew() {
                 Random.seed = mouse.position.toString()
@@ -126,6 +127,7 @@ fun main() = application {
                 yang.addAll(bwBlurred.toContours(0.5))
             }
 
+            @Suppress("unused")
             @ActionParameter("screenshot")
             fun doScreenshot() {
                 screenshots.trigger()

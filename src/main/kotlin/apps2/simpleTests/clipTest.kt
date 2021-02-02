@@ -14,7 +14,7 @@ fun main() {
             height = 900
         }
         program {
-            val svgs = ClipMode.values().mapIndexed() { n, mode ->
+            val svgs = ClipMode.values().mapIndexed { n, mode ->
                 val x = width * 0.7
                 val y = 50 + n * 100.0
                 val r = 40.0

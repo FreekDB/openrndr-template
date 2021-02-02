@@ -40,6 +40,7 @@ class Collada {
      * two UV maps (normally you would only need one UV map)
      * The three lists should probably be the same length.
      */
+    @Suppress("unused")
     fun addQuads(name: String, shapes: List<Rectangle>, uv0: List<Rectangle>, uv1: List<Rectangle>) {
         val namePositions = "${name}-mesh-positions"
         val nameNormals = "${name}-mesh-normals"

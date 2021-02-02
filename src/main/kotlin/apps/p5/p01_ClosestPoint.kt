@@ -8,8 +8,9 @@ fun main() = application {
     program {
         val points = List(30) { drawer.bounds.center + drawer.bounds.center * Random.vector2() }
         extend {
-            drawer.background(ColorRGBa.WHITE)
-            val closest = points.minBy { (mouse.position - it).squaredLength }
+            drawer.clear(ColorRGBa.WHITE)
+            val closest =
+                points.minByOrNull { (mouse.position - it).squaredLength }
             points.forEach {
                 drawer.fill = if (closest == it) ColorRGBa.RED else ColorRGBa.WHITE
                 drawer.circle(it, 20.0)

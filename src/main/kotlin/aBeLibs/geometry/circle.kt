@@ -1,5 +1,6 @@
 package aBeLibs.geometry
 
+import org.openrndr.draw.Drawer
 import org.openrndr.math.Vector2
 import org.openrndr.shape.Circle
 import org.openrndr.shape.LineSegment
@@ -10,6 +11,7 @@ import kotlin.math.sqrt
 /**
  *
  */
+@Suppress("unused")
 fun Circle.tangentLines(other: Circle): List<LineSegment> {
     val result = mutableListOf<LineSegment>()
     val distSq = center.squaredDistanceTo(other.center)
@@ -76,4 +78,12 @@ fun Circle.intersections(other: Circle): List<Vector2> {
         return listOf(p + r, p - r)
     }
     return listOf()
+}
+
+
+/**
+ * circle draws circles slightly too small, therefore this fix
+ */
+fun Drawer.circler(c: Circle) {
+    circle(c.scaledTo(c.radius + 1.5))
 }

@@ -1,4 +1,4 @@
-package apps2
+package apps
 
 import aBeLibs.panzoom.PanZoomCanvas
 import org.openrndr.KEY_ESCAPE
@@ -54,8 +54,8 @@ fun main() = application {
             canvases.forEach { it.draw() }
         }
 
-        keyboard.keyDown.listen {
-            when (it.key) {
+        keyboard.keyDown.listen { event ->
+            when (event.key) {
                 KEY_ESCAPE -> application.exit()
                 KEY_SPACEBAR -> {
                     canvases.firstOrNull { it.active }?.apply {

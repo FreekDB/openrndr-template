@@ -24,7 +24,7 @@ fun main() = application {
         val tex = loadImage("/usr/share/processing/modes/java/examples/Topics/Textures/TextureCube/data/berlin-1.jpg")
 
         extend {
-            drawer.background(ColorRGBa.WHITE)
+            drawer.clear(ColorRGBa.WHITE)
             drawer.perspective(60.0, width * 1.0 / height, 0.01, 1000.0)
 
             drawer.depthWrite = true

@@ -8,7 +8,6 @@ import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.LineJoin
 import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.noise.Random
-import org.openrndr.ffmpeg.ScreenRecorder
 import org.openrndr.math.Polar
 import org.openrndr.math.Vector2
 import org.openrndr.math.mod_

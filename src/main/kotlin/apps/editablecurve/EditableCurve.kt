@@ -40,7 +40,7 @@ class EditableCurve {
 
     fun distanceTo(p: Vector2): Double {
         val lineCopy = line.sampleEquidistant(10)
-        return lineCopy.segments.map { (it.start - p).squaredLength }.min()!!
+        return lineCopy.segments.minOf { (it.start - p).squaredLength }
     }
 
     fun randomize(screenSize: Vector2) {
@@ -69,7 +69,7 @@ class EditableCurve {
     }
 
     fun mousePressed(p: Vector2) {
-        activePoint = pointCount;
+        activePoint = pointCount
         for (i in 0 until pointCount) {
             val dist = (p - controlPoints[i]).length
             if (dist < pointRadius) {
@@ -91,9 +91,9 @@ class EditableCurve {
             separations = separations.subList(0, numSubcurves)
         }
         while (separations.size < numSubcurves) {
-            separations.add(Math.random());
+            separations.add(Math.random())
         }
-        var dist = 0.0;
+        var dist = 0.0
         val lineCopy = line.sampleEquidistant(curveResolution.toInt())
         for (i in 0 until numSubcurves) {
             val sep = separations[i]
@@ -115,7 +115,7 @@ class EditableCurve {
     private fun addSegmentsOfLineTo(l: ShapeContour, segments: MutableList<ShapeContour>) {
         var builder = ContourBuilder(true)
 
-        var drawing = true;
+        var drawing = true
         l.segments.indices.forEach { i ->
             var intersection = Vector2.INFINITY
             // test for intersections against

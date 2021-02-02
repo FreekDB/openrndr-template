@@ -50,9 +50,9 @@ fun main() = application {
                         150.0,
                         150.0,
                         0.0,
-                        false,
-                        true,
-                        200.0, 50.0
+                        largeArcFlag = false,
+                        sweepFlag = true,
+                        tx = 200.0, ty = 50.0
                     )
                 }
             ))

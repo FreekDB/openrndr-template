@@ -70,7 +70,7 @@ fun main() = application {
                     stroke = null
                     translate(pos)
                     rotate(rotationAngle)
-                    contour(s);
+                    contour(s)
                 }
             }
         }
@@ -88,19 +88,19 @@ fun main() = application {
         gears[1].pos = drawer.bounds.center + Vector2(
             gears[0].iRadius + gears[1].iRadius,
             0.0
-        );
+        )
         gears[2].pos = drawer.bounds.center + Vector2(
             -gears[0].iRadius - gears[2].iRadius,
             0.0
-        );
+        )
         gears[3].pos = drawer.bounds.center + Vector2(
             0.0,
             gears[0].iRadius + gears[3].iRadius
-        );
+        )
         gears[4].pos = drawer.bounds.center + Vector2(
             0.0,
             -gears[0].iRadius - gears[4].iRadius
-        );
+        )
 
         extend {
             drawer.run {

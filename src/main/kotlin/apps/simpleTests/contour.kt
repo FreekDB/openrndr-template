@@ -157,7 +157,7 @@ fun main() = application {
                 fill = ColorRGBa.BLACK
                 writer {
                     translate(-textWidth(txt) * 0.5, 135.0)
-                    text(txt);
+                    text(txt)
                 }
 
             }

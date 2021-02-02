@@ -31,7 +31,7 @@ fun main() = application {
     }
 
     program {
-        var modeRGB = true;
+        var modeRGB = true
         val palettes = listOf(
             ColorProviderTetrahedron("E1AA66", "8E4770", "7F615B", "8CA9B6", "A"),
             ColorProviderTetrahedron("302739", "3C8C9E", "82BBB6", "E1C367", "B"),

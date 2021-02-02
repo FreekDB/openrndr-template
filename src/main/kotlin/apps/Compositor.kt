@@ -1,3 +1,5 @@
+package apps
+
 import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
@@ -10,7 +12,6 @@ import org.openrndr.extra.compositor.layer
 import org.openrndr.extra.compositor.post
 import org.openrndr.extra.fx.blur.ApproximateGaussianBlur
 import org.openrndr.extra.noise.Random
-import org.openrndr.extra.noise.uniform
 import org.openrndr.math.Vector3
 import kotlin.system.exitProcess
 

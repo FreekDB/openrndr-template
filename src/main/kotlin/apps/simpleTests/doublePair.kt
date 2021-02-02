@@ -4,20 +4,20 @@ data class DoublePair(private var _a: Double) {
     private var _b: Double = _a * 2
     var first: Double
         get() = _a
-        set(value: Double) {
+        set(value) {
             _a = value
             _b = value * 2
         }
     var second: Double
         get() = _b
-        set(value: Double) {
+        set(value) {
             _a = value / 2
             _b = value
         }
 }
 
 fun main() {
-    var x = DoublePair(3.0)
+    val x = DoublePair(3.0)
     println("${x.first} ${x.second}")
     x.first = 2.0
     println("${x.first} ${x.second}")

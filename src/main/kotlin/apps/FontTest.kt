@@ -36,7 +36,7 @@ fun main() = application {
                 val off = i / 20.0
                 val y = 20.0 + 23 * i
                 drawer.text("Hello there! #tags @mentions then 3+4*5-6/7...", Vector2(334.5, y))
-                drawer.text("Hello there! #tags @mentions then 3+4*5-6/7... ${off}", Vector2(334.5, y + off + 10))
+                drawer.text("Hello there! #tags @mentions then 3+4*5-6/7... $off", Vector2(334.5, y + off + 10))
             }
             drawer.text("Hello there! #tags @mentions then 3+4*5-6/7...", mouse.position)
         }

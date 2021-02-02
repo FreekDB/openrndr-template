@@ -5,10 +5,8 @@ import org.openrndr.KEY_ESCAPE
 import org.openrndr.KEY_INSERT
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
-import org.openrndr.color.rgb
 import org.openrndr.dialogs.saveFileDialog
 import org.openrndr.draw.LineJoin
-import org.openrndr.draw.shadeStyle
 import org.openrndr.extensions.Screenshots
 import org.openrndr.math.Vector2
 import org.openrndr.shape.CompositionDrawer

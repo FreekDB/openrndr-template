@@ -16,12 +16,12 @@ fun main() = application {
         extend {
             drawer.stroke = null
             drawer.fill = rgb(0.2)
-            drawer.background(rgb(0.9))
+            drawer.clear(rgb(0.9))
             drawer.translate(drawer.bounds.center)
             drawer.circles(circles)
 
             var newPos = Polar(seconds * 5091, width * 1.0).cartesian
-            var newRadius = circles.last().radius * 0.98
+            val newRadius = circles.last().radius * 0.98
             var search = true
             while (search) {
                 newPos -= newPos.normalized

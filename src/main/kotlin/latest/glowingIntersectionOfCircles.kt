@@ -43,7 +43,7 @@ fun main() = application {
             gain = 10.0
         }
 
-        extend(ScreenRecorder())
+        //extend(ScreenRecorder())
         extend {
             drawer.clear(ColorRGBa.BLACK)
             drawer.circles {
@@ -67,9 +67,9 @@ fun main() = application {
                 drawer.circles {
                     circles.uniquePairs().forEach {
                         val (first, second) = it.toList()
-                        first.circle.intersections(second.circle).forEach {
+                        first.circle.intersections(second.circle).forEach { pos ->
                             fill = ColorRGBa.WHITE.shade(Random.double(0.4, 1.0))
-                            circle(it, 5.0)
+                            circle(pos, 5.0)
                         }
                     }
                 }

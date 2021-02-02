@@ -13,7 +13,7 @@ import kotlin.math.max
 /**
  * Here I'm considering if it makes sense to use annotations
  * in variables to link them to midi knobs and buttons.
- T*
+T*
  * Q: Could I use midi-learn instead of hardcoding the cc-number? For that I would need a list of variables
  *    I can control, then keys to highlight one of those variables, then turn a knob or press a button
  */
@@ -25,20 +25,26 @@ fun main() = application {
 
             @MFSigned("Angular rotation", ccnum = 12, style = 30)
             val rotation = Interpolator(0.0)
+
             @MFDouble("x", ccnum = 13)
             val x = Interpolator(0.5, 0.008, 0.001)
+
             @MFDouble("y", ccnum = 14)
             val y = Interpolator(0.1)
 
             // This for a second midi controller (Faderfox)
             @FFAction("Faderfox click", ch = 12, ccnum = 0)
-            fun doSomething() { println("something") }
+            @Suppress("unused")
+            fun doSomething() {
+                println("something")
+            }
 
             // Setting the name on the device is not yet possible
             @FFDouble("SHKE", ch = 4, ccnum = 0)
             var shake = 0.0
 
             @MFAction("Centered flash", ccnum = 15, color = BLUE)
+            @Suppress("unused")
             fun flash() {
                 bri = 1.0
             }
@@ -54,9 +60,11 @@ fun main() = application {
 
         extend {
             drawer.run {
-                translate(midi.x * width,
+                translate(
+                    midi.x * width,
                     midi.y * height +
-                    random(0.0, midi.shake * 20))
+                            random(0.0, midi.shake * 20)
+                )
                 rotate(midi.rotation * 180.0)
                 fill = rgb(midi.bri)
                 rectangle(Rectangle.fromCenter(Vector2.ZERO, 200.0, 200.0))
@@ -65,7 +73,7 @@ fun main() = application {
         }
 
         keyboard.keyDown.listen {
-            when(it.key) {
+            when (it.key) {
                 55 -> mf.setPage(0)
                 56 -> mf.setPage(1)
                 57 -> mf.setPage(2)

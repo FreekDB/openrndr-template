@@ -192,29 +192,29 @@ fun main() = application {
         }
 
         val actions = @Description("Actions") object {
-            @ActionParameter("new image")
+            @ActionParameter("new image") @Suppress("unused")
             fun doNew() {
                 Random.seed = System.currentTimeMillis().toString()
                 contours.clear()
                 newImage()
             }
 
-            @ActionParameter("bw")
+            @ActionParameter("bw") @Suppress("unused")
             fun doBW() {
                 showBW = !showBW
             }
 
-            @ActionParameter("to curves")
+            @ActionParameter("to curves") @Suppress("unused")
             fun doCreateContours() {
                 toCurves()
             }
 
-            @ActionParameter("screenshot")
+            @ActionParameter("screenshot") @Suppress("unused")
             fun doScreenshot() {
                 screenshots.trigger()
             }
 
-            @ActionParameter("save svg")
+            @ActionParameter("save svg") @Suppress("unused")
             fun doSaveSVG() {
                 exportSVG()
             }

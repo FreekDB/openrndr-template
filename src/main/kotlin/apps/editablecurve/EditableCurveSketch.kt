@@ -65,14 +65,14 @@ fun main() = application {
             mf?.controlChanged?.deliver()
 
             // clear
-            drawer.background(ECState.bgColor)
+            drawer.clear(ECState.bgColor)
             drawer.fontMap = font
 
             // ---------------------------------
             // export SVG
             if (ECState.saveSVG) {
                 exportSVG()
-                ECState.saveSVG = false;
+                ECState.saveSVG = false
             }
 
             // ----------------------------------

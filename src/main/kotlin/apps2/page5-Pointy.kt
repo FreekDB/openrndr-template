@@ -46,7 +46,7 @@ fun main() = application {
         var bgcolor = ColorRGBa.PINK
 
         val maxNumOfHairs = 360
-        var hairContours = mutableListOf<ShapeContour>()
+        val hairContours = mutableListOf<ShapeContour>()
         val hairLocations = mutableListOf<Pair<Int, Int>>()
         val motherSlots = MutableList(maxNumOfHairs) { false }
 
@@ -79,8 +79,8 @@ fun main() = application {
             if (hairContours.size < maxNumOfHairs - 1) {
                 // figure out which slots to connect
                 val jmp = (15 + seconds * 20).toInt()
-                var v1: Int
-                var v2: Int
+                val v1: Int
+                val v2: Int
                 if (Random.bool(0.3) || hairContours.isEmpty()) {
                     v1 = Random.int0(maxNumOfHairs)
                     v2 = (v1 + Random.int(1, jmp)) % maxNumOfHairs

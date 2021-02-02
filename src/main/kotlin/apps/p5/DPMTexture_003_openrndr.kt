@@ -201,7 +201,7 @@ fun main() = application {
         }
 
         extend {
-            drawer.background(ColorRGBa.BLACK)
+            drawer.clear(ColorRGBa.BLACK)
             Random.seed = randSeed
             drawer.strokeWeight = sw
             drawer.lineCap = LineCap.SQUARE

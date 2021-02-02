@@ -16,7 +16,7 @@ fun main() = application {
         val colors = listOf(ColorRGBa.PINK, ColorRGBa.WHITE, ColorRGBa.WHITE, ColorRGBa.PINK.shade(0.5))
         extend {
             Random.resetState()
-            drawer.background(ColorRGBa.WHITE)
+            drawer.clear(ColorRGBa.WHITE)
             for (x in 0..15) {
                 for (y in 0..5) {
                     val pos = Vector2(

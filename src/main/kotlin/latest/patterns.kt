@@ -20,7 +20,7 @@ import org.openrndr.utils.namedTimestamp
 import java.io.File
 
 fun main() {
-    fun Circleish(pos: Vector2, radius: Double): ShapeContour =
+    fun circleish(pos: Vector2, radius: Double): ShapeContour =
         CatmullRomChain2(List(5) { it * 72.0 + Random.double0(30.0) }.map {
             Polar(it, radius).cartesian + pos
         }, 0.5, true).toContour()
@@ -67,8 +67,8 @@ fun main() {
                     // Make it XY Mirrored
                     val szDiff = 0.0 rnd 20.0
                     Pair(
-                        Circleish(pos, sz + szDiff).shape,
-                        Circleish(-pos, sz - szDiff).shape
+                        circleish(pos, sz + szDiff).shape,
+                        circleish(-pos, sz - szDiff).shape
                     )
                 }.map { it.toList() }.flatten()
 

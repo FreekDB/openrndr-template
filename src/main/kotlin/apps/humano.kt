@@ -1,3 +1,5 @@
+package apps
+
 import aBeLibs.geometry.Human
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa

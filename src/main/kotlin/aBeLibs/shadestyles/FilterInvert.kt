@@ -8,6 +8,7 @@ import org.openrndr.extra.parameters.DoubleParameter
 /**
  * Invert filter, for testing purposes
  */
+@Suppress("unused")
 @Description("Approximate Gaussian blur")
 class FilterInvert : Filter(
     filterShaderFromCode(

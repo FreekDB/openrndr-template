@@ -18,6 +18,7 @@ fun fromIrregularLine(p0: Vector2, p1: Vector2, pc: Double, time: Double = 0.0):
 }
 
 /** calculates [Rectangle]-bounds for a list of [LineSegment] instances */
+@Suppress("unused")
 fun lineSegmentBounds(lines: List<LineSegment>): Rectangle {
     var minX = Double.POSITIVE_INFINITY
     var minY = Double.POSITIVE_INFINITY

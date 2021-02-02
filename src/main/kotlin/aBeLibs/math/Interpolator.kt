@@ -33,12 +33,14 @@ class Interpolator(
         return currentValue
     }
 
+    @Suppress("unused")
     fun jumpTo(target: Double) {
         currentSpeed = 0.0
         currentValue = target
         targetValue = target
     }
 
+    @Suppress("unused")
     fun setSpeeds(maxSpeed: Double, maxAcceleration: Double, dampDistance: Double) {
         this.maxSpeed = maxSpeed
         this.maxAcceleration = maxAcceleration

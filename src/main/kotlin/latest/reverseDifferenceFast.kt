@@ -1,11 +1,10 @@
-package now
+package latest
 
 import org.openrndr.KEY_ENTER
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.dialogs.saveFileDialog
 import org.openrndr.extensions.Screenshots
-import org.openrndr.extra.noise.Random
 import org.openrndr.shape.Circle
 import org.openrndr.shape.ClipMode
 import org.openrndr.shape.drawComposition

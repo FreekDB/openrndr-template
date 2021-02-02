@@ -16,7 +16,6 @@ import org.openrndr.math.mix
 import org.openrndr.shape.CompositionDrawer
 import org.openrndr.shape.ShapeContour
 import org.openrndr.svg.writeSVG
-import java.lang.Math.sqrt
 import kotlin.math.*
 import kotlin.system.exitProcess
 
@@ -39,7 +38,7 @@ fun main() = application {
         var rotation = 0.0
         var bgcolor = ColorRGBa.PINK
 
-        var hairContours = mutableListOf<ShapeContour>()
+        val hairContours = mutableListOf<ShapeContour>()
 
         fun populate() {
             val seed = System.currentTimeMillis().toInt()
@@ -49,17 +48,44 @@ fun main() = application {
             hairContours.clear()
             hairContours.add(ShapeContour.fromPoints(List(pointCount) {
                 val a = 2 * PI * it / pointCount
-                Polar(Math.toDegrees(a), 200.0 + 10.0 * simplex(seed, cos(a), sin(a))).cartesian
+                Polar(
+                    Math.toDegrees(a),
+                    200.0 + 10.0 * simplex(seed, cos(a), sin(a))
+                ).cartesian
             }, true).sampleEquidistant(pointCount).smoothed(smoothingSize)) // 0
-            hairContours.add(hairContours[0].offset(20.0).sampleEquidistant(pointCount).smoothed(smoothingSize)) // 1
-            hairContours.add(hairContours[1].offset(40.0).sampleEquidistant(pointCount).smoothed(smoothingSize)) // 2
-            hairContours.add(hairContours[2].offset(60.0).sampleEquidistant(pointCount).smoothed(smoothingSize)) // 3
-            hairContours.add(hairContours[3].offset(80.0).sampleEquidistant(pointCount).smoothed(smoothingSize)) // 4
+            hairContours.add(
+                hairContours[0].offset(20.0).sampleEquidistant(pointCount)
+                    .smoothed(smoothingSize)
+            ) // 1
+            hairContours.add(
+                hairContours[1].offset(40.0).sampleEquidistant(pointCount)
+                    .smoothed(smoothingSize)
+            ) // 2
+            hairContours.add(
+                hairContours[2].offset(60.0).sampleEquidistant(pointCount)
+                    .smoothed(smoothingSize)
+            ) // 3
+            hairContours.add(
+                hairContours[3].offset(80.0).sampleEquidistant(pointCount)
+                    .smoothed(smoothingSize)
+            ) // 4
 
-            hairContours.add(hairContours[0].offset(-20.0).sampleEquidistant(pointCount).smoothed(smoothingSize)) // 5
-            hairContours.add(hairContours[5].offset(-20.0).sampleEquidistant(pointCount).smoothed(smoothingSize)) // 6
-            hairContours.add(hairContours[6].offset(-20.0).sampleEquidistant(pointCount).smoothed(smoothingSize)) // 7
-            hairContours.add(hairContours[7].offset(-20.0).sampleEquidistant(pointCount).smoothed(smoothingSize)) // 8
+            hairContours.add(
+                hairContours[0].offset(-20.0).sampleEquidistant(pointCount)
+                    .smoothed(smoothingSize)
+            ) // 5
+            hairContours.add(
+                hairContours[5].offset(-20.0).sampleEquidistant(pointCount)
+                    .smoothed(smoothingSize)
+            ) // 6
+            hairContours.add(
+                hairContours[6].offset(-20.0).sampleEquidistant(pointCount)
+                    .smoothed(smoothingSize)
+            ) // 7
+            hairContours.add(
+                hairContours[7].offset(-20.0).sampleEquidistant(pointCount)
+                    .smoothed(smoothingSize)
+            ) // 8
 
             // Make waves between the guide lines
             pointCount *= 6
@@ -75,15 +101,25 @@ fun main() = application {
             )) {
                 hairContours.add(ShapeContour.fromPoints(List(pointCount) {
                     val pc = it * 1.0 / pointCount
-                    val x = pc * 120 + perlin(seed, sin(1 * pc * PI * 2), 0.0) * 20.0
+                    val x = pc * 120 + perlin(
+                        seed,
+                        sin(1 * pc * PI * 2),
+                        0.0
+                    ) * 20.0
                     // 1. simple sine wave
                     // val sin = sin(theta * waveCount + waveOffset + Random.perlin(sin(theta), 0.0)) * 0.4 + 0.5
 
                     // 2. semicircular wave
                     // https://math.stackexchange.com/questions/44329/function-for-concatenated-semicircles
                     val sin =
-                        (-1.0).pow(floor(x / 2 + 0.5)) * sqrt(1 - (x - 2 * floor(x / 2 + 0.5)).pow(2.0)) * 0.4 + 0.5
-                    mix(hairContours[k.first].position(pc), hairContours[k.second].position(pc), sin)
+                        (-1.0).pow(floor(x / 2 + 0.5)) * sqrt(
+                            1 - (x - 2 * floor(x / 2 + 0.5)).pow(2.0)
+                        ) * 0.4 + 0.5
+                    mix(
+                        hairContours[k.first].position(pc),
+                        hairContours[k.second].position(pc),
+                        sin
+                    )
                 }, true))
             }
 
@@ -115,7 +151,7 @@ fun main() = application {
 
         extend(Screenshots())
         extend {
-            drawer.background(bgcolor)
+            drawer.clear(bgcolor)
 
             drawer.isolated {
                 drawer.translate(center)
@@ -140,7 +176,8 @@ fun main() = application {
                 KEY_ESCAPE -> exitProcess(0)
                 KEY_INSERT -> exportSVG()
                 KEY_ENTER -> {
-                    bgcolor = ColorXSVa(Random.double0(360.0), 0.3, 0.95).toRGBa()
+                    bgcolor =
+                        ColorXSVa(Random.double0(360.0), 0.3, 0.95).toRGBa()
                     populate()
                 }
             }

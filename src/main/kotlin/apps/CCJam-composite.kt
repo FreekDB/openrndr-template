@@ -121,7 +121,7 @@ fun main() = application {
             key = "s"
         }
         extend {
-            drawer.background(ColorRGBa.BLACK)
+            drawer.clear(ColorRGBa.BLACK)
             composite.draw(drawer)
         }
 

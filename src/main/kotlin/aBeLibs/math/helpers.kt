@@ -5,7 +5,6 @@ import org.openrndr.math.Vector2
 import org.openrndr.math.clamp
 import org.openrndr.math.map
 import org.openrndr.math.mod
-import org.openrndr.shape.Rectangle
 import kotlin.math.PI
 import kotlin.math.atan2
 import kotlin.math.cos
@@ -36,9 +35,9 @@ fun doubleExponentialSigmoid(min: Double, max: Double): Double {
     val a = 0.15
 
     return if (x <= 0.5) {
-        ((2.0 * x).pow(1.0 / a)) / 2.0;
+        ((2.0 * x).pow(1.0 / a)) / 2.0
     } else {
-        1.0 - ((2.0 * (1.0 - x)).pow(1.0 / a)) / 2.0;
+        1.0 - ((2.0 * (1.0 - x)).pow(1.0 / a)) / 2.0
     }
 }
 
@@ -48,7 +47,7 @@ fun doubleExponentialSigmoid(min: Double, max: Double): Double {
  */
 fun cosEnv(x: Double, start: Double = 0.0, end: Double = 1.0, clamped: Boolean = false): Double {
     if (clamped && (x < start || x > end)) {
-        return 0.0;
+        return 0.0
     }
     val xNorm = x.map(start, end, 0.0, TAU)
     return 0.5 - 0.5 * cos(xNorm)
@@ -64,6 +63,7 @@ fun cosEnv(x: Double, start: Double = 0.0, end: Double = 1.0, clamped: Boolean =
  * @param to
  * @return
  */
+@Suppress("unused")
 fun compress(x: Double, from: Double, to: Double): Double {
     return if (x < from) {
         map(0.0, from, 0.0, to, x)
@@ -81,6 +81,7 @@ fun compress(x: Double, from: Double, to: Double): Double {
  * @param max
  * @return
  */
+@Suppress("unused")
 fun denormalize(normValue: Double, min: Double, max: Double): Double {
     return min + normValue * (max - min)
 }
@@ -94,6 +95,7 @@ fun denormalize(normValue: Double, min: Double, max: Double): Double {
  * @return a normalized value, clipped to [0, 1] if value was outside
  * the [start, stop] range
  */
+@Suppress("unused")
 fun normClipped(value: Double, start: Double, stop: Double) = clamp((value - start) / (stop - start))
 
 /**

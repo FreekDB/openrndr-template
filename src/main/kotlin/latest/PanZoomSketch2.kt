@@ -1,4 +1,4 @@
-package apps2
+package latest
 
 import aBeLibs.panzoom.PanZoomCanvas
 import org.openrndr.KEY_ESCAPE
@@ -8,7 +8,6 @@ import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.isolatedWithTarget
 import org.openrndr.math.IntVector2
 import org.openrndr.math.Polar
-import org.openrndr.math.Vector2
 import org.openrndr.shape.Rectangle
 import kotlin.random.Random
 

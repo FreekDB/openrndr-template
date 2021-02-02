@@ -11,7 +11,6 @@ import org.openrndr.shape.SegmentJoin
 import org.openrndr.shape.ShapeContour
 import org.openrndr.shape.contour
 import org.openrndr.text.writer
-import java.lang.Math.abs
 import kotlin.system.exitProcess
 
 /**
@@ -49,12 +48,12 @@ fun main() = application {
             for (sides in 3..6) {
                 val original = when (type) {
                     5 -> ShapeContour.fromPoints(List(sides * 2) {
-                        val i = abs(it - sides).toInt()
+                        val i = kotlin.math.abs(it - sides)
                         val k = if (it < sides) 1.0 else 1.4
                         (i * (360 / sides)).toCartesian() * k
                     }, true)
                     4 -> ShapeContour.fromPoints(List(sides * 2) {
-                        val i = abs(it - sides + 0.5).toInt()
+                        val i = kotlin.math.abs(it - sides + 0.5).toInt()
                         val k = if (it < sides) 1.0 else 1.4
                         (i * (360 / sides)).toCartesian() * k
                     }, true)
@@ -106,14 +105,14 @@ fun main() = application {
                     fill = ColorRGBa.BLACK.opacify(0.8)
                     writer {
                         translate(-textWidth(txt) * 0.5, 75.0)
-                        text(txt);
+                        text(txt)
                     }
 
                 }
             }
 
             with(drawer) {
-                background(ColorRGBa.WHITE)
+                clear(ColorRGBa.WHITE)
                 stroke = ColorRGBa(0.0, 0.0, 0.0, 0.05)
                 fontMap = font
             }

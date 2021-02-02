@@ -1,6 +1,5 @@
 package apps2
 
-import aBeLibs.geometry.removeIntersections
 import org.openrndr.KEY_ENTER
 import org.openrndr.KEY_ESCAPE
 import org.openrndr.KEY_INSERT

@@ -15,7 +15,7 @@ fun main() = application {
     }
 
     program {
-        var grid = Grid()
+        val grid = Grid()
 
         extend {
             drawer.clear(ColorRGBa.WHITE.shade(0.25))

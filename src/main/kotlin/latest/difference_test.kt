@@ -1,7 +1,6 @@
 package latest
 
 import org.openrndr.application
-import org.openrndr.math.Vector2
 import org.openrndr.shape.Circle
 import org.openrndr.shape.compound
 

@@ -1,6 +1,5 @@
 package aBeLibs.shadestyles
 
-import org.openrndr.draw.ColorBuffer
 import org.openrndr.draw.Filter
 import org.openrndr.draw.filterShaderFromCode
 import org.openrndr.extra.parameters.Description

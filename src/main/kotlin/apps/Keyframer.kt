@@ -53,7 +53,7 @@ fun main() = application {
         //extend(ScreenRecorder())
         extend {
             drawer.isolatedWithTarget(rt) {
-                drawer.background(rgb(0.85, 0.42, 0.29))
+                drawer.clear(rgb(0.85, 0.42, 0.29))
 
                 camera.update(deltaTime)
                 for (i in 0..15) {

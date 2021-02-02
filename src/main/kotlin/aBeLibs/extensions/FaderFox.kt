@@ -21,7 +21,7 @@ class FaderFox : Extension {
 
     private val controller = try {
         MidiDeviceDescription.list().forEach { println(it) }
-        MidiDeviceDescription.list().firstOrNull() { it.name.contains("EC4") }?.run {
+        MidiDeviceDescription.list().firstOrNull { it.name.contains("EC4") }?.run {
             MidiTransceiver.fromDeviceVendor(name, vendor)
         }
     } catch (e: IllegalArgumentException) {

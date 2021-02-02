@@ -8,7 +8,7 @@ import org.jgrapht.Graphs
 /**
  * Find cycles with 4 vertices
  */
-fun <V, E> AbeCycle(graph: Graph<V, E>): Set<Set<V>> {
+fun <V, E> abeCycle(graph: Graph<V, E>): Set<Set<V>> {
     GraphTests.requireUndirected(graph)
     require(!GraphTests.hasMultipleEdges(graph)) { "Graphs with multiple edges not supported" }
 

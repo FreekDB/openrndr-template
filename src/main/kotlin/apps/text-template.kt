@@ -9,10 +9,7 @@ import org.openrndr.draw.LineJoin
 import org.openrndr.draw.isolated
 import org.openrndr.extensions.Screenshots
 import org.openrndr.math.transforms.transform
-import org.openrndr.shape.CompositionDrawer
-import org.openrndr.shape.Rectangle
-import org.openrndr.shape.ShapeContour
-import org.openrndr.shape.rectangleBounds
+import org.openrndr.shape.*
 import org.openrndr.svg.loadSVG
 import org.openrndr.svg.writeSVG
 import kotlin.system.exitProcess
@@ -75,12 +72,6 @@ fun main() = application {
             "Microdosing narwhal fanny pack dreamcatcher ramps godard."
         )
 
-        fun CompositionDrawer.isolated(function: CompositionDrawer.() -> Unit ) {
-            pushModel()
-            function()
-            popModel()
-        }
-
         fun exportSVG() {
             val svg = CompositionDrawer()
             svg.run {
@@ -90,7 +81,7 @@ fun main() = application {
                     isolated {
                         line.trimIndent().toUpperCase().forEach {
                             letters[it]?.run {
-                                val letterBounds = rectangleBounds(this.map { c -> c.bounds })
+                                val letterBounds = this.map { c -> c.bounds }.bounds
                                 translate(-letterBounds.x, 0.0)
                                 contours(this)
                                 translate(letterBounds.x + letterBounds.width + 3.0, 0.0)

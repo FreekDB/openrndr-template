@@ -9,7 +9,7 @@ import org.openrndr.extra.noise.Random
 
 fun main() = application {
     program {
-        class Pos() : Animatable() {
+        class Pos : Animatable() {
             var x: Double = 50.0
             var y: Double = 50.0
         }

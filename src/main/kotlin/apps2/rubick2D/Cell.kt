@@ -15,7 +15,7 @@ private val style = object {
     val gridOffset = IntVector2(-2, -2)
 }
 
-class Vector2Anim() : Animatable() {
+class Vector2Anim : Animatable() {
     var x: Double = 0.0
     var y: Double = 0.0
 }
@@ -101,6 +101,7 @@ data class Cell(
         }
     }
 
+    @Suppress("unused")
     fun gridPosEquals(other: Cell) = gridPos == other.gridPos
 
 }

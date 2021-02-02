@@ -32,9 +32,9 @@ fun main() = application {
         }.sortedBy {
             it.length
         }.forEach {
-            val t = Tile(it);
-            t.build();
-            tiles.add(t);
+            val t = Tile(it)
+            t.build()
+            tiles.add(t)
         }
 
         fun saveCollada() {

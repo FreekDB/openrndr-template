@@ -29,12 +29,21 @@ fun main() = application {
                 circler(Circle(center, center.distanceTo(p1)))
 
                 stroke = ColorRGBa.BLACK
-                contour(spiralContour(p0, p1, center, if (keyboard.pressedKeys.contains("left-shift")) 2 else -2))
+                contour(
+                    spiralContour(
+                        p0,
+                        p1,
+                        center,
+                        if (keyboard.pressedKeys.contains("left-shift")) 2 else -2
+                    )
+                )
             }
         }
 
         mouse.dragged.listen {
-            when (listOf(p0, p1, center).minBy { p -> p.squaredDistanceTo(it.position) }) {
+            when (listOf(p0, p1, center).minByOrNull { p ->
+                p.squaredDistanceTo(it.position)
+            }) {
                 p0 -> p0 = it.position
                 p1 -> p1 = it.position
                 center -> center = it.position

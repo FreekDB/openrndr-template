@@ -19,7 +19,7 @@ fun main() {
 
             extend {
                 if (frameCount % 60 == 0) {
-                    cb = TreeShadowTexture(drawer, width, height)
+                    cb = treeShadowTexture(drawer, width, height)
                 }
                 drawer.image(cb)
             }
@@ -27,7 +27,7 @@ fun main() {
     }
 }
 
-fun TreeShadowTexture(drawer: Drawer, width: Int, height: Int): ColorBuffer {
+fun treeShadowTexture(drawer: Drawer, width: Int, height: Int): ColorBuffer {
     val rt = renderTarget(width, height) {
         colorBuffer()
     }

@@ -14,7 +14,7 @@ import org.openrndr.shape.rectangleBounds
 import org.openrndr.svg.loadSVG
 import kotlin.math.max
 
-class Handwritten() : Extension {
+class Handwritten : Extension {
     override var enabled: Boolean = true
 
     private val svg = loadSVG("data/text-template-3.svg")
@@ -38,13 +38,8 @@ class Handwritten() : Extension {
         lines.add(Pair(txt, pos - align * size))
     }
 
+    @Suppress("unused")
     fun hasGlyph(letter: Char) = letters.containsKey(letter)
-
-    private fun CompositionDrawer.isolated(function: CompositionDrawer.() -> Unit) {
-        pushModel()
-        function()
-        popModel()
-    }
 
     override fun setup(program: Program) {
         svg.findShapes().filter { it.id!!.length <= 4 }.forEach {

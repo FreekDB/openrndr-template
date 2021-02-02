@@ -1,3 +1,5 @@
+@file:Suppress("MemberVisibilityCanBePrivate")
+
 package apps2
 
 import aBeLibs.extensions.Handwritten
@@ -100,7 +102,7 @@ class Thing(drawer: Drawer) {
     private fun drag() {
         val speed = velocity.length
         val dragMagnitude = 0.1 * speed * speed
-        var dragForce = -velocity.normalized * dragMagnitude
+        val dragForce = -velocity.normalized * dragMagnitude
         applyForce(dragForce)
     }
 

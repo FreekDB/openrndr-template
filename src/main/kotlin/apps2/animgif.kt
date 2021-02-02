@@ -3,7 +3,6 @@ package apps2
 import org.openrndr.application
 import org.openrndr.extra.videoprofiles.PNGProfile
 import org.openrndr.ffmpeg.ScreenRecorder
-import org.openrndr.ffmpeg.VideoWriterProfile
 import org.openrndr.math.Vector2
 import java.lang.Math.toDegrees
 import kotlin.math.PI

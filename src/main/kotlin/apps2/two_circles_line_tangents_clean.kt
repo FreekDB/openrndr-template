@@ -5,7 +5,6 @@ import aBeLibs.geometry.tangentWrapConcave
 import org.openrndr.application
 import org.openrndr.color.ColorHSLa
 import org.openrndr.color.ColorRGBa
-import org.openrndr.draw.Drawer
 import org.openrndr.draw.isolatedWithTarget
 import org.openrndr.draw.renderTarget
 import org.openrndr.extensions.Screenshots
@@ -119,11 +118,4 @@ fun main() = application {
             }
         }
     }
-}
-
-/**
- * circle draws circles slightly too small, therefore this fix
- */
-fun Drawer.circler(c: Circle) {
-    circle(c.scaledTo(c.radius + 1.5))
 }

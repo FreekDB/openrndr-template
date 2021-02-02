@@ -27,14 +27,14 @@ fun main() = application {
             drawer.stroke = null
             // Background
             drawer.shadeStyle = linearGradient(b1, b2, rotation = -90.0)
-            drawer.rectangle(0.0, 0.0, width / 2.0, height.toDouble());
+            drawer.rectangle(0.0, 0.0, width / 2.0, height.toDouble())
             drawer.shadeStyle = linearGradient(b1, b2, rotation = 90.0)
-            drawer.rectangle(width / 2.0, 0.0, width / 2.0, height.toDouble());
+            drawer.rectangle(width / 2.0, 0.0, width / 2.0, height.toDouble())
             // Foreground
             drawer.shadeStyle = linearGradient(c1, c2, rotation = 0.0)
-            drawer.rectangle(50.0, 90.0, 540.0, 80.0);
+            drawer.rectangle(50.0, 90.0, 540.0, 80.0)
             drawer.shadeStyle = linearGradient(c1, c2, rotation = 90.0)
-            drawer.rectangle(50.0, 190.0, 540.0, 80.0);
+            drawer.rectangle(50.0, 190.0, 540.0, 80.0)
         }
 
         keyboard.keyDown.listen {

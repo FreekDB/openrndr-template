@@ -1,17 +1,8 @@
 package apps.simpleTests
 
 import org.openrndr.application
-import org.openrndr.color.ColorRGBa
-import org.openrndr.draw.isolatedWithTarget
-import org.openrndr.draw.renderTarget
-import org.openrndr.extra.noise.uniform
-import org.openrndr.extra.olive.oliveProgram
-import org.openrndr.math.Vector2
-import org.openrndr.math.Vector3
 import org.openrndr.math.transforms.transform
 import org.openrndr.shape.Circle
-import org.openrndr.shape.Rectangle
-import org.openrndr.shape.Shape
 
 fun main() = application {
     program {

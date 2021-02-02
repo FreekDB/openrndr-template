@@ -9,7 +9,6 @@ import org.openrndr.draw.isolated
 import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.noise.Random
 import org.openrndr.extra.noise.uniformRing
-import org.openrndr.extra.noise.uniformsRing
 import org.openrndr.math.Polar
 import org.openrndr.math.Vector2
 import org.openrndr.math.map

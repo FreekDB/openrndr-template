@@ -1,3 +1,5 @@
+@file:Suppress("MemberVisibilityCanBePrivate")
+
 package apps.editablecurve
 
 import com.google.gson.Gson
@@ -18,8 +20,8 @@ object ECState {
     var curves = mutableListOf<EditableCurve>()
     var segments = mutableListOf<ShapeContour>()
     var saveSVG = false
-    var curvesNeedUpdate = false
-    var mouseClickStart = Vector2(0.0)
+    private var curvesNeedUpdate = false
+    private var mouseClickStart = Vector2(0.0)
 
     fun refreshCurves() {
         segments.clear()
@@ -27,11 +29,11 @@ object ECState {
     }
 
     private fun selectCurve(pos: Vector2): EditableCurve? {
-        return curves?.minBy { it.distanceTo(pos) }
+        return curves.minByOrNull { it.distanceTo(pos) }
     }
 
     fun addCurve(): EditableCurve {
-        var c = EditableCurve()
+        val c = EditableCurve()
         curves.add(c)
 
         activeCurve = curves.lastOrNull()
@@ -53,7 +55,7 @@ object ECState {
     }
 
     fun loadFile(file: File) {
-        var gson = Gson()
+        val gson = Gson()
         val typeToken = object : TypeToken<MutableList<EditableCurve>>() {}
         curves = gson.fromJson(file.readText(), typeToken.type)
         curves.forEach { it.update() }

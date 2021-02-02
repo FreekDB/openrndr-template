@@ -20,6 +20,7 @@ class MidiFighter : Extension {
     private val targets = mutableMapOf<Int, Any>()
     private val iptors = mutableListOf<Interpolator>()
 
+    @Suppress("unused")
     private enum class Type(val id: Int) {
         RING(0),
         BUTTON(1),
@@ -30,6 +31,7 @@ class MidiFighter : Extension {
         SEQ(7)
     }
 
+    @Suppress("unused")
     enum class Color(val hue: Int, val bri: Int) {
         INDIGO(1, 35),
         BLUE(14, 40),
@@ -51,7 +53,7 @@ class MidiFighter : Extension {
     }
 
     private val controller = try {
-        MidiDeviceDescription.list().firstOrNull() { it.name.contains("Twister") }?.run {
+        MidiDeviceDescription.list().firstOrNull { it.name.contains("Twister") }?.run {
             MidiTransceiver.fromDeviceVendor(name, vendor)
         }
     } catch (e: IllegalArgumentException) {

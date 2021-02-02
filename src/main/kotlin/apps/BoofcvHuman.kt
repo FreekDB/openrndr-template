@@ -1,20 +1,16 @@
 package apps
 
-import boofcv.alg.filter.binary.BinaryImageOps
-import boofcv.alg.filter.binary.ThresholdImageOps
-import boofcv.struct.ConnectRule
-import boofcv.struct.image.GrayS32
-import boofcv.struct.image.GrayU8
 import aBeLibs.extensions.NoJitter
 import aBeLibs.geometry.Human
 import aBeLibs.geometry.toContours
 import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
-import org.openrndr.boofcv.binding.toGrayF32
-import org.openrndr.boofcv.binding.toVector2s
 import org.openrndr.color.ColorRGBa
 import org.openrndr.dialogs.saveFileDialog
-import org.openrndr.draw.*
+import org.openrndr.draw.colorBuffer
+import org.openrndr.draw.isolated
+import org.openrndr.draw.isolatedWithTarget
+import org.openrndr.draw.renderTarget
 import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.fx.blur.ApproximateGaussianBlur
 import org.openrndr.extra.fx.distort.Perturb
@@ -77,7 +73,8 @@ fun main() = application {
 
                 shapes.forEachIndexed { i, cir ->
                     isolated {
-                        fill = if (Random.bool()) ColorRGBa.WHITE else ColorRGBa.BLACK
+                        fill =
+                            if (Random.bool()) ColorRGBa.WHITE else ColorRGBa.BLACK
                         stroke = null
                         if (Random.bool(0.5)) {
                             if (Random.bool(0.75)) {
@@ -94,11 +91,25 @@ fun main() = application {
                                     isolated {
                                         val ang = angleStart + copy * angleDelta
                                         val rect =
-                                            Rectangle.fromCenter(Vector2.ZERO, cir.radius * 0.5, cir.radius * 0.2)
+                                            Rectangle.fromCenter(
+                                                Vector2.ZERO,
+                                                cir.radius * 0.5,
+                                                cir.radius * 0.2
+                                            )
                                         if (cartesian) {
-                                            translate(cir.center + Vector2(0.0, ang - 180))
+                                            translate(
+                                                cir.center + Vector2(
+                                                    0.0,
+                                                    ang - 180
+                                                )
+                                            )
                                         } else {
-                                            translate(cir.center + Polar(ang, radius).cartesian)
+                                            translate(
+                                                cir.center + Polar(
+                                                    ang,
+                                                    radius
+                                                ).cartesian
+                                            )
                                             rotate(ang)
                                         }
                                         rectangle(rect)
@@ -110,7 +121,13 @@ fun main() = application {
                             isolated {
                                 translate(cir.center)
                                 rotate(Random.int0(8) * 30.0)
-                                rectangle(Rectangle.fromCenter(Vector2.ZERO, cir.radius * 3.0, cir.radius * 0.5))
+                                rectangle(
+                                    Rectangle.fromCenter(
+                                        Vector2.ZERO,
+                                        cir.radius * 3.0,
+                                        cir.radius * 0.5
+                                    )
+                                )
                             }
                         }
 
@@ -127,7 +144,8 @@ fun main() = application {
                                 1 -> {
                                     // make whole in the center of previous circle
                                     stroke = null
-                                    fill = if (Random.bool(0.7)) ColorRGBa.BLACK else ColorRGBa.WHITE
+                                    fill =
+                                        if (Random.bool(0.7)) ColorRGBa.BLACK else ColorRGBa.WHITE
                                     radius *= Random.double0(0.6)
                                 }
                             }
@@ -170,29 +188,29 @@ fun main() = application {
         }
 
         val actions = @Description("Actions") object {
-            @ActionParameter("new image")
+            @ActionParameter("new image") @Suppress("unused")
             fun doNew() {
                 Random.seed = mouse.position.toString()
                 contours.clear()
                 newImage()
             }
 
-            @ActionParameter("bw")
+            @ActionParameter("bw") @Suppress("unused")
             fun doBW() {
                 showBW = !showBW
             }
 
-            @ActionParameter("to curves")
+            @ActionParameter("to curves") @Suppress("unused")
             fun doCreateContours() {
                 toCurves()
             }
 
-            @ActionParameter("screenshot")
+            @ActionParameter("screenshot") @Suppress("unused")
             fun doScreenshot() {
                 screenshots.trigger()
             }
 
-            @ActionParameter("save svg")
+            @ActionParameter("save svg") @Suppress("unused")
             fun doSaveSVG() {
                 exportSVG()
             }

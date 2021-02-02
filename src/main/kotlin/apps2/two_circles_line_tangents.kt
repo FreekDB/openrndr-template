@@ -1,15 +1,11 @@
-package apps
+package apps2
 
-import aBeLibs.geometry.intersections
-import aBeLibs.geometry.overlap
-import aBeLibs.geometry.tangentCirclesConcave
-import aBeLibs.geometry.tangentCirclesConvex
+import aBeLibs.geometry.*
 import aBeLibs.math.angle
 import aBeLibs.math.isAngleReflex
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.mix
-import org.openrndr.draw.Drawer
 import org.openrndr.draw.LineCap
 import org.openrndr.draw.LineJoin
 import org.openrndr.math.Vector2
@@ -100,9 +96,17 @@ fun main() = application {
                     contour(
                         org.openrndr.shape.contour {
                             moveTo(convexPoints[0])
-                            arcTo(convexRadius, convexRadius, 0.0, false, true, convexPoints[1])
+                            arcTo(convexRadius, convexRadius, 0.0,
+                                largeArcFlag = false,
+                                sweepFlag = true,
+                                end = convexPoints[1]
+                            )
                             arcTo(movingCirc.radius, movingCirc.radius, 0.0, isAngleReflex(a1), true, convexPoints[3])
-                            arcTo(convexRadius, convexRadius, 0.0, false, true, convexPoints[2])
+                            arcTo(convexRadius, convexRadius, 0.0,
+                                largeArcFlag = false,
+                                sweepFlag = true,
+                                end = convexPoints[2]
+                            )
                             arcTo(leftCirc.radius, leftCirc.radius, 0.0, !isAngleReflex(a0), true, convexPoints[0])
                             close()
                         }
@@ -145,9 +149,17 @@ fun main() = application {
                     contour(
                         org.openrndr.shape.contour {
                             moveTo(concavePoints[0])
-                            arcTo(concaveRadius, concaveRadius, 0.0, false, true, concavePoints[1])
+                            arcTo(concaveRadius, concaveRadius, 0.0,
+                                largeArcFlag = false,
+                                sweepFlag = true,
+                                end = concavePoints[1]
+                            )
                             arcTo(movingCirc.radius, movingCirc.radius, 0.0, !isAngleReflex(a1), false, concavePoints[3])
-                            arcTo(concaveRadius, concaveRadius, 0.0, false, true, concavePoints[2])
+                            arcTo(concaveRadius, concaveRadius, 0.0,
+                                largeArcFlag = false,
+                                sweepFlag = true,
+                                end = concavePoints[2]
+                            )
                             arcTo(rightCirc.radius, rightCirc.radius, 0.0, isAngleReflex(a0), false, concavePoints[0])
                             close()
                         }
@@ -161,9 +173,4 @@ fun main() = application {
             }
         }
     }
-}
-
-
-private fun Drawer.circler(c: Circle) {
-    circle(c.scaledTo(c.radius + 1.5))
 }

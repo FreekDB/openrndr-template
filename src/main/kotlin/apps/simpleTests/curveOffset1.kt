@@ -103,7 +103,7 @@ fun main() = application {
         }
 
         extend {
-            drawer.background(ColorRGBa.fromHex(0x355C7D))
+            drawer.clear(ColorRGBa.fromHex(0x355C7D))
             blobs.forEach { it.draw(drawer) }
         }
 

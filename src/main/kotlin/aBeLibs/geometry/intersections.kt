@@ -57,6 +57,7 @@ data class Ray(val start: Vector2, val direction: Vector2)
 /**
  * Ray-to-ray intersection
  */
+@Suppress("unused")
 fun Ray.intersects(other: Ray): Vector2 {
     val d = other.start - start
     val det = other.direction.x * direction.y - other.direction.y * direction.x

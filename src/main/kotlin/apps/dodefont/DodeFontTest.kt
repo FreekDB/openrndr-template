@@ -51,7 +51,7 @@ fun main() = application {
         extend(setupUI())
 
         extend {
-            drawer.background(TPState.bgColor)
+            drawer.clear(TPState.bgColor)
 
             // Background image
             drawer.isolated {

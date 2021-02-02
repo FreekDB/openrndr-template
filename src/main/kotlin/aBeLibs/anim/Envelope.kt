@@ -48,6 +48,7 @@ internal class Envelope(private var currVal: Double = 0.0) {
         fun tick(vararg envelopes: Envelope) = envelopes.forEach { it.tick() }
     }
 
+    @Suppress("unused")
     fun initialize(vararg points: Double, repetitions: Int = 1, force: Boolean = false) {
         if (!done && !force) {
             // do nothing if still animating
@@ -83,6 +84,7 @@ internal class Envelope(private var currVal: Double = 0.0) {
      * @param dur_ms
      * @param delay_ms
      */
+    @Suppress("unused")
     fun animateTo(targetVal: Double, dur_ms: Double = 0.0, delay_ms: Double = 0.0) {
         done = true
         if (delay_ms > 0) {

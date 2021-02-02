@@ -64,7 +64,7 @@ fun main() = application {
 
         extend {
             drawer.translate(drawer.bounds.center)
-            drawer.background(ColorRGBa.WHITE)
+            drawer.clear(ColorRGBa.WHITE)
             drawer.stroke = ColorRGBa(0.0, 0.0, 0.0, 0.5)
             drawer.fill = null
             drawer.shape(lines)

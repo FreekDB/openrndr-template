@@ -1,6 +1,6 @@
 package apps
 
-import apps.live.TreeShadowTexture
+import apps.live.treeShadowTexture
 import aBeLibs.color.ColorProviderImage
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -36,6 +36,7 @@ import kotlin.math.atan2
 import kotlin.math.roundToLong
 import kotlin.system.exitProcess
 
+@Suppress("KDocUnresolvedReference")
 /**
  * Basic template
  * - [x] Sometimes gradient rotated 180°. Fixed by implementing distance based pependicular gradient.
@@ -159,7 +160,7 @@ fun main() = application {
         val screenshot = Screenshots()
         var design = Design(
             "data/images/scratched-and-scraped-metal-texture-12.jpg",
-            TreeShadowTexture(drawer, width, height),
+            treeShadowTexture(drawer, width, height),
             //"data/images/leaves.jpg",
             "data/textures/"
         )
@@ -184,13 +185,13 @@ fun main() = application {
             @DoubleParameter("radius", 0.0, 600.0, precision = 0)
             var colorRadius = 100.0
 
-            @ActionParameter("randomize")
+            @ActionParameter("randomize") @Suppress("unused")
             fun colorChange() {
                 design.colors.reset()
                 dirty = true
             }
 
-            @ActionParameter("Load")
+            @ActionParameter("Load") @Suppress("unused")
             fun load() {
                 openFileDialog(supportedExtensions = listOf("JPG", "jpg")) {
                     design.colors.imgPath = it.absolutePath
@@ -205,12 +206,12 @@ fun main() = application {
             @OptionParameter("Subdivisions")
             var cuts = Cuts.THREE
 
-            @ActionParameter("Screenshot")
+            @ActionParameter("Screenshot") @Suppress("unused")
             fun takeScreenshot() {
                 screenshot.trigger()
             }
 
-            @ActionParameter("Save")
+            @ActionParameter("Save") @Suppress("unused")
             fun doSave() {
                 saveFileDialog(supportedExtensions = listOf("json")) {
                     design.guiState = gui.toObject()
@@ -220,19 +221,19 @@ fun main() = application {
                 }
             }
 
-            @ActionParameter("Load")
+            @ActionParameter("Load") @Suppress("unused")
             fun doLoad() {
                 openFileDialog(supportedExtensions = listOf("json")) {
                     val gson = Gson()
                     val typeToken = object : TypeToken<Design>() {}
                     design = gson.fromJson(it.readText(), typeToken.type)
                     gui.fromObject(design.guiState)
-                    design.rebuild(TreeShadowTexture(drawer, width, height))
+                    design.rebuild(treeShadowTexture(drawer, width, height))
                     dirty = true
                 }
             }
 
-            @ActionParameter("Clear")
+            @ActionParameter("Clear") @Suppress("unused")
             fun clear() {
                 clear()
             }

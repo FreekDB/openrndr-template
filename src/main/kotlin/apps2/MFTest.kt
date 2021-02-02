@@ -41,6 +41,7 @@ fun main() = application {
             //val speed = Interpolated(0.1, speed = 0.3)
 
             @MFAction("Centered flash", ccnum = 15, color = BLUE)
+            @Suppress("unused")
             fun flash() {
                 bri = 1.0
             }

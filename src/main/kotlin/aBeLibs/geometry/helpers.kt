@@ -43,6 +43,7 @@ fun convexHull(p: List<Vector2>): List<Vector2> {
 /**
  * Separate Vector2 points
  */
+@Suppress("unused")
 fun List<Vector2>.separate(separation: Double): List<Vector2> {
     return this.map { me ->
         var sum = Vector2.ZERO
@@ -53,7 +54,7 @@ fun List<Vector2>.separate(separation: Double): List<Vector2> {
                 var force = (me - other).normalized
                 force /= abs(d)
                 sum += force
-                count++;
+                count++
             }
         }
         if (count > 0) {
@@ -80,7 +81,7 @@ fun List<Circle>.separated(
                 var force = (me.center - other.center).normalized
                 force /= abs(d)
                 sum += force
-                count++;
+                count++
             }
         }
         if (count > 0) {
@@ -97,7 +98,7 @@ fun angleToSquare(angle: Double, radius: Double): Vector2 {
     val square = min(
         1 / abs(cos(Math.toRadians(angle))),
         1 / abs(sin(Math.toRadians(angle)))
-    );
+    )
     return Polar(angle, radius * square).cartesian
 }
 
@@ -113,11 +114,12 @@ fun Rectangle.randomPoint(): Vector2 {
  * The goal is to avoid drawing lines multiple times with a plotter.
  */
 fun Composition.dedupe(): Composition {
-    val segments = this.findShapes()
-        .map { it.shape.contours.map { it.segments }.flatten() }.flatten()
+    val segments = this.findShapes().map {
+        it.shape.contours.map { contour -> contour.segments }.flatten()
+    }.flatten()
     val deduped = mutableListOf<Segment>()
     segments.forEach { curr ->
-        if(deduped.none { other -> other.contains(curr, 1.0) }) {
+        if (deduped.none { other -> other.contains(curr, 1.0) }) {
             deduped.add(curr)
         }
     }

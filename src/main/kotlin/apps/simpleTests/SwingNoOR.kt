@@ -32,7 +32,7 @@ class KotlinSwingSimpleEx(title: String) : JFrame() {
         createLayout(closeBtn)
         createMenuBar()
 
-        defaultCloseOperation = JFrame.EXIT_ON_CLOSE
+        defaultCloseOperation = EXIT_ON_CLOSE
         setSize(300, 200)
         setLocationRelativeTo(null)
     }

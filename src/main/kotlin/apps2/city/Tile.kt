@@ -35,8 +35,6 @@ class Tile(private val pos: Vector2) {
     val houses = pHouses as List<LineSegment>
     val houseWidths = pHouseWidths as List<Double>
 
-    val contacts = 0
-
     fun build() {
         pStreets.clear()
         pStreetWidths.clear()

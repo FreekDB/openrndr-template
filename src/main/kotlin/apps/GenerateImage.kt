@@ -28,7 +28,7 @@ fun main() = application {
         shad.upload()
 
         extend {
-            drawer.background(ColorRGBa.WHITE)
+            drawer.clear(ColorRGBa.WHITE)
             drawer.image(cb, 20.0, 20.0, 400.0, 400.0)
         }
     }

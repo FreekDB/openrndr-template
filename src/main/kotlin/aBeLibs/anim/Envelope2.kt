@@ -83,7 +83,7 @@ class Envelope2(private var currVal: Double = 0.0) {
      *
      * @param targetVal
      * @param dur_ms
-     * @param delay_ms
+     * @param easing
      */
     fun animateTo(targetVal: Double, dur_ms: Int = 1000, easing: Easing = Easing.QuadInOut) {
         paused = true

@@ -72,10 +72,7 @@ fun main() {
                         )
                     )
                     KEY_ESCAPE -> application.exit()
-                    KEY_DELETE -> svg.root.findAll { it != svg.root }
-                        .forEach {
-                            it.remove()
-                        }
+                    KEY_DELETE -> svg.clear()
                 }
             }
 

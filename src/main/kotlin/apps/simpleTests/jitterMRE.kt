@@ -4,7 +4,6 @@ import org.openrndr.application
 import org.openrndr.draw.colorBuffer
 import org.openrndr.draw.renderTarget
 import org.openrndr.extra.fx.color.SetBackground
-import org.openrndr.extra.fx.distort.Perturb
 import org.openrndr.extra.gui.GUI
 
 fun main() = application {

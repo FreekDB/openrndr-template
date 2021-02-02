@@ -3,12 +3,8 @@ package apps2
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.ColorXSVa
-import org.openrndr.draw.LineJoin
-import org.openrndr.extra.noise.Random
 import org.openrndr.extra.shadestyles.NPointGradient
-import org.openrndr.ffmpeg.ScreenRecorder
 import org.openrndr.math.Polar
-import org.openrndr.math.Vector3
 import org.openrndr.shape.ShapeContour
 import kotlin.math.PI
 import kotlin.math.sin

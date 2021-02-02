@@ -7,7 +7,6 @@ import org.openrndr.color.ColorRGBa
 import org.openrndr.dialogs.saveFileDialog
 import org.openrndr.extra.noise.Random
 import org.openrndr.math.Vector2
-import org.openrndr.math.map
 import org.openrndr.shape.*
 import org.openrndr.svg.saveToFile
 import kotlin.math.pow

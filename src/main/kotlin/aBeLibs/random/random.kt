@@ -19,6 +19,7 @@ fun <E> Collection<E>.pickWeighted(weights: Collection<Double>): E {
 /**
  * Get a random double between -1 and +1, weighted towards 0
  */
+@Suppress("unused")
 fun Random.signedSquared(): Double {
     val r = Math.random()
     return r * r * (double0() - 0.5).sign

@@ -25,7 +25,7 @@ fun main() = application {
 
         extend(cam)
         extend {
-            drawer.background(ColorRGBa.WHITE)
+            drawer.clear(ColorRGBa.WHITE)
             drawer.shadeStyle = shadeStyle {
                 fragmentTransform = "x_fill = texture(p_tex, va_texCoord0.xy);"
                 parameter("tex", tex)
