@@ -203,6 +203,7 @@ fun ShapeContour.split(knife: ShapeContour): List<ShapeContour> {
 /**
  * Find the orientation of the longest segment of a ShapeContour
  */
+@Suppress("unused")
 fun ShapeContour.longestOrientation(): Double {
     val dir = this.longest().direction()
     return Math.toDegrees(atan2(dir.y, dir.x))
@@ -212,7 +213,7 @@ fun ShapeContour.longestOrientation(): Double {
  * Find the longest segment of a ShapeContour
  */
 fun ShapeContour.longest(): Segment {
-    return this.segments.maxBy { it.length }!!
+    return this.segments.maxByOrNull { it.length }!!
 }
 
 /**
@@ -297,7 +298,7 @@ fun variableWidthContour(points: List<Vector3>): ShapeContour {
     // TODO: optimize. No need to create a contour to query normals, that was just
     // the easiest. I can calculate the normals directly from points2d
 
-    var i = 1
+//    var i = 1
 //    val normals = listOf((points2d[1]-points2d[0]).perpendicular() * points.first().z) +
 //            points2d.zipWithNext { p0, p1 -> ((p1-p0).perpendicular()).normalized * points[i++].z } +
 //            (points2d.last()-points2d[points2d.size-2]).perpendicular() * points.last().z
@@ -388,7 +389,10 @@ fun tangentWrapConcave(a: Circle, b: Circle, radius: Double): ShapeContour {
         points.addAll(Segment(b.center, b.center - (b.center - it.center) * b.radius).intersections(b))
     }
     if (points.size == 4 && (!tanCircles[0].overlap(tanCircles[1]) || b.overlap(a))) {
-        return makeTangentWrapContours(a, b, points, radius, true, false)
+        return makeTangentWrapContours(a, b, points, radius,
+            invertLarge = true,
+            sweepEven = false
+        )
     }
     return ShapeContour.EMPTY
 }
@@ -396,6 +400,7 @@ fun tangentWrapConcave(a: Circle, b: Circle, radius: Double): ShapeContour {
 /**
  *
  */
+@Suppress("unused")
 fun tangentWrapConvex(a: Circle, b: Circle, radius: Double): ShapeContour {
     val points = mutableListOf<Vector2>()
     a.tangentCirclesConvex(b, radius).forEach {
@@ -403,7 +408,10 @@ fun tangentWrapConvex(a: Circle, b: Circle, radius: Double): ShapeContour {
         points.addAll(Segment(b.center, b.center + (b.center - it.center) * b.radius).intersections(b))
     }
     if (points.size == 4) {
-        return makeTangentWrapContours(a, b, points, radius, false, true)
+        return makeTangentWrapContours(a, b, points, radius,
+            invertLarge = false,
+            sweepEven = true
+        )
     }
     return ShapeContour.EMPTY
 }
@@ -450,7 +458,7 @@ fun List<ShapeContour>.bend(knife: ShapeContour) = this.map { contour ->
             //val f = 1.0 / (d * 0.2)
             val nearest = knife.nearest(points[i])
             val d = nearest.position.distanceTo(points[i])
-            val n = nearest.contourT
+            //val n = nearest.contourT
             for (j in i downTo 0) {
                 points[j] = points[j].rotate(f / (d + 1), origin)
             }
@@ -465,7 +473,7 @@ fun List<ShapeContour>.bend(knife: ShapeContour) = this.map { contour ->
             //val f = -1.0 / (d * 0.2)
             val nearest = knife.nearest(points[i])
             val d = nearest.position.distanceTo(points[i])
-            val n = nearest.contourT
+            //val n = nearest.contourT
             for (j in i until points.size) {
                 points[j] = points[j].rotate(f / (d + 1), origin)
             }
@@ -493,8 +501,8 @@ fun ShapeContour.onAll(point: Vector2, error: Double = 5.0): List<Double> {
 fun ShapeContour.selfIntersections(): List<Double> {
     val result = mutableListOf<Double>()
     val intersections = mutableListOf<Vector2>()
-    this.segments.forEachIndexed { i, seg ->
-        val p = this.intersects(seg)
+    this.segments.forEach {
+        val p = this.intersects(it)
         if (p != Vector2.INFINITY) {
             intersections.add(p)
         }
@@ -523,6 +531,8 @@ fun ShapeContour.shorten(d: Double): ShapeContour {
     return sub(startPc, endPc)
 }
 
+
+@Suppress("unused")
 fun ShapeContour.removeSelfIntersections(margin: Double = 10.0):
         List<ShapeContour> {
     // find all self intersections (normalized positions in the curve)
