@@ -527,7 +527,10 @@ fun ShapeContour.selfIntersections(): List<Double> {
         }
     }
     intersections.distinctBy { it.x.toInt() * 5000 + it.y.toInt() }.forEach { p ->
-        result.add(this.onAll(p, 1.0).random())
+        val points = this.onAll(p, 1.0)
+        if(points.isNotEmpty()) {
+            result.add(points.random())
+        }
     }
     return result.sorted()
 }
