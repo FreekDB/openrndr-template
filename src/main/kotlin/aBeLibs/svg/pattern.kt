@@ -74,7 +74,7 @@ fun Composition.fill(outline: Shape, patternCfg: Any) {
                     contours(List(num) {
                         val t = (it / (num - 1.0)).pow(patternCfg.expo)
                         Circle(patternCfg.center + off, 1 + 2 * radius * t)
-                            .contour.opened
+                            .contour.open
                     })
                 }
             }
@@ -137,7 +137,7 @@ fun Composition.fill(outline: Shape, patternCfg: Any) {
                         outline.contours[0])
                 }
                 pattern = outline.addPattern {
-                    contours(positions.map { it.contour.opened })
+                    contours(positions.map { it.contour.open })
                 }
             }
         }

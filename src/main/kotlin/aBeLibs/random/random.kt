@@ -36,3 +36,5 @@ infix fun Double.rnd(max: Double) = Random.double(this, max)
  * 0 rnd 6
  */
 infix fun Int.rnd(max: Int) = Random.int(this, max)
+
+fun Random.sign() = if (bool()) 1.0 else -1.0

@@ -35,7 +35,7 @@ fun main() = application {
         } catch (e: IllegalArgumentException) {
             null
         }
-        mf?.controlChanged?.postpone(true)
+        mf?.controlChanged?.postpone = true
         mf?.controlChanged?.listen {
             when (it.control) {
                 12 -> {

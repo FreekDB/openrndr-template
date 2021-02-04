@@ -337,6 +337,3 @@ fun main() = application {
     }
 }
 
-private fun Random.sign(): Double {
-    return if (bool()) 1.0 else -1.0
-}
