@@ -68,22 +68,22 @@ fun main() = application {
 
                 val convexPoints = mutableListOf<Vector2>()
                 val convexRadius = 200.0
-                leftCirc.tangentCirclesConvex(movingCirc, convexRadius).forEach {
+                leftCirc.tangentCirclesConvex(movingCirc, convexRadius).forEach { circle ->
                     drawer.strokeWeight = 1.0
-                    circler(it)
+                    circler(circle)
                     val s0 = Segment(
                         leftCirc.center,
-                        leftCirc.center + (leftCirc.center - it.center) * leftCirc.radius
+                        leftCirc.center + (leftCirc.center - circle.center) * leftCirc.radius
                     )
                     segment(s0)
-                    convexPoints.addAll(s0.intersections(leftCirc))
+                    convexPoints.addAll(s0.intersections(leftCirc).map { it.position})
 
                     val s1 = Segment(
                         movingCirc.center,
-                        movingCirc.center + (movingCirc.center - it.center) * movingCirc.radius
+                        movingCirc.center + (movingCirc.center - circle.center) * movingCirc.radius
                     )
                     segment(s1)
-                    convexPoints.addAll(s1.intersections(movingCirc))
+                    convexPoints.addAll(s1.intersections(movingCirc).map { it.position})
                 }
 
                 if (convexPoints.size == 4) {
@@ -121,22 +121,25 @@ fun main() = application {
                 val concavePoints = mutableListOf<Vector2>()
                 val concaveRadius = 80.0
                 val tangentCircles = rightCirc.tangentCirclesConcave(movingCirc, concaveRadius)
-                tangentCircles.forEach {
+                tangentCircles.forEach { circle ->
                     drawer.strokeWeight = 1.0
-                    circler(it)
+                    circler(circle)
                     val s0 = Segment(
                         rightCirc.center,
-                        rightCirc.center - (rightCirc.center - it.center) * rightCirc.radius
+                        rightCirc.center - (rightCirc.center - circle.center) * rightCirc.radius
                     )
                     segment(s0)
-                    concavePoints.addAll(s0.intersections(rightCirc))
+                    concavePoints.addAll(s0.intersections(rightCirc).map {
+                        it.position })
 
                     val s1 = Segment(
                         movingCirc.center,
-                        movingCirc.center - (movingCirc.center - it.center) * movingCirc.radius
+                        movingCirc.center - (movingCirc.center - circle.center) * movingCirc.radius
                     )
                     segment(s1)
-                    concavePoints.addAll(s1.intersections(movingCirc))
+                    concavePoints.addAll(s1.intersections(movingCirc).map {
+                        it.position
+                    })
                 }
 
                 if (concavePoints.size == 4 && (!tangentCircles[0].overlap(tangentCircles[1]) || movingCirc.overlap(rightCirc))) {

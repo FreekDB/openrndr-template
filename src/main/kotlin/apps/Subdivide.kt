@@ -1,15 +1,16 @@
 package apps
 
-import apps.live.treeShadowTexture
 import aBeLibs.color.ColorProviderImage
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
-import com.google.gson.reflect.TypeToken
 import aBeLibs.extensions.NoJitter
 import aBeLibs.fx.WideColorCorrection
 import aBeLibs.geometry.longest
-import aBeLibs.geometry.split
 import aBeLibs.math.angleDiff
+import aBeLibs.shadestyles.Addjust
+import aBeLibs.shadestyles.PerpendicularGradient
+import apps.live.treeShadowTexture
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.google.gson.reflect.TypeToken
 import org.openrndr.*
 import org.openrndr.color.ColorRGBa
 import org.openrndr.dialogs.openFileDialog
@@ -29,8 +30,6 @@ import org.openrndr.math.Vector2
 import org.openrndr.shape.Rectangle
 import org.openrndr.shape.Segment
 import org.openrndr.shape.ShapeContour
-import aBeLibs.shadestyles.Addjust
-import aBeLibs.shadestyles.PerpendicularGradient
 import kotlin.math.abs
 import kotlin.math.atan2
 import kotlin.math.roundToLong
@@ -247,14 +246,15 @@ fun main() = application {
             val off = Polar(angle, 3000.0).cartesian
             val victim = design.pieces.firstOrNull { it.shape.contains(pos) }
             if (victim != null) {
-                val knife = Segment(pos + off, pos - off)
+                val knife = Segment(pos + off, pos - off).contour
                 val parts = victim.shape.split(knife)
-                println("${parts.first.length}, ${parts.second.length}")
-                if (parts.first.segments.isNotEmpty()) {
+                println("${parts[0].length}, ${parts[1].length}")
+                if (parts[0].segments.isNotEmpty()) {
                     undo.add(victim)
                     design.pieces.remove(victim)
-                    design.pieces.add(Piece(parts.first, victim.colorOffset))
-                    design.pieces.add(Piece(parts.second, (victim.colorOffset + 1) % 360))
+                    design.pieces.add(Piece(parts[0].close, victim.colorOffset))
+                    design.pieces.add(Piece(parts[1].close,
+                        (victim.colorOffset + 1) % 360))
                 }
                 dirty = true
             }

@@ -1,56 +1,22 @@
 package aBeLibs.geometry
 
 import org.openrndr.math.Vector2
-import org.openrndr.math.mix
-import org.openrndr.shape.*
-import kotlin.math.sqrt
-
-/**
- * Segment-to-Segment intersection.
- * Assumes Segments don't have any control points.
- */
-fun Segment.intersects(other: Segment, eps: Double = 0.00): Vector2 {
-    return intersection(this.start, this.end, other.start, other.end, eps)
-}
-
-fun Segment.intersects(start: Vector2, end: Vector2, eps: Double = 0.00): Vector2 {
-    return intersection(this.start, this.end, start, end, eps)
-}
+import org.openrndr.shape.Circle
+import org.openrndr.shape.LineSegment
+import org.openrndr.shape.Segment
+import org.openrndr.shape.ShapeContour
 
 /**
  * Segment-to-Circle intersection
  * Assumes Segments don't have any control points.
  */
-fun Segment.intersections(cir: Circle): List<Vector2> {
-    val d = end - start
-    val f = start - cir.center
+fun Segment.intersections(cir: Circle) = cir.contour.intersections(this)
 
-    val result = mutableListOf<Vector2>()
-
-    val a = d.dot(d)
-    val b = 2 * f.dot(d)
-    val c = f.dot(f) - cir.radius * cir.radius
-
-    var discriminant = b * b - 4 * a * c
-    if (discriminant < 0) {
-        return result
-    }
-
-    discriminant = sqrt(discriminant)
-
-    val t1 = (-b - discriminant) / (2 * a)
-    val t2 = (-b + discriminant) / (2 * a)
-
-    if (t1 in 0.0..1.0) {
-        result.add(mix(start, end, t1))
-    }
-
-    if (t2 in 0.0..1.0) {
-        result.add(mix(start, end, t2))
-    }
-
-    return result
-}
+/**
+ * Check for ShapeContour-to-linesegment intersections
+ */
+fun ShapeContour.intersects(lineSegment: LineSegment) =
+    this.intersections(lineSegment.segment)
 
 data class Ray(val start: Vector2, val direction: Vector2)
 
@@ -74,69 +40,6 @@ fun Ray.intersects(other: Ray): Vector2 {
         }
     }
     return Vector2.INFINITY // Deal with this later
-}
-
-/**
- * ShapeContour-to-ShapeContour first intersection
- */
-fun ShapeContour.intersects(other: ShapeContour): Vector2 {
-    segments.forEach { thisSegment ->
-        other.segments.forEach { otherSegment ->
-            val p = thisSegment.intersects(otherSegment)
-            if (p != Vector2.INFINITY) {
-                return p
-            }
-        }
-    }
-    return Vector2.INFINITY
-}
-
-/**
- * ShapeContour-to-ShapeContour first intersection
- */
-@Deprecated("Use built-in ShapeContour.intersections instead")
-fun ShapeContour.intersections(other: ShapeContour): List<Vector2> {
-    val result = mutableListOf<Vector2>()
-    segments.forEach { thisSegment ->
-        other.segments.forEach { otherSegment ->
-            val p = thisSegment.intersects(otherSegment)
-            if (p != Vector2.INFINITY) {
-                result.add(p)
-            }
-        }
-    }
-    return if(result.isEmpty()) listOf(Vector2.INFINITY) else result
-}
-
-/**
- * Check for ShapeContour-to-segment intersections
- */
-fun ShapeContour.intersects(otherSeg: Segment): Vector2 {
-//    var p = Vector2.INFINITY
-//    segments.any { p = it.intersects(segment); p != Vector2.INFINITY }
-//    return p
-    segments.forEach { thisSeg ->
-        val p = thisSeg.intersects(otherSeg)
-        // if intersects and not consecutive
-        if (p != Vector2.INFINITY && thisSeg.start != otherSeg.end && thisSeg.end != otherSeg.start) {
-            return p
-        }
-    }
-    return Vector2.INFINITY
-}
-
-/**
- * Check for ShapeContour-to-linesegment intersections
- */
-fun ShapeContour.intersects(otherSeg: LineSegment): Vector2 {
-    segments.forEach { thisSeg ->
-        val p = thisSeg.intersects(otherSeg.start, otherSeg.end)
-        // if intersects and not consecutive
-        if (p != Vector2.INFINITY && thisSeg.start != otherSeg.end && thisSeg.end != otherSeg.start) {
-            return p
-        }
-    }
-    return Vector2.INFINITY
 }
 
 /**

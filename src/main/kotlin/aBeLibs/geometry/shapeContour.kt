@@ -1,13 +1,13 @@
 package aBeLibs.geometry
 
+import aBeLibs.math.angle
+import aBeLibs.math.cosEnv
+import aBeLibs.math.isAngleReflex
 import boofcv.alg.filter.binary.BinaryImageOps
 import boofcv.alg.filter.binary.ThresholdImageOps
 import boofcv.struct.ConnectRule
 import boofcv.struct.image.GrayS32
 import boofcv.struct.image.GrayU8
-import aBeLibs.math.angle
-import aBeLibs.math.cosEnv
-import aBeLibs.math.isAngleReflex
 import org.openrndr.animatable.easing.Easing
 import org.openrndr.boofcv.binding.toGrayF32
 import org.openrndr.boofcv.binding.toVector2s
@@ -15,10 +15,7 @@ import org.openrndr.draw.ColorBuffer
 import org.openrndr.extra.noise.Random
 import org.openrndr.extra.noise.uniformRing
 import org.openrndr.math.*
-import org.openrndr.shape.Circle
-import org.openrndr.shape.Segment
-import org.openrndr.shape.ShapeContour
-import org.openrndr.shape.contour
+import org.openrndr.shape.*
 import kotlin.math.*
 
 // From ofPolyline.inl in openFrameworks
@@ -28,7 +25,10 @@ import kotlin.math.*
 // `smoothingShape` describes whether to use a triangular window (0) or
 // box window (1) or something in between (for example, .5).
 
-fun ShapeContour.smoothed(smoothingSize: Int, smoothingShape: Double = 0.0): ShapeContour {
+fun ShapeContour.smoothed(
+    smoothingSize: Int,
+    smoothingShape: Double = 0.0
+): ShapeContour {
     val n = segments.size
     val sSize = clamp(smoothingSize, 0, n)
     val sShape = clamp(smoothingShape, 0.0, 1.0)
@@ -68,13 +68,18 @@ fun ShapeContour.smoothed(smoothingSize: Int, smoothingShape: Double = 0.0): Sha
     return ShapeContour.fromPoints(result, closed)
 }
 
-fun ShapeContour.noisified(distance: Int, closed: Boolean = true, zoom: Double = 0.002): ShapeContour {
+fun ShapeContour.noisified(
+    distance: Int,
+    closed: Boolean = true,
+    zoom: Double = 0.002
+): ShapeContour {
     return ShapeContour.fromPoints(List(this.segments.size + 1) {
         if (it != this.segments.size) {
             val seg = this.segments[it]
             val p = seg.start
             val n = seg.normal(0.0)
-            val env = 3 * if (closed) 1.0 else cosEnv(it / (this.segments.size + 1.0))
+            val env =
+                3 * if (closed) 1.0 else cosEnv(it / (this.segments.size + 1.0))
             p + n * (Random.perlin(p.x * zoom, p.y * zoom) * distance * env)
         } else {
             this.segments[it - 1].end
@@ -104,7 +109,10 @@ fun ShapeContour.makeParallelCurve(dist: Double): ShapeContour {
 /**
  * Split an open ShapeContour with a Circle, erasing what's inside it
  */
-fun ShapeContour.split(knife: Circle, resolution: Int = 100): List<ShapeContour> {
+fun ShapeContour.split(
+    knife: Circle,
+    resolution: Int = 100
+): List<ShapeContour> {
     val result = mutableListOf<ShapeContour>()
     val segments = this.equidistantPositions(resolution)
     val points = mutableListOf<Vector2>()
@@ -130,75 +138,6 @@ fun ShapeContour.split(knife: Circle, resolution: Int = 100): List<ShapeContour>
     return result
 }
 
-/**
- * Split a closed ShapeContour into two with a segment
- */
-fun ShapeContour.split(knife: Segment): Pair<ShapeContour, ShapeContour> {
-    val points = listOf(mutableListOf<Vector2>(), mutableListOf())
-    var which = 0
-    var hits = 0
-    var previousp = Vector2.INFINITY
-    segments.forEach {
-        val p = it.intersects(knife)
-        points[which].add(it.start)
-        // Skip intersections farther away than eps (in normalized distance!)
-        // The second test is in case we get the same point twice in a row
-        if (p != Vector2.INFINITY && p.distanceTo(previousp) >= 1.0) {
-            points[which].add(p)
-            which = (which + 1) % 2
-            points[which].add(p)
-            hits++
-            previousp = p
-        }
-    }
-    return if (hits == 2) {
-        Pair(
-            ShapeContour.fromPoints(points[0], true),
-            ShapeContour.fromPoints(points[1], true)
-        )
-    } else {
-        println("Hits = $hits! $this $knife")
-        Pair(
-            ShapeContour.EMPTY,
-            ShapeContour.EMPTY
-        )
-    }
-}
-
-
-/**
- * Split a ShapeContour with a ShapeContour used as a knife
- */
-fun ShapeContour.split(knife: ShapeContour): List<ShapeContour> {
-    val result = mutableListOf<ShapeContour>()
-    val points = mutableListOf<Vector2>()
-    segments.forEach { thisSegment ->
-        points.add(thisSegment.start)
-        knife.segments.forEach { otherSegment ->
-
-            val intersectionPoint = thisSegment.intersects(otherSegment)
-            if (intersectionPoint != Vector2.INFINITY) {
-                points.add(intersectionPoint)
-                result.add(ShapeContour.fromPoints(points, false))
-                points.clear()
-
-                points.add(intersectionPoint)
-            }
-        }
-    }
-    if (closed) {
-        points.add(position(1.0))
-    }
-    if (points.size > 0) {
-        result.add(ShapeContour.fromPoints(points, false))
-        points.clear()
-    }
-    if (closed && result.size > 1) {
-        result[0] = result.last() + result.first()
-        result.removeAt(result.size - 1)
-    }
-    return result
-}
 
 /**
  * Find the orientation of the longest segment of a ShapeContour
@@ -219,18 +158,24 @@ fun ShapeContour.longest(): Segment {
 /**
  * Takes a curve and adds twists in the middle making it more wavy
  */
-fun ShapeContour.softJitter(steps: Int, minRadius: Double, maxRadius: Double): ShapeContour {
+fun ShapeContour.softJitter(
+    steps: Int,
+    minRadius: Double,
+    maxRadius: Double
+): ShapeContour {
     val original = this
     return contour {
         moveTo(original.segments.first().start)
-        var prev = cursor + Vector2.uniformRing(minRadius, maxRadius) * original.length
+        var prev =
+            cursor + Vector2.uniformRing(minRadius, maxRadius) * original.length
         for (i in 1..steps) {
             val pc = i / steps.toDouble()
             val p = original.position(pc)
             val n = original.normal(pc)
             val rotation = Random.double() * maxRadius / 2.22
             val nAngle = Polar.fromVector(n).rotated(rotation - 90.0).cartesian
-            val next = nAngle * Random.double(minRadius, maxRadius) * original.length
+            val next =
+                nAngle * Random.double(minRadius, maxRadius) * original.length
             curveTo(prev, p + next, p)
             prev = p - next
         }
@@ -254,7 +199,10 @@ fun ShapeContour.localDistortion(
                 List(steps) {
                     val pc = it / (steps - 1.0)
                     val dry = seg.position(pc)
-                    val wet = Polar(Random.simplex(dry * 0.005) * 360.0, offset * cosEnv(pc)).cartesian
+                    val wet = Polar(
+                        Random.simplex(dry * 0.005) * 360.0,
+                        offset * cosEnv(pc)
+                    ).cartesian
                     dry + wet
                 }, false
             )
@@ -268,24 +216,8 @@ fun ShapeContour.localDistortion(
  * shorten the curve and simulate occlusion by the two circles
  * Example: ( -)-----(- ) becomes (  )------(  )
  */
-fun ShapeContour.eraseEndsWithCircles(a: Circle, b: Circle): ShapeContour {
-    // Delete the part of a curve inside a circle. Naive approach:
-    // 1. Resample it to small segments
-    val result = this.sampleLinear(0.5)
-    // 2. Find segments intersecting with circles
-    val sz = result.segments.size
-    val seg0 = result.segments.subList(sz / 2, sz).first { b.contains(it.end) }
-    val seg1 = result.segments.subList(0, sz / 2).last { a.contains(it.start) }
-    // 3. Find intersection points
-    val p0 = seg0.intersections(b)
-    val p1 = seg1.intersections(a)
-    // 4. Find normalized point on curve for those intersection points
-    val u1 = result.on(p0.first(), 1.0) ?: 0.0
-    val u0 = result.on(p1.first(), 1.0) ?: 1.0
-    // 5. Make new curve skipping start and end (the parts where the curve
-    // when into the circles
-    return result.sub(u0, u1)
-}
+fun ShapeContour.eraseEndsWithCircles(a: Circle, b: Circle) =
+    difference(difference(this, a.shape), b.shape).contours.first()
 
 /**
  * Creates a variable width contour from a list of Vector3 where
@@ -308,7 +240,11 @@ fun variableWidthContour(points: List<Vector3>): ShapeContour {
     val polyline = ShapeContour.fromPoints(points2d, false)
 
     var normals = listOf(polyline.segments.first().normal(0.0)) +
-            polyline.segments.zipWithNext { a, b -> (a.normal(1.0) + b.normal(0.0)).normalized } +
+            polyline.segments.zipWithNext { a, b ->
+                (a.normal(1.0) + b.normal(
+                    0.0
+                )).normalized
+            } +
             polyline.segments.last().normal(1.0)
 
     normals = normals.mapIndexed { i, it -> it * points[i].z }
@@ -326,7 +262,10 @@ fun variableWidthContour(points: List<Vector3>): ShapeContour {
 /**
  * Convert a ColorBuffer to contours using boofcv
  */
-fun ColorBuffer.toContours(threshold: Double, internal: Boolean = true): List<ShapeContour> {
+fun ColorBuffer.toContours(
+    threshold: Double,
+    internal: Boolean = true
+): List<ShapeContour> {
     val input = this.toGrayF32()
 
     val binary = GrayU8(input.width, input.height)
@@ -341,7 +280,12 @@ fun ColorBuffer.toContours(threshold: Double, internal: Boolean = true): List<Sh
         result.add(ShapeContour.fromPoints(it.external.toVector2s(), true))
         if (internal) {
             it.internal.forEach { internalContour ->
-                result.add(ShapeContour.fromPoints(internalContour.toVector2s(), true))
+                result.add(
+                    ShapeContour.fromPoints(
+                        internalContour.toVector2s(),
+                        true
+                    )
+                )
             }
         }
     }
@@ -352,10 +296,15 @@ fun ColorBuffer.toContours(threshold: Double, internal: Boolean = true): List<Sh
  * Create a shapeContour spiral that starts in `p0`, ends in `p1` and
  * has `center` as center. turns can be positive or negative.
  */
-fun spiralContour(p0: Vector2, p1: Vector2, center: Vector2, turns: Int = 1): ShapeContour {
+fun spiralContour(
+    p0: Vector2,
+    p1: Vector2,
+    center: Vector2,
+    turns: Int = 1
+): ShapeContour {
     val polars = arrayOf(
-            Polar.fromVector(p0 - center),
-            Polar.fromVector(p1 - center)
+        Polar.fromVector(p0 - center),
+        Polar.fromVector(p1 - center)
     )
     val turnsConstrained = if (turns == 0) 1 else turns
     //val clockwise = angleDiff(polars[0].theta, polars[1].theta) < 0
@@ -384,12 +333,26 @@ fun spiralContour(p0: Vector2, p1: Vector2, center: Vector2, turns: Int = 1): Sh
 fun tangentWrapConcave(a: Circle, b: Circle, radius: Double): ShapeContour {
     val points = mutableListOf<Vector2>()
     val tanCircles = a.tangentCirclesConcave(b, radius)
-    tanCircles.forEach {
-        points.addAll(Segment(a.center, a.center - (a.center - it.center) * a.radius).intersections(a))
-        points.addAll(Segment(b.center, b.center - (b.center - it.center) * b.radius).intersections(b))
+    tanCircles.forEach { tanCircle ->
+        points.addAll(
+            Segment(
+                a.center,
+                a.center - (a.center - tanCircle.center) * a.radius
+            ).intersections(a.contour).map { it.position }
+        )
+        points.addAll(
+            Segment(
+                b.center,
+                b.center - (b.center - tanCircle.center) * b.radius
+            ).intersections(b.contour).map { it.position }
+        )
     }
-    if (points.size == 4 && (!tanCircles[0].overlap(tanCircles[1]) || b.overlap(a))) {
-        return makeTangentWrapContours(a, b, points, radius,
+    if (points.size == 4 && (!tanCircles[0].overlap(tanCircles[1]) || b.overlap(
+            a
+        ))
+    ) {
+        return makeTangentWrapContours(
+            a, b, points, radius,
             invertLarge = true,
             sweepEven = false
         )
@@ -403,12 +366,23 @@ fun tangentWrapConcave(a: Circle, b: Circle, radius: Double): ShapeContour {
 @Suppress("unused")
 fun tangentWrapConvex(a: Circle, b: Circle, radius: Double): ShapeContour {
     val points = mutableListOf<Vector2>()
-    a.tangentCirclesConvex(b, radius).forEach {
-        points.addAll(Segment(a.center, a.center + (a.center - it.center) * a.radius).intersections(a))
-        points.addAll(Segment(b.center, b.center + (b.center - it.center) * b.radius).intersections(b))
+    a.tangentCirclesConvex(b, radius).forEach { circle ->
+        points.addAll(
+            Segment(
+                a.center,
+                a.center + (a.center - circle.center) * a.radius
+            ).contour.intersections(a.contour).map { it.position }
+        )
+        points.addAll(
+            Segment(
+                b.center,
+                b.center + (b.center - circle.center) * b.radius
+            ).contour.intersections(b.contour).map { it.position }
+        )
     }
     if (points.size == 4) {
-        return makeTangentWrapContours(a, b, points, radius,
+        return makeTangentWrapContours(
+            a, b, points, radius,
             invertLarge = false,
             sweepEven = true
         )
@@ -420,27 +394,41 @@ fun tangentWrapConvex(a: Circle, b: Circle, radius: Double): ShapeContour {
  *
  */
 private fun makeTangentWrapContours(
-        a: Circle, b: Circle, points: MutableList<Vector2>, radius: Double,
-        invertLarge: Boolean, sweepEven: Boolean
+    a: Circle, b: Circle, points: MutableList<Vector2>, radius: Double,
+    invertLarge: Boolean, sweepEven: Boolean
 ): ShapeContour {
-    val firstLarge = isAngleReflex(angle(b.center, points[1], points[3])) xor invertLarge
-    val secondLarge = !(isAngleReflex(angle(a.center, points[0], points[2])) xor invertLarge)
+    val firstLarge =
+        isAngleReflex(angle(b.center, points[1], points[3])) xor invertLarge
+    val secondLarge =
+        !(isAngleReflex(angle(a.center, points[0], points[2])) xor invertLarge)
 
     return contour {
         moveTo(points[0])
-        arcTo(radius, radius, 0.0, largeArcFlag = false, sweepFlag = true, end = points[1])
-        arcTo(b.radius, b.radius, 0.0, largeArcFlag = firstLarge, sweepFlag = sweepEven, end = points[3])
-        arcTo(radius, radius, 0.0, largeArcFlag = false, sweepFlag = true, end = points[2])
-        arcTo(a.radius, a.radius, 0.0, largeArcFlag = secondLarge, sweepFlag = sweepEven, end = points[0])
+        arcTo(
+            radius, radius, 0.0,
+            largeArcFlag = false, sweepFlag = true, end = points[1]
+        )
+        arcTo(
+            b.radius, b.radius, 0.0,
+            largeArcFlag = firstLarge, sweepFlag = sweepEven, end = points[3]
+        )
+        arcTo(
+            radius, radius, 0.0,
+            largeArcFlag = false, sweepFlag = true, end = points[2]
+        )
+        arcTo(
+            a.radius, a.radius, 0.0,
+            largeArcFlag = secondLarge, sweepFlag = sweepEven, end = points[0]
+        )
         close()
     }
 }
 
 fun List<ShapeContour>.bend(knife: ShapeContour) = this.map { contour ->
     val points = contour.equidistantPositions(contour.length.toInt())
-            .toMutableList()
+        .toMutableList()
 
-    if(points.isEmpty()) {
+    if (points.isEmpty()) {
         return@map contour
     }
 
@@ -449,7 +437,7 @@ fun List<ShapeContour>.bend(knife: ShapeContour) = this.map { contour ->
     // So effect strength increases with distance to cut tip and
     // decreases with distance to cut-line.
     val pointCount = min(points.size, 50)
-    if(knife.on(points.first(), 1.0) != null) {
+    if (knife.on(points.first(), 1.0) != null) {
         for (i in 0 until pointCount) {
             val origin = points[i].copy()
             val f = Random.simplex(points[i] * 0.03) * 200.0
@@ -464,7 +452,7 @@ fun List<ShapeContour>.bend(knife: ShapeContour) = this.map { contour ->
             }
         }
     }
-    if(knife.on(points.last(), 1.0) != null) {
+    if (knife.on(points.last(), 1.0) != null) {
         for (i in points.size - pointCount until points.size - 1) {
             val origin = points[i].copy()
             val f = -Random.simplex(points[i] * 0.03) * 200.0
@@ -498,24 +486,37 @@ fun ShapeContour.onAll(point: Vector2, error: Double = 5.0): List<Double> {
     return result
 }
 
+// TODO: idea: what if we consider self intersections as intersection
+// in which the normal differs? Also, what happens when we search for
+// intersections between two identical contours?
 fun ShapeContour.selfIntersections(): List<Double> {
     val result = mutableListOf<Double>()
     val intersections = mutableListOf<Vector2>()
     this.segments.forEach {
-        val p = this.intersects(it)
-        if (p != Vector2.INFINITY) {
-            intersections.add(p)
+        val p = this.intersections(it)
+        if (p.isNotEmpty()) {
+            intersections.addAll(p.map { it.position })
         }
     }
-    intersections.distinctBy { it.x.toInt() * 5000 + it.y.toInt() }.forEach { p ->
+    intersections.dedupe(1.2).forEach { p ->
+        // the .on() function returns only 1 point, but with self
+        // intersections we may get multiple points
         val points = this.onAll(p, 1.0)
-        if(points.isNotEmpty()) {
+        if (points.isNotEmpty()) {
+            // use random to avoid always taking the first or the second
+            // used for lines that are above or below
             result.add(points.random())
         }
     }
     return result.sorted()
 }
 
+// Linear shorten. Reduces a contours length by a distance to
+// the ends. The percentage differs greatly if you compare a
+// straight line to a line that ends in a spiral. In the second case
+// the percent location would be much higher to reach the `d` distance.
+// This can now be achieved simpler by just deleting everything that
+// is inside a circle of radius `d`. How to delete? ClipMode.REVERSE_DIFFERENCE?
 fun ShapeContour.shorten(d: Double): ShapeContour {
     val step = 1.0 / length
     var startPc = 0.0
@@ -553,13 +554,19 @@ fun ShapeContour.removeSelfIntersections(margin: Double = 10.0):
         val result = mutableListOf<ShapeContour>()
         for (index in intPcs.indices) {
             if (index < intPcs.size - 1) {
-                result.add(sub(intPcs[index],
-                        intPcs[index + 1]).shorten(margin))
+                result.add(
+                    sub(
+                        intPcs[index],
+                        intPcs[index + 1]
+                    ).shorten(margin)
+                )
             } else {
                 // Last one crosses the curve starting point
                 // LAST .. END + START .. FIRST
-                result.add((sub(intPcs[index], 1.0) +
-                        sub(0.0, intPcs[0])).shorten(margin))
+                result.add(
+                    (sub(intPcs[index], 1.0) +
+                            sub(0.0, intPcs[0])).shorten(margin)
+                )
             }
         }
         return result
@@ -588,8 +595,8 @@ fun MutableList<ShapeContour>.removeIntersections(margin: Double):
                     // my own .intersections() to the new one from OPENRNDR
                     println("$aIndex to $bIndex -> ${intersections.size} elems")
                     val parts = listOf(
-                            a.split(b).toMutableList(),
-                            b.split(a).toMutableList()
+                        a.split(b).toMutableList(),
+                        b.split(a).toMutableList()
                     )
                     removeAll(listOf(a, b))
                     intersections.forEach { intersection ->

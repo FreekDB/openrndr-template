@@ -1,6 +1,5 @@
 package apps2
 
-import aBeLibs.geometry.intersects
 import aBeLibs.geometry.noisified
 import org.openrndr.*
 import org.openrndr.color.ColorRGBa
@@ -11,10 +10,10 @@ import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.noise.Random
 import org.openrndr.extra.noise.simplex
 import org.openrndr.math.Polar
-import org.openrndr.math.Vector2
 import org.openrndr.shape.CompositionDrawer
 import org.openrndr.shape.ShapeContour
 import org.openrndr.shape.contour
+import org.openrndr.shape.intersections
 import org.openrndr.svg.writeSVG
 import kotlin.math.PI
 import kotlin.math.cos
@@ -108,7 +107,7 @@ fun main() = application {
                                 p2 + n2 * side)
                     }
                     val hair = c.sampleLinear(0.5)
-                    if (hairContours.all { it.intersects(hair) == Vector2.INFINITY }) {
+                    if (hairContours.all { intersections(it, hair).isEmpty() }) {
                         hairContours.add(hair)
                         if (Random.bool(0.5) && side > 0) {
                             val copies = 1 + (d / 80).toInt()

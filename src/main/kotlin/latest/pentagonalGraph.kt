@@ -45,7 +45,7 @@ fun main() {
                                 40.0, 300.0)).cartesian
                     val off = Polar(angle, 1000.0).cartesian
                     val cutter = Segment(p + off,p - off)
-                    val points = cutter.intersections(frame)
+                    val points = cutter.intersections(frame).map { it.position }
                     if(Random.bool()) {
                         Segment(points[0], points[0].mix(points[1], Random.double(0.3, 1.0)))
                     } else {

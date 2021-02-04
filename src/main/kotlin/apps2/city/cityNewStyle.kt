@@ -1,6 +1,6 @@
 package apps2.city
 
-import aBeLibs.geometry.intersects
+import aBeLibs.random.sign
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.extensions.Screenshots
@@ -88,8 +88,8 @@ fun main() = application {
                 val connection = ShapeContour.fromPoints(
                     List(steps) { step -> bezier(p0, c0, c1, p1, step / (steps - 1.0)) }, false
                 )
-                if (connections.all { c -> connection.intersects(c) == Vector2.INFINITY } &&
-                    connection.intersects(cityCenter) == Vector2.INFINITY) {
+                if (connections.all { c -> intersections(connection, c).isEmpty() } &&
+                    intersections(connection, cityCenter).isEmpty()) {
                     connections.add(connection)
                     contours.add(connection)
                 }
@@ -109,7 +109,9 @@ fun main() = application {
                         start + normal * (it - 0.1) + Random.vector2()
                     }, false
                 )
-                val intCount = contours.count { other -> perp.intersects(other) != Vector2.INFINITY }
+                val intCount = contours.count {
+                        other -> intersections(perp, other).isNotEmpty()
+                }
                 if (intCount == 1) {
                     contours.add(perp)
                 }
@@ -171,7 +173,8 @@ fun main() = application {
                 val startInside = cityCenter.contains(it.start)
                 val endInside = cityCenter.contains(it.end)
                 if (startInside != endInside) {
-                    val int = cityCenter.intersects(Segment(it.start, it.end))
+                    val int = cityCenter.intersections(
+                        Segment(it.start, it.end).contour).first().position
                     LineSegment(if (startInside) it.start else it.end, int)
                 } else {
                     it
@@ -197,14 +200,15 @@ fun main() = application {
                     ), true
                 )
                 val noHouseOverlaps = houseContours.all { other ->
-                    other.intersects(current) == Vector2.INFINITY &&
+                    intersections(other,current).isEmpty() &&
                             !current.contains(other.bounds.center)
                 }
                 val noRoadOverlaps: Boolean by lazy {
-                    contours.all { road -> road.intersects(current) == Vector2.INFINITY }
+                    contours.all { road -> intersections(road, current).isEmpty() }
                 }
                 val noCityCenterOverlaps: Boolean by lazy {
-                    innerCitySegments.all { street -> current.intersects(street) == Vector2.INFINITY }
+                    innerCitySegments.all { street -> intersections(current,
+                        street.contour).isEmpty() }
                 }
                 return if (noHouseOverlaps && noRoadOverlaps && noCityCenterOverlaps) {
                     houses.add(LineSegment(pos + c0, pos + c1))

@@ -1,6 +1,5 @@
 package apps.editablecurve
 
-import aBeLibs.geometry.intersects
 import aBeLibs.geometry.makeParallelCurve
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.Drawer
@@ -10,6 +9,7 @@ import org.openrndr.math.Vector2
 import org.openrndr.shape.ContourBuilder
 import org.openrndr.shape.ShapeContour
 import org.openrndr.shape.contour
+import org.openrndr.shape.intersections
 import kotlin.math.abs
 
 class EditableCurve {
@@ -121,8 +121,9 @@ class EditableCurve {
             // test for intersections against
             // all other segments in all other lines
             for (segment in segments) {
-                intersection = segment.intersects(l.segments[i])
-                if (intersection != Vector2.INFINITY) {
+                val ints = intersections(segment, l.segments[i].contour)
+                if (ints.isNotEmpty()) {
+                    intersection = ints.first().position
                     break
                 }
             }
