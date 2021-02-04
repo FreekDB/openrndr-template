@@ -113,19 +113,41 @@ fun Rectangle.randomPoint(): Vector2 {
  * For a Composition, filter out bezier segments contained in longer bezier segments.
  * The goal is to avoid drawing lines multiple times with a plotter.
  */
-fun Composition.dedupe(): Composition {
+fun Composition.dedupe(err: Double = 1.0): Composition {
     val segments = this.findShapes().map {
         it.shape.contours.map { contour -> contour.segments }.flatten()
     }.flatten()
     val deduped = mutableListOf<Segment>()
     segments.forEach { curr ->
-        if (deduped.none { other -> other.contains(curr, 1.0) }) {
+        if (deduped.none { other -> other.contains(curr, err) }) {
             deduped.add(curr)
         }
     }
     return drawComposition {
         contours(deduped.map { it.contour })
     }
+}
+
+@JvmName("dedupeListDouble")
+fun List<Double>.dedupe(err: Double = 1.0): List<Double> {
+    val deduped = mutableListOf<Double>()
+    this.forEach { curr ->
+        if(deduped.none { other -> abs(curr - other) < err }) {
+            deduped.add(curr)
+        }
+    }
+    return deduped
+}
+
+@JvmName("dedupeListVector2")
+fun List<Vector2>.dedupe(err: Double = 1.0): List<Vector2> {
+    val deduped = mutableListOf<Vector2>()
+    this.forEach { curr ->
+        if(deduped.none { other -> curr.distanceTo(other) < err }) {
+            deduped.add(curr)
+        }
+    }
+    return deduped
 }
 
 /**
