@@ -115,7 +115,7 @@ fun main() = application {
                 }
             }
 
-            mapBounds = rectangleBounds(contours.map { it.bounds }).offsetEdges(10.0)
+            mapBounds = (contours.map { it.bounds }).bounds.offsetEdges(10.0)
 
             // ---  Fill city center
             // - [x] make grid of segments Horizontal, Vertical, some diagonal covering bounds

@@ -10,7 +10,7 @@ import org.openrndr.math.transforms.transform
 import org.openrndr.shape.CompositionDrawer
 import org.openrndr.shape.Rectangle
 import org.openrndr.shape.ShapeContour
-import org.openrndr.shape.rectangleBounds
+import org.openrndr.shape.bounds
 import org.openrndr.svg.loadSVG
 import kotlin.math.max
 
@@ -27,7 +27,7 @@ class Handwritten : Extension {
         var size = Vector2.ZERO
         txt.forEach { letter ->
             size = letters[letter]?.run {
-                val letterBounds = rectangleBounds(this.map { it.bounds })
+                val letterBounds = (this.map { it.bounds }).bounds
                 Vector2(
                     size.x + letterBounds.width + 3,
                     max(letterBounds.height, size.y)
@@ -69,7 +69,7 @@ class Handwritten : Extension {
                 scale(scale)
                 word.forEach { letter ->
                     letters[letter]?.run {
-                        val letterBounds = rectangleBounds(this.map { it.bounds })
+                        val letterBounds = (this.map { it.bounds }).bounds
                         translate(-letterBounds.x, 0.0)
                         contours(this)
                         translate(letterBounds.x + letterBounds.width + 3, 0.0)
@@ -87,7 +87,7 @@ class Handwritten : Extension {
                 lineJoin = LineJoin.BEVEL
                 word.forEach { letter ->
                     letters[letter]?.run {
-                        val letterBounds = rectangleBounds(this.map { it.bounds })
+                        val letterBounds = (this.map { it.bounds }).bounds
                         translate(-letterBounds.x, 0.0)
                         contours(this)
                         translate(letterBounds.x + letterBounds.width + 3.0, 0.0)
