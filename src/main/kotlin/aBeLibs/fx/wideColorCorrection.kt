@@ -6,7 +6,7 @@ import org.openrndr.extra.parameters.Description
 import org.openrndr.extra.parameters.DoubleParameter
 
 @Description("Color correction")
-class WideColorCorrection : Filter(filterShaderFromUrl("file:///home/funpro/src/OR/orx/orx-fx/src/main/resources/org/openrndr/extra/fx/gl3/color/color-correction.frag")) {
+class WideColorCorrection : Filter(filterShaderFromUrl("file:///home/funpro/OR/orx/orx-fx/src/main/resources/org/openrndr/extra/fx/gl3/color/color-correction.frag")) {
     @DoubleParameter("brightness", -5.0, 5.0, order = 0)
     var brightness: Double by parameters
 
