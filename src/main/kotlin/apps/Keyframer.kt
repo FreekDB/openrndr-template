@@ -20,6 +20,7 @@ import kotlin.system.exitProcess
 
 /**
  * Test the Keyframer
+ * Produces output.mp4 and quits after 150 frames
  */
 
 class Animation : Keyframer() {

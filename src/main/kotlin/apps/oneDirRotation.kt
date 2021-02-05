@@ -18,6 +18,7 @@ import kotlin.system.exitProcess
 
 /**
  * One direction rotation doodles
+ * Looks like paper-clips
  */
 
 fun main() = application {
@@ -64,10 +65,10 @@ fun main() = application {
                         val next = c.segments[(i + 1) % c.segments.size]
                         val nextOffsetDist = 25.0 * Random.simplex(next.start) + 30.0
                         val nextOffset = next.offset(nextOffsetDist)[0]
-                        val dist = currOffset.end.distanceTo(nextOffset.start)
+                        val distance = currOffset.end.distanceTo(nextOffset.start)
                         curveTo(
-                            currOffset.end + currOffset.direction(1.0) * (dist * 0.6),
-                            nextOffset.start - nextOffset.direction(0.0) * (dist * 0.6),
+                            currOffset.end + currOffset.direction(1.0) * (distance * 0.6),
+                            nextOffset.start - nextOffset.direction(0.0) * (distance * 0.6),
                             nextOffset.start
                         )
                     }

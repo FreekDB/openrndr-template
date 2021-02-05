@@ -5,8 +5,15 @@ import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.isolated
 import org.openrndr.math.Vector2
 import org.openrndr.shape.Circle
+import org.openrndr.shape.Shape
 import org.openrndr.shape.contour
 import org.openrndr.shape.difference
+
+/**
+ * ----- ==> -o--- ==> - ---
+ * Remove part of a line using a circle
+ * ShapeContour (line) - Shape (circle) = ShapeContour with missing part
+ */
 
 fun main() = application {
     program {
@@ -19,7 +26,7 @@ fun main() = application {
             )
         }
         val deleter = Circle(Vector2.ZERO, 15.0).shape
-        val result = difference(curve.shape, deleter)
+        val result = curve.shape - deleter
         extend {
             drawer.apply {
                 clear(ColorRGBa.WHITE)
@@ -44,3 +51,5 @@ fun main() = application {
         }
     }
 }
+
+private operator fun Shape.minus(other: Shape) = difference(this, other)

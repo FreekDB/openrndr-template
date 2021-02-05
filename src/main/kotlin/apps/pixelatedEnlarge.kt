@@ -7,7 +7,8 @@ import org.openrndr.draw.colorBuffer
 import org.openrndr.extra.noise.Random
 
 /**
- * Basic template
+ * Generate a 8x8 pixel black and white pattern
+ * and enlarge it (QR code style)
  */
 
 fun main() = application {
