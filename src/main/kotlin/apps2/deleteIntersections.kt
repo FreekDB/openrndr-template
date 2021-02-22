@@ -77,7 +77,7 @@ fun main() = application {
             svg.fill = null
             svg.stroke = ColorRGBa.BLACK
 
-            val p = drawer.bounds::position
+            val p : (Double, Double) -> Vector2 = drawer.bounds::position
             contours.clear()
             contours.addAll(
                 makeRing(
