@@ -1,7 +1,8 @@
+
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.gradle.internal.os.OperatingSystem
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 /* the name of this project, default is the template version but you are free to change these */
 group = "org.openrndr.template"
@@ -13,46 +14,48 @@ val applicationMainClass = "TemplateProgramKt"
 val orxFeatures = setOf(
     "orx-boofcv",
     "orx-camera",
-//  "orx-chataigne",
+    "orx-color",
     "orx-compositor",
-//  "orx-dnk3",
-//  "orx-easing",
-//  "orx-file-watcher",
-  "orx-parameters",
-//  "orx-filter-extension",
     "orx-fx",
     "orx-glslify",
-//  "orx-gradient-descent",
     "orx-gui",
     "orx-image-fit",
     "orx-integral-image",
-//  "orx-interval-tree",
     "orx-jumpflood",
-//  "orx-kdtree",
     "orx-mesh-generators",
     "orx-midi",
     "orx-no-clear",
     "orx-noise",
-//  "orx-obj-loader",
     "orx-olive",
     "orx-osc",
     "orx-palette",
+    "orx-panel",
+    "orx-parameters",
     "orx-poisson-fill",
+    "orx-shade-styles",
+    "orx-shapes",
+    "orx-triangulation",
+    "orx-video-profiles",
+    "poc-orx-keyframer",
+//  "orx-chataigne",
+//  "orx-dnk3",
+//  "orx-easing",
+//  "orx-file-watcher",
+//  "orx-filter-extension",
+//  "orx-gradient-descent",
+//  "orx-interval-tree",
+//  "orx-kdtree",
+//  "orx-kinect-v1",
+//  "orx-obj-loader",
 //  "orx-rabbit-control,
 //  "orx-runway",
-    "orx-shade-styles",
 //  "orx-shader-phrases",
-    "orx-shapes",
 //  "orx-syphon",
 //  "orx-temporal-blur",
-//  "orx-time-operators,
-    "orx-triangulation",
-//  "orx-kinect-v1",
 //  "orx-tensorflow",
-    "orx-panel",
-    "poc-orx-keyframer",
-    "orx-video-profiles"
-)
+//  "orx-time-operators,
+    null
+).filterNotNull()
 
 val ormlFeatures = setOf<String>(
 //    "orml-blazepose",
