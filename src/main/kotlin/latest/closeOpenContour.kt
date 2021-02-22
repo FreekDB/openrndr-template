@@ -6,6 +6,7 @@ import org.openrndr.extensions.Screenshots
 import org.openrndr.math.Vector2
 import org.openrndr.shape.LineSegment
 import org.openrndr.shape.Rectangle
+import org.openrndr.shape.ShapeContour
 
 /**
  * Split a square with a straight line,
@@ -15,7 +16,7 @@ fun main() = application {
     program {
         val square = Rectangle.fromCenter(drawer.bounds.center, 200.0).contour
         val knife = LineSegment(Vector2.ZERO, drawer.bounds.dimensions).contour
-        val result = square.split(knife).map { it.close }
+        val result = (square / knife).map { it.close }
         extend(Screenshots())
         extend {
             drawer.apply {
@@ -30,3 +31,5 @@ fun main() = application {
         }
     }
 }
+
+private operator fun ShapeContour.div(knife: ShapeContour) = this.split(knife)
