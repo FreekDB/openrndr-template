@@ -622,3 +622,36 @@ fun MutableList<ShapeContour>.removeIntersections(margin: Double):
     } while (intersectionsFound)
     return this
 }
+
+fun ShapeContour.symmetrize(roundness: (Int) -> Pair<Double, Double>):
+        Pair<ShapeContour, List<LineSegment>> {
+    val visibleTangents = mutableListOf<LineSegment>()
+    val tangents = segments.mapIndexed { i, curr ->
+        val next = segments[(i - 1 + segments.size) % segments.size]
+        (curr.direction()).mix(next.direction(), 0.5).normalized
+    }
+    val newSegments = segments.mapIndexed { i, currSegment ->
+        val sz = segments.size
+        val len = currSegment.length
+        val iNext = (i + 1 + sz) % sz
+        val c0 = currSegment.start +
+                tangents[i] * len * roundness(i).first
+        val c1 = currSegment.end -
+                tangents[iNext] * len * roundness((i + 1) % sz).second
+        visibleTangents.add(LineSegment(currSegment.start, c0))
+        visibleTangents.add(LineSegment(c1, currSegment.end))
+        visibleTangents.add(
+            LineSegment(
+                currSegment.start,
+                currSegment.end
+            )
+        )
+        Segment(currSegment.start, c0, c1, currSegment.end)
+    }
+    return Pair(ShapeContour(newSegments, closed), visibleTangents)
+}
+
+fun circleish(pos: Vector2, radius: Double): ShapeContour =
+    CatmullRomChain2(List(5) { it * 72.0 + Random.double0(30.0) }.map {
+        Polar(it, radius).cartesian + pos
+    }, 0.5, true).toContour()
