@@ -5,7 +5,7 @@ import aBeLibs.geometry.localDistortion
 import aBeLibs.geometry.softJitter
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
-import org.openrndr.dialogs.*
+import org.openrndr.dialogs.saveFileDialog
 import org.openrndr.draw.LineJoin
 import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.noise.Random
@@ -20,6 +20,12 @@ import kotlin.math.sign
 
 /**
  * Plotter party
+ * I did this at Raphaël's home with him and Deniz
+ * We all created designs using the same 7 points in 2D space,
+ * with the idea of plotting all 3 designs on the same paper.
+ * By sharing those 7 points the designs, even if different, would
+ * have some kind of connection.
+ * It worked so-so :) It's better to agree in more constrains I guess.
  */
 
 fun main() = application {
