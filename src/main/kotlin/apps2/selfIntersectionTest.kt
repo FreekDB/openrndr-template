@@ -28,7 +28,9 @@ fun main() = application {
                     Vector2(x, y)
                 }, closed = true
             )
-            val ints = intersections(contour, contour)
+            val ints = intersections(contour, contour).distinctBy {
+                it.position.toInt()
+            }
             drawer.run {
                 clear(ColorRGBa.WHITE)
                 fill = ColorRGBa.BLACK
