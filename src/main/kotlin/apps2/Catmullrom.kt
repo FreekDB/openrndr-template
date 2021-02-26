@@ -11,6 +11,10 @@ import org.openrndr.shape.Segment
 import org.openrndr.shape.ShapeContour
 import org.openrndr.shape.toContour
 
+/**
+ * Interactive. Mouse positino sets alpha for CatmullRom.
+ */
+
 fun main() = application {
     program {
         // clockwise sorting

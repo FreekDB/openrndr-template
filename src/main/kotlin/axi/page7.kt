@@ -1,4 +1,4 @@
-package apps
+package axi
 
 import aBeLibs.geometry.noisified
 import aBeLibs.geometry.smoothed

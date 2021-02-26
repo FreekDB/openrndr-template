@@ -1,4 +1,4 @@
-package apps2
+package axi
 
 import aBeLibs.extensions.Handwritten
 import aBeLibs.geometry.eraseEndsWithCircles
