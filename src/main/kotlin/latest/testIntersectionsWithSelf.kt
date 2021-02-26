@@ -9,6 +9,9 @@ import org.openrndr.shape.intersections
 /**
  * Test what happens when finding intersections between
  * two identical contours. How many points do we get?
+ *
+ * This used to give one intersection too few until this PR:
+ * https://github.com/openrndr/openrndr/pull/201
  */
 
 fun main() = application {
@@ -18,7 +21,7 @@ fun main() = application {
         val c = contour {
             moveTo(b(0.2, 0.2))
             curveTo(b(0.5, 0.65), b(0.8, 0.2))
-            lineTo(b(0.201, 0.803))
+            lineTo(b(0.20, 0.80))
             curveTo(b(0.5, 0.35), b(0.8, 0.8))
             close()
         }
