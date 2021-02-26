@@ -1,7 +1,6 @@
 package axi
 
 import aBeLibs.geometry.bend
-import aBeLibs.geometry.split
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.dialogs.saveFileDialog
@@ -10,6 +9,7 @@ import org.openrndr.math.Vector2
 import org.openrndr.shape.ShapeContour
 import org.openrndr.shape.contour
 import org.openrndr.shape.drawComposition
+import org.openrndr.shape.split
 import org.openrndr.svg.loadSVG
 import org.openrndr.svg.writeSVG
 
@@ -26,7 +26,7 @@ fun main() = application {
     }
     program {
         val shapes = loadSVG(
-            "/home/funpro/src/OR/openrndr-template/print/2021-01-02-brit6.svg"
+            "/home/funpro/OR/openrndr-template/print/2021-01-02-brit6.svg"
         ).findShapes().map { it.shape }
 
         var mouseStart = Vector2.ZERO
@@ -56,9 +56,9 @@ fun main() = application {
                     mouseEnd
                 )
             }.sampleEquidistant(50)
-            val cutLines = shapes.map {
+            val cutLines = shapes.flatMap {
                 it.contours
-            }.flatten().map { it.split(knife) }.flatten().bend(knife)
+            }.flatMap { split(it, knife) }.bend(knife)
 
             val svg = drawComposition {
                 fill = null

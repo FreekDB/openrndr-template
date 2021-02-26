@@ -9,6 +9,10 @@ import org.openrndr.shape.ClipMode
 import org.openrndr.shape.drawComposition
 import org.openrndr.svg.saveToFile
 
+/**
+ * An example calling svg.dedupe() to remove duplicate segments
+ * after doing boolean operations on closed shapes.
+ */
 fun main() {
     application {
         program {
@@ -19,20 +23,16 @@ fun main() {
                 clipMode = ClipMode.REVERSE_DIFFERENCE
                 circle(width / 2.0, height / 2.0, 100.0)
             }
-
-            val nonDupes = svg.dedupe()
-
             extend {
-                drawer.clear(ColorRGBa.PINK)
-                drawer.composition(nonDupes)
+                drawer.clear(ColorRGBa.WHITE)
+                drawer.composition(svg)
             }
             keyboard.keyDown.listen {
                 when (it.key) {
                     KEY_SPACEBAR -> saveFileDialog(supportedExtensions = listOf("svg")) { file ->
-                        nonDupes.saveToFile(file)
+                        svg.dedupe().saveToFile(file)
                     }
                 }
-
             }
         }
     }
