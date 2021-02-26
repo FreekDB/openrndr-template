@@ -1,4 +1,4 @@
-package apps2
+package intersections
 
 import org.openrndr.KEY_ENTER
 import org.openrndr.KEY_ESCAPE

@@ -1,4 +1,4 @@
-package apps2
+package intersections
 
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
@@ -13,6 +13,11 @@ import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
 
+/**
+ * Animated closed contour with multiple self intersections.
+ * - Highlights distinct intersections
+ * - Shows intersection coordinates
+ */
 fun main() = application {
     program {
         val points = 200

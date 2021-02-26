@@ -1,4 +1,4 @@
-package apps2
+package intersections
 
 import aBeLibs.geometry.*
 import org.openrndr.application
@@ -6,6 +6,12 @@ import org.openrndr.color.ColorRGBa
 import org.openrndr.extra.noise.Random
 import org.openrndr.shape.Circle
 
+/**
+ * TODO: Fix this program
+ * The behavior changed at some point
+ * For each intersection I should modify only one of the two involved curves
+ * deleting the area around the intersection
+ */
 fun main() = application {
     program {
         Random.seed = "1"
