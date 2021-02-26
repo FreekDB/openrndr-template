@@ -13,6 +13,11 @@ import org.openrndr.shape.CompositionDrawer
 import org.openrndr.svg.writeSVG
 import kotlin.system.exitProcess
 
+/**
+ * Converts to hand written text the source code of a program,
+ * exports SVG
+ */
+
 fun main() = application {
 
     configure {

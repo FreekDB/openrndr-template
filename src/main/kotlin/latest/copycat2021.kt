@@ -29,7 +29,7 @@ fun main() = application {
         extend {
             drawer.apply {
                 clear(ColorRGBa.CYAN)
-                stroke = ColorRGBa.WHITE.opacify(0.04)
+                stroke = ColorRGBa.WHITE.opacify(0.7)
 
                 for (x in 0 until width step (s * 3).toInt()) {
                     for (y in 0 until (height / h).toInt() + 1) {

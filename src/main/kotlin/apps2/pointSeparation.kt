@@ -17,6 +17,11 @@ import org.openrndr.shape.ShapeContour
 import kotlin.math.PI
 import kotlin.math.abs
 
+/**
+ * Interactive, animated growth algorithm.
+ * Inserts points on a closed shape trying to maintain a minimum
+ * distance and a maximum angle (sharpness) between the points
+ */
 fun main() = application {
     configure {
         width = 512

@@ -9,7 +9,8 @@ import org.openrndr.math.Vector2
 import org.openrndr.shape.Circle
 
 /**
- * Create a spiral connecting two points in two concentric circles
+ * Create a spiral connecting two points in two concentric circles.
+ * Interactive.
  */
 
 fun main() = application {

@@ -23,9 +23,9 @@ private val Vector2.rnd: Vector2
 var wordCursor = Vector2.ZERO
 
 /**
- * Writing text
+ * Converts text to custom symbols
  * - #exhibition
- * - Algorithmic text generation
+ * - Text by Celia Green
  * - Inspired by P5 wordsToShapes from 2013/06
  *   https://github.com/hamoid/Fun-Programming/tree/master/processing/ideas/2013/06/wordsToShapes
  * -Dopenrndr.gl3.debug=true
