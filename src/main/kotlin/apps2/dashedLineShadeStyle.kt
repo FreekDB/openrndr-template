@@ -1,29 +1,21 @@
 package apps2
 
+import aBeLibs.shadestyles.DashedLine
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.LineJoin
-import org.openrndr.draw.shadeStyle
 import org.openrndr.math.Polar
 import org.openrndr.shape.contour
 
 /**
- * A shadeStyle for dashed lines with two parameters:
- * - dashLength: the length of each dash
- * - dashMargin: the separation between dashes
+ * Animated test for the [DashedLine] shadeStyle
  *
  * Shows an edge case for morphing lines with segments turning 180 degrees
  */
 
 fun main() = application {
     program {
-        val style = shadeStyle {
-            fragmentTransform = """
-                float l = mod(c_contourPosition, p_dashLength + p_dashMargin);
-                x_stroke.a *= 1.0 - step(p_dashLength, l);"""
-            parameter("dashLength", 20.0)
-            parameter("dashMargin", 5.0)
-        }
+        val style = DashedLine()
         extend {
             drawer.run {
                 clear(ColorRGBa.WHITE)
