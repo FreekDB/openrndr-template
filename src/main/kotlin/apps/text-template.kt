@@ -108,7 +108,8 @@ fun main() = application {
                     isolated {
                         line.trimIndent().toUpperCase().forEach {
                             letters[it]?.run {
-                                val letterBounds = rectangleBounds(this.map { c -> c.bounds })
+                                val letterBounds =
+                                    this.map { c -> c.bounds }.bounds
                                 translate(-letterBounds.x, 0.0)
                                 contours(this)
                                 translate(letterBounds.x + letterBounds.width + 3.0, 0.0)

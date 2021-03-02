@@ -16,7 +16,7 @@ fun main() = application {
             drawer.circle(x * 1.0, y * 1.0, size.toDouble())
         }
 
-        mouse.clicked.listen {
+        mouse.buttonUp.listen {
             x.append(it.position.x * 1.0, Random.double(500.0, 1500.0))
             y.append(it.position.y * 1.0, Random.double(500.0, 1500.0))
         }

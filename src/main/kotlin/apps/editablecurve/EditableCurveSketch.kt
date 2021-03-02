@@ -1,6 +1,7 @@
 package apps.editablecurve
 
 import aBeLibs.extensions.FPSDisplay
+import aBeLibs.extensions.NoJitter
 import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
@@ -56,6 +57,7 @@ fun main() = application {
             ECState.winSize = it.size
         }
 
+        extend(NoJitter())
         extend(setupUI())
         //extend(ScreenRecorder())
         extend(FPSDisplay(font))

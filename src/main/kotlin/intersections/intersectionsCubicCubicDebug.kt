@@ -517,10 +517,10 @@ fun main() = application {
             drawer.circles(c0.segments.map { it.start }, 0.5)
             drawer.circles(c1.segments.map { it.start }, 0.5)
         }
-        keyboard.keyDown.listen {
+        keyboard.keyDown.listen { key ->
             val n0 = c0.segments.size
             val n1 = c1.segments.size
-            when (it.name) {
+            when (key.name) {
                 "arrow-up" -> seg0 = (seg0 + 1) % n0
                 "arrow-down" -> seg0 = (seg0 - 1 + n0) % n0
                 "arrow-right" -> seg1 = (seg1 + 1) % n1

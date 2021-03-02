@@ -13,7 +13,6 @@ import org.openrndr.extra.fx.blur.GaussianBloom
 import org.openrndr.extra.noise.Random
 import org.openrndr.extra.noise.gradientPerturbFractal
 import org.openrndr.extra.noise.simplex
-import org.openrndr.ffmpeg.ScreenRecorder
 import org.openrndr.math.Polar
 import org.openrndr.math.Vector2
 import org.openrndr.shape.Circle

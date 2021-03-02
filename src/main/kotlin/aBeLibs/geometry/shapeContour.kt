@@ -495,7 +495,7 @@ fun ShapeContour.selfIntersections(): List<Double> {
     this.segments.forEach {
         val p = this.intersections(it)
         if (p.isNotEmpty()) {
-            intersections.addAll(p.map { it.position })
+            intersections.addAll(p.map { intersection -> intersection.position })
         }
     }
     intersections.dedupe(1.2).forEach { p ->

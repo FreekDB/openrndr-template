@@ -114,9 +114,8 @@ fun Rectangle.randomPoint(): Vector2 {
  * The goal is to avoid drawing lines multiple times with a plotter.
  */
 fun Composition.dedupe(err: Double = 1.0): Composition {
-    val segments = this.findShapes().map {
-        it.shape.contours.map { contour -> contour.segments }.flatten()
-    }.flatten()
+    val segments = this.findShapes().flatMap {
+        it.shape.contours.flatMap { contour -> contour.segments }}
     val deduped = mutableListOf<Segment>()
     segments.forEach { curr ->
         if (deduped.none { other -> other.contains(curr, err) }) {

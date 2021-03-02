@@ -6,13 +6,10 @@ import org.openrndr.color.ColorRGBa
 import org.openrndr.extensions.Screenshots
 import org.openrndr.math.CatmullRomChain2
 import org.openrndr.math.Polar
-import org.openrndr.math.map
-import org.openrndr.shape.Segment
-import org.openrndr.shape.ShapeContour
 import org.openrndr.shape.toContour
 
 /**
- * Interactive. Mouse positino sets alpha for CatmullRom.
+ * Interactive. Mouse position sets alpha for CatmullRom.
  */
 
 fun main() = application {

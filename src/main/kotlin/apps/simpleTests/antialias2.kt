@@ -29,7 +29,7 @@ fun main() {
                 }
 
                 // -- resolve the render target attachment to `resolved`
-                rt.colorBuffer(0).resolveTo(resolved)
+                rt.colorBuffer(0).copyTo(resolved)
 
                 // draw the backing color buffer to the screen
                 drawer.image(resolved)

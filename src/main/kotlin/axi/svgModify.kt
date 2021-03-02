@@ -1,7 +1,6 @@
 package axi
 
 import aBeLibs.geometry.bend
-import aBeLibs.geometry.split
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.dialogs.saveFileDialog
