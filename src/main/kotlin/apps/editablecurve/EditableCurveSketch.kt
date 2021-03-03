@@ -60,7 +60,7 @@ fun main() = application {
         extend(NoJitter())
         extend(setupUI())
         //extend(ScreenRecorder())
-        extend(FPSDisplay(font))
+        extend(FPSDisplay())
 
         extend {
             // midi events

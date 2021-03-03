@@ -8,7 +8,7 @@ import org.openrndr.draw.FontImageMap
 import org.openrndr.draw.isolated
 import org.openrndr.math.Matrix44
 
-class FPSDisplay(private var font: FontImageMap) : Extension {
+class FPSDisplay() : Extension {
     override var enabled: Boolean = true
 
     private var frames = 0
@@ -32,7 +32,6 @@ class FPSDisplay(private var font: FontImageMap) : Extension {
             drawer.view = Matrix44.IDENTITY
             drawer.fill = ColorRGBa.BLACK
             drawer.ortho()
-            drawer.fontMap = font
             drawer.text(fps.toString(), drawer.width - 100.0,  40.0)
         }
     }
