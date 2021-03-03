@@ -25,13 +25,13 @@ import org.openrndr.math.transforms.transform
 class TransRotScale : Extension {
     override var enabled: Boolean = true
 
-    var transform = Matrix44.IDENTITY
+    var viewMat = Matrix44.IDENTITY
     var dragStart = Vector2.ZERO
 
     override fun setup(program: Program) {
         program.mouse.buttonDown.listen { dragStart = it.position }
         program.mouse.dragged.listen {
-            transform = transform {
+            viewMat = transform {
                 if (it.button == MouseButton.LEFT) {
                     translate(it.dragDisplacement)
                 } else {
@@ -39,18 +39,18 @@ class TransRotScale : Extension {
                     rotate(Vector3.UNIT_Z, it.dragDisplacement.y)
                     translate(-dragStart)
                 }
-            } * transform
+            } * viewMat
         }
         program.mouse.scrolled.listen {
-            transform = transform {
+            viewMat = transform {
                 translate(it.position)
                 scale(1.0 + 0.1 * it.rotation.y)
                 translate(-it.position)
-            } * transform
+            } * viewMat
         }
     }
 
     override fun beforeDraw(drawer: Drawer, program: Program) {
-        drawer.view *= transform
+        drawer.view *= viewMat
     }
 }
