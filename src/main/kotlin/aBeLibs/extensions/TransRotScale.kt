@@ -10,30 +10,34 @@ import org.openrndr.math.Vector3
 import org.openrndr.math.transforms.transform
 
 /**
- * A simple OPENRNDR that provides rotation, translation and scaling
+ * A simple OPENRNDR that provides zoom, translation and rotation
  * by dragging the mouse with left / right buttons + scroll wheel.
  *
- * Add `extend(TransRotScale())` to your OPENRNDR program to use.
+ * I created this because sometimes my generative designs
+ * turn out too large or too small for the window.
+ *
+ * I think it's also a beautiful example for how much one can do
+ * with very few lines of code.
+ *
+ * Usage: `extend(TransRotScale())`
  */
 
 class TransRotScale : Extension {
     override var enabled: Boolean = true
 
     var transform = Matrix44.IDENTITY
-    var clickPos = Vector2.ZERO
+    var dragStart = Vector2.ZERO
 
     override fun setup(program: Program) {
-        program.mouse.buttonDown.listen { clickPos = it.position }
+        program.mouse.buttonDown.listen { dragStart = it.position }
         program.mouse.dragged.listen {
-            transform = if(it.button == MouseButton.LEFT) {
-                transform {
+            transform = transform {
+                if (it.button == MouseButton.LEFT) {
                     translate(it.dragDisplacement)
-                }
-            } else {
-                transform {
-                    translate(clickPos)
+                } else {
+                    translate(dragStart)
                     rotate(Vector3.UNIT_Z, it.dragDisplacement.y)
-                    translate(-clickPos)
+                    translate(-dragStart)
                 }
             } * transform
         }
