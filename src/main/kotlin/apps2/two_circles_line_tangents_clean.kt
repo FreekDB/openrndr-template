@@ -99,6 +99,9 @@ fun main() = application {
                                         p1.map(from, to),
                                         to.height * 0.1 - found * to.height * 0.01
                                     )
+                                    if(leftCirc.radius < 1 || rightCirc.radius < 1) {
+                                        break
+                                    }
                                     contour(
                                         tangentWrapConcave(
                                             rightCirc,
