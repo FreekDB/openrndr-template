@@ -651,7 +651,7 @@ fun ShapeContour.symmetrize(roundness: (Int) -> Pair<Double, Double>):
     return Pair(ShapeContour(newSegments, closed), visibleTangents)
 }
 
-fun circleish(pos: Vector2, radius: Double): ShapeContour =
-    CatmullRomChain2(List(5) { it * 72.0 + Random.double0(30.0) }.map {
+fun circleish(pos: Vector2, radius: Double, theta: Double = 0.0): ShapeContour =
+    CatmullRomChain2(List(5) { it * 72 + theta + Random.double0(50.0) }.map {
         Polar(it, radius).cartesian + pos
     }, 0.5, true).toContour()

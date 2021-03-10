@@ -6,11 +6,12 @@ import org.openrndr.math.Vector2
 import org.openrndr.math.YPolarity
 import org.openrndr.shape.Segment
 import org.openrndr.shape.ShapeContour
+import org.openrndr.shape.bounds
 
 fun main() = application {
     configure {
-        width = 1000
-        height = 1000
+        width = 800
+        height = 800
     }
 
     val c0 = ShapeContour(
@@ -494,11 +495,13 @@ fun main() = application {
 
     program {
         extend {
+            drawer.clear(ColorRGBa.WHITE)
             drawer.fill = null
-            drawer.translate(drawer.bounds.center-c0.bounds.center * 10.5)
+            drawer.translate(drawer.bounds.center -
+                    listOf(c0.bounds, c1.bounds).bounds.center * 10.5)
             drawer.scale(10.5)
 
-            drawer.stroke = ColorRGBa.YELLOW
+            drawer.stroke = ColorRGBa.GREEN
             drawer.strokeWeight = 0.5
             drawer.contours(listOf(
                 c0.segments[seg0].contour,
@@ -506,7 +509,7 @@ fun main() = application {
             ))
 
             drawer.strokeWeight = 0.1
-            drawer.stroke = ColorRGBa.WHITE
+            drawer.stroke = ColorRGBa.BLACK
             drawer.contour(c0)
             drawer.contour(c1)
             drawer.strokeWeight = 0.2

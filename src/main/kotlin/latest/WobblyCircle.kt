@@ -4,9 +4,9 @@ import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.rgb
 import org.openrndr.extensions.Screenshots
+import org.openrndr.extra.shadestyles.radialGradient
 import org.openrndr.math.Polar
 import org.openrndr.math.Vector2
-import org.openrndr.shape.Circle
 import org.openrndr.shape.Segment
 import org.openrndr.shape.ShapeContour
 import org.openrndr.shape.drawComposition
@@ -14,7 +14,7 @@ import kotlin.math.PI
 import kotlin.math.tan
 
 fun main() = application {
-    configure { width = 800; height = 800 }
+    configure { width = 1100; height = 1100 }
 
     // Feature request: ShapeContour.resample(20) to create
     // a new ShapeContour with 20 equal length segments
@@ -23,32 +23,35 @@ fun main() = application {
         val colors = listOf(
             "19bcb9", "f0ece2", "5adad6", "ede9de",
             "d46a6a", "efece2", "f1c783", "efebe2"
+        ).map(::rgb)
+        val gradient = radialGradient(
+            ColorRGBa.WHITE.shade(1.5),
+            ColorRGBa.WHITE.shade(0.8),
+            length = 0.7,
+            exponent = 0.8
         )
         val design = drawComposition {
             translate(drawer.bounds.center)
             rotate(90.0)
-            colors.forEachIndexed { it, c ->
-                fill = rgb(c)
+            colors.forEachIndexed { it, color ->
+                fill = color
                 stroke = ColorRGBa.WHITE.opacify(0.6)
                 val circle =
                     circleWithNSegments(
                         Vector2.ZERO,
-                        300.0 - it * 20,
+                        width * 0.4 - it * width * 0.03,
                         34 - it * 4
                     ).wobble(6.0 + 3.0 * it)
                 contour(circle)
-                contour(circle.open) // hack because contours are broken 4.3.21
-                // in CompositionDrawer with closed shapes. Probably fixed soon.
-                fill = rgb(colors[colors.size - 1 - it])
+                fill = colors[(it + 1) % colors.size]
                 circles(circle.segments.map { it.start }, 5.0)
-                fill = ColorRGBa.WHITE.opacify(0.6)
-                circles(circle.segments.map { it.start }, 3.0)
             }
         }
 
         extend(Screenshots())
         extend {
-            drawer.clear(ColorRGBa.WHITE)
+            drawer.shadeStyle = gradient
+            drawer.rectangle(drawer.bounds)
             drawer.composition(design)
         }
     }
