@@ -31,22 +31,24 @@ class TransRotScale : Extension {
     override fun setup(program: Program) {
         program.mouse.buttonDown.listen { dragStart = it.position }
         program.mouse.dragged.listen {
-            viewMat = transform {
-                if (it.button == MouseButton.LEFT) {
-                    translate(it.dragDisplacement)
-                } else {
-                    translate(dragStart)
-                    rotate(Vector3.UNIT_Z, it.dragDisplacement.y)
-                    translate(-dragStart)
-                }
-            } * viewMat
+            if (!it.propagationCancelled)
+                viewMat = transform {
+                    if (it.button == MouseButton.LEFT) {
+                        translate(it.dragDisplacement)
+                    } else {
+                        translate(dragStart)
+                        rotate(Vector3.UNIT_Z, it.dragDisplacement.y)
+                        translate(-dragStart)
+                    }
+                } * viewMat
         }
         program.mouse.scrolled.listen {
-            viewMat = transform {
-                translate(it.position)
-                scale(1.0 + 0.1 * it.rotation.y)
-                translate(-it.position)
-            } * viewMat
+            if (!it.propagationCancelled)
+                viewMat = transform {
+                    translate(it.position)
+                    scale(1.0 + 0.1 * it.rotation.y)
+                    translate(-it.position)
+                } * viewMat
         }
     }
 
