@@ -2,6 +2,7 @@ package latest
 
 import org.openrndr.application
 import org.openrndr.draw.*
+import org.openrndr.extensions.Screenshots
 
 fun main() {
     application {
@@ -54,6 +55,7 @@ fun main() {
 
             val computeShader = ComputeShader.fromCode(computeShaderCode)
 
+            extend(Screenshots())
             extend {
                 computeShader.buffer("outputBuffer", vb)
                 computeShader.uniform("time", seconds)

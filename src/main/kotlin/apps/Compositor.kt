@@ -15,10 +15,10 @@ import org.openrndr.extra.noise.Random
 import org.openrndr.math.Vector3
 import kotlin.system.exitProcess
 
-/**
- * Basic template
+/*
+  Test `composite` by drawing 3 layers containing moving rings of different sizes
+  to simulate depth of field: the top and bottom layers are blurry, the middle one is sharp.
  */
-
 
 fun main() = application {
     configure {
