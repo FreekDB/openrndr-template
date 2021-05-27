@@ -8,7 +8,8 @@ import java.io.File
 fun main() {
     application {
         program {
-            val cs = ComputeShader.fromFile(File("data/shaders/cs1.glsl"))
+            val cs = ComputeShader.fromFile(File("data/shaders/cs1.glsl"),
+                "cs1")
 
             val tempBuffer = loadImage("data/images/1023px-The_Earth_seen_from_Apollo_17.jpg")
             val inputBuffer = colorBuffer(width, height)

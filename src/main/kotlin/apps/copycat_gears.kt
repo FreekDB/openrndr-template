@@ -1,5 +1,6 @@
 package apps
 
+import aBeLibs.kotlin.loopRepeat
 import aBeLibs.math.TAU
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
@@ -38,8 +39,8 @@ fun main() = application {
             private var rotationAngle = 0.0
             private val cw = if (clockwise) 1.0 else -1.0
             private var s = contour {
-                for (i in 0 until teeth) {
-                    val a = i * 360.0 / teeth +
+                loopRepeat(teeth, to = 360.0) { theta ->
+                    val a = theta +
                             (if (clockwise) aDelta else 0.0) +
                             (if (shift) aDelta * 2.0 else 0.0)
                     moveOrLineTo(Polar(a + aDelta * 0, radius).cartesian)

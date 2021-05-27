@@ -46,8 +46,12 @@ fun main() = application {
                 )
                 val pointsCentered = points.map { (it - center) * scale }
                 val c = ShapeContour.fromPoints(pointsCentered, true)
+
+                // Try avoid intersections, but
+
                 // NOTE: .intersections() can return 0 intersections even if
                 // there is one: https://github.com/lacuna/artifex/issues/3
+
                 // NOTE2: it's checking if the source shape has intersections
                 // but not if the symmetrized versions do.
                 if (c.intersections(c).isEmpty()) {

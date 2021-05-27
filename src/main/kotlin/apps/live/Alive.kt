@@ -44,7 +44,7 @@ fun treeShadowTexture(drawer: Drawer, width: Int, height: Int): ColorBuffer {
     drawer.isolatedWithTarget(rt) {
         drawer.clear(ColorRGBa.BLACK) // ColorHSVa(0.4, 0.1, 0.7).toRGBa()
         drawer.stroke = null
-        for (i in 0..300) {
+        repeat(300) {
             val pos = Vector2.uniform(Vector2.ZERO, bounds.dimensions)
             val r = Random.simplex(pos * 0.001)
             if (r > -0.1) {

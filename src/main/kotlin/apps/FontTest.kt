@@ -22,7 +22,7 @@ fun main() = application {
 
     program {
         var font = loadFont(
-            "file:/home/funpro/src/OR/openrndr-template/data/fonts/slkscr.ttf",
+            "/home/funpro/OR/openrndr-template/data/fonts/slkscr.ttf",
             fontSz
         )
 

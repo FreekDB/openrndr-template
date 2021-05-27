@@ -112,7 +112,8 @@ fun main() = application {
                         if (Random.bool(0.5) && side > 0) {
                             val copies = 1 + (d / 80).toInt()
                             for (i in 1..copies) {
-                                hairContours.add(hair.noisified(i, false, 0.02))
+                                hairContours.add(hair.noisified(i * 1.0,
+                                    false, 0.02))
                             }
                         }
                         hairLocations.add(Pair(v1, v2))

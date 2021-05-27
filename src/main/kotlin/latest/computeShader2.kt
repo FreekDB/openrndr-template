@@ -53,7 +53,7 @@ fun main() {
             }
             """.trimIndent()
 
-            val computeShader = ComputeShader.fromCode(computeShaderCode)
+            val computeShader = ComputeShader.fromCode(computeShaderCode, "cs2")
 
             extend(Screenshots())
             extend {
