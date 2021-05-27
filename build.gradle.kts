@@ -6,7 +6,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 /* the name of this project, default is the template version but you are free to change these */
 group = "org.openrndr.template"
-version = "0.3.14"
+version = "0.3.18"
 
 val applicationMainClass = "TemplateProgramKt"
 
@@ -77,10 +77,10 @@ val openrndrFeatures = setOf(
 
 /*  Which version of OPENRNDR and ORX should be used? */
 val openrndrUseSnapshot = true
-val openrndrVersion = if (openrndrUseSnapshot) "0.4.0-SNAPSHOT" else "0.3.44"
+val openrndrVersion = if (openrndrUseSnapshot) "0.4.0-SNAPSHOT" else "0.3.58"
 
 val orxUseSnapshot = true
-val orxVersion = if (orxUseSnapshot) "0.4.0-SNAPSHOT" else "0.3.53"
+val orxVersion = if (orxUseSnapshot) "0.4.0-SNAPSHOT" else "0.3.58"
 
 val ormlUseSnapshot = false
 val ormlVersion = if (ormlUseSnapshot) "0.4.0-SNAPSHOT" else "0.3.0-rc.5"
@@ -119,11 +119,11 @@ enum class Logging {
 /*  What type of logging should this project use? */
 val applicationLogging = Logging.FULL
 
-val kotlinVersion = "1.4.31"
+val kotlinVersion = "1.5.0"
 
 plugins {
     java
-    kotlin("jvm") version("1.4.31")
+    kotlin("jvm") version("1.5.0")
     //kotlin("plugin.serialization") version "1.3.70"
     id("com.github.johnrengelman.shadow") version ("6.1.0")
     id("org.beryx.runtime") version ("1.11.4")
@@ -134,9 +134,7 @@ repositories {
     if (openrndrUseSnapshot || orxUseSnapshot) {
         mavenLocal()
     }
-    maven(url = "https://dl.bintray.com/openrndr/openrndr")
-    maven("https://jitpack.io")
-    jcenter()
+    maven(url = "https://maven.openrndr.org")
 }
 
 fun DependencyHandler.orx(module: String): Any {
@@ -177,10 +175,10 @@ dependencies {
     implementation(openrndr("dialogs"))
 
     //implementation("org.jetbrains.kotlinx","kotlinx-serialization-runtime", "0.20.0") // JVM dependency
-    implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-core","1.3.9")
-    implementation("io.github.microutils", "kotlin-logging","1.12.0")
-    implementation("com.soywiz.korlibs.korma","korma-jvm","1.9.1")
-    implementation("com.soywiz.korlibs.korma","korma-shape","1.9.1")
+    implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-core","1.5.0-RC")
+    implementation("io.github.microutils", "kotlin-logging-jvm","2.0.6")
+    implementation("com.soywiz.korlibs.korma","korma-jvm","2.0.9")
+    implementation("com.soywiz.korlibs.korma","korma-shape","2.0.9")
     implementation("org.jgrapht", "jgrapht-core", "1.5.0")
 
     when(applicationLogging) {
@@ -210,6 +208,10 @@ dependencies {
         implementation(orml(feature))
     }
 
+    if ("orx-boofcv" in orxFeatures) {
+        implementation("org.boofcv:boofcv-core:0.37")
+    }
+
     if ("orx-tensorflow" in orxFeatures) {
         runtimeOnly("org.openrndr.extra:$orxTensorflowBackend-natives-$openrndrOs:$orxVersion")
     }
@@ -221,8 +223,6 @@ dependencies {
     if ("orx-olive" in orxFeatures) {
         implementation("org.jetbrains.kotlin:kotlin-script-runtime:$kotlinVersion")
     }
-
-    //implementation("com.github.weisj:darklaf-core")
 
     implementation(kotlin("stdlib-jdk8"))
     testImplementation("junit", "junit", "4.12")
