@@ -2,11 +2,16 @@ package axi
 
 import aBeLibs.extensions.NoJitter
 import aBeLibs.extensions.TransRotScale
+import aBeLibs.math.cosEnv
+import latest.ImageData
+import org.openrndr.KEY_ENTER
+import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.dialogs.saveFileDialog
 import org.openrndr.draw.LineCap
 import org.openrndr.draw.LineJoin
+import org.openrndr.exceptions.stackRootClassName
 import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.gui.GUI
 import org.openrndr.extra.noise.Random
@@ -14,21 +19,23 @@ import org.openrndr.extra.parameters.*
 import org.openrndr.extras.color.presets.DARK_SALMON
 import org.openrndr.extras.color.presets.DARK_TURQUOISE
 import org.openrndr.math.Polar
+import org.openrndr.math.Vector2
 import org.openrndr.shape.*
 import org.openrndr.svg.saveToFile
-import org.openrndr.utils.namedTimestamp
-import java.io.File
+
 
 fun main() {
     application {
         configure {
             width = 1224
             height = 1024
+            title = stackRootClassName()
         }
 
         program {
             Random.seed = System.currentTimeMillis().toString()
 
+            val img = ImageData("/home/funpro/Pictures/n1/Instagram/")
             val svg = drawComposition { }
 
             val A = @Description("Config A") object {
@@ -41,6 +48,7 @@ fun main() {
                 @DoubleParameter("angle offset", -180.0, 180.0, order = 2)
                 var angleOffset = 0.0
             }
+
             val B = @Description("Config B") object {
                 @DoubleParameter("radius", 20.0, 250.0, order = 0)
                 var radius = 140.0
@@ -51,6 +59,7 @@ fun main() {
                 @DoubleParameter("angle offset", -180.0, 180.0, order = 2)
                 var angleOffset = 140.0
             }
+
             val settings = @Description("Settings") object {
                 @IntParameter("count", 10, 200, order = 0)
                 var count = 50
@@ -64,7 +73,10 @@ fun main() {
                 @DoubleParameter("normal mult", 0.5, 2.0, order = 3)
                 var normalMult = 1.0
 
-                @BooleanParameter("color", order = 4)
+                @DoubleParameter("image amount", 0.0, 30.0, order = 4)
+                var imageAmount = 1.0
+
+                @BooleanParameter("color", order = 5)
                 var useColor = true
             }
 
@@ -156,30 +168,48 @@ fun main() {
 
                             val sCenter = (s.start + s.end) / 2.0
                             val mag = s.length * 0.5
-                            val m = sCenter + norm1 * mag * iNorm *
-                                    if (groupId == 0) 1.0 else -1.0
+                            val sign = if (groupId == 0) 1.0 else -1.0
+                            val m = sCenter + norm1 * mag * iNorm * sign
                             val c = (s.end - s.start).normalized * mag *
                                     (0.1 + iNorm) * settings.normalMult
 
                             // Convert the segment into two segments
                             val k = settings.minNormal + (settings.maxNormal
                                     - settings.minNormal) * iNorm
-                            contour(
-                                ShapeContour(
-                                    listOf(
-                                        Segment(
-                                            s.start,
-                                            s.start + s.direction(0.0) * k,
-                                            m - c, m
-                                        ),
-                                        Segment(
-                                            m, m + c,
-                                            s.end - s.direction(1.0) * k,
-                                            s.end
-                                        )
-                                    ), false
-                                )
+
+                            val cntr = ShapeContour(
+                                listOf(
+                                    Segment(
+                                        s.start,
+                                        s.start + s.direction(0.0) * k,
+                                        m - c, m
+                                    ),
+                                    Segment(
+                                        m, m + c,
+                                        s.end - s.direction(1.0) * k,
+                                        s.end
+                                    )
+                                ), false
                             )
+
+                            // distort
+                            val cPoints = cntr.equidistantPositions(1000)
+                            val distorted = cPoints.mapIndexed { index, p ->
+                                val amt = cosEnv(index * 1.0, 0.0, 999.0)
+                                val pc = (index * 1.0) / 999.0
+                                val color = img.getColor(
+                                    Vector2(
+                                        pc, iNorm * sign * 0.5 + 0.5
+                                    )
+                                )
+                                p + Vector2(color.r, color.g) *
+                                        (settings.imageAmount * amt)
+                            }
+                            val cntr2 = ShapeContour.fromPoints(
+                                distorted,
+                                false
+                            )
+                            contour(cntr2)
                         }
                     }
 
@@ -192,15 +222,20 @@ fun main() {
 
             @Suppress("unused")
             val actions = @Description("Actions") object {
-                @ActionParameter("new design", order = 0)
-                fun update() = newDesign()
 
-                @ActionParameter("svg", order = 1)
-                fun svg() = saveFileDialog(supportedExtensions = listOf("svg")) { file ->
-                    svg.saveToFile(file)
-                }
+                @ActionParameter("new design | ctrl+n", order = 0)
+                fun aNewDesign() = newDesign()
 
-                @ActionParameter("exit", order = 2)
+                @ActionParameter("new image | enter", order = 1)
+                fun newImage() = img.loadNext()
+
+                @ActionParameter("svg | ctrl+s", order = 2)
+                fun exportSVG() =
+                    saveFileDialog(supportedExtensions = listOf("svg")) { file ->
+                        svg.saveToFile(file)
+                    }
+
+                @ActionParameter("exit | esc", order = 3)
                 fun quit() = application.exit()
             }
             extend(gui) {
@@ -215,10 +250,21 @@ fun main() {
             extend {
                 drawer.clear(ColorRGBa.WHITE)
                 drawer.lineCap = LineCap.ROUND
-                drawer.lineJoin = LineJoin.ROUND
+                drawer.lineJoin = LineJoin.BEVEL
                 drawer.composition(svg)
             }
-
+            keyboard.keyDown.listen {
+                when (it.key) {
+                    KEY_ESCAPE -> application.exit()
+                    KEY_ENTER -> actions.newImage()
+                }
+                if (keyboard.pressedKeys.contains("left-control")) {
+                    when (it.name) {
+                        "s" -> actions.exportSVG()
+                        "n" -> actions.aNewDesign()
+                    }
+                }
+            }
         }
     }
 }

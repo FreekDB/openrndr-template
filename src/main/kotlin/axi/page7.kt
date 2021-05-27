@@ -1,22 +1,32 @@
 package axi
 
+import aBeLibs.extensions.TransRotScale
+import aBeLibs.geometry.beautify
 import aBeLibs.geometry.noisified
 import aBeLibs.geometry.smoothed
-import org.openrndr.*
+import aBeLibs.math.semicircle
+import org.openrndr.KEY_ENTER
+import org.openrndr.KEY_ESCAPE
+import org.openrndr.KEY_INSERT
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
-import org.openrndr.color.ColorXSVa
-import org.openrndr.dialogs.saveFileDialog
+import org.openrndr.draw.LineJoin
 import org.openrndr.draw.isolated
 import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.noise.Random
-import org.openrndr.extra.noise.perlin
-import org.openrndr.extra.noise.simplex
 import org.openrndr.math.Polar
+import org.openrndr.math.Vector2
 import org.openrndr.math.mix
-import org.openrndr.shape.CompositionDrawer
+import org.openrndr.shape.Segment
 import org.openrndr.shape.ShapeContour
-import org.openrndr.svg.writeSVG
-import kotlin.math.*
+import org.openrndr.shape.drawComposition
+import org.openrndr.svg.saveToFile
+import org.openrndr.utils.namedTimestamp
+import java.io.File
+import kotlin.math.PI
+import kotlin.math.abs
+import kotlin.math.pow
+import kotlin.math.sin
 import kotlin.system.exitProcess
 
 /*
@@ -29,125 +39,115 @@ import kotlin.system.exitProcess
 
 fun main() = application {
     configure {
-        width = 15 * 80
-        height = 12 * 80
+        width = 1000
+        height = 1000
     }
 
     program {
-        var center = drawer.bounds.center
-        var rotation = 0.0
         var bgcolor = ColorRGBa.PINK
 
         val hairContours = mutableListOf<ShapeContour>()
-        var pointCount = 200
         val smoothingSize = 5
 
         fun ShapeContour.smoothOffset(d: Double) = this.offset(d)
-            .sampleEquidistant(pointCount).smoothed(smoothingSize)
+            .sampleEquidistant(600).smoothed(smoothingSize)
+
+        fun wobblyContour(
+            radius: Double,
+            noisiness: Double,
+            zoom: Double,
+            pointCount: Int
+        ) =
+            ShapeContour.fromPoints(List(pointCount) {
+                val circle = Polar(360.0 * it / pointCount).cartesian
+                val noise = noisiness * Random.simplex(
+                    circle.vector3(/*x = abs(circle.x),*/ z = radius * zoom)
+                )
+                drawer.bounds.center + circle * (radius * (1 + noise))
+            }, true).smoothed(smoothingSize)
+
+        fun cross(center: Vector2, radius: Double): List<ShapeContour> = listOf(
+            Segment(
+                center - Vector2(radius, 0.0),
+                center + Vector2(radius, 0.0)
+            ).contour,
+            Segment(
+                center - Vector2(0.0, radius),
+                center + Vector2(0.0, radius)
+            ).contour
+        )
 
         fun populate() {
-            val seed = System.currentTimeMillis().toInt()
+            Random.seed = System.currentTimeMillis().toString()
 
             hairContours.clear()
-            hairContours.add(ShapeContour.fromPoints(List(pointCount) {
-                val a = 2 * PI * it / pointCount
-                Polar(
-                    Math.toDegrees(a),
-                    200.0 + 10.0 * simplex(seed, cos(a), sin(a))
-                ).cartesian
-            }, true).sampleEquidistant(pointCount).smoothed(smoothingSize)) // 0
-            hairContours.add(hairContours[0].smoothOffset(20.0)) // 1
-            hairContours.add(hairContours[1].smoothOffset(40.0)) // 2
-            hairContours.add(hairContours[2].smoothOffset(60.0)) // 3
-            hairContours.add(hairContours[3].smoothOffset(80.0)) // 4
-            hairContours.add(hairContours[0].smoothOffset(-20.0)) // 5
-            hairContours.add(hairContours[5].smoothOffset(-20.0)) // 6
-            hairContours.add(hairContours[6].smoothOffset(-20.0)) // 7
-            hairContours.add(hairContours[7].smoothOffset(-20.0)) // 8
+            val copies = 12
+            repeat(copies) { curveId ->
+                val progress = curveId / (copies - 1.0)
+                val extremes = if (progress < 0.5)
+                    (progress * 2).pow(2.0)
+                else
+                    1 - 0.5 * ((1 - progress) * 2).pow(2.0)
+                val r0 = 200.0 + 300 * extremes
+                val r1 = r0 + 30
+                val noisiness = (0.5 - abs(0.5 * (1 - progress * 2))) * 0.6
+                val a = wobblyContour(r0, noisiness, 0.0015, 200)
+                val b = wobblyContour(r1, noisiness, 0.0015, 200)
 
-            // Make waves between the guide lines
-            pointCount *= 6
-            for (k in listOf(
-                Pair(0, 1),
-                Pair(2, 1),
-                Pair(2, 3),
-                Pair(4, 3),
-                Pair(0, 5),
-                Pair(6, 5),
-                Pair(6, 7),
-                Pair(8, 7)
-            )) {
+                val pointCount = 1200
                 hairContours.add(ShapeContour.fromPoints(List(pointCount) {
-                    val pc = it * 1.0 / pointCount
-                    val x = pc * 120 + perlin(seed, sin(1 * pc * PI * 2),
-                        0.0) * 20.0
-                    // 1. simple sine wave
-                    // val sin = sin(theta * waveCount + waveOffset + Random.perlin(sin(theta), 0.0)) * 0.4 + 0.5
+                    val linePc = it / pointCount.toDouble()
+                    val noise =
+                        Random.perlin(sin(linePc * PI * 2.0), progress * 30)
+                    val x = linePc * 120 + noise * 20.0
+                    val wave = 0.5 + semicircle(x) * 0.4
+                    mix(a.position(linePc), b.position(linePc), wave)
+                }, true).beautify())
 
-                    // 2. semicircular wave
-                    // https://math.stackexchange.com/questions/44329/function-for-concatenated-semicircles
-                    val sin =
-                        (-1.0).pow(floor(x / 2 + 0.5)) * sqrt(
-                            1 - (x - 2 * floor(x / 2 + 0.5)).pow(2.0)
-                        ) * 0.4 + 0.5
-                    mix(
-                        hairContours[k.first].position(pc),
-                        hairContours[k.second].position(pc),
-                        sin
+                val last = hairContours.last()
+
+                repeat(10) {
+                    val z = 0.001 + it * 0.00004
+                    hairContours.add(
+                        last.noisified(it * 1.2 + 1.0, zoom = z).beautify()
                     )
-                }, true))
-            }
-
-            // Remove guidelines
-            hairContours.removeIf { it.segments.size < 200 }
-
-            // Clone all lines N times, distort them using a noise function
-            // so part of the lines are not distorted and other parts are more, creating thick lines
-            val lineCount = hairContours.size
-
-            // 04.02.2021: lineCount = 17 so lineId below goes too high.
-            // I added a % 9 to keep it in bounds. But when did this stop
-            // working? ALSO: there's a glitch in the unions of the closed
-            // contours.
-            for (lineId in 0 until lineCount) {
-                for (i in 0 until listOf(5, 6, 7, 8, 4, 3, 2, 1, 0)[lineId % 9]) {
-                    hairContours.add(hairContours[lineId].noisified(i))
                 }
             }
+            val center = drawer.bounds.center
+
+            hairContours.addAll(cross(center, 50.0))
+            hairContours.addAll(listOf(
+                cross(center + Vector2(500.0), 20.0),
+                cross(center + Vector2(500.0, -500.0), 20.0),
+                cross(center + Vector2(-500.0, 500.0), 20.0),
+                cross(center + Vector2(-500.0), 20.0)
+            ).flatten())
         }
 
         populate()
 
         fun exportSVG() {
-            val svg = CompositionDrawer()
-            svg.translate(drawer.bounds.center)
-            svg.fill = null
-            svg.stroke = ColorRGBa.BLACK
-            svg.contours(hairContours)
-            saveFileDialog(supportedExtensions = listOf("svg")) {
-                it.writeText(writeSVG(svg.composition))
+            val svg = drawComposition {
+                translate(drawer.bounds.center)
+                fill = null
+                stroke = ColorRGBa.BLACK
+                contours(hairContours)
             }
+            svg.saveToFile(
+                File(program.namedTimestamp("svg", "print"))
+            )
         }
 
+        extend(TransRotScale())
         extend(Screenshots())
         extend {
             drawer.clear(bgcolor)
 
             drawer.isolated {
-                drawer.translate(center)
-                drawer.rotate(rotation)
                 drawer.fill = null
                 drawer.stroke = ColorRGBa(0.0, 0.0, 0.0, 0.5)
+                drawer.lineJoin = LineJoin.BEVEL
                 drawer.contours(hairContours)
-            }
-        }
-
-        mouse.dragged.listen {
-            if (mouse.pressedButtons.contains(MouseButton.LEFT)) {
-                center += it.dragDisplacement
-            }
-            if (mouse.pressedButtons.contains(MouseButton.RIGHT)) {
-                rotation += it.dragDisplacement.x
             }
         }
 
@@ -156,8 +156,8 @@ fun main() = application {
                 KEY_ESCAPE -> exitProcess(0)
                 KEY_INSERT -> exportSVG()
                 KEY_ENTER -> {
-                    bgcolor =
-                        ColorXSVa(Random.double0(360.0), 0.3, 0.95).toRGBa()
+                    bgcolor = ColorRGBa.WHITE
+                    //ColorXSVa(Random.double0(360.0), 0.3, 0.95).toRGBa()
                     populate()
                 }
             }

@@ -20,14 +20,16 @@ fun main() = application {
             Vector2(x, y)
         }
         val c = ShapeContour.fromPoints(points, true)
-        val c2 = c.offset(30.0, SegmentJoin.MITER)
+        val c2 = c.offset(-15.0, SegmentJoin.MITER)
 
+        /*
         println(c.segments.size)
         println(c2.segments.size)
 
         for(i in 0 until 5) {
             println("${c.segments[i]} --> ${c2.segments[i]}")
         }
+         */
 
         extend(Screenshots())
         extend {
@@ -35,10 +37,10 @@ fun main() = application {
                 clear(ColorRGBa.WHITE)
                 translate(bounds.center)
                 fill = null
-                contour(c)
+                //contour(c)
                 contour(c2)
-                circles(c.segments.map { it.start }, 10.0)
-                circles(c2.segments.map { it.start }, 10.0)
+                //circles(c.segments.map { it.start }, 4.0)
+                circles(c2.segments.map { it.start }, 4.0)
             }
         }
     }

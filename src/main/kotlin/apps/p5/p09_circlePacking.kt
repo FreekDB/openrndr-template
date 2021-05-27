@@ -1,21 +1,21 @@
 package apps.p5
 
+import aBeLibs.random.pickWeighted
 import org.openrndr.application
-import org.openrndr.color.ColorRGBa
 import org.openrndr.color.hsl
 import org.openrndr.color.rgb
+import org.openrndr.draw.circleBatch
 import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.noise.Random
-import org.openrndr.math.Vector2
 import org.openrndr.shape.Circle
-import aBeLibs.random.pickWeighted
 
 /**
  * example from
  * https://discourse.processing.org/t/writing-processing-in-kotlin/3957
  */
 
-data class ColorCircle(val circle: Circle, val color: ColorRGBa)
+private fun Circle.overlaps(other: Circle) =
+    center.distanceTo(other.center) < radius + other.radius
 
 fun main() = application {
     configure {
@@ -32,32 +32,32 @@ fun main() = application {
             3.0 to 300
         )
 
-        val circles = mutableListOf<ColorCircle>()
+        val circleList = mutableListOf<Circle>()
+        val colors = listOf(
+            rgb(Random.double(0.9, 1.0)),
+            hsl(Random.double(180.0, 220.0), 0.5, 0.25).toRGBa(),
+            hsl(Random.double0(20.0), 0.8, 0.4).toRGBa()
+        )
+        val colorWeights = listOf(0.6, 0.3, 0.1)
 
-        for ((circleRadius, circleCount) in circleSizeCounts) {
-            for (i in 1..circleCount) {
-                // allow up to 100 collisions
-                for (c in 0..1000) {
-                    // generate random point
-                    // do not allow circles to overlap canvas
-                    val circlePosition = Vector2(
-                        Random.double(circleRadius, width - circleRadius),
-                        Random.double(circleRadius, height - circleRadius)
-                    )
-                    // allow circles overlapping canvas
-                    //val circlePosition = Random.Vector2() * drawer.bounds.center + drawer.bounds.center
-                    val newCircle = Circle(circlePosition, circleRadius)
-                    if (circles.all { newCircle.center.distanceTo(it.circle.center) > it.circle.radius + newCircle.radius }) {
-                        // get random color
-                        val color = listOf(
-                            rgb(Random.double(0.9, 1.0)),
-                            hsl(Random.double(180.0, 220.0), 0.5, 0.25).toRGBa(),
-                            hsl(Random.double0(20.0), 0.8, 0.4).toRGBa()
-                        ).pickWeighted(
-                            listOf(0.6, 0.3, 0.1)
+        // Batches are more efficient than drawing circles one by one, as
+        // they get sent all together to the GPU
+        val circleBatch = drawer.circleBatch {
+            for ((circleRadius, circleCount) in circleSizeCounts) {
+                for (i in 1..circleCount) {
+                    // allow up to 100 collisions
+                    for (c in 0..99) {
+                        val newCircle = Circle(
+                            Random.point(drawer.bounds.offsetEdges(-circleRadius)),
+                            circleRadius
                         )
-                        circles.add(ColorCircle(newCircle, color))
-                        break
+                        if (circleList.none { it.overlaps(newCircle) }) {
+                            stroke = null
+                            fill = colors.pickWeighted(colorWeights)
+                            circle(newCircle)
+                            circleList.add(newCircle)
+                            break
+                        }
                     }
                 }
             }
@@ -65,15 +65,8 @@ fun main() = application {
 
         extend(Screenshots())
         extend {
-            drawer.run {
-                clear(rgb(0.27))
-                stroke = null
-                strokeWeight = 0.0
-                circles.forEach {
-                    fill = it.color
-                    circle(it.circle)
-                }
-            }
+            drawer.clear(rgb(0.27))
+            drawer.circles(circleBatch)
         }
     }
 }

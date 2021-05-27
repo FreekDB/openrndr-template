@@ -1,5 +1,6 @@
 package apps.simpleTests
 
+import aBeLibs.kotlin.loopRepeat
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.isolated
@@ -11,10 +12,10 @@ import org.openrndr.shape.compound
 fun main() = application {
     program {
         var shp = Circle(drawer.bounds.center, 200.0).shape
-        for (a in 0 until 360 step 45) {
+        loopRepeat(8, to = 360.0) { a ->
             shp -= Circle(Polar(a * 1.0, 200.0).cartesian + drawer.bounds.center, 70.0).shape
         }
-        for (a in 0 until 360 step 45) {
+        loopRepeat(8, to = 360.0) { a ->
             shp += Circle(Polar(a * 1.0 + 22.5, 200.0).cartesian + drawer.bounds.center, 30.0).shape
         }
         shp = shp intersection Circle(width * 0.5, height * 0.5, 210.0).shape

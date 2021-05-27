@@ -10,7 +10,9 @@ import org.openrndr.shape.ContourBuilder
 import org.openrndr.shape.ShapeContour
 import org.openrndr.shape.contour
 import org.openrndr.shape.intersections
+import kotlin.math.PI
 import kotlin.math.abs
+import kotlin.math.cos
 
 class EditableCurve {
     companion object {
@@ -101,7 +103,9 @@ class EditableCurve {
             val end = 0.98 - abs(0.2 * simplex(i * 0.03, 3.0))
             dist += 1 + separation * sep * sep * sep
             //val c2 = makeParallelCurve(line.sub(start, end), dist)
-            val c2 = lineCopy.sub(start, end).makeParallelCurve(dist)
+            val c2 = lineCopy.sub(start, end).makeParallelCurve {
+                    pc -> dist * (0.5 - 0.5 * cos(pc * PI * 2))
+            }
             addSegmentsOfLineTo(c2, segments)
         }
     }

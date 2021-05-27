@@ -1,5 +1,6 @@
 package apps.simpleTests
 
+import aBeLibs.kotlin.loopRepeat
 import com.soywiz.korma.geom.shape.Shape2d
 import com.soywiz.korma.geom.shape.getAllPoints
 import com.soywiz.korma.geom.shape.ops.minus
@@ -12,19 +13,19 @@ import org.openrndr.math.Polar
 import org.openrndr.math.Vector2
 import org.openrndr.shape.ShapeContour
 
-//implementation("com.soywiz.korlibs.korma","korma-jvm","1.9.1")
-//implementation("com.soywiz.korlibs.korma","korma-shape","1.9.1")
+//implementation("com.soywiz.korlibs.korma","korma-jvm","2.0.9")
+//implementation("com.soywiz.korlibs.korma","korma-shape","2.0.9")
 
 fun main() = application {
     program {
         var s1: Shape2d = Shape2d.Circle(width * 0.5, height * 0.5, 200.0, 60)
-        for (a in 0 until 360 step 45) {
-            val pos = Polar(a * 1.0, 200.0).cartesian + drawer.bounds.center
+        loopRepeat (8, to = 360.0) { a ->
+            val pos = Polar(a, 200.0).cartesian + drawer.bounds.center
             val cookieCutter: Shape2d = Shape2d.Circle(pos.x, pos.y, 70.0)
             s1 = cookieCutter - s1 // s1 xor cookieCutter
         }
-        for (a in 0 until 360 step 45) {
-            val pos = Polar(a * 1.0 + 22.5, 200.0).cartesian + drawer.bounds.center
+        loopRepeat (8, to = 360.0) { a ->
+            val pos = Polar(a + 22.5, 200.0).cartesian + drawer.bounds.center
             val cookieCutter: Shape2d = Shape2d.Circle(pos.x, pos.y, 30.0)
             s1 = cookieCutter + s1
         }
