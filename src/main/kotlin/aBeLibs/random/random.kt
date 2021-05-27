@@ -1,6 +1,8 @@
 package aBeLibs.random
 
 import org.openrndr.extra.noise.Random
+import java.io.File
+import java.io.FileFilter
 import kotlin.math.sign
 
 /**
@@ -26,6 +28,20 @@ fun Random.signedSquared(): Double {
 }
 
 /**
+ * Returns the absolute path of a random file
+ * from the requested folder
+ */
+fun Random.file(path: String, ext: String = "jpg"): String {
+    val files = File(path).listFiles(
+        FileFilter { it.extension.equals(ext, ignoreCase = true) }
+    )?.toList()
+    return if (files == null)
+        "data/images/pm5544.png"
+    else
+        pick(files).absolutePath
+}
+
+/**
  * Testing this random infix. Not sure I want to keep it.
  * 0.0 rnd 1.0
  */
@@ -37,4 +53,7 @@ infix fun Double.rnd(max: Double) = Random.double(this, max)
  */
 infix fun Int.rnd(max: Int) = Random.int(this, max)
 
+/**
+ * Returns 1.0 or -1.0
+ */
 fun Random.sign() = if (bool()) 1.0 else -1.0

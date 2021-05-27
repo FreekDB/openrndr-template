@@ -5,10 +5,7 @@ import org.openrndr.math.Vector2
 import org.openrndr.math.clamp
 import org.openrndr.math.map
 import org.openrndr.math.mod
-import kotlin.math.PI
-import kotlin.math.atan2
-import kotlin.math.cos
-import kotlin.math.pow
+import kotlin.math.*
 
 const val TAU = PI * 2.0
 
@@ -21,7 +18,32 @@ fun angleDiff(degrees0: Double, degrees1: Double): Double {
  * Angle formed by 3 points <
  */
 fun angle(center: Vector2, p1: Vector2, p2: Vector2) =
-    atan2(p1.y - center.y, p1.x - center.x) - atan2(p2.y - center.y, p2.x - center.x)
+    atan2(p1.y - center.y, p1.x - center.x) - atan2(
+        p2.y - center.y,
+        p2.x - center.x
+    )
+
+/*
+  semicircular wave between -2.0 and 2.0
+                      DyuZe*:&:::::;`
+                   :;:`      w      :;;`
+                 ,>-         w        `^:
+                ~r           w          :^
+               ;\            w           :i
+               7`            w            /`
+^^^^^^^^^^^^^^^6r^^^^^^^^PQw^Q^^^^^^^^^^^^|e^^^^^^^^^^^^^
+              ,m;            w             H:
+             dQm             P             @N
+             'r              w             :;
+            '|               w              ^:
+          '^:                w               ~r,
+       `;;_`                 w                 ,;;`
+:::::::;-                    w                   -:;:::::
+                             w
+  https://math.stackexchange.com/questions/44329/function-for-concatenated-semicircles
+*/
+fun semicircle(x: Double) = (-1.0).pow(floor(x / 2 + 0.5)) *
+        sqrt(1 - (x - 2 * floor(x / 2 + 0.5)).pow(2.0))
 
 /**
  * Is angle reflex? (PI, TAU)°
@@ -45,7 +67,12 @@ fun doubleExponentialSigmoid(min: Double, max: Double): Double {
  * Cosine envelope that goes up and down.
  * Returns 0.0 at both edges, 1.0 in the middle
  */
-fun cosEnv(x: Double, start: Double = 0.0, end: Double = 1.0, clamped: Boolean = false): Double {
+fun cosEnv(
+    x: Double,
+    start: Double = 0.0,
+    end: Double = 1.0,
+    clamped: Boolean = false
+): Double {
     if (clamped && (x < start || x > end)) {
         return 0.0
     }
@@ -96,7 +123,8 @@ fun denormalize(normValue: Double, min: Double, max: Double): Double {
  * the [start, stop] range
  */
 @Suppress("unused")
-fun normClipped(value: Double, start: Double, stop: Double) = clamp((value - start) / (stop - start))
+fun normClipped(value: Double, start: Double, stop: Double) =
+    clamp((value - start) / (stop - start))
 
 /**
  * Constrain to 0 .. 1 range

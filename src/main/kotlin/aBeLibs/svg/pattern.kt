@@ -20,6 +20,13 @@ class Pattern {
         val rotation: Double = 0.0
     )
 
+    data class NOISE(
+        val expo: Double = 1.0,
+        val density: Double = 1.0,
+        val rotation: Double = 0.0,
+        val displacement: Double = 0.5
+    )
+
     data class CIRCLES(
         val expo: Double = 1.0,
         val center: Vector2,
@@ -64,6 +71,24 @@ fun Composition.fill(outline: Shape, patternCfg: Any) {
                         val start = Vector2(-x, y).rotate(rot) + off
                         val end = Vector2(x, y).rotate(rot) + off
                         LineSegment(start, end)
+                    })
+                }
+            }
+
+            is Pattern.NOISE -> {
+                val num = (radius * patternCfg.density).toInt()
+                val rot = patternCfg.rotation
+                pattern = outline.addPattern {
+                    contours(List(num) {
+                        val yNorm = (it / (num - 1.0)).pow(patternCfg.expo)
+                        val x = ((it % 2) * 2 - 1.0) * radius
+                        val y = (yNorm * 2 - 1) * radius
+                        val start = Vector2(-x, y).rotate(rot) + off
+                        val end = Vector2(x, y).rotate(rot) + off
+                        // TODO: go from start to end, shifting y with
+                        //  noise(x, y)
+                        val points = List(55) { Vector2(0.0) }
+                        ShapeContour.fromPoints(points, false)
                     })
                 }
             }

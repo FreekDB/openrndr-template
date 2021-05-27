@@ -18,13 +18,15 @@ import org.openrndr.math.*
 import org.openrndr.shape.*
 import kotlin.math.*
 
-// From ofPolyline.inl in openFrameworks
-// `smoothingSize` is the size of the smoothing window. So if
-// `smoothingSize` is 2, then 2 points from the left, 1 in the center,
-// and 2 on the right (5 total) will be used for smoothing each point.
-// `smoothingShape` describes whether to use a triangular window (0) or
-// box window (1) or something in between (for example, .5).
-
+/**
+ * Returns a smoothed version of a contour.
+ * From openFrameworks ofPolyline.inl
+ *
+ * @param smoothingSize Size of the smoothing window. A value of 2 means two
+ * to the left and two to the right (smoothing 5 values in total)
+ * @param smoothingShape A normalized value where 0 means triangular window,
+ * 1 means box window, and other values are a mix of the two.
+ */
 fun ShapeContour.smoothed(
     smoothingSize: Int,
     smoothingShape: Double = 0.0
@@ -68,83 +70,71 @@ fun ShapeContour.smoothed(
     return ShapeContour.fromPoints(result, closed)
 }
 
+/**
+ * Adds noise to a shape contour
+ *
+ * @param distance How far should vertices be pushed
+ * @param closed Should the returned shape be closed
+ * @param zoom The scale of the simplex noise. Higher values = noisier results
+ */
 fun ShapeContour.noisified(
-    distance: Int,
+    distance: Double,
     closed: Boolean = true,
     zoom: Double = 0.002
 ): ShapeContour {
-    return ShapeContour.fromPoints(List(this.segments.size + 1) {
-        if (it != this.segments.size) {
-            val seg = this.segments[it]
-            val p = seg.start
-            val n = seg.normal(0.0)
-            val env =
-                3 * if (closed) 1.0 else cosEnv(it / (this.segments.size + 1.0))
-            p + n * (Random.perlin(p.x * zoom, p.y * zoom) * distance * env)
-        } else {
-            this.segments[it - 1].end
-        }
+    return ShapeContour.fromPoints(this.segments.mapIndexed { i, it ->
+        val p = it.start
+        val n = it.normal(0.0)
+        val noise = Random.simplex(p * zoom)
+        val env = if (closed) 1.0 else cosEnv(i / (this.segments.size - 1.0))
+        p + n * (3.0 * distance * noise * env)
     }, closed)
 }
 
 /**
- *
+ * Beautifies a [ShapeContour] after calling [ShapeContour.offset]
+ * which may introduce artifacts and loops in certain locations
  */
-fun ShapeContour.makeParallelCurve(dist: Double): ShapeContour {
+fun ShapeContour.beautify(): ShapeContour {
+    val equi = sampleEquidistant(segments.size / 2)
+    val smooth = equi.smoothed(2)
+
+    val equi2 = smooth.equidistantPositions(smooth.segments.size)
+    val smoother = chaikinSmooth(equi2, 1, closed, 0.2)
+
+    return ShapeContour.fromPoints(smoother, closed)
+}
+
+/**
+ * Similar to [ShapeContour.offset] but with variable offset.
+ *
+ * [offset] is a function that returns a distance based on the normalized
+ * position on the curve. The default offset does fade-in-out using cosine.
+ */
+fun ShapeContour.makeParallelCurve(
+    offset: (Double) -> Double = { pc -> 0.5 - 0.5 * cos(pc * PI * 2) }
+): ShapeContour {
     val points = mutableListOf<Vector2>()
     var prevNorm = Vector2.ZERO
     val len = segments.size.toDouble()
     segments.forEachIndexed { i, it ->
-        val pc = i / len
-        val wi = 0.5 - 0.5 * cos(pc * PI * 2)
         val norm = (it.end - it.start).normalized.perpendicular()
-        points.add(it.start + (norm + prevNorm).normalized * wi * dist)
+        points.add(it.start + (norm + prevNorm).normalized * offset(i / len))
         prevNorm = norm
     }
-    points.add(segments.last().end + prevNorm * 0.0 * dist)
-
-    return ShapeContour.fromPoints(points, false)
-}
-
-/**
- * Split an open ShapeContour with a Circle, erasing what's inside it
- */
-fun ShapeContour.split(
-    knife: Circle,
-    resolution: Int = 100
-): List<ShapeContour> {
-    val result = mutableListOf<ShapeContour>()
-    val segments = this.equidistantPositions(resolution)
-    val points = mutableListOf<Vector2>()
-    var last = Vector2.INFINITY
-    segments.forEach {
-        last = if (knife.contains(it)) {
-//            if (last != Vector2.INFINITY) {
-//                // entering circle
-//            } else {
-//                // inside circle
-//            }
-            Vector2.INFINITY
-        } else {
-            if (last == Vector2.INFINITY) {
-                //leaving circle
-            } else {
-                // outside circle
-                points.add(it)
-            }
-            it
-        }
+    if(!closed) {
+        points.add(segments.last().end + prevNorm * offset(1.0))
     }
-    return result
-}
 
+    return ShapeContour.fromPoints(points, closed)
+}
 
 /**
  * Find the orientation of the longest segment of a ShapeContour
  */
 @Suppress("unused")
 fun ShapeContour.longestOrientation(): Double {
-    val dir = this.longest().direction()
+    val dir = longest().direction()
     return Math.toDegrees(atan2(dir.y, dir.x))
 }
 
@@ -152,11 +142,15 @@ fun ShapeContour.longestOrientation(): Double {
  * Find the longest segment of a ShapeContour
  */
 fun ShapeContour.longest(): Segment {
-    return this.segments.maxByOrNull { it.length }!!
+    return segments.maxByOrNull { it.length }!!
 }
 
 /**
- * Takes a curve and adds twists in the middle making it more wavy
+ * Adds twists to a [ShapeContour] making it more wavy
+ *
+ * @param steps Point count for the new contour
+ * @param minRadius Min radius for a [Vector2.uniformRing]
+ * @param maxRadius Max radius for a [Vector2.uniformRing]
  */
 fun ShapeContour.softJitter(
     steps: Int,
@@ -183,9 +177,13 @@ fun ShapeContour.softJitter(
 }
 
 /**
- * Adds localized detours to a curve. Returns a list of curves.
- * Takes a List<Triple<start: Double, end: Double, offset: Double>>
- * (start percent, end percent, offset)
+ * Adds localized simplex-based detours to a curve.
+ * [data] contains triplets with
+ * - curve start percent
+ * - curve end percent
+ * - max offset
+ * The number of entries in data control how many [ShapeContour]s are created.
+ * The localized detour follows a cosine envelope (basically a fade-in-out)
  */
 fun ShapeContour.localDistortion(
     data: List<Triple<Double, Double, Double>>,
@@ -213,16 +211,16 @@ fun ShapeContour.localDistortion(
 
 /**
  * Used to draw a curve with dots at both ends. Use this function to
- * shorten the curve and simulate occlusion by the two circles
+ * shorten the curve and simulate occlusion by the [a] and [b] circles.
  * Example: ( -)-----(- ) becomes (  )------(  )
  */
 fun ShapeContour.eraseEndsWithCircles(a: Circle, b: Circle) =
     difference(difference(this, a.shape), b.shape).contours.first()
 
 /**
- * Creates a variable width contour from a list of Vector3 where
- * `xy` = 2D location
- * `z` = normal length
+ * Converts an open [ShapeContour] into a closed one having width.
+ * The [points] list specifies the 2D locations of the points plus the
+ * desired thickness for each, encoded as the .z component.
  */
 fun variableWidthContour(points: List<Vector3>): ShapeContour {
     val points2d = points.map { it.xy }
@@ -260,7 +258,9 @@ fun variableWidthContour(points: List<Vector3>): ShapeContour {
 }
 
 /**
- * Convert a ColorBuffer to contours using boofcv
+ * Convert a [ColorBuffer] to contours using boofcv. The normalized
+ * [threshold] value specifies the brightness cutoff point. [internal]
+ * specifies whether internal shapes should be added too.
  */
 fun ColorBuffer.toContours(
     threshold: Double,
@@ -293,8 +293,8 @@ fun ColorBuffer.toContours(
 }
 
 /**
- * Create a shapeContour spiral that starts in `p0`, ends in `p1` and
- * has `center` as center. turns can be positive or negative.
+ * Create a [ShapeContour] spiral that starts in [p0], ends in [p1] and
+ * is centered in [center]. [turns] can be positive or negative.
  */
 fun spiralContour(
     p0: Vector2,
@@ -424,6 +424,9 @@ private fun makeTangentWrapContours(
     }
 }
 
+/**
+ * Bends a list of [ShapeContour] with a [knife]
+ */
 fun List<ShapeContour>.bend(knife: ShapeContour) = this.map { contour ->
     val points = contour.equidistantPositions(contour.length.toInt())
         .toMutableList()
@@ -472,8 +475,8 @@ fun List<ShapeContour>.bend(knife: ShapeContour) = this.map { contour ->
 }
 
 /**
- * In a ShapeContour find all percentages of the contour
- * passing through a Vector2. In case of an 8 shape, it could be 4.
+ * Find all [ShapeContour] percentages passing through a [Vector2]
+ * In case of an 8 shape, it could be 4.
  */
 fun ShapeContour.onAll(point: Vector2, error: Double = 5.0): List<Double> {
     val result = mutableListOf<Double>()
@@ -515,7 +518,7 @@ fun ShapeContour.selfIntersections(): List<Double> {
 // the ends. The percentage differs greatly if you compare a
 // straight line to a line that ends in a spiral. In the second case
 // the percent location would be much higher to reach the `d` distance.
-// This can now be achieved simpler by just deleting everything that
+// TODO: This can now be achieved simpler by just deleting everything that
 // is inside a circle of radius `d`. How to delete? ClipMode.REVERSE_DIFFERENCE?
 fun ShapeContour.shorten(d: Double): ShapeContour {
     val step = 1.0 / length
@@ -623,7 +626,17 @@ fun MutableList<ShapeContour>.removeIntersections(margin: Double):
     return this
 }
 
-fun ShapeContour.symmetrize(roundness: (Int) -> Pair<Double, Double>):
+/**
+ * Smooths out a [ShapeContour] by making sure all curve control points
+ * are symmetric (so cp0-point-cp1 form a straight line).
+ * [roundness] is a function that takes an index and returns a pair of
+ * [Double] specifying how far away the previous and next control points are.
+ * [symmetrize] returns a pair containing the new [ShapeContour] and also
+ * a list of [LineSegment] in case one wants to draw the tangent lines.
+ */
+fun ShapeContour.symmetrize(
+    roundness: (Int) -> Pair<Double, Double> = { Pair(0.333, 0.333) }
+):
         Pair<ShapeContour, List<LineSegment>> {
     val visibleTangents = mutableListOf<LineSegment>()
     val tangents = segments.mapIndexed { i, curr ->
@@ -651,7 +664,57 @@ fun ShapeContour.symmetrize(roundness: (Int) -> Pair<Double, Double>):
     return Pair(ShapeContour(newSegments, closed), visibleTangents)
 }
 
-fun circleish(pos: Vector2, radius: Double, theta: Double = 0.0): ShapeContour =
-    CatmullRomChain2(List(5) { it * 72 + theta + Random.double0(50.0) }.map {
+/**
+ * Similar to [ShapeContour.symmetrize] but without returning tangent lines.
+ */
+fun ShapeContour.symmetrizeSimple(
+    roundness: (Int) -> Pair<Double, Double> = { Pair(0.333, 0.333) }
+):
+        ShapeContour {
+    val tangents = segments.mapIndexed { i, curr ->
+        val next = segments[(i - 1 + segments.size) % segments.size]
+        (curr.direction()).mix(next.direction(), 0.5).normalized
+    }
+    val newSegments = segments.mapIndexed { i, currSegment ->
+        val sz = segments.size
+        val len = currSegment.length
+        val iNext = (i + 1 + sz) % sz
+        val c0 = currSegment.start +
+                tangents[i] * len * roundness(i).first
+        val c1 = currSegment.end -
+                tangents[iNext] * len * roundness((i + 1) % sz).second
+        Segment(currSegment.start, c0, c1, currSegment.end)
+    }
+    return ShapeContour(newSegments, closed)
+}
+
+
+/**
+ * Creates a deformed circle centered at [pos] and with radius [radius]
+ */
+fun circleish(pos: Vector2, radius: Double, angularOffset: Double = 0.0) =
+    CatmullRomChain2(List(5) { it * 72 + angularOffset + Random.double0(50.0) }.map {
         Polar(it, radius).cartesian + pos
     }, 0.5, true).toContour()
+
+/**
+ * Creates a deformed circle centered at [center] and with radius [radius]
+ */
+fun circleish2(
+    center: Vector2,
+    radius: Double,
+    pointCount: Int = 100,
+    orientation: Double = 0.0,
+    noiseScale: Double = 0.1,
+    noiseFreq: Double = 1.0
+): ShapeContour {
+    return ShapeContour.fromPoints(
+        List(pointCount) { i ->
+            val angle = i / pointCount.toDouble()
+            val cycle = sin(angle * PI * 2 + orientation) * noiseFreq
+            val maxOffset = radius * noiseScale
+            val offset = Random.simplex(cycle.pow(5.0), center.x, center.y) * maxOffset
+            center + Polar(angle * 360, radius + offset).cartesian
+        }, true
+    )
+}
