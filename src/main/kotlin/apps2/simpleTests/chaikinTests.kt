@@ -1,7 +1,8 @@
 package apps2.simpleTests
 
 import org.openrndr.KEY_ENTER
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
+
 import org.openrndr.math.Vector2
 import kotlin.system.measureNanoTime
 
@@ -223,7 +224,7 @@ private fun printResult(name: String, t: Long, nPoints: Int, closed: Boolean) {
     )
 }
 
-fun main() = application {
+fun main() = applicationSynchronous {
     program {
         println(
             "Press ENTER to run tests. Second round and following ones " +

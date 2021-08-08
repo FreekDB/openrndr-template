@@ -28,9 +28,7 @@ import org.openrndr.extra.parameters.DoubleParameter
 import org.openrndr.extra.parameters.OptionParameter
 import org.openrndr.math.Polar
 import org.openrndr.math.Vector2
-import org.openrndr.shape.Rectangle
-import org.openrndr.shape.Segment
-import org.openrndr.shape.ShapeContour
+import org.openrndr.shape.*
 import kotlin.math.abs
 import kotlin.math.atan2
 import kotlin.math.roundToLong

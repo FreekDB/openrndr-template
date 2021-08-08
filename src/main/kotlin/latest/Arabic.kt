@@ -1,10 +1,10 @@
 package latest
 
-import org.openrndr.application
+
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.loadFont
 
-fun main() = application {
+fun main() = applicationSynchronous {
     program {
         val font = loadFont("data/fonts/Amiri-Regular.ttf", 100.0,
             characterSet = "أميري".toCharArray().toSet())

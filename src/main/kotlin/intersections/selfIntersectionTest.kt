@@ -1,6 +1,6 @@
 package intersections
 
-import org.openrndr.application
+
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.LineJoin
 import org.openrndr.math.Polar
@@ -18,7 +18,7 @@ import kotlin.math.sin
  * - Highlights distinct intersections
  * - Shows intersection coordinates
  */
-fun main() = application {
+fun main() = applicationSynchronous {
     program {
         val points = 200
         val dec = DecimalFormat("0.000")

@@ -65,7 +65,8 @@ fun doubleExponentialSigmoid(min: Double, max: Double): Double {
 
 /**
  * Cosine envelope that goes up and down.
- * Returns 0.0 at both edges, 1.0 in the middle
+ * Returns 0.0 at both edges, 1.0 in the middle.
+ * [x] should be a value between [start] and [end].
  */
 fun cosEnv(
     x: Double,

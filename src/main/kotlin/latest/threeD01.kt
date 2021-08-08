@@ -1,7 +1,7 @@
 package latest
 
 import org.openrndr.WindowMultisample
-import org.openrndr.application
+
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.isolated
 import org.openrndr.extra.compositor.blend
@@ -21,7 +21,7 @@ import kotlin.math.sin
  * for 3D, as the drawing is currently meant to be used in 2D only.
  * So I'm testing if there are use cases in which 3D is usable.
  */
-fun main() = application {
+fun main() = applicationSynchronous {
     configure {
         multisample = WindowMultisample.SampleCount(4)
     }

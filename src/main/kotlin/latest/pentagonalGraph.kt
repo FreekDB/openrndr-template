@@ -22,7 +22,7 @@ import org.openrndr.svg.saveToFile
 
 /**
  * A simple *test* seems to **work**
- * ![image ignored](docs/a.png)
+ * ![thumbnail](../docs/a.png)
  */
 fun main() {
     applicationSynchronous {

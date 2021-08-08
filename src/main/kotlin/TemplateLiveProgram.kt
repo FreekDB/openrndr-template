@@ -2,7 +2,6 @@ import org.openrndr.applicationSynchronous
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.*
 import org.openrndr.extra.noise.Random
-import org.openrndr.extra.olive.oliveProgram
 import org.openrndr.extras.color.spaces.ColorHSLUVa
 import org.openrndr.math.Polar
 import org.openrndr.poissonfill.PoissonFill
@@ -20,7 +19,7 @@ fun main() = applicationSynchronous {
         width = 800
         height = 800
     }
-    oliveProgram {
+    program {
         val dry = renderTarget(width, height) {
             colorBuffer(type = ColorType.FLOAT32)
         }

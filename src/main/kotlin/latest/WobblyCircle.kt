@@ -1,6 +1,6 @@
 package latest
 
-import org.openrndr.application
+
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.rgb
 import org.openrndr.extensions.Screenshots
@@ -13,7 +13,7 @@ import org.openrndr.shape.drawComposition
 import kotlin.math.PI
 import kotlin.math.tan
 
-fun main() = application {
+fun main() = applicationSynchronous {
     configure { width = 1100; height = 1100 }
 
     // Feature request: ShapeContour.resample(20) to create

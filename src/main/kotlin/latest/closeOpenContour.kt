@@ -1,6 +1,6 @@
 package latest
 
-import org.openrndr.application
+
 import org.openrndr.color.rgb
 import org.openrndr.extensions.Screenshots
 import org.openrndr.math.Vector2
@@ -12,7 +12,7 @@ import org.openrndr.shape.ShapeContour
  * Split a square with a straight line,
  * then .close the two halves of the square with a straight segment.
  */
-fun main() = application {
+fun main() = applicationSynchronous {
     program {
         val square = Rectangle.fromCenter(drawer.bounds.center, 200.0).contour
         val knife = LineSegment(Vector2.ZERO, drawer.bounds.dimensions).contour

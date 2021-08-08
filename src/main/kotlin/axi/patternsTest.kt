@@ -6,7 +6,7 @@ import aBeLibs.svg.Pattern
 import aBeLibs.svg.fill
 import org.openrndr.KEY_ENTER
 import org.openrndr.KEY_ESCAPE
-import org.openrndr.application
+
 import org.openrndr.color.ColorRGBa
 import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.noise.Random
@@ -19,7 +19,7 @@ import org.openrndr.utils.namedTimestamp
 import java.io.File
 
 fun main() {
-    application {
+    applicationSynchronous {
         configure {
             width = 1500
             height = 500

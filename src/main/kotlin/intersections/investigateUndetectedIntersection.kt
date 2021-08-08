@@ -1,6 +1,6 @@
 package intersections
 
-import org.openrndr.application
+
 import org.openrndr.color.ColorRGBa
 import org.openrndr.math.Vector2
 import org.openrndr.math.YPolarity
@@ -8,7 +8,7 @@ import org.openrndr.shape.Segment
 import org.openrndr.shape.ShapeContour
 import kotlin.math.abs
 
-fun main() = application {
+fun main() = applicationSynchronous {
     configure {
         width = 1000
         height = 1000

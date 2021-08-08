@@ -3,7 +3,7 @@ package axi
 import aBeLibs.geometry.smoothed
 import aBeLibs.geometry.toContours
 import org.openrndr.KEY_ENTER
-import org.openrndr.application
+
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.colorBuffer
 import org.openrndr.draw.isolatedWithTarget
@@ -23,7 +23,7 @@ import java.io.File
  * BoofCV BW minimal example for converting shapes into curves.
  */
 
-fun main() = application {
+fun main() = applicationSynchronous {
     program {
         val svg = drawComposition { }
 

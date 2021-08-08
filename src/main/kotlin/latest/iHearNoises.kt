@@ -1,13 +1,13 @@
 package latest
 
-import org.openrndr.application
+
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.rgba
 import org.openrndr.extra.noclear.NoClear
 import org.openrndr.extra.noise.Random
 import org.openrndr.math.Polar
 
-fun main() = application {
+fun main() = applicationSynchronous {
     configure {
         width = 800
         height = 800

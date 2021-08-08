@@ -1,6 +1,6 @@
 package axi
 
-import org.openrndr.application
+
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.LineJoin
 import org.openrndr.extensions.Screenshots
@@ -15,7 +15,7 @@ import org.openrndr.shape.drawComposition
  */
 
 fun main() {
-    application {
+    applicationSynchronous {
         program {
             val svg = drawComposition { }
 

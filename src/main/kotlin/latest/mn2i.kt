@@ -1,6 +1,6 @@
 package latest
 
-import aBeLibs.random.file
+import aBeLibs.data.ImageData
 import org.openrndr.KEY_ENTER
 import org.openrndr.boofcv.binding.resizeTo
 import org.openrndr.color.ColorRGBa
@@ -11,56 +11,12 @@ import org.openrndr.applicationSynchronous
 import org.openrndr.draw.loadImage
 import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.noise.Random
-import org.openrndr.extra.noise.Random.unseeded
 import org.openrndr.math.*
-import org.openrndr.shape.Rectangle
 import org.openrndr.shape.draw
 import org.openrndr.shape.drawComposition
 import org.openrndr.svg.saveToFile
 import org.openrndr.utils.namedTimestamp
 import kotlin.math.PI
-
-/**
- * Loads a random image from a folder and lets the user
- * read the pixels from that image.
- */
-data class ImageData(
-    val path: String, val scanDist: Double = 8.0, val
-    moveDist: Double = 3.0
-) {
-    /**
-     * GPU buffer containing the image
-     */
-    lateinit var buff: ColorBuffer
-
-    /**
-     * pixels of the image available for reading
-     */
-    lateinit var pixels: ColorBufferShadow
-
-    /**
-     * Area equal to the image bounds minus `scanDist`
-     */
-    lateinit var safeArea: Rectangle
-
-    fun loadNext() {
-        unseeded {
-            buff = loadImage(Random.file(path)).resizeTo(900, 900)
-        }
-        pixels = buff.shadow
-        pixels.download()
-        safeArea = buff.bounds.offsetEdges(scanDist * -2.0)
-    }
-
-    fun getColor(normPos: Vector2) = pixels[
-            (normPos.x * buff.width).toInt().coerceIn(0 until buff.width),
-            (normPos.y * buff.height).toInt().coerceIn(0 until buff.height)
-    ]
-
-    init {
-        loadNext()
-    }
-}
 
 fun main() = applicationSynchronous {
     configure {

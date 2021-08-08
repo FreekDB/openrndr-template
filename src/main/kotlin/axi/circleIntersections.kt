@@ -7,7 +7,7 @@ import aBeLibs.geometry.symmetrizeSimple
 import org.openrndr.Fullscreen
 import org.openrndr.KEY_ENTER
 import org.openrndr.KEY_ESCAPE
-import org.openrndr.application
+
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.LineCap
 import org.openrndr.draw.LineJoin
@@ -30,7 +30,7 @@ import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.min
 
-fun main() = application {
+fun main() = applicationSynchronous {
     configure {
         fullscreen = Fullscreen.CURRENT_DISPLAY_MODE
     }

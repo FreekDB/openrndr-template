@@ -8,7 +8,7 @@ import aBeLibs.math.semicircle
 import org.openrndr.KEY_ENTER
 import org.openrndr.KEY_ESCAPE
 import org.openrndr.KEY_INSERT
-import org.openrndr.application
+
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.LineJoin
 import org.openrndr.draw.isolated
@@ -37,7 +37,7 @@ import kotlin.system.exitProcess
   From my book, pages 7 and 15.
  */
 
-fun main() = application {
+fun main() = applicationSynchronous {
     configure {
         width = 1000
         height = 1000

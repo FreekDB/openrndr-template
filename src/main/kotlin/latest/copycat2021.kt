@@ -1,6 +1,6 @@
 package latest
 
-import org.openrndr.application
+
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.isolated
 import org.openrndr.extensions.Screenshots
@@ -18,7 +18,7 @@ import kotlin.math.sqrt
 // https://beesandbombs.tumblr.com/post/57971648339/hexagons-pulsin
 // by Claudine
 
-fun main() = application {
+fun main() = applicationSynchronous {
     program {
         val s = 50.0
         val h = 0.5 * s * sqrt(3.0)

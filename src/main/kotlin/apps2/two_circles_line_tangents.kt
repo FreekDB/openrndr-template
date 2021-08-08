@@ -6,12 +6,14 @@ import aBeLibs.math.isAngleReflex
 import org.openrndr.applicationSynchronous
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.mix
+import org.openrndr.draw.DrawStyle
 import org.openrndr.draw.LineCap
 import org.openrndr.draw.LineJoin
+import org.openrndr.extras.color.presets.LIGHT_STEEL_BLUE
 import org.openrndr.math.Vector2
-import org.openrndr.math.map
 import org.openrndr.shape.Circle
 import org.openrndr.shape.Segment
+import org.openrndr.shape.contour
 
 /**
  * Ported from
@@ -21,153 +23,190 @@ import org.openrndr.shape.Segment
 
 fun main() = applicationSynchronous {
     program {
-        val leftCirc = Circle(drawer.bounds.position(0.2, 0.25), 100.0)
-        val rightCirc = Circle(drawer.bounds.position(0.8, 0.75), 100.0)
-//        val seg = Segment(drawer.bounds.position(0.7, 0.8), drawer.bounds.position(0.9, 0.9))
-//        val font = loadFont("data/fonts/IBMPlexMono-Regular.ttf", 24.0)
+        val orange = mix(ColorRGBa.RED, ColorRGBa.YELLOW, 0.6)
+        val styleBase = DrawStyle(
+            stroke = ColorRGBa.GRAY,
+            fill = null,
+            lineJoin = LineJoin.BEVEL,
+            lineCap = LineCap.ROUND
+        )
+        val styleLines = styleBase.copy(
+            stroke = ColorRGBa.LIGHT_STEEL_BLUE
+        )
+        val styleResult = DrawStyle(
+            stroke = orange,
+            strokeWeight = 4.0,
+            fill = orange.opacify(0.2)
+        )
+        val styleVerts = styleResult.copy(
+            stroke = ColorRGBa.RED,
+            fill = null
+        )
+
 
         extend {
-            drawer.lineJoin = LineJoin.BEVEL
-            drawer.lineCap = LineCap.SQUARE
-            val movingCirc = Circle(
-                mouse.position.map(
-                    Vector2.ZERO,
-                    drawer.bounds.dimensions,
-                    drawer.bounds.position(-0.2, -0.2),
-                    drawer.bounds.position(1.2, 1.2)
-                ), 50.0
-            )
             drawer.run {
-                fill = null
                 clear(ColorRGBa.WHITE)
-                stroke = ColorRGBa.GRAY
-                circler(leftCirc)
-                circler(rightCirc)
-                circler(movingCirc)
-                stroke = mix(ColorRGBa.BLUE, ColorRGBa.WHITE, 0.5)
-//                c0.tangentLines(c1).forEach {
-//                    lineSegment(it)
-//                    circle(it.start, 5.0)
-//                    circle(it.end, 5.0)
-//                }
-//                c0.intersections(c1).forEach {
-//                    stroke = ColorRGBa.RED
-//                    circle(it, 10.0)
-//                }
 
-//                stroke = mix(ColorRGBa.GREEN, ColorRGBa.BLACK, 0.5)
-//                segment(seg)
-//                seg.intersections(c1).forEach {
-//                    circle(it, 6.0)
-//                }
+                val circleL = Circle(bounds.center - 200.0, 100.0)
+                val circleR = Circle(bounds.center + 200.0, 100.0)
+                val circleM = Circle(mouse.position, 50.0)
 
-//                    fill = ColorRGBa.GRAY
-//                    drawer.fontMap = font
-//                    drawer.text("$case0 $a0 ", 50.0, 250.0)
-//                    drawer.text("$case1 $a1", 50.0, 270.0)
+                drawStyle = styleBase
+                circler(circleL)
+                circler(circleR)
+                circler(circleM)
 
+                drawStyle = styleLines
                 val convexPoints = mutableListOf<Vector2>()
                 val convexRadius = 200.0
-                leftCirc.tangentCirclesConvex(movingCirc, convexRadius).forEach { circle ->
-                    drawer.strokeWeight = 1.0
-                    circler(circle)
-                    val s0 = Segment(
-                        leftCirc.center,
-                        leftCirc.center + (leftCirc.center - circle.center) * leftCirc.radius
-                    )
-                    segment(s0)
-                    convexPoints.addAll(s0.intersections(leftCirc).map { it.position})
+                circleL.tangentCirclesConvex(circleM, convexRadius)
+                    .forEach { circle ->
+                        circler(circle)
+                        val s0 = Segment(
+                            circleL.center,
+                            circleL.center + (circleL.center - circle.center) * circleL.radius
+                        )
+                        segment(s0)
+                        convexPoints.addAll(
+                            s0.intersections(circleL).map { it.position })
 
-                    val s1 = Segment(
-                        movingCirc.center,
-                        movingCirc.center + (movingCirc.center - circle.center) * movingCirc.radius
-                    )
-                    segment(s1)
-                    convexPoints.addAll(s1.intersections(movingCirc).map { it.position})
-                }
+                        val s1 = Segment(
+                            circleM.center,
+                            circleM.center + (circleM.center - circle.center) * circleM.radius
+                        )
+                        segment(s1)
+                        convexPoints.addAll(
+                            s1.intersections(circleM).map { it.position })
+                    }
 
                 if (convexPoints.size == 4) {
-                    val a0 = angle(leftCirc.center, convexPoints[0], convexPoints[2])
-                    val a1 = angle(movingCirc.center, convexPoints[2], convexPoints[2])
+                    val a0 =
+                        angle(circleL.center, convexPoints[0], convexPoints[2])
+                    val a1 = angle(
+                        circleM.center,
+                        convexPoints[2],
+                        convexPoints[2]
+                    )
 
-                    stroke = mix(ColorRGBa.RED, ColorRGBa.YELLOW, 0.6)
-                    strokeWeight = 4.0
-                    fill = mix(ColorRGBa.RED, ColorRGBa.YELLOW, 0.6).opacify(0.2)
+                    drawStyle = styleResult
                     contour(
-                        org.openrndr.shape.contour {
+                        contour {
                             moveTo(convexPoints[0])
-                            arcTo(convexRadius, convexRadius, 0.0,
+                            arcTo(
+                                convexRadius, convexRadius, 0.0,
                                 largeArcFlag = false,
                                 sweepFlag = true,
                                 end = convexPoints[1]
                             )
-                            arcTo(movingCirc.radius, movingCirc.radius, 0.0, isAngleReflex(a1), true, convexPoints[3])
-                            arcTo(convexRadius, convexRadius, 0.0,
+                            arcTo(
+                                circleM.radius,
+                                circleM.radius,
+                                0.0,
+                                isAngleReflex(a1),
+                                true,
+                                convexPoints[3]
+                            )
+                            arcTo(
+                                convexRadius, convexRadius, 0.0,
                                 largeArcFlag = false,
                                 sweepFlag = true,
                                 end = convexPoints[2]
                             )
-                            arcTo(leftCirc.radius, leftCirc.radius, 0.0, !isAngleReflex(a0), true, convexPoints[0])
+                            arcTo(
+                                circleL.radius,
+                                circleL.radius,
+                                0.0,
+                                !isAngleReflex(a0),
+                                true,
+                                convexPoints[0]
+                            )
                             close()
                         }
                     )
-                    stroke = ColorRGBa.RED
+                    drawStyle = styleVerts
                     convexPoints.forEach {
                         circler(Circle(it, 5.0))
                     }
-                    fill = null
                 }
 
+                drawStyle = styleLines
                 val concavePoints = mutableListOf<Vector2>()
                 val concaveRadius = 80.0
-                val tangentCircles = rightCirc.tangentCirclesConcave(movingCirc, concaveRadius)
+                val tangentCircles =
+                    circleR.tangentCirclesConcave(circleM, concaveRadius)
                 tangentCircles.forEach { circle ->
-                    drawer.strokeWeight = 1.0
                     circler(circle)
                     val s0 = Segment(
-                        rightCirc.center,
-                        rightCirc.center - (rightCirc.center - circle.center) * rightCirc.radius
+                        circleR.center,
+                        circleR.center - (circleR.center - circle.center) * circleR.radius
                     )
                     segment(s0)
-                    concavePoints.addAll(s0.intersections(rightCirc).map {
-                        it.position })
+                    concavePoints.addAll(s0.intersections(circleR).map {
+                        it.position
+                    })
 
                     val s1 = Segment(
-                        movingCirc.center,
-                        movingCirc.center - (movingCirc.center - circle.center) * movingCirc.radius
+                        circleM.center,
+                        circleM.center - (circleM.center - circle.center) * circleM.radius
                     )
                     segment(s1)
-                    concavePoints.addAll(s1.intersections(movingCirc).map {
+                    concavePoints.addAll(s1.intersections(circleM).map {
                         it.position
                     })
                 }
 
-                if (concavePoints.size == 4 && (!tangentCircles[0].overlap(tangentCircles[1]) || movingCirc.overlap(rightCirc))) {
-                    val a0 = angle(rightCirc.center, concavePoints[0], concavePoints[2])
-                    val a1 = angle(movingCirc.center, concavePoints[1], concavePoints[3])
+                if (concavePoints.size == 4 && (!tangentCircles[0].overlap(
+                        tangentCircles[1]
+                    ) || circleM.overlap(circleR))
+                ) {
+                    val a0 = angle(
+                        circleR.center,
+                        concavePoints[0],
+                        concavePoints[2]
+                    )
+                    val a1 = angle(
+                        circleM.center,
+                        concavePoints[1],
+                        concavePoints[3]
+                    )
 
-                    stroke = mix(ColorRGBa.RED, ColorRGBa.YELLOW, 0.6)
-                    strokeWeight = 4.0
-                    fill = mix(ColorRGBa.RED, ColorRGBa.YELLOW, 0.6).opacify(0.2)
+                    drawStyle = styleResult
                     contour(
-                        org.openrndr.shape.contour {
+                        contour {
                             moveTo(concavePoints[0])
-                            arcTo(concaveRadius, concaveRadius, 0.0,
+                            arcTo(
+                                concaveRadius, concaveRadius, 0.0,
                                 largeArcFlag = false,
                                 sweepFlag = true,
                                 end = concavePoints[1]
                             )
-                            arcTo(movingCirc.radius, movingCirc.radius, 0.0, !isAngleReflex(a1), false, concavePoints[3])
-                            arcTo(concaveRadius, concaveRadius, 0.0,
+                            arcTo(
+                                circleM.radius,
+                                circleM.radius,
+                                0.0,
+                                !isAngleReflex(a1),
+                                false,
+                                concavePoints[3]
+                            )
+                            arcTo(
+                                concaveRadius, concaveRadius, 0.0,
                                 largeArcFlag = false,
                                 sweepFlag = true,
                                 end = concavePoints[2]
                             )
-                            arcTo(rightCirc.radius, rightCirc.radius, 0.0, isAngleReflex(a0), false, concavePoints[0])
+                            arcTo(
+                                circleR.radius,
+                                circleR.radius,
+                                0.0,
+                                isAngleReflex(a0),
+                                false,
+                                concavePoints[0]
+                            )
                             close()
                         }
                     )
-                    stroke = ColorRGBa.RED
+                    drawStyle = styleVerts
                     concavePoints.forEach {
                         circler(Circle(it, 5.0))
                     }

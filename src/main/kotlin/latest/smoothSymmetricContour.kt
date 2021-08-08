@@ -2,7 +2,7 @@ package latest
 
 import aBeLibs.geometry.randomPoint
 import aBeLibs.geometry.symmetrize
-import org.openrndr.application
+
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.rgb
 import org.openrndr.draw.isolated
@@ -25,7 +25,7 @@ import java.lang.Double.min
  * to show those lines when holding the left shift key down.
  */
 
-fun main() = application {
+fun main() = applicationSynchronous {
     val side = 5
     configure {
         width = 1000
