@@ -1,21 +1,19 @@
 package latest
 
-import org.openrndr.KEY_DELETE
-import org.openrndr.KEY_ENTER
-import org.openrndr.KEY_ESCAPE
-import org.openrndr.application
+import org.openrndr.*
 import org.openrndr.color.ColorRGBa
 import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.noise.Random
 import org.openrndr.math.Vector2
 import org.openrndr.shape.*
+import org.openrndr.shape.drawComposition
 import org.openrndr.svg.saveToFile
 import org.openrndr.utils.namedTimestamp
 import java.io.File
 import kotlin.math.pow
 
 fun main() {
-    application {
+    applicationSynchronous {
         configure {
             width = 900
             height = 900

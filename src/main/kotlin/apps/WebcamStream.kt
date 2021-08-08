@@ -1,6 +1,6 @@
 package apps
 
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.ColorFormat
 import org.openrndr.draw.ColorType
@@ -21,7 +21,7 @@ import kotlin.math.sin
 const val virtualCamDevice = "/dev/video2"
 const val realCamDevice = "/dev/video4"
 
-fun main() = application {
+fun main() = applicationSynchronous {
     configure {
         width = 640
         height = 480

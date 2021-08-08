@@ -1,16 +1,17 @@
 package apps2.simpleTests
 
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
 import org.openrndr.color.ColorRGBa
 import org.openrndr.extensions.Screenshots
 import org.openrndr.math.Vector2
 import org.openrndr.shape.SegmentJoin
 import org.openrndr.shape.ShapeContour
+import org.openrndr.shape.offset
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
 
-fun main() = application {
+fun main() = applicationSynchronous {
     program {
 
         val points = List(18) {

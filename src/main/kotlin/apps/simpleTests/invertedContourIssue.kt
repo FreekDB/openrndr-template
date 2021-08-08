@@ -1,6 +1,6 @@
 package apps.simpleTests
 
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.isolatedWithTarget
 import org.openrndr.draw.renderTarget
@@ -9,7 +9,7 @@ import org.openrndr.math.Vector2
 import org.openrndr.shape.Circle
 import org.openrndr.shape.Shape
 
-fun main() = application {
+fun main() = applicationSynchronous {
     program {
         val bw = renderTarget(width, height) {
             colorBuffer()

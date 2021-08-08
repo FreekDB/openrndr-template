@@ -2,7 +2,7 @@ package latest
 
 import org.openrndr.KEY_ENTER
 import org.openrndr.KEY_ESCAPE
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
 import org.openrndr.color.ColorRGBa
 import org.openrndr.dialogs.saveFileDialog
 import org.openrndr.extensions.Screenshots
@@ -15,7 +15,7 @@ import org.openrndr.shape.drawComposition
 import org.openrndr.svg.saveToFile
 
 fun main() {
-    application {
+    applicationSynchronous {
         program {
             Random.seed = System.nanoTime().toString()
             fun newDesign(): Composition {

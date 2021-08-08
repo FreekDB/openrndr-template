@@ -1,13 +1,13 @@
 package apps.simpleTests
 
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.*
 import org.openrndr.extensions.Screenshots
 import org.openrndr.shape.Circle
 
 fun main() {
-    application {
+    applicationSynchronous {
         program {
             val multisample = renderTarget(width, height, multisample = BufferMultisample.SampleCount(8)) {
                 colorBuffer()
@@ -23,7 +23,7 @@ fun main() {
                     this.drawCircle(ColorRGBa.WHITE, null, 80.0, listOf(0.2, 0.4))
                     this.drawCircle(null, ColorRGBa.WHITE, 100.0, listOf(0.2, 0.4))
                 }
-                multisample.colorBuffer(0).resolveTo(resolved)
+                multisample.colorBuffer(0).copyTo(resolved)
                 drawer.image(resolved)
 
                 drawer.drawCircle(ColorRGBa.WHITE, null, 80.0, listOf(0.6, 0.8))

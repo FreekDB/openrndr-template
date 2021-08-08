@@ -1,10 +1,7 @@
 package aBeLibs.geometry
 
 import org.openrndr.math.Vector2
-import org.openrndr.shape.Circle
-import org.openrndr.shape.LineSegment
-import org.openrndr.shape.Segment
-import org.openrndr.shape.ShapeContour
+import org.openrndr.shape.*
 
 /**
  * Segment-to-Circle intersection

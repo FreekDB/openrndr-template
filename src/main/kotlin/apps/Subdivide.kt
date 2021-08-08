@@ -3,6 +3,7 @@ package apps
 import aBeLibs.color.ColorProviderImage
 import aBeLibs.extensions.NoJitter
 import aBeLibs.fx.WideColorCorrection
+import aBeLibs.geometry.contains
 import aBeLibs.geometry.longest
 import aBeLibs.math.angleDiff
 import aBeLibs.shadestyles.Addjust
@@ -115,7 +116,7 @@ data class Design(
 }
 
 @ExperimentalStdlibApi
-fun main() = application {
+fun main() = applicationSynchronous {
     configure {
         width = 1920
         height = 1080

@@ -3,7 +3,7 @@ package apps2
 import aBeLibs.geometry.*
 import aBeLibs.math.angle
 import aBeLibs.math.isAngleReflex
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.mix
 import org.openrndr.draw.LineCap
@@ -19,7 +19,7 @@ import org.openrndr.shape.Segment
  * then added concave and convex circle tangents.
  */
 
-fun main() = application {
+fun main() = applicationSynchronous {
     program {
         val leftCirc = Circle(drawer.bounds.position(0.2, 0.25), 100.0)
         val rightCirc = Circle(drawer.bounds.position(0.8, 0.75), 100.0)

@@ -15,18 +15,16 @@ private val style = object {
     val gridOffset = IntVector2(-2, -2)
 }
 
-class Vector2Anim : Animatable() {
-    var x: Double = 0.0
-    var y: Double = 0.0
-}
-
 data class Cell(
     val id: Int,
     var type: Int = -1,
     val gridPos: IntVector2 = IntVector2(id % columns, id / columns)
 ) {
     private val screenPos = (style.size + style.margin) * (gridPos + style.gridOffset).vector2
-    private var screenPosOffset = Vector2Anim()
+    private val screenPosOffset = object : Animatable() {
+        var x = 0.0
+        var y = 0.0
+    }
 
     private var up: Cell? = null
     private var down: Cell? = null
@@ -93,10 +91,10 @@ data class Cell(
             x = other.screenPos.x - screenPos.x
             y = other.screenPos.y - screenPos.y
             if (abs(x) > 0.01) {
-                animate("x", 0.0, 150, Easing.QuadInOut)
+                ::x.animate(0.0, 150, Easing.QuadInOut)
             }
             if (abs(y) > 0.01) {
-                animate("y", 0.0, 150, Easing.QuadInOut)
+                ::y.animate(0.0, 150, Easing.QuadInOut)
             }
         }
     }

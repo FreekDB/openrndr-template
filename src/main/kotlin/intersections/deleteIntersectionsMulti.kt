@@ -1,7 +1,7 @@
 package intersections
 
 import aBeLibs.geometry.*
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
 import org.openrndr.color.ColorRGBa
 import org.openrndr.extra.noise.Random
 import org.openrndr.shape.Circle
@@ -12,7 +12,7 @@ import org.openrndr.shape.Circle
  * For each intersection I should modify only one of the two involved curves
  * deleting the area around the intersection
  */
-fun main() = application {
+fun main() = applicationSynchronous {
     program {
         Random.seed = "1"
 

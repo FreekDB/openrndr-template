@@ -6,9 +6,11 @@ import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.Drawer
 import org.openrndr.draw.FontImageMap
 import org.openrndr.draw.isolated
+import org.openrndr.draw.loadFont
 import org.openrndr.math.Matrix44
 
-class FPSDisplay() : Extension {
+class FPSDisplay(private var font: FontImageMap? = null, val color: ColorRGBa) :
+    Extension {
     override var enabled: Boolean = true
 
     private var frames = 0
@@ -16,12 +18,15 @@ class FPSDisplay() : Extension {
     private var fps = 60
 
     override fun setup(program: Program) {
+        if (font == null) {
+            font = loadFont("data/fonts/default.otf", 12.0)
+        }
         lastSecond = program.seconds.toInt()
     }
 
     override fun afterDraw(drawer: Drawer, program: Program) {
         val now = program.seconds.toInt()
-        if(lastSecond != now) {
+        if (lastSecond != now) {
             lastSecond = now
             fps = frames
             frames = 0
@@ -29,10 +34,12 @@ class FPSDisplay() : Extension {
         frames++
 
         drawer.isolated {
-            drawer.view = Matrix44.IDENTITY
-            drawer.fill = ColorRGBa.BLACK
-            drawer.ortho()
-            drawer.text(fps.toString(), drawer.width - 100.0,  40.0)
+            view = Matrix44.IDENTITY
+            fill = color
+            fontMap = font
+            shadeStyle = null
+            ortho()
+            text(fps.toString(), width - 100.0,  40.0)
         }
     }
 }

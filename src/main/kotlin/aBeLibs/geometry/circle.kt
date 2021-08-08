@@ -4,6 +4,8 @@ import org.openrndr.draw.Drawer
 import org.openrndr.math.Vector2
 import org.openrndr.shape.Circle
 import org.openrndr.shape.LineSegment
+import org.openrndr.shape.Segment
+import org.openrndr.shape.ShapeContour
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.sqrt
@@ -87,3 +89,25 @@ fun Circle.intersections(other: Circle): List<Vector2> {
 fun Drawer.circler(c: Circle) {
     circle(c.scaledTo(c.radius + 1.5))
 }
+
+/**
+ * Returns the part of a [Circle] specified by [startAngle] and [endAngle].
+ * If [closed] it may resemble a pacman or a block of cheese. If [open] it is
+ * a simple [ShapeContour.sub].
+ */
+fun Circle.arcContour(
+    startAngle: Double, endAngle: Double, closed: Boolean = true
+): ShapeContour {
+    val c = contour.sub(startAngle / 360, endAngle / 360)
+    return if (closed) {
+        ShapeContour(
+            c.segments
+                    + Segment(c.position(1.0), center)
+                    + Segment(center, c.position(0.0)),
+            true, c.polarity
+        )
+    } else {
+        c
+    }
+}
+

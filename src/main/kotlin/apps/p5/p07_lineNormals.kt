@@ -1,7 +1,7 @@
 package apps.p5
 
 import org.openrndr.KEY_ESCAPE
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
 import org.openrndr.color.ColorRGBa
 import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.noise.Random
@@ -14,7 +14,7 @@ import kotlin.system.exitProcess
  * https://github.com/hamoid/Fun-Programming/tree/master/processing/ideas/2018/11/lineNormals
  */
 
-fun main() = application {
+fun main() = applicationSynchronous {
     configure {
         width = 400
         height = 400

@@ -11,13 +11,15 @@ import org.openrndr.shape.SegmentJoin
 import org.openrndr.shape.ShapeContour
 import org.openrndr.shape.contour
 import org.openrndr.text.writer
+import org.openrndr.shape.offset
+import java.lang.Math.abs
 import kotlin.system.exitProcess
 
 /**
  * Testing recent changes to ShapeContour and .offset()
  */
 
-fun main() = application {
+fun main() = applicationSynchronous {
     configure {
         width = 1500
         height = 800

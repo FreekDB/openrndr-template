@@ -33,7 +33,7 @@ import kotlin.system.exitProcess
  *    either pick two random ones with a maximum separation, or pick adjacent ones to an
  *    existing line. Basically it would be like the current usage of `used`, but with integers
  */
-fun main() = application {
+fun main() = applicationSynchronous {
     configure {
         width = 15 * 60
         height = 12 * 60

@@ -1,6 +1,6 @@
 package apps2.rubick2D
 
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
 import org.openrndr.color.ColorRGBa
 import org.openrndr.math.Vector2
 
@@ -8,7 +8,7 @@ const val columns = 5
 const val rows = 5
 const val cellCount = 13
 
-fun main() = application {
+fun main() = applicationSynchronous {
     configure {
         width = 1000
         height = 1000

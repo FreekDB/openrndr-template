@@ -2,7 +2,7 @@ package apps
 
 import org.openrndr.KEY_ARROW_DOWN
 import org.openrndr.KEY_ARROW_UP
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
 import org.openrndr.draw.loadFont
 import org.openrndr.draw.shadeStyle
 import org.openrndr.math.Vector2
@@ -13,7 +13,7 @@ import org.openrndr.math.Vector2
  * the screen different letters are sharp or blurry.
  */
 
-fun main() = application {
+fun main() = applicationSynchronous {
     var fontSz = 8.4
     configure {
         width = 768

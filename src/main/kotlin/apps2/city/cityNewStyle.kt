@@ -1,7 +1,8 @@
 package apps2.city
 
 import aBeLibs.random.sign
-import org.openrndr.application
+import aBeLibs.geometry.intersects
+import org.openrndr.applicationSynchronous
 import org.openrndr.color.ColorRGBa
 import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.noise.Random
@@ -16,7 +17,7 @@ import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
 
-fun main() = application {
+fun main() = applicationSynchronous {
     configure {
         width = 1024
         height = 1024

@@ -1,6 +1,6 @@
 package apps
 
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.*
 import org.openrndr.extra.jumpfill.directionFieldFromBitmap
@@ -12,7 +12,7 @@ import aBeLibs.shadestyles.PushAway
  * With Deniz - Based on https://vimeo.com/56480534
  */
 
-fun main() = application {
+fun main() = applicationSynchronous {
     configure {
         width = 1024
         height = 1024

@@ -3,7 +3,7 @@ package latest
 import aBeLibs.panzoom.PanZoomCanvas
 import org.openrndr.KEY_ESCAPE
 import org.openrndr.KEY_SPACEBAR
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.isolatedWithTarget
 import org.openrndr.math.IntVector2
@@ -15,7 +15,7 @@ import kotlin.random.Random
  * Making PanZoomCanvas work for non 1:1 aspect ratio.
  * Unfinished. The working version was accidentally lost.
  */
-fun main() = application {
+fun main() = applicationSynchronous {
     configure {
         width = 600
         height = 400

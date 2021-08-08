@@ -1,6 +1,6 @@
 package apps.p5
 
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
 import org.openrndr.color.ColorRGBa
 import org.openrndr.math.Vector2
 import org.openrndr.math.mix
@@ -10,7 +10,7 @@ import kotlin.math.sqrt
 
 // see https://stackoverflow.com/questions/1073336/circle-line-segment-collision-detection-algorithm
 
-fun main() = application {
+fun main() = applicationSynchronous {
     program {
         val line = LineSegment(100.0, 100.0, 400.0, 400.0)
         var cir = Circle(Vector2.ZERO, 90.0)

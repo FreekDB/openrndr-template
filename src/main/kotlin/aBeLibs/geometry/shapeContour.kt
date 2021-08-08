@@ -122,7 +122,7 @@ fun ShapeContour.makeParallelCurve(
         points.add(it.start + (norm + prevNorm).normalized * offset(i / len))
         prevNorm = norm
     }
-    if(!closed) {
+    if (!closed) {
         points.add(segments.last().end + prevNorm * offset(1.0))
     }
 
@@ -606,7 +606,7 @@ fun MutableList<ShapeContour>.removeIntersections(margin: Double):
                         val part = parts.random(Random.rnd)
                         part.forEachIndexed { i, c ->
                             val cutLen = margin / c.length
-                            c.onAll(intersection.position, 1.0).forEach {
+                            c.onAll(intersection, 1.0).forEach {
                                 if (it < 0.2) {
                                     part[i] = c.sub(cutLen, 1.0)
                                 } else if (it > 0.8) {
@@ -693,7 +693,9 @@ fun ShapeContour.symmetrizeSimple(
  * Creates a deformed circle centered at [pos] and with radius [radius]
  */
 fun circleish(pos: Vector2, radius: Double, angularOffset: Double = 0.0) =
-    CatmullRomChain2(List(5) { it * 72 + angularOffset + Random.double0(50.0) }.map {
+    CatmullRomChain2(List(5) {
+        it * 72 + angularOffset + Random.double0(50.0)
+    }.map {
         Polar(it, radius).cartesian + pos
     }, 0.5, true).toContour()
 
@@ -713,7 +715,8 @@ fun circleish2(
             val angle = i / pointCount.toDouble()
             val cycle = sin(angle * PI * 2 + orientation) * noiseFreq
             val maxOffset = radius * noiseScale
-            val offset = Random.simplex(cycle.pow(5.0), center.x, center.y) * maxOffset
+            val offset =
+                Random.simplex(cycle.pow(5.0), center.x, center.y) * maxOffset
             center + Polar(angle * 360, radius + offset).cartesian
         }, true
     )

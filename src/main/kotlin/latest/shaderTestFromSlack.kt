@@ -1,13 +1,13 @@
 package latest
 
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.shadeStyle
 import org.openrndr.math.Polar
 import org.openrndr.math.Vector2
 import org.openrndr.shape.LineSegment
 
-fun main() = application {
+fun main() = applicationSynchronous {
     configure {
         width = 500
         height = 500

@@ -3,7 +3,7 @@ package axi
 import aBeLibs.extensions.Handwritten
 import org.openrndr.KEY_ESCAPE
 import org.openrndr.KEY_INSERT
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
 import org.openrndr.color.ColorRGBa
 import org.openrndr.dialogs.saveFileDialog
 import org.openrndr.draw.LineJoin
@@ -18,7 +18,7 @@ import kotlin.system.exitProcess
  * exports SVG
  */
 
-fun main() = application {
+fun main() = applicationSynchronous {
 
     configure {
         width = 1500
@@ -38,7 +38,7 @@ import aBeLibs.geometry.smoothed
 import aBeLibs.geometry.toContours
 import org.openrndr.KEY_ENTER
 import org.openrndr.KEY_ESCAPE
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
 import org.openrndr.color.ColorRGBa
 import org.openrndr.dialogs.saveFileDialog
 import org.openrndr.draw.colorBuffer
@@ -71,7 +71,7 @@ import kotlin.system.exitProcess
  * when converting to curves.
  */
 
-fun main() = application {
+fun main() = applicationSynchronous {
     configure {
         width = 2376
         height = 1680

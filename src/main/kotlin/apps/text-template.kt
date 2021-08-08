@@ -2,7 +2,7 @@ package apps
 
 import org.openrndr.KEY_ESCAPE
 import org.openrndr.KEY_INSERT
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
 import org.openrndr.color.ColorRGBa
 import org.openrndr.dialogs.saveFileDialog
 import org.openrndr.draw.LineJoin
@@ -12,6 +12,7 @@ import org.openrndr.math.transforms.transform
 import org.openrndr.shape.*
 import org.openrndr.svg.loadSVG
 import org.openrndr.svg.writeSVG
+import java.util.*
 import kotlin.system.exitProcess
 
 /**
@@ -28,7 +29,7 @@ import kotlin.system.exitProcess
  * See ===> `Handwritten` class used in page3-Extinct.kt
  */
 
-fun main() = application {
+fun main() = applicationSynchronous {
     configure {
         width = 800
         height = 800
@@ -79,7 +80,7 @@ fun main() = application {
                 stroke = ColorRGBa.BLACK
                 text.forEach { line ->
                     isolated {
-                        line.trimIndent().toUpperCase().forEach {
+                        line.trimIndent().uppercase(Locale.getDefault()).forEach {
                             letters[it]?.run {
                                 val letterBounds = this.map { c -> c.bounds }.bounds
                                 translate(-letterBounds.x, 0.0)
@@ -106,7 +107,7 @@ fun main() = application {
                 translate(100.0, 100.0)
                 text.forEach { line ->
                     isolated {
-                        line.trimIndent().toUpperCase().forEach {
+                        line.trimIndent().uppercase(Locale.getDefault()).forEach {
                             letters[it]?.run {
                                 val letterBounds =
                                     this.map { c -> c.bounds }.bounds

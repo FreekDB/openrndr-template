@@ -5,7 +5,7 @@ import org.openrndr.draw.isolatedWithTarget
 import org.openrndr.draw.loadImage
 import org.openrndr.draw.renderTarget
 
-fun main() = application {
+fun main() = applicationSynchronous {
     configure {
         width  = 500
         height = 1000

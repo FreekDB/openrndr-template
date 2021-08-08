@@ -1,7 +1,7 @@
 package apps
 
 import org.openrndr.KEY_ESCAPE
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.rgb
 import org.openrndr.draw.Drawer
@@ -20,7 +20,7 @@ import kotlin.system.exitProcess
   to simulate depth of field: the top and bottom layers are blurry, the middle one is sharp.
  */
 
-fun main() = application {
+fun main() = applicationSynchronous {
     configure {
         width = 900
         height = 900

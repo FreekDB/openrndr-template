@@ -1,7 +1,7 @@
 package apps2.city
 
 import org.openrndr.MouseButton
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
 import org.openrndr.color.ColorRGBa
 import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.noise.Random
@@ -9,7 +9,7 @@ import org.openrndr.math.Vector2
 
 const val blobFeedsCityDistance = 100.0
 
-fun main() = application {
+fun main() = applicationSynchronous {
     configure {
         width = 1024
         height = 1024

@@ -1,10 +1,10 @@
 package apps.p5
 
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
 import org.openrndr.color.ColorRGBa
 import org.openrndr.extra.noise.Random
 
-fun main() = application {
+fun main() = applicationSynchronous {
     program {
         val points = List(30) { drawer.bounds.center + drawer.bounds.center * Random.vector2() }
         extend {

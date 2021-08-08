@@ -3,7 +3,7 @@ package intersections
 import org.openrndr.KEY_ENTER
 import org.openrndr.KEY_ESCAPE
 import org.openrndr.KEY_INSERT
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
 import org.openrndr.color.ColorRGBa
 import org.openrndr.dialogs.saveFileDialog
 import org.openrndr.extensions.Screenshots
@@ -17,12 +17,14 @@ import org.openrndr.shape.bounds
 import org.openrndr.svg.writeSVG
 import kotlin.math.roundToInt
 import kotlin.math.sin
+import kotlin.reflect.KFunction
+import kotlin.reflect.KProperty1
 import kotlin.system.exitProcess
 
 /**
  * .removeIntersections(10.0) is currently broken.
  */
-fun main() = application {
+fun main() = applicationSynchronous {
     configure {
         width = 1200
         height = 554
@@ -77,7 +79,7 @@ fun main() = application {
             svg.fill = null
             svg.stroke = ColorRGBa.BLACK
 
-            val p : (Double, Double) -> Vector2 = drawer.bounds::position
+            val p: (Double, Double) -> Vector2 = drawer.bounds::position
             contours.clear()
             contours.addAll(
                 makeRing(

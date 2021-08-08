@@ -1,11 +1,11 @@
 package apps.p5
 
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
 import org.openrndr.draw.loadImage
 import org.openrndr.draw.shadeStyle
 import org.openrndr.extensions.Screenshots
 
-fun main() = application {
+fun main() = applicationSynchronous {
     configure {
         width = 1280
         height = 640

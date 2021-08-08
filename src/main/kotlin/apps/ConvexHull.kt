@@ -3,7 +3,7 @@ package apps
 import aBeLibs.geometry.convexHull
 import org.openrndr.KEY_ENTER
 import org.openrndr.KEY_ESCAPE
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
 import org.openrndr.color.ColorRGBa
 import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.noise.uniformRing
@@ -13,7 +13,7 @@ import kotlin.system.exitProcess
 
 
 @ExperimentalStdlibApi
-fun main() = application {
+fun main() = applicationSynchronous {
     configure {
         width = 500
         height = 500

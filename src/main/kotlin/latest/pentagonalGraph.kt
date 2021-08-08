@@ -7,7 +7,7 @@ import org.jgrapht.graph.DefaultEdge
 import org.jgrapht.graph.DefaultUndirectedGraph
 import org.openrndr.KEY_ENTER
 import org.openrndr.KEY_ESCAPE
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.rgb
 import org.openrndr.dialogs.saveFileDialog
@@ -25,7 +25,7 @@ import org.openrndr.svg.saveToFile
  * ![image ignored](docs/a.png)
  */
 fun main() {
-    application {
+    applicationSynchronous {
         configure {
             width = 900
             height = 900

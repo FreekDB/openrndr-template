@@ -1,15 +1,16 @@
 package latest
 
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
 import org.openrndr.color.ColorRGBa
 import org.openrndr.extra.noise.poissonDiskSampling
 import org.openrndr.math.Polar
 import org.openrndr.math.Vector2
 import org.openrndr.shape.Circle
 import org.openrndr.shape.ShapeContour
+import org.openrndr.shape.contains
 
 fun main() {
-    application {
+    applicationSynchronous {
         program {
             val poissonArea = Vector2(200.0, 200.0)
             val shp = ShapeContour.fromPoints(

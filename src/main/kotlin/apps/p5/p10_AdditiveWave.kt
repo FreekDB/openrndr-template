@@ -1,6 +1,6 @@
 package apps.p5
 
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
 import org.openrndr.color.ColorRGBa
 import org.openrndr.extra.noise.Random
 import org.openrndr.shape.Circle
@@ -11,7 +11,7 @@ private data class SineWave(val freq: Double, val shift: Double, val amp: Double
     fun value(t: Double, x: Double) = amp * sin(t * freq + shift * x)
 }
 
-fun main() = application {
+fun main() = applicationSynchronous {
     program {
         val numPoints = 80
         val sineWaves = List(5) {

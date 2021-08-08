@@ -2,12 +2,13 @@ package latest
 
 import aBeLibs.random.file
 import org.openrndr.KEY_ENTER
-import org.openrndr.application
 import org.openrndr.boofcv.binding.resizeTo
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.rgba
 import org.openrndr.dialogs.saveFileDialog
 import org.openrndr.draw.*
+import org.openrndr.applicationSynchronous
+import org.openrndr.draw.loadImage
 import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.noise.Random
 import org.openrndr.extra.noise.Random.unseeded
@@ -61,7 +62,7 @@ data class ImageData(
     }
 }
 
-fun main() = application {
+fun main() = applicationSynchronous {
     configure {
         width = 900
         height = 900

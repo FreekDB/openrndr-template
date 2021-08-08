@@ -1,7 +1,7 @@
 package apps.dodefont
 
 import org.openrndr.KEY_ESCAPE
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.*
 import org.openrndr.extras.camera.isolated
@@ -19,7 +19,7 @@ import kotlin.math.sin
  * Combine ortho with perspective.
  */
 
-fun main() = application {
+fun main() = applicationSynchronous {
     configure {
         width = 768
         height = 576

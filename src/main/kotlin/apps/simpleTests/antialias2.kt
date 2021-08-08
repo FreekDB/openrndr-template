@@ -1,6 +1,6 @@
 package apps.simpleTests
 
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.BufferMultisample
 import org.openrndr.draw.colorBuffer
@@ -9,7 +9,7 @@ import org.openrndr.draw.renderTarget
 import org.openrndr.math.Vector2
 
 fun main() {
-    application {
+    applicationSynchronous {
         program {
             // -- build a render target with a single color buffer attachment
             val rt = renderTarget(width, height, multisample = BufferMultisample.SampleCount(8)) {

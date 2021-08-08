@@ -1,7 +1,7 @@
 package apps.simpleTests
 
 import org.openrndr.KEY_ESCAPE
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
 import org.openrndr.color.ColorRGBa
 import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.noise.Random
@@ -9,6 +9,7 @@ import org.openrndr.math.IntVector2
 import org.openrndr.math.Vector2
 import org.openrndr.shape.SegmentJoin
 import org.openrndr.shape.ShapeContour
+import org.openrndr.shape.offset
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
@@ -18,7 +19,7 @@ import kotlin.system.exitProcess
  * Testing recent changes to ShapeContour and .offset()
  */
 
-fun main() = application {
+fun main() = applicationSynchronous {
     configure {
         width = 600
         height = 600

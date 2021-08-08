@@ -1,13 +1,14 @@
 package latest
 
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
+import org.openrndr.math.Vector2
 import org.openrndr.shape.Circle
 import org.openrndr.shape.compound
 
 data class Vec2(val x: Double, val y: Double)
 
 fun main() {
-    application {
+    applicationSynchronous {
         program {
             configure {
                 width = 900

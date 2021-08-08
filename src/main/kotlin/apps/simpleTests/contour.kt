@@ -1,6 +1,6 @@
 package apps.simpleTests
 
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
 import org.openrndr.color.ColorRGBa
 import org.openrndr.dialogs.saveFileDialog
 import org.openrndr.draw.isolated
@@ -13,14 +13,14 @@ import org.openrndr.shape.CompositionDrawer
 import org.openrndr.shape.contours
 import org.openrndr.shape.shape
 import org.openrndr.svg.writeSVG
-import org.openrndr.text.writer
+import org.openrndr.draw.writer
 import kotlin.math.sin
 
 /**
  * Test simple contour cases in screen vs SVG.
  */
 
-fun main() = application {
+fun main() = applicationSynchronous {
     configure {
         width = 1100
         height = 300
@@ -48,6 +48,13 @@ fun main() = application {
          * SVG: it seems like the second moveTo() is ignored. The expected
          * result is two horizontal lines.
          */
+        /**
+         * Screen: one might expect that moveTo does not draw anything,
+         * but after calling lineTo(), moveTo() is equivalent to lineTo()
+         *
+         * SVG: it seems like the second moveTo() is ignored. The expected
+         * result is two horizontal lines.
+         */
         val contourEquals =
             contours {
                 moveTo(pts[0])
@@ -56,6 +63,10 @@ fun main() = application {
                 lineTo(pts[4])
             }
 
+        /**
+         * Draws correctly in SVG
+         * Invisible on screen
+         */
         /**
          * Draws correctly in SVG
          * Invisible on screen
@@ -73,6 +84,13 @@ fun main() = application {
             }
         }
 
+        /**
+         * Correct on SVG, on the screen it seems
+         * to draw the vertical segment (1,2) and
+         * the horizontal segment (3,4)
+         * The  last two points in the first  segment
+         * The first two points in the second segment
+         */
         /**
          * Correct on SVG, on the screen it seems
          * to draw the vertical segment (1,2) and
@@ -98,6 +116,9 @@ fun main() = application {
         /**
          * Closed shapes look correct and identical on screen and SVG.
          */
+        /**
+         * Closed shapes look correct and identical on screen and SVG.
+         */
         val shapeSandclock = shape {
             contour {
                 moveTo(pts[0])
@@ -113,6 +134,10 @@ fun main() = application {
             }
         }
 
+        /**
+         * When drawing multiple open contours inside a shape (not calling close() )
+         * the contours are still closed on screen, but open on SVG.
+         */
         /**
          * When drawing multiple open contours inside a shape (not calling close() )
          * the contours are still closed on screen, but open on SVG.

@@ -4,7 +4,7 @@ import aBeLibs.geometry.separated
 import org.openrndr.KEY_ENTER
 import org.openrndr.KEY_ESCAPE
 import org.openrndr.KEY_INSERT
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.ColorXSVa
 import org.openrndr.dialogs.saveFileDialog
@@ -32,7 +32,7 @@ import kotlin.system.exitProcess
  * Printed of page 16.
  */
 
-fun main() = application {
+fun main() = applicationSynchronous {
     configure {
         width = 800
         height = 800

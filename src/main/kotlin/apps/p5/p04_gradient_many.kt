@@ -1,10 +1,10 @@
 package apps.p5
 
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
 import org.openrndr.color.rgb
 import org.openrndr.extra.shadestyles.linearGradient
 
-fun main() = application {
+fun main() = applicationSynchronous {
     configure {
         width = 800
         height = 800

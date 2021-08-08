@@ -2,11 +2,11 @@ package latest
 
 import aBeLibs.geometry.circleish
 import aBeLibs.random.pickWeighted
-import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.rgb
 import org.openrndr.draw.isolated
 import org.openrndr.extensions.Screenshots
+import org.openrndr.applicationSynchronous
 import org.openrndr.extra.noise.Random
 import org.openrndr.extra.shadestyles.RadialGradient
 import org.openrndr.extra.shadestyles.radialGradient
@@ -23,11 +23,7 @@ private val ShapeContour.center: Vector2
     get() = segments.map { it.start }
         .reduce { sum, v -> sum + v } / segments.size.toDouble()
 
-fun main() = application {
-    configure {
-        width = 1024
-        height = 512
-    }
+fun main() = applicationSynchronous {
     program {
         Random.seed = System.currentTimeMillis().toString()
         val xPositions = (0 until width).map { it * 1.0 }.shuffled()

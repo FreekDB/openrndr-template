@@ -1,9 +1,9 @@
 package apps.simpleTests
 
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
 
 fun main() {
-    application {
+    applicationSynchronous {
         program {
             mouse.dragged.listen {
                 println(it.modifiers)

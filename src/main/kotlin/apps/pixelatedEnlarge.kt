@@ -1,6 +1,6 @@
 package apps
 
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.MagnifyingFilter
 import org.openrndr.draw.colorBuffer
@@ -11,7 +11,7 @@ import org.openrndr.extra.noise.Random
  * and enlarge it (QR code style)
  */
 
-fun main() = application {
+fun main() = applicationSynchronous {
     configure {
         width = 1500
         height = 800

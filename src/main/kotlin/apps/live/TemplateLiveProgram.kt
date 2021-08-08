@@ -1,7 +1,7 @@
 package apps.live
 
 //import org.openrndr.Program
-//import org.openrndr.application
+//
 //import org.openrndr.extra.olive.Olive
 
 /**
@@ -13,7 +13,7 @@ package apps.live
  *  instructions on using the live coding environment.
  */
 
-//fun main() = application {
+//fun main() = applicationSynchronous {
 //    configure {
 //        width = 400
 //        height = 400

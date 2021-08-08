@@ -1,6 +1,6 @@
 package apps.p5
 
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
 import org.openrndr.color.ColorRGBa
 import org.openrndr.extra.noise.Random
 import org.openrndr.math.Polar
@@ -9,7 +9,7 @@ import org.openrndr.math.map
 
 // activate "orx-noise" in build.grtadle.kts
 
-fun main() = application {
+fun main() = applicationSynchronous {
     configure {
         width = 500
         height = 500

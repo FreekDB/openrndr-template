@@ -1,6 +1,7 @@
 package live
 
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
+import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.renderTarget
 import org.openrndr.draw.shadeStyle
 import org.openrndr.extra.fx.blur.BoxBlur
@@ -9,7 +10,7 @@ import org.openrndr.shape.Circle
 import kotlin.math.cos
 import kotlin.math.sin
 
-fun main() = application {
+fun main() = applicationSynchronous {
     configure {
         width = 1920
         height = 1080

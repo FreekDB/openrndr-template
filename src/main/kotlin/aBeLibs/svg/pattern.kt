@@ -149,7 +149,10 @@ fun Composition.fill(outline: Shape, patternCfg: Any) {
             }
 
             is Pattern.DOTS -> {
-                val count = 2 + (outline.area * patternCfg.fillPercent).toInt()
+                // openrndr 0.4 doesn't provide .area yet
+                //val count = 2 + (outline.area * patternCfg.fillPercent).toInt()
+                val count = 2 + (outline.bounds.width * outline.bounds.height
+                        * 0.79 * patternCfg.fillPercent).toInt()
                 var positions = (Random.ring2d(0.0, radius, count) as
                         List<Vector2>).map {
                     val rad = Random.double0().pow(patternCfg.sizeSkew).map(

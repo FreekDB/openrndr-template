@@ -2,7 +2,7 @@ package apps
 
 import org.openrndr.KEY_ENTER
 import org.openrndr.KEY_ESCAPE
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.LineJoin
 import org.openrndr.draw.isolated
@@ -21,7 +21,7 @@ import kotlin.system.exitProcess
  * Looks like paper-clips
  */
 
-fun main() = application {
+fun main() = applicationSynchronous {
     configure {
         width = 1600
         height = 1000

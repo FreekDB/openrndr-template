@@ -1,7 +1,7 @@
 package apps2.city
 
 import aBeLibs.geometry.randomPoint
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
 import org.openrndr.color.ColorRGBa
 import org.openrndr.dialogs.saveFileDialog
 import org.openrndr.extensions.Screenshots
@@ -9,7 +9,7 @@ import org.openrndr.extra.noise.Random
 import org.openrndr.shape.LineSegment
 import org.openrndr.shape.Rectangle
 
-fun main() = application {
+fun main() = applicationSynchronous {
     configure {
         width = 1024
         height = 1024

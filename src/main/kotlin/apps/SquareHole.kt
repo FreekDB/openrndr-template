@@ -5,7 +5,7 @@ import aBeLibs.geometry.fromIrregularLine
 import org.openrndr.KEY_ENTER
 import org.openrndr.KEY_ESCAPE
 import org.openrndr.KEY_INSERT
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
 import org.openrndr.color.ColorRGBa
 import org.openrndr.dialogs.saveFileDialog
 import org.openrndr.extensions.Screenshots
@@ -21,7 +21,7 @@ import kotlin.system.exitProcess
  * Axidraw
  */
 
-fun main() = application {
+fun main() = applicationSynchronous {
     configure {
         width = (800 * 1.3).toInt()
         height = 800

@@ -2,7 +2,7 @@ package apps.simpleTests
 
 import org.openrndr.KEY_ESCAPE
 import org.openrndr.KEY_SPACEBAR
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.mix
 import org.openrndr.draw.Drawer
@@ -14,6 +14,7 @@ import org.openrndr.math.Vector2
 import org.openrndr.math.map
 import org.openrndr.shape.SegmentJoin
 import org.openrndr.shape.ShapeContour
+import org.openrndr.shape.offset
 import kotlin.system.exitProcess
 
 /**
@@ -78,7 +79,7 @@ class Blob(private val pos: Vector2) {
 
 }
 
-fun main() = application {
+fun main() = applicationSynchronous {
     configure {
         width = 900
         height = 900

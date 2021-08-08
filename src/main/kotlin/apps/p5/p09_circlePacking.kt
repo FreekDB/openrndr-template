@@ -1,7 +1,8 @@
 package apps.p5
 
 import aBeLibs.random.pickWeighted
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
+import org.openrndr.color.ColorRGBa
 import org.openrndr.color.hsl
 import org.openrndr.color.rgb
 import org.openrndr.draw.circleBatch
@@ -17,7 +18,7 @@ import org.openrndr.shape.Circle
 private fun Circle.overlaps(other: Circle) =
     center.distanceTo(other.center) < radius + other.radius
 
-fun main() = application {
+fun main() = applicationSynchronous {
     configure {
         width = 500
         height = 500

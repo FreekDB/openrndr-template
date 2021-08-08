@@ -1,6 +1,6 @@
 package apps2.simpleTests
 
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.rgba
 import org.openrndr.math.Vector2
@@ -8,7 +8,7 @@ import org.openrndr.shape.ClipMode
 import org.openrndr.shape.drawComposition
 
 fun main() {
-    application {
+    applicationSynchronous {
         configure {
             width = 400
             height = 900

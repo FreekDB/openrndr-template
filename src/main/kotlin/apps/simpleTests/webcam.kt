@@ -1,6 +1,6 @@
 package apps.simpleTests
 
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.DepthTestPass
 import org.openrndr.draw.DrawPrimitive
@@ -11,7 +11,7 @@ import org.openrndr.ffmpeg.VideoPlayerFFMPEG
 import org.openrndr.math.Vector3
 
 fun main() {
-    application {
+    applicationSynchronous {
         program {
             val cube = boxMesh()
             val screen = VideoPlayerFFMPEG.fromScreen(

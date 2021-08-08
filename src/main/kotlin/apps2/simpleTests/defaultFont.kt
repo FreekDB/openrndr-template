@@ -1,16 +1,16 @@
 package apps2.simpleTests
 
-import org.openrndr.application
-import org.openrndr.text.writer
+import org.openrndr.applicationSynchronous
+import org.openrndr.draw.writer
 
 /**
  * Test the default font (new feature)
  */
-fun main() = application {
+fun main() = applicationSynchronous {
     program {
         extend {
             drawer.translate(50.0, 50.0)
-            writer {
+            drawer.writer {
                 newLine()
                 text("One line")
                 newLine()

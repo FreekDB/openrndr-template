@@ -3,7 +3,7 @@ package apps2
 import aBeLibs.geometry.intersections
 import aBeLibs.math.angle
 import org.openrndr.MouseButton
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.LineJoin
 import org.openrndr.extensions.Screenshots
@@ -22,7 +22,7 @@ import kotlin.math.abs
  * Inserts points on a closed shape trying to maintain a minimum
  * distance and a maximum angle (sharpness) between the points
  */
-fun main() = application {
+fun main() = applicationSynchronous {
     configure {
         width = 512
         height = 512

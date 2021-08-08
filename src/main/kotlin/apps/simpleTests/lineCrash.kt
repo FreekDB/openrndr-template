@@ -1,10 +1,10 @@
 package apps.simpleTests
 
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
 import org.openrndr.color.ColorRGBa
 import org.openrndr.extra.noise.Random
 
-fun main() = application {
+fun main() = applicationSynchronous {
     program {
         extend {
             drawer.clear(ColorRGBa.WHITE)

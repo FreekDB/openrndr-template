@@ -1,7 +1,8 @@
 package apps2
 
 import aBeLibs.geometry.bend
-import org.openrndr.application
+import aBeLibs.geometry.split
+import org.openrndr.applicationSynchronous
 import org.openrndr.color.ColorHSLa
 import org.openrndr.color.ColorRGBa
 import org.openrndr.math.Polar
@@ -16,7 +17,7 @@ import kotlin.math.cos
  * Example of splitting ShapeContours with a ShapeContour
  */
 
-fun main() = application {
+fun main() = applicationSynchronous {
     program {
 
         val lines = mutableListOf<ShapeContour>()

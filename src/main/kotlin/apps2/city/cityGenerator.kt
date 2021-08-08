@@ -1,6 +1,6 @@
 package apps2.city
 
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.rgb
 import org.openrndr.draw.shadeStyle
@@ -12,7 +12,7 @@ import kotlin.math.absoluteValue
 const val sz = 160.0
 const val hf = sz / 2.0
 
-fun main() = application {
+fun main() = applicationSynchronous {
     configure {
         width = 1024
         height = 1024

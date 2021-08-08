@@ -1,7 +1,8 @@
 package apps2
 
 import aBeLibs.geometry.bend
-import org.openrndr.application
+import aBeLibs.geometry.split
+import org.openrndr.applicationSynchronous
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.LineJoin
 import org.openrndr.extra.noise.Random
@@ -13,7 +14,7 @@ import org.openrndr.shape.ShapeContour
  * Example of splitting ShapeContours with a ShapeContour
  */
 
-fun main() = application {
+fun main() = applicationSynchronous {
     program {
 
         Random.seed = System.currentTimeMillis().toString()

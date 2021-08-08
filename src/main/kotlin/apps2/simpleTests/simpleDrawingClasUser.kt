@@ -1,9 +1,9 @@
 package apps2.simpleTests
 
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
 import org.openrndr.math.Polar
 
-fun main() = application {
+fun main() = applicationSynchronous {
     program {
 
         val c = SimpleDrawingClass(drawer)

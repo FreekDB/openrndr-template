@@ -2,7 +2,7 @@ package apps
 
 import aBeLibs.extensions.NoJitter
 import aBeLibs.geometry.toContours
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.colorBuffer
 import org.openrndr.draw.isolatedWithTarget
@@ -36,7 +36,7 @@ import org.openrndr.shape.ShapeContour
  * Presented at the Creative Code Stammtisch on July 3rd 2020
  */
 
-fun main() = application {
+fun main() = applicationSynchronous {
     configure {
         width = 1920
         height = 1080

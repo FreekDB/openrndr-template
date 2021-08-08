@@ -3,7 +3,7 @@ package apps
 import aBeLibs.color.ColorProviderTetrahedron
 import aBeLibs.math.doubleExponentialSigmoid
 import org.openrndr.KEY_ESCAPE
-import org.openrndr.application
+import org.openrndr.applicationSynchronous
 import org.openrndr.color.ColorRGBa
 import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.noise.Random
@@ -24,7 +24,7 @@ import kotlin.system.exitProcess
  * Lab seems to produce darker results
  */
 
-fun main() = application {
+fun main() = applicationSynchronous {
     configure {
         width = 1500
         height = 800
