@@ -1,9 +1,9 @@
 package apps2
 
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.rgb
 
-fun main() = applicationSynchronous {
+fun main() = application {
 
     program {
 

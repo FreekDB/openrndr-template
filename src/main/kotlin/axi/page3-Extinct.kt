@@ -7,7 +7,7 @@ import aBeLibs.geometry.noised
 import aBeLibs.geometry.softJitter
 import org.openrndr.KEY_ESCAPE
 import org.openrndr.KEY_INSERT
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.rgb
 import org.openrndr.dialogs.saveFileDialog
@@ -30,7 +30,7 @@ import kotlin.system.exitProcess
  * Create a method for adding localized divergence in the line.
  */
 
-fun main() = applicationSynchronous {
+fun main() = application {
 
     configure {
         width = 1500

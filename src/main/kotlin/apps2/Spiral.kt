@@ -2,7 +2,7 @@ package apps2
 
 import aBeLibs.geometry.circler
 import aBeLibs.geometry.spiralContour
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.extensions.Screenshots
 import org.openrndr.math.Vector2
@@ -13,7 +13,7 @@ import org.openrndr.shape.Circle
  * Interactive.
  */
 
-fun main() = applicationSynchronous {
+fun main() = application {
     program {
         var p0 = Vector2(100.0, 100.0)
         var p1 = Vector2(300.0, 300.0)

@@ -6,7 +6,7 @@ import aBeLibs.svg.Pattern
 import aBeLibs.svg.fill
 import org.openrndr.KEY_ENTER
 import org.openrndr.KEY_ESCAPE
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.noise.Random
@@ -14,9 +14,9 @@ import org.openrndr.extra.noise.uniform
 import org.openrndr.math.CatmullRomChain2
 import org.openrndr.math.Polar
 import org.openrndr.math.Vector2
+import org.openrndr.namedTimestamp
 import org.openrndr.shape.*
 import org.openrndr.svg.saveToFile
-import org.openrndr.utils.namedTimestamp
 import java.io.File
 
 fun main() {
@@ -25,7 +25,7 @@ fun main() {
             Polar(it, radius).cartesian + pos
         }, 0.5, true).toContour()
 
-    applicationSynchronous {
+    application {
         configure {
             width = 1500
             height = 1000

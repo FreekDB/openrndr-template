@@ -1,6 +1,6 @@
 package apps.simpleTests
 
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.Drawer
 import org.openrndr.extra.noise.Random
@@ -8,7 +8,7 @@ import org.openrndr.math.Polar
 import org.openrndr.shape.Circle
 import org.openrndr.shape.contour
 
-fun main() = applicationSynchronous {
+fun main() = application {
     program {
         extend {
             backgroundColor = ColorRGBa.WHITE

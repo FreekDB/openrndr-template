@@ -1,12 +1,13 @@
 package apps2.simpleTests
 
 import aBeLibs.geometry.noisified
+import org.openrndr.application
 
 import org.openrndr.color.ColorRGBa
 import org.openrndr.shape.Circle
 import org.openrndr.shape.ShapeContour
 
-fun main() = applicationSynchronous {
+fun main() = application {
     program {
         val c = ShapeContour.fromPoints(
             Circle(drawer.bounds.center, 200.0).contour

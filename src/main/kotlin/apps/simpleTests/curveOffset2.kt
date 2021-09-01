@@ -1,7 +1,7 @@
 package apps.simpleTests
 
 import org.openrndr.KEY_ESCAPE
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.noise.Random
@@ -19,7 +19,7 @@ import kotlin.system.exitProcess
  * Testing recent changes to ShapeContour and .offset()
  */
 
-fun main() = applicationSynchronous {
+fun main() = application {
     configure {
         width = 600
         height = 600

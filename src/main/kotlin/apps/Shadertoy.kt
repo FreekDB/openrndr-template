@@ -1,6 +1,6 @@
 package apps
 
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.draw.loadImage
 import org.openrndr.draw.shadeStyle
 import org.openrndr.extensions.Screenshots
@@ -9,7 +9,7 @@ import org.openrndr.extensions.Screenshots
  * Example porting a shadertoy program to OPENRNDR
  */
 
-fun main() = applicationSynchronous {
+fun main() = application {
     configure {
         width = 1024
         height = 1024

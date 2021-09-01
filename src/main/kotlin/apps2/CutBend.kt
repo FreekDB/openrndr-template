@@ -1,20 +1,20 @@
 package apps2
 
 import aBeLibs.geometry.bend
-import aBeLibs.geometry.split
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.LineJoin
 import org.openrndr.extra.noise.Random
 import org.openrndr.shape.LineSegment
 import org.openrndr.shape.Rectangle
 import org.openrndr.shape.ShapeContour
+import org.openrndr.shape.split
 
 /**
  * Example of splitting ShapeContours with a ShapeContour
  */
 
-fun main() = applicationSynchronous {
+fun main() = application {
     program {
 
         Random.seed = System.currentTimeMillis().toString()

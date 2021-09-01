@@ -3,7 +3,7 @@ package live
 import aBeLibs.extensions.*
 import aBeLibs.extensions.MidiFighter.Color.BLUE
 import aBeLibs.math.Interpolator
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.rgb
 import org.openrndr.extra.noise.random
 import org.openrndr.math.Vector2
@@ -18,7 +18,7 @@ T*
  *    I can control, then keys to highlight one of those variables, then turn a knob or press a button
  */
 
-fun main() = applicationSynchronous {
+fun main() = application {
     program {
         val midi = @Description("world") object {
             var bri = 1.0

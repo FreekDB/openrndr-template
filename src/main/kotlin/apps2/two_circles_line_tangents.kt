@@ -3,7 +3,7 @@ package apps2
 import aBeLibs.geometry.*
 import aBeLibs.math.angle
 import aBeLibs.math.isAngleReflex
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.mix
 import org.openrndr.draw.DrawStyle
@@ -21,7 +21,7 @@ import org.openrndr.shape.contour
  * then added concave and convex circle tangents.
  */
 
-fun main() = applicationSynchronous {
+fun main() = application {
     program {
         val orange = mix(ColorRGBa.RED, ColorRGBa.YELLOW, 0.6)
         val styleBase = DrawStyle(

@@ -2,23 +2,23 @@ package latest
 
 import aBeLibs.data.ImageData
 import org.openrndr.KEY_ENTER
-import org.openrndr.boofcv.binding.resizeTo
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.rgba
 import org.openrndr.dialogs.saveFileDialog
-import org.openrndr.draw.*
-import org.openrndr.applicationSynchronous
-import org.openrndr.draw.loadImage
+import org.openrndr.draw.LineJoin
+import org.openrndr.draw.isolatedWithTarget
+import org.openrndr.draw.renderTarget
 import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.noise.Random
 import org.openrndr.math.*
+import org.openrndr.namedTimestamp
 import org.openrndr.shape.draw
 import org.openrndr.shape.drawComposition
 import org.openrndr.svg.saveToFile
-import org.openrndr.utils.namedTimestamp
 import kotlin.math.PI
 
-fun main() = applicationSynchronous {
+fun main() = application {
     configure {
         width = 900
         height = 900

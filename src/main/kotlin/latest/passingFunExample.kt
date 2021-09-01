@@ -1,6 +1,7 @@
 package latest
 
 import aBeLibs.extensions.ClipboardScreenshot
+import org.openrndr.application
 
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.LineJoin
@@ -12,7 +13,7 @@ import kotlin.math.PI
 import kotlin.math.pow
 import kotlin.math.sin
 
-fun main() = applicationSynchronous {
+fun main() = application {
     configure {
         width = 900
         height = 900

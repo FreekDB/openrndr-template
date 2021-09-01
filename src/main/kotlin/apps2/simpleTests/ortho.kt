@@ -1,12 +1,13 @@
 package apps2.simpleTests
 
 
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.rgb
 import org.openrndr.draw.isolatedWithTarget
 import org.openrndr.draw.renderTarget
 
-fun main() = applicationSynchronous {
+fun main() = application {
     configure {
         width = 400
         height = 200

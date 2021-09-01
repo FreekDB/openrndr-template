@@ -1,15 +1,15 @@
 package axi
 
 import aBeLibs.geometry.bend
-import aBeLibs.geometry.split
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.dialogs.saveFileDialog
 import org.openrndr.shape.drawComposition
+import org.openrndr.shape.split
 import org.openrndr.svg.loadSVG
 import org.openrndr.svg.writeSVG
 
-fun main() = applicationSynchronous {
+fun main() = application {
     configure {
         width = 1920
         height = 1080

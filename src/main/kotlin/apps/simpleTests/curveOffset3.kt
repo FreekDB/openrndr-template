@@ -4,22 +4,21 @@ import org.openrndr.*
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.isolated
 import org.openrndr.draw.loadFont
+import org.openrndr.draw.writer
 import org.openrndr.extensions.Screenshots
 import org.openrndr.math.Polar
 import org.openrndr.math.Vector2
 import org.openrndr.shape.SegmentJoin
 import org.openrndr.shape.ShapeContour
 import org.openrndr.shape.contour
-import org.openrndr.text.writer
 import org.openrndr.shape.offset
-import java.lang.Math.abs
 import kotlin.system.exitProcess
 
 /**
  * Testing recent changes to ShapeContour and .offset()
  */
 
-fun main() = applicationSynchronous {
+fun main() = application {
     configure {
         width = 1500
         height = 800

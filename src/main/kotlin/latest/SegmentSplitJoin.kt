@@ -1,6 +1,7 @@
 package latest
 
 
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.rgb
 import org.openrndr.draw.LineJoin
@@ -16,7 +17,7 @@ import org.openrndr.shape.Segment
 import org.openrndr.shape.draw
 import org.openrndr.shape.drawComposition
 
-fun main() = applicationSynchronous {
+fun main() = application {
     configure { width = 1024; height = 1024 }
 
     program {

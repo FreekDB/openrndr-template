@@ -1,7 +1,7 @@
 package latest
 
 import aBeLibs.geometry.randomPoint
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.math.Matrix44
 import org.openrndr.math.Vector2
@@ -11,7 +11,7 @@ import org.openrndr.shape.Rectangle
 import org.openrndr.shape.contains
 import org.openrndr.svg.loadSVG
 
-fun main() = applicationSynchronous {
+fun main() = application {
 
     program {
         val butterfly =

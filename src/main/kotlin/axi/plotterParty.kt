@@ -3,7 +3,7 @@ package axi
 import aBeLibs.extensions.Handwritten
 import aBeLibs.geometry.localDistortion
 import aBeLibs.geometry.softJitter
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.dialogs.saveFileDialog
 import org.openrndr.draw.LineJoin
@@ -28,7 +28,7 @@ import kotlin.math.sign
  * It worked so-so :) It's better to agree in more constrains I guess.
  */
 
-fun main() = applicationSynchronous {
+fun main() = application {
     configure {
         width = 210 * 5
         height = 148 * 5

@@ -1,7 +1,7 @@
 package apps2
 
 import aBeLibs.shadestyles.DashedLine
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.LineJoin
 import org.openrndr.math.Polar
@@ -13,7 +13,7 @@ import org.openrndr.shape.contour
  * Shows an edge case for morphing lines with segments turning 180 degrees
  */
 
-fun main() = applicationSynchronous {
+fun main() = application {
     program {
         val style = DashedLine()
         extend {

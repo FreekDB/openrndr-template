@@ -1,7 +1,7 @@
 package apps.p5
 
 import org.openrndr.WindowMultisample
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.DrawPrimitive
 import org.openrndr.draw.loadImage
@@ -11,7 +11,7 @@ import org.openrndr.extras.meshgenerators.boxMesh
 import org.openrndr.math.Vector3
 
 
-fun main() = applicationSynchronous {
+fun main() = application {
     configure {
         width = 640
         height = 360

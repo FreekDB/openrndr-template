@@ -1,15 +1,16 @@
 package latest
 
 
+import org.openrndr.application
 import org.openrndr.draw.*
 import org.openrndr.math.Vector2
 import java.io.File
 
 fun main() {
-    applicationSynchronous {
+    application {
         program {
-            val cs = ComputeShader.fromFile(File("data/shaders/cs1.glsl"),
-                "cs1")
+            val cs = ComputeShader.fromCode(File("data/shaders/cs1.glsl")
+                .readText(), "cc1")
 
             val tempBuffer = loadImage("data/images/1023px-The_Earth_seen_from_Apollo_17.jpg")
             val inputBuffer = colorBuffer(width, height)

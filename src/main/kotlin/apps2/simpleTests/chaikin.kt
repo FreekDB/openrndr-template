@@ -1,6 +1,7 @@
 package apps2.simpleTests
 
 import aBeLibs.extensions.TransRotScale
+import org.openrndr.application
 
 import org.openrndr.color.rgb
 import org.openrndr.math.chaikinSmooth
@@ -8,7 +9,7 @@ import org.openrndr.shape.Rectangle
 import org.openrndr.shape.ShapeContour
 
 
-fun main() = applicationSynchronous {
+fun main() = application {
     program {
         val lowpoly = Rectangle.fromCenter(drawer.bounds.center, 200.0)
             .contour

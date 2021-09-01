@@ -1,6 +1,6 @@
 package live
 
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.renderTarget
 import org.openrndr.draw.shadeStyle
@@ -10,7 +10,7 @@ import org.openrndr.shape.Circle
 import kotlin.math.cos
 import kotlin.math.sin
 
-fun main() = applicationSynchronous {
+fun main() = application {
     configure {
         width = 1920
         height = 1080

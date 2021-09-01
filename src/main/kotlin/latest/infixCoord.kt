@@ -1,12 +1,12 @@
 package latest
 
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.extensions.Screenshots
 import org.openrndr.math.Vector2
 import org.openrndr.shape.contour
 
-fun main() = applicationSynchronous {
+fun main() = application {
     configure {
         width = 1280
         height = 640

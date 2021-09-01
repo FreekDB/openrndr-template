@@ -4,10 +4,7 @@ import aBeLibs.extensions.TransRotScale
 import aBeLibs.geometry.circleish2
 import aBeLibs.geometry.makeParallelCurve
 import aBeLibs.geometry.symmetrizeSimple
-import org.openrndr.Fullscreen
-import org.openrndr.KEY_ENTER
-import org.openrndr.KEY_ESCAPE
-
+import org.openrndr.*
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.LineCap
 import org.openrndr.draw.LineJoin
@@ -19,18 +16,14 @@ import org.openrndr.extra.parameters.DoubleParameter
 import org.openrndr.extra.parameters.IntParameter
 import org.openrndr.extras.color.presets.WHEAT
 import org.openrndr.math.Polar
-import org.openrndr.shape.ContourIntersection
-import org.openrndr.shape.ShapeContour
-import org.openrndr.shape.draw
-import org.openrndr.shape.drawComposition
+import org.openrndr.shape.*
 import org.openrndr.svg.saveToFile
-import org.openrndr.utils.namedTimestamp
 import java.io.File
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.min
 
-fun main() = applicationSynchronous {
+fun main() = application {
     configure {
         fullscreen = Fullscreen.CURRENT_DISPLAY_MODE
     }

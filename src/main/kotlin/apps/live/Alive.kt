@@ -1,6 +1,6 @@
 package apps.live
 
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.*
 import org.openrndr.extra.fx.blur.ApproximateGaussianBlur
@@ -9,7 +9,7 @@ import org.openrndr.extra.noise.uniform
 import org.openrndr.math.Vector2
 
 fun main() {
-    applicationSynchronous {
+    application {
         configure {
             width = 1500
             height = 900

@@ -1,10 +1,10 @@
 package apps.simpleTests
 
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.math.transforms.transform
 import org.openrndr.shape.Circle
 
-fun main() = applicationSynchronous {
+fun main() = application {
     program {
 
         extend {

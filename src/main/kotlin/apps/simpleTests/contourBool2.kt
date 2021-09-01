@@ -1,7 +1,7 @@
 package apps.simpleTests
 
 import aBeLibs.kotlin.loopRepeat
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.isolated
 import org.openrndr.math.Polar
@@ -9,7 +9,7 @@ import org.openrndr.shape.Circle
 import org.openrndr.shape.Shape
 import org.openrndr.shape.compound
 
-fun main() = applicationSynchronous {
+fun main() = application {
     program {
         var shp = Circle(drawer.bounds.center, 200.0).shape
         loopRepeat(8, to = 360.0) { a ->

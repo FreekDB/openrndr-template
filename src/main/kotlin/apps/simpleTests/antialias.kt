@@ -1,13 +1,13 @@
 package apps.simpleTests
 
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.*
 import org.openrndr.extensions.Screenshots
 import org.openrndr.shape.Circle
 
 fun main() {
-    applicationSynchronous {
+    application {
         program {
             val multisample = renderTarget(width, height, multisample = BufferMultisample.SampleCount(8)) {
                 colorBuffer()

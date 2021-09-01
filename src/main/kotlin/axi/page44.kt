@@ -1,12 +1,12 @@
 package axi
 
+import aBeLibs.data.ImageData
 import aBeLibs.extensions.NoJitter
 import aBeLibs.extensions.TransRotScale
 import aBeLibs.math.cosEnv
-import aBeLibs.data.ImageData
 import org.openrndr.KEY_ENTER
 import org.openrndr.KEY_ESCAPE
-
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.dialogs.saveFileDialog
 import org.openrndr.draw.LineCap
@@ -25,7 +25,7 @@ import org.openrndr.svg.saveToFile
 
 
 fun main() {
-    applicationSynchronous {
+    application {
         configure {
             width = 1224
             height = 1024

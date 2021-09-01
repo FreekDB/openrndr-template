@@ -3,7 +3,7 @@ package axi
 import aBeLibs.geometry.localDistortion
 import org.openrndr.KEY_ESCAPE
 import org.openrndr.KEY_INSERT
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.dialogs.saveFileDialog
 import org.openrndr.extensions.Screenshots
@@ -31,7 +31,7 @@ var wordCursor = Vector2.ZERO
  * -Dopenrndr.gl3.debug=true
  */
 
-fun main() = applicationSynchronous {
+fun main() = application {
     configure {
         width = 800
         height = 800

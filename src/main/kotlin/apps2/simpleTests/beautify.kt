@@ -2,12 +2,14 @@ package apps2.simpleTests
 
 import aBeLibs.extensions.TransRotScale
 import aBeLibs.geometry.symmetrizeSimple
+import org.openrndr.application
 
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.rgb
 import org.openrndr.shape.Circle
+import org.openrndr.shape.offset
 
-fun main() = applicationSynchronous {
+fun main() = application {
     configure {
         width = 800
         height = 800

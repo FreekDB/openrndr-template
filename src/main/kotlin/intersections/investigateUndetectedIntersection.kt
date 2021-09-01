@@ -1,5 +1,5 @@
+/*
 package intersections
-
 
 import org.openrndr.color.ColorRGBa
 import org.openrndr.math.Vector2
@@ -8,7 +8,7 @@ import org.openrndr.shape.Segment
 import org.openrndr.shape.ShapeContour
 import kotlin.math.abs
 
-fun main() = applicationSynchronous {
+fun main() = application {
     configure {
         width = 1000
         height = 1000
@@ -912,3 +912,4 @@ private fun List<Double>.getRootsInInterval(
 private fun List<Double>.getRoots(): List<Double> {
     return listOf()
 }
+*/

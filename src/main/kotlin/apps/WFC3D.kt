@@ -2,7 +2,7 @@ package apps
 
 import aBeLibs.data.Array3D
 import org.openrndr.KEY_ESCAPE
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.extensions.Screenshots
 import kotlin.system.exitProcess
 
@@ -10,7 +10,7 @@ import kotlin.system.exitProcess
  * Basic template
  */
 
-fun main() = applicationSynchronous {
+fun main() = application {
     configure {
         width = 1500
         height = 800

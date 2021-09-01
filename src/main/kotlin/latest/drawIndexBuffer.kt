@@ -1,6 +1,7 @@
 package latest
 
 
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.*
 import org.openrndr.extras.color.presets.MAGENTA
@@ -23,7 +24,7 @@ Draw 2 quads with 6 vertices and 12 indices
 */
 data class Vertex(val position: Vector3, val color: ColorRGBa)
 
-fun main() = applicationSynchronous {
+fun main() = application {
     program {
         fun winPos(u: Double, v: Double) = drawer.bounds.position(u, v).xy0
 
@@ -45,10 +46,10 @@ fun main() = applicationSynchronous {
 
         // VertexBuffer
         val vb = vertexBuffer(vertexFormat {
-            attribute(Vertex::position)
-            attribute(Vertex::color)
-            //position(3)
-            //color(4)
+            //attribute(Vertex::position)
+            //attribute(Vertex::color)
+            position(3)
+            color(4)
         }, vertices.size)
 
         val x = Vertex::position

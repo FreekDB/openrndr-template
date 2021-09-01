@@ -2,6 +2,7 @@ package latest
 
 import aBeLibs.geometry.randomPoint
 import aBeLibs.geometry.symmetrize
+import org.openrndr.application
 
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.rgb
@@ -10,10 +11,7 @@ import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.noise.Random
 import org.openrndr.math.IntVector2
 import org.openrndr.math.Vector2
-import org.openrndr.shape.LineSegment
-import org.openrndr.shape.Rectangle
-import org.openrndr.shape.ShapeContour
-import org.openrndr.shape.bounds
+import org.openrndr.shape.*
 import java.lang.Double.min
 
 /**
@@ -25,7 +23,7 @@ import java.lang.Double.min
  * to show those lines when holding the left shift key down.
  */
 
-fun main() = applicationSynchronous {
+fun main() = application {
     val side = 5
     configure {
         width = 1000

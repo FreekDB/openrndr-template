@@ -2,7 +2,7 @@ package latest
 
 import org.openrndr.KEY_ENTER
 import org.openrndr.KEY_ESCAPE
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.dialogs.saveFileDialog
 import org.openrndr.extra.noise.Random
@@ -12,7 +12,7 @@ import org.openrndr.svg.saveToFile
 import kotlin.math.pow
 
 fun main() {
-    applicationSynchronous {
+    application {
         configure {
             width = 900
             height = 900

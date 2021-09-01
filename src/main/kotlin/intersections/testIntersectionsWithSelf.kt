@@ -1,6 +1,7 @@
 package intersections
 
 import aBeLibs.extensions.ClipboardScreenshot
+import org.openrndr.application
 
 import org.openrndr.color.ColorRGBa
 import org.openrndr.math.Vector2
@@ -15,7 +16,7 @@ import org.openrndr.shape.intersections
  * https://github.com/openrndr/openrndr/pull/201
  */
 
-fun main() = applicationSynchronous {
+fun main() = application {
     program {
         val b : (Double, Double) -> Vector2 = drawer.bounds::position
         val c = contour {

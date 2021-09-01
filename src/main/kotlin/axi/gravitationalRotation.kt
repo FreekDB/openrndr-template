@@ -7,7 +7,7 @@ import aBeLibs.math.angleDiff
 import org.openrndr.KEY_ENTER
 import org.openrndr.KEY_ESCAPE
 import org.openrndr.KEY_INSERT
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.dialogs.saveFileDialog
 import org.openrndr.draw.Drawer
@@ -213,7 +213,7 @@ class Thing(drawer: Drawer) {
 
 // ----------------------------------------------------------------------------
 
-fun main() = applicationSynchronous {
+fun main() = application {
     configure {
         width = 1500
         height = 1200

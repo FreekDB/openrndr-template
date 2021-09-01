@@ -4,7 +4,7 @@ import aBeLibs.extensions.NoJitter
 import aBeLibs.geometry.Human
 import aBeLibs.geometry.toContours
 import org.openrndr.KEY_ESCAPE
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.dialogs.saveFileDialog
 import org.openrndr.draw.colorBuffer
@@ -36,7 +36,7 @@ import kotlin.system.exitProcess
  * Simple BoofCV test. Loads an image, makes it black and white, gets contours
  */
 
-fun main() = applicationSynchronous {
+fun main() = application {
     configure {
         width = 1920
         height = 1080

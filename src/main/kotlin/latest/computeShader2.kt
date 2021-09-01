@@ -1,11 +1,12 @@
 package latest
 
 
+import org.openrndr.application
 import org.openrndr.draw.*
 import org.openrndr.extensions.Screenshots
 
 fun main() {
-    applicationSynchronous {
+    application {
         program {
             val triangles = 60
             val vb = vertexBuffer(

@@ -1,12 +1,12 @@
 package apps.p5
 
 import org.openrndr.Fullscreen
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.rgb
 import org.openrndr.math.Polar
 import org.openrndr.shape.Circle
 
-fun main() = applicationSynchronous {
+fun main() = application {
     configure {
         fullscreen = Fullscreen.CURRENT_DISPLAY_MODE
     }

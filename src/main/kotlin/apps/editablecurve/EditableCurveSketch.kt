@@ -3,7 +3,7 @@ package apps.editablecurve
 import aBeLibs.extensions.FPSDisplay
 import aBeLibs.extensions.NoJitter
 import org.openrndr.KEY_ESCAPE
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.dialogs.saveFileDialog
 import org.openrndr.draw.loadFont
@@ -14,7 +14,7 @@ import org.openrndr.shape.CompositionDrawer
 import org.openrndr.svg.writeSVG
 import kotlin.system.exitProcess
 
-fun main() = applicationSynchronous {
+fun main() = application {
     configure {
         width = 900
         height = 900

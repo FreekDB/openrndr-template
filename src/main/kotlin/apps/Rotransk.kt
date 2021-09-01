@@ -1,7 +1,7 @@
 package apps
 
 import org.openrndr.KEY_ESCAPE
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.math.Vector2
 import org.openrndr.shape.Rectangle
 import kotlin.system.exitProcess
@@ -25,7 +25,7 @@ import kotlin.system.exitProcess
  * - [] Make selectable rectangles
  */
 
-fun main() = applicationSynchronous {
+fun main() = application {
     configure {
         width = 768
         height = 576

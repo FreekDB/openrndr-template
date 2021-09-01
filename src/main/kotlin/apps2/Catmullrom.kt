@@ -1,7 +1,7 @@
 package apps2
 
 import aBeLibs.geometry.randomPoint
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.extensions.Screenshots
 import org.openrndr.math.CatmullRomChain2
@@ -12,7 +12,7 @@ import org.openrndr.shape.toContour
  * Interactive. Mouse position sets alpha for CatmullRom.
  */
 
-fun main() = applicationSynchronous {
+fun main() = application {
     program {
         // clockwise sorting
         val points = List(9) { drawer.bounds.randomPoint() }.sortedBy {

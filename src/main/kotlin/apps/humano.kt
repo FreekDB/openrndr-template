@@ -1,13 +1,13 @@
 package apps
 
 import aBeLibs.geometry.Human
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.DrawPrimitive
 import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.noise.Random
 
-fun main() = applicationSynchronous {
+fun main() = application {
     configure {
         width = 900
         height = 900

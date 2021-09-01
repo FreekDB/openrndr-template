@@ -1,6 +1,6 @@
 package apps2
 
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.extra.videoprofiles.PNGProfile
 import org.openrndr.ffmpeg.ScreenRecorder
 import org.openrndr.math.Vector2
@@ -8,7 +8,7 @@ import java.lang.Math.toDegrees
 import kotlin.math.PI
 import kotlin.math.sin
 
-fun main() = applicationSynchronous {
+fun main() = application {
     configure {
         width = 512
         height = 512

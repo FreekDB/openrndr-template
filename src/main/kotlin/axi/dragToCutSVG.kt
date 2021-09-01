@@ -1,8 +1,7 @@
 package axi
 
 import aBeLibs.geometry.bend
-import aBeLibs.geometry.split
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.dialogs.saveFileDialog
 import org.openrndr.extra.noise.Random
@@ -20,7 +19,7 @@ import org.openrndr.svg.writeSVG
  * The SVG is hardcoded and loaded on start.
  * After creating the cut the program asks where to save the modified SVG.
  */
-fun main() = applicationSynchronous {
+fun main() = application {
     configure {
         width = 1920
         height = 1080

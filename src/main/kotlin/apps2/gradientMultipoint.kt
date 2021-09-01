@@ -1,6 +1,6 @@
 package apps2
 
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.ColorXSVa
 import org.openrndr.extra.shadestyles.NPointGradient
@@ -13,7 +13,7 @@ import kotlin.math.sin
  * Animated closed multi-point gradient
  */
 
-fun main() = applicationSynchronous {
+fun main() = application {
     configure {
         width = 1024
         height = 1024

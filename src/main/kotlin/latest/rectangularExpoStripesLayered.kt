@@ -6,14 +6,12 @@ import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.noise.Random
 import org.openrndr.math.Vector2
 import org.openrndr.shape.*
-import org.openrndr.shape.drawComposition
 import org.openrndr.svg.saveToFile
-import org.openrndr.utils.namedTimestamp
 import java.io.File
 import kotlin.math.pow
 
 fun main() {
-    applicationSynchronous {
+    application {
         configure {
             width = 900
             height = 900

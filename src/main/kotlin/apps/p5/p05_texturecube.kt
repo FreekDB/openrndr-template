@@ -1,7 +1,7 @@
 package apps.p5
 
 import org.openrndr.WindowMultisample
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.DepthTestPass
 import org.openrndr.draw.DrawPrimitive
@@ -12,7 +12,7 @@ import org.openrndr.math.Vector2
 import org.openrndr.math.Vector3
 
 
-fun main() = applicationSynchronous {
+fun main() = application {
     configure {
         width = 640
         height = 360

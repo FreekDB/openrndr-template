@@ -2,7 +2,7 @@ package apps
 
 import org.openrndr.KEY_ESCAPE
 import org.openrndr.KEY_INSERT
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.dialogs.saveFileDialog
 import org.openrndr.draw.LineJoin
@@ -29,7 +29,7 @@ import kotlin.system.exitProcess
  * See ===> `Handwritten` class used in page3-Extinct.kt
  */
 
-fun main() = applicationSynchronous {
+fun main() = application {
     configure {
         width = 800
         height = 800

@@ -1,5 +1,5 @@
 import aBeLibs.geometry.arcContour
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.LineJoin
 import org.openrndr.extensions.Screenshots
@@ -18,7 +18,7 @@ import org.openrndr.shape.Circle
 /**
  * What about this one?
  */
-fun main() = applicationSynchronous {
+fun main() = application {
     program {
         val grid = drawer.bounds.grid(8, 6, 50.0, 50.0)
         val arcs = grid.flatten().map {

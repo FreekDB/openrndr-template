@@ -1,6 +1,6 @@
 package apps.p5
 
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.Drawer
 import org.openrndr.draw.LineCap
@@ -11,7 +11,7 @@ import org.openrndr.shape.ShapeContour
 
 // activate "orx-noise" in build.gradle.kts
 
-fun main() = applicationSynchronous {
+fun main() = application {
     configure {
         width = 500
         height = 500

@@ -2,12 +2,12 @@ package apps2.simpleTests
 
 import org.openrndr.animatable.Animatable
 import org.openrndr.animatable.easing.Easing
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.ColorHSVa
 import org.openrndr.color.ColorRGBa
 import org.openrndr.extra.noise.Random
 
-fun main() = applicationSynchronous {
+fun main() = application {
     program {
         var bg = ColorRGBa.BLACK
         val pos = object : Animatable() {

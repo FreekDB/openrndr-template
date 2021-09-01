@@ -1,7 +1,7 @@
 package apps.simpleTests
 
 import aBeLibs.geometry.variableWidthContour
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.extra.noise.Random
 import org.openrndr.math.Vector3
@@ -9,7 +9,7 @@ import kotlin.math.PI
 import kotlin.math.cos
 
 fun main() {
-    applicationSynchronous {
+    application {
         program {
             extend {
                 drawer.clear(ColorRGBa.PINK)

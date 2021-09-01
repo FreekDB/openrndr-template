@@ -2,13 +2,13 @@ package apps.p5
 
 import org.openrndr.KEY_ESCAPE
 import org.openrndr.PresentationMode
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.rgb
 import org.openrndr.extra.shadestyles.linearGradient
 import kotlin.system.exitProcess
 
-fun main() = applicationSynchronous {
+fun main() = application {
     configure {
         width = 640
         height = 360

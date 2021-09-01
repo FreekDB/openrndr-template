@@ -1,6 +1,6 @@
 import aBeLibs.extensions.FPSDisplay
 import aBeLibs.geometry.randomPoint
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.DrawPrimitive
 import org.openrndr.draw.shadeStyle
@@ -11,7 +11,7 @@ import org.openrndr.extra.noise.simplex3D
 import org.openrndr.extra.noise.withVector2Output
 
 // openrndr 0.4
-fun main() = applicationSynchronous {
+fun main() = application {
     configure {
         width = 800
         height = 800

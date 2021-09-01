@@ -1,4 +1,4 @@
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.DrawPrimitive
 import org.openrndr.draw.shadeStyle
@@ -9,7 +9,7 @@ import org.openrndr.extra.noise.Random
 import org.openrndr.math.Polar
 import org.openrndr.shape.ShapeContour
 
-fun main() = applicationSynchronous {
+fun main() = application {
     configure {
         width = 800
         height = 800

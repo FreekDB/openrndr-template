@@ -1,13 +1,13 @@
 package apps
 
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.extensions.Screenshots
 
 /**
  * Basic template
  */
 
-fun main() = applicationSynchronous {
+fun main() = application {
     program {
 
         extend(Screenshots())

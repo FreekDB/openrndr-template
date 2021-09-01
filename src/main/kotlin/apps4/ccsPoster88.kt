@@ -1,4 +1,4 @@
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.loadImage
 import org.openrndr.extensions.Screenshots
@@ -6,7 +6,7 @@ import org.openrndr.shape.IntRectangle
 import java.io.File
 import kotlin.math.max
 // OPENRNDR 0.4
-fun main() = applicationSynchronous {
+fun main() = application {
     configure {
         width = 1200
         height = 675

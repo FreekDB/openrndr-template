@@ -3,6 +3,7 @@ package latest
 import aBeLibs.data.uniquePairs
 import aBeLibs.geometry.intersections
 import aBeLibs.random.pickWeighted
+import org.openrndr.application
 
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.rgb
@@ -24,7 +25,7 @@ private data class ColoredCircle(
     )
 )
 
-fun main() = applicationSynchronous {
+fun main() = application {
     configure {
         width = 720
         height = 721

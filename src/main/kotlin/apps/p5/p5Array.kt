@@ -1,6 +1,6 @@
 package apps.p5
 
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.rgb
 import org.openrndr.extra.noclear.NoClear
 import kotlin.math.PI
@@ -10,7 +10,7 @@ import kotlin.math.cos
 // A port of a Processing example
 // https://github.com/processing/processing-docs/blob/master/content/examples/Basics/Arrays/Array/Array.pde
 
-fun main() = applicationSynchronous {
+fun main() = application {
     configure {
         width = 640
         height = 360

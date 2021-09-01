@@ -1,7 +1,7 @@
 package apps
 
 import org.openrndr.KEY_ESCAPE
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.compositor.*
@@ -21,7 +21,7 @@ import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.system.exitProcess
 
-fun main() = applicationSynchronous {
+fun main() = application {
     configure {
         width = 600
         height = 600

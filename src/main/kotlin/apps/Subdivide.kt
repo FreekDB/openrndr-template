@@ -114,7 +114,7 @@ data class Design(
 }
 
 @ExperimentalStdlibApi
-fun main() = applicationSynchronous {
+fun main() = application {
     configure {
         width = 1920
         height = 1080

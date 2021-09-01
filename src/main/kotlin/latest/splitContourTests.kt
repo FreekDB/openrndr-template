@@ -1,17 +1,15 @@
 package latest
 
 
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.hsl
 import org.openrndr.draw.isolated
 import org.openrndr.math.IntVector2
 import org.openrndr.math.Vector2
-import org.openrndr.shape.Circle
-import org.openrndr.shape.Rectangle
-import org.openrndr.shape.Segment
-import org.openrndr.shape.contour
+import org.openrndr.shape.*
 
-fun main() = applicationSynchronous {
+fun main() = application {
     configure {
         width = 1500
         height = 600

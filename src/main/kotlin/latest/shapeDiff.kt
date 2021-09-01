@@ -1,6 +1,7 @@
 package latest
 
 
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.isolated
 import org.openrndr.math.Vector2
@@ -15,7 +16,7 @@ import org.openrndr.shape.difference
  * ShapeContour (line) - Shape (circle) = ShapeContour with missing part
  */
 
-fun main() = applicationSynchronous {
+fun main() = application {
     program {
         val curve = contour {
             moveTo(Vector2.ZERO)

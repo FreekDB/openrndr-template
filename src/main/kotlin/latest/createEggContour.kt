@@ -6,7 +6,7 @@ import org.openrndr.color.ColorRGBa
 import org.openrndr.color.rgb
 import org.openrndr.draw.isolated
 import org.openrndr.extensions.Screenshots
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.extra.noise.Random
 import org.openrndr.extra.shadestyles.RadialGradient
 import org.openrndr.extra.shadestyles.radialGradient
@@ -15,6 +15,7 @@ import org.openrndr.math.Vector2
 import org.openrndr.math.transforms.transform
 import org.openrndr.shape.Rectangle
 import org.openrndr.shape.ShapeContour
+import org.openrndr.shape.contains
 
 /**
  * Falling potatoes find a good place to rest on top of other potatoes.
@@ -23,7 +24,7 @@ private val ShapeContour.center: Vector2
     get() = segments.map { it.start }
         .reduce { sum, v -> sum + v } / segments.size.toDouble()
 
-fun main() = applicationSynchronous {
+fun main() = application {
     program {
         Random.seed = System.currentTimeMillis().toString()
         val xPositions = (0 until width).map { it * 1.0 }.shuffled()

@@ -1,6 +1,6 @@
 package apps.simpleTests
 
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.dialogs.saveFileDialog
 import org.openrndr.draw.isolated
@@ -20,7 +20,7 @@ import kotlin.math.sin
  * Test simple contour cases in screen vs SVG.
  */
 
-fun main() = applicationSynchronous {
+fun main() = application {
     configure {
         width = 1100
         height = 300

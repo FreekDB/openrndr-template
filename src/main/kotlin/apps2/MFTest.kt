@@ -5,7 +5,7 @@ import aBeLibs.extensions.MFAction
 import aBeLibs.extensions.MidiFighter
 import aBeLibs.extensions.MFSigned
 import aBeLibs.extensions.MidiFighter.Color.BLUE
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.rgb
 import org.openrndr.math.Vector2
 import org.openrndr.shape.Rectangle
@@ -22,7 +22,7 @@ import kotlin.math.max
  *    I can control, then keys to highlight one of those variables, then turn a knob or press a button
  */
 
-fun main() = applicationSynchronous {
+fun main() = application {
     program {
         // 2020 08 16 - What is this dispatcher?? Maybe used also in the UI case?
         //dispatcher

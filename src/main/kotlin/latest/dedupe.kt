@@ -2,7 +2,7 @@ package latest
 
 import aBeLibs.geometry.dedupe
 import org.openrndr.KEY_SPACEBAR
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.dialogs.saveFileDialog
 import org.openrndr.shape.ClipMode
@@ -14,7 +14,7 @@ import org.openrndr.svg.saveToFile
  * after doing boolean operations on closed shapes.
  */
 fun main() {
-    applicationSynchronous {
+    application {
         program {
             val svg = drawComposition {
                 fill = null

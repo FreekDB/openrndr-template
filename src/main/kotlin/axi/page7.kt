@@ -5,10 +5,7 @@ import aBeLibs.geometry.beautify
 import aBeLibs.geometry.noisified
 import aBeLibs.geometry.smoothed
 import aBeLibs.math.semicircle
-import org.openrndr.KEY_ENTER
-import org.openrndr.KEY_ESCAPE
-import org.openrndr.KEY_INSERT
-
+import org.openrndr.*
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.LineJoin
 import org.openrndr.draw.isolated
@@ -19,9 +16,8 @@ import org.openrndr.math.Vector2
 import org.openrndr.math.mix
 import org.openrndr.shape.Segment
 import org.openrndr.shape.ShapeContour
-import org.openrndr.shape.drawComposition
+import org.openrndr.shape.offset
 import org.openrndr.svg.saveToFile
-import org.openrndr.utils.namedTimestamp
 import java.io.File
 import kotlin.math.PI
 import kotlin.math.abs
@@ -37,7 +33,7 @@ import kotlin.system.exitProcess
   From my book, pages 7 and 15.
  */
 
-fun main() = applicationSynchronous {
+fun main() = application {
     configure {
         width = 1000
         height = 1000

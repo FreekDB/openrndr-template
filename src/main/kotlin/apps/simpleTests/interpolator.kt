@@ -1,12 +1,12 @@
 package apps.simpleTests
 
 import aBeLibs.math.Interpolator
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.math.Vector2
 
 // Click to set target any time. Interpolator has inertia.
 
-fun main() = applicationSynchronous {
+fun main() = application {
     program {
         val x = Interpolator(0.0, 0.0001, 0.01, 0.25)
         val y = Interpolator(0.0, 0.0001, 0.01, 0.25)

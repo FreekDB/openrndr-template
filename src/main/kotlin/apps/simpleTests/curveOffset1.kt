@@ -2,7 +2,7 @@ package apps.simpleTests
 
 import org.openrndr.KEY_ESCAPE
 import org.openrndr.KEY_SPACEBAR
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.mix
 import org.openrndr.draw.Drawer
@@ -79,7 +79,7 @@ class Blob(private val pos: Vector2) {
 
 }
 
-fun main() = applicationSynchronous {
+fun main() = application {
     configure {
         width = 900
         height = 900

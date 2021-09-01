@@ -2,7 +2,7 @@ package apps
 
 import aBeLibs.kotlin.loopRepeat
 import aBeLibs.math.TAU
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.isolated
 import org.openrndr.math.Polar
@@ -15,7 +15,7 @@ import kotlin.math.sin
  * https://github.com/hamoid/Fun-Programming/blob/master/processing/ideas/2017/10/copycat_gears/Gear.pde
  */
 
-fun main() = applicationSynchronous {
+fun main() = application {
     configure {
         width = 500
         height = 500

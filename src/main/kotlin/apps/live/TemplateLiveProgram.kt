@@ -13,7 +13,7 @@ package apps.live
  *  instructions on using the live coding environment.
  */
 
-//fun main() = applicationSynchronous {
+//fun main() = application {
 //    configure {
 //        width = 400
 //        height = 400

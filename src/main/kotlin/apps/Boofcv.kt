@@ -3,7 +3,7 @@ package apps
 import aBeLibs.geometry.toContours
 import org.openrndr.KEY_ENTER
 import org.openrndr.KEY_ESCAPE
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.rgb
 import org.openrndr.draw.*
@@ -24,7 +24,6 @@ import org.openrndr.poissonfill.PoissonFill
 import org.openrndr.shape.Rectangle
 import org.openrndr.shape.ShapeContour
 import aBeLibs.random.pickWeighted
-import org.openrndr.applicationSynchronous
 import kotlin.math.pow
 import kotlin.system.exitProcess
 
@@ -38,7 +37,7 @@ import kotlin.system.exitProcess
  * Includes a simple GUI to control the program.
  */
 
-fun main() = applicationSynchronous {
+fun main() = application {
     configure {
         width = 1920
         height = 1080

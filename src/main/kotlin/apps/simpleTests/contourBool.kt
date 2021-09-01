@@ -6,7 +6,7 @@ import com.soywiz.korma.geom.shape.getAllPoints
 import com.soywiz.korma.geom.shape.ops.minus
 import com.soywiz.korma.geom.shape.ops.plus
 import com.soywiz.korma.geom.toPoints
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.LineJoin
 import org.openrndr.math.Polar
@@ -16,7 +16,7 @@ import org.openrndr.shape.ShapeContour
 //implementation("com.soywiz.korlibs.korma","korma-jvm","2.0.9")
 //implementation("com.soywiz.korlibs.korma","korma-shape","2.0.9")
 
-fun main() = applicationSynchronous {
+fun main() = application {
     program {
         var s1: Shape2d = Shape2d.Circle(width * 0.5, height * 0.5, 200.0, 60)
         loopRepeat (8, to = 360.0) { a ->

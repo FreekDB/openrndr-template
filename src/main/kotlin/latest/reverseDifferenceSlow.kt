@@ -1,13 +1,13 @@
 package latest
 
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.shape.Circle
 import org.openrndr.shape.ClipMode
 import org.openrndr.shape.drawComposition
 
 fun main() {
-    applicationSynchronous {
+    application {
         program {
             val sizes = listOf(40, 30, 30, 40, 30, 10, 40, 40, 30, 20, 10, 10, 30, 40, 30, 40, 30, 40, 40, 30)
             val circleShapes = List(20) {

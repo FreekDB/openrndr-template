@@ -1,7 +1,7 @@
 package apps
 
 import org.openrndr.KEY_ESCAPE
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.rgb
 import org.openrndr.draw.DrawPrimitive
 import org.openrndr.draw.isolatedWithTarget
@@ -31,7 +31,7 @@ class Animation : Keyframer() {
     //val color by RGBChannel(arrayOf("r", "g", "b"))
 }
 
-fun main() = applicationSynchronous {
+fun main() = application {
     configure {
         width = 800
         height = 800

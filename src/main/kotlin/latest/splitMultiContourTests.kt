@@ -1,14 +1,16 @@
 package latest
 
 
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.hsl
 import org.openrndr.draw.isolated
 import org.openrndr.extra.noise.uniform
 import org.openrndr.math.Vector2
 import org.openrndr.shape.Circle
+import org.openrndr.shape.split
 
-fun main() = applicationSynchronous {
+fun main() = application {
     configure {
         width = 1200
         height = 800

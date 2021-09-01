@@ -1,6 +1,6 @@
 package apps2.city
 
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.rgb
 import org.openrndr.dialogs.saveFileDialog
@@ -14,7 +14,7 @@ import org.openrndr.shape.Rectangle
 // TODO: deform grid and grid contents
 // TODO: be able to paint in the grid (city center, radial roads)
 
-fun main() = applicationSynchronous {
+fun main() = application {
     configure {
         width = 1024
         height = 1024

@@ -1,11 +1,11 @@
 package apps.simpleTests
 
 import aBeLibs.anim.Envelope
-import org.openrndr.applicationSynchronous
+import org.openrndr.application
 import org.openrndr.extra.noise.Random
 
 
-fun main() = applicationSynchronous {
+fun main() = application {
     program {
         val x = Envelope(100.0)
         val y = Envelope(100.0)
