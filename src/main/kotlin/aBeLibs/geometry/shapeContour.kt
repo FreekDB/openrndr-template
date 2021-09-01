@@ -606,7 +606,7 @@ fun MutableList<ShapeContour>.removeIntersections(margin: Double):
                         val part = parts.random(Random.rnd)
                         part.forEachIndexed { i, c ->
                             val cutLen = margin / c.length
-                            c.onAll(intersection, 1.0).forEach {
+                            c.onAll(intersection.position, 1.0).forEach {
                                 if (it < 0.2) {
                                     part[i] = c.sub(cutLen, 1.0)
                                 } else if (it > 0.8) {
