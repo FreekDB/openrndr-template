@@ -9,19 +9,19 @@ object Versions {
     var orx = defaultVersion
     var orml = defaultVersion
 
-    var openrndrUseSnapshot: Boolean = false
+    var openrndrUseSnapshot = false
         set(value) {
             field = value
             if (value) openrndr = snapshotVersion
         }
 
-    var orxUseSnapshot: Boolean = false
+    var orxUseSnapshot = false
         set(value) {
             field = value
             if (value) orx = snapshotVersion
         }
 
-    var ormlUseSnapshot: Boolean = false
+    var ormlUseSnapshot = false
         set(value) {
             field = value
             if (value) orml = snapshotVersion

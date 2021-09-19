@@ -2,6 +2,7 @@ import Versions.openrndrUseSnapshot
 import Versions.ormlUseSnapshot
 import Versions.orxUseSnapshot
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import org.gradle.accessors.dm.LibrariesForLibs
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 // The name of this project,
@@ -122,6 +123,9 @@ dependencies {
     openrndrDependencies.runtimeOnly().forEach { runtimeOnly(it) }
     openrndrDependencies.implementation().forEach { implementation(it) }
     Logging.runtimeOnly(applicationLogging).forEach { runtimeOnly(it) }
+
+    implementation(libs.bundles.openrndrImpl)
+    runtimeOnly(libs.bundles.openrndrRuntime)
 
     implementation(kotlin("stdlib-jdk8"))
     testImplementation("junit", "junit", "4.12")

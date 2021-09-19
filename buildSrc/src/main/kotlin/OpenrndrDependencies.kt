@@ -18,10 +18,6 @@ class OpenrndrDependencies(project: Project) {
         "org.openrndr.extra:$module-natives-$openrndrOs:${Versions.orx}"
 
     fun runtimeOnly() = listOfNotNull(
-        openrndr("gl3"),
-        openrndrNatives("gl3"),
-        openrndrNatives("openal"),
-
         if ("video" in openrndrFeatures)
             openrndrNatives("ffmpeg")
         else null,
@@ -36,15 +32,6 @@ class OpenrndrDependencies(project: Project) {
     )
 
     fun implementation() = listOfNotNull(
-        openrndr("openal"),
-        openrndr("application"),
-        openrndr("svg"),
-        openrndr("animatable"),
-        openrndr("extensions"),
-        openrndr("filter"),
-        "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0",
-        "io.github.microutils:kotlin-logging-jvm:2.0.6",
-
         if ("orx-olive" in orxFeatures)
             "org.jetbrains.kotlin:kotlin-script-runtime:${Versions.kotlin}"
         else null,
