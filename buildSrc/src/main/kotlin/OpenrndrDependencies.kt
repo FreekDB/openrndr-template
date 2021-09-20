@@ -6,6 +6,11 @@ class OpenrndrDependencies(project: Project) {
     lateinit var openrndrFeatures: List<String>
     lateinit var orxTensorflowBackend: String
 
+    init {
+        // Test what runs first, this or settings.gradle.kts
+        println("A")
+    }
+
     private val openrndrOs = OS.getOsString(project)
 
     private fun openrndr(module: String) =
