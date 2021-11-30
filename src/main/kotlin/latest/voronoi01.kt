@@ -40,12 +40,22 @@ fun main() {
                     points + circle.contour.equidistantPositions(40)
                 )
                 val voronoi = delaunay.voronoi(drawer.bounds.scale(0.8))
+                val contours = voronoi.cellsPolygons()
+                val centers = contours.map { contour ->
+                    contour.segments.map { it.start }.reduce { sum, element ->
+                        sum + element
+                    } / contour.segments.size.toDouble()
+                }
+                val radii = contours.mapIndexed { i, c ->
+                    c.nearest(centers[i]).position.distanceTo(centers[i])
+                }
 
                 svg.clear()
                 svg.draw {
                     fill = null
                     stroke = ColorRGBa.PINK
-                    contours(voronoi.cellsPolygons())
+                    //contours(contours)
+                    circles(centers, radii)
                 }
             }
 

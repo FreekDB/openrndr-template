@@ -3,7 +3,6 @@ package apps
 import aBeLibs.color.ColorProviderImage
 import aBeLibs.extensions.NoJitter
 import aBeLibs.fx.WideColorCorrection
-import aBeLibs.geometry.contains
 import aBeLibs.math.angleDiff
 import aBeLibs.shadestyles.Addjust
 import apps.live.treeShadowTexture
@@ -74,7 +73,12 @@ store extra info. Make a new data class? With ShapeContour + ColorRGBa?
 
 enum class Cuts { THREE, FOUR, FIVE, SEVEN }
 
-val angles = mapOf(Cuts.THREE to 360.0 / 3, Cuts.FOUR to 360.0 / 4, Cuts.FIVE to 360.0 / 5, Cuts.SEVEN to 360.0 / 7)
+val angles = mapOf(
+    Cuts.THREE to 360.0 / 3,
+    Cuts.FOUR to 360.0 / 4,
+    Cuts.FIVE to 360.0 / 5,
+    Cuts.SEVEN to 360.0 / 7
+)
 
 /**
  * A ShapeContour with a colorOffset
@@ -183,13 +187,15 @@ fun main() = application {
             @DoubleParameter("radius", 0.0, 600.0, precision = 0)
             var colorRadius = 100.0
 
-            @ActionParameter("randomize") @Suppress("unused")
+            @ActionParameter("randomize")
+            @Suppress("unused")
             fun colorChange() {
                 design.colors.reset()
                 dirty = true
             }
 
-            @ActionParameter("Load") @Suppress("unused")
+            @ActionParameter("Load")
+            @Suppress("unused")
             fun load() {
                 openFileDialog(supportedExtensions = listOf("JPG", "jpg")) {
                     design.colors.imgPath = it.absolutePath
@@ -204,12 +210,14 @@ fun main() = application {
             @OptionParameter("Subdivisions")
             var cuts = Cuts.THREE
 
-            @ActionParameter("Screenshot") @Suppress("unused")
+            @ActionParameter("Screenshot")
+            @Suppress("unused")
             fun takeScreenshot() {
                 screenshot.trigger()
             }
 
-            @ActionParameter("Save") @Suppress("unused")
+            @ActionParameter("Save")
+            @Suppress("unused")
             fun doSave() {
                 saveFileDialog(supportedExtensions = listOf("json")) {
                     design.guiState = gui.toObject()
@@ -219,7 +227,8 @@ fun main() = application {
                 }
             }
 
-            @ActionParameter("Load") @Suppress("unused")
+            @ActionParameter("Load")
+            @Suppress("unused")
             fun doLoad() {
                 openFileDialog(supportedExtensions = listOf("json")) {
                     val gson = Gson()
@@ -231,7 +240,8 @@ fun main() = application {
                 }
             }
 
-            @ActionParameter("Clear") @Suppress("unused")
+            @ActionParameter("Clear")
+            @Suppress("unused")
             fun clear() {
                 clear()
             }
@@ -241,7 +251,11 @@ fun main() = application {
             return angles.getOrDefault(generalParams.cuts, 180.0)
         }
 
-        fun doSplit(pos: Vector2, angle: Double = Random.double0(360 / angleInc()).toInt() * angleInc()) {
+        fun doSplit(
+            pos: Vector2,
+            angle: Double = Random.double0(360 / angleInc())
+                .toInt() * angleInc()
+        ) {
             val off = Polar(angle, 3000.0).cartesian
             val victim = design.pieces.firstOrNull { it.shape.contains(pos) }
             if (victim != null) {
@@ -251,9 +265,13 @@ fun main() = application {
                 if (parts[0].segments.isNotEmpty()) {
                     undo.add(victim)
                     design.pieces.remove(victim)
-                    design.pieces.add(Piece(parts[0].close, victim.colorOffset))
-                    design.pieces.add(Piece(parts[1].close,
-                        (victim.colorOffset + 1) % 360))
+                    design.pieces.add(Piece(parts[0].close(), victim.colorOffset))
+                    design.pieces.add(
+                        Piece(
+                            parts[1].close(),
+                            (victim.colorOffset + 1) % 360
+                        )
+                    )
                 }
                 dirty = true
             }
@@ -289,7 +307,8 @@ fun main() = application {
                 drawer.isolatedWithTarget(bufGradients) {
                     stroke = null
                     design.pieces.forEach { piece ->
-                        val rgb = design.colors.getColor(piece.colorOffset + colorParams.colorShift)
+                        val rgb =
+                            design.colors.getColor(piece.colorOffset + colorParams.colorShift)
                         val longest = piece.shape.longest()
                         val dir = longest.direction()
                         gradient.apply {
@@ -302,10 +321,19 @@ fun main() = application {
                         drawer.contour(piece.shape)
                     }
                 }
-                colorCorrection.apply(bufGradients.colorBuffer(0), bufColorCorrected)
+                colorCorrection.apply(
+                    bufGradients.colorBuffer(0),
+                    bufColorCorrected
+                )
                 blur.apply(bufColorCorrected, bufBlurred)
-                add.apply(arrayOf(bufGradients.colorBuffer(0), bufBlurred), bufGradientsBlurred)
-                addjust.apply(arrayOf(bufGradientsBlurred, design.lightTexture), bufFinal)
+                add.apply(
+                    arrayOf(bufGradients.colorBuffer(0), bufBlurred),
+                    bufGradientsBlurred
+                )
+                addjust.apply(
+                    arrayOf(bufGradientsBlurred, design.lightTexture),
+                    bufFinal
+                )
 
                 dirty = false
             }
@@ -326,7 +354,12 @@ fun main() = application {
                 drawer.fill = null
                 drawer.stroke = ColorRGBa.WHITE
                 drawer.circle(drawer.bounds.center, design.colors.radius)
-                drawer.circle(drawer.bounds.center + Polar(showColorOffset, design.colors.radius).cartesian, 10.0)
+                drawer.circle(
+                    drawer.bounds.center + Polar(
+                        showColorOffset,
+                        design.colors.radius
+                    ).cartesian, 10.0
+                )
             }
             if (keyboard.pressedKeys.contains("left-alt")) {
                 val w = width * 0.2
@@ -342,7 +375,8 @@ fun main() = application {
         mouse.buttonDown.listen { event ->
             validDrag = !event.propagationCancelled
             totalDrag = Vector2.ZERO
-            targetPiece = design.pieces.firstOrNull { it.shape.contains(event.position) }
+            targetPiece =
+                design.pieces.firstOrNull { it.shape.contains(event.position) }
         }
         mouse.dragged.listen { event ->
             totalDrag += event.dragDisplacement
@@ -356,7 +390,10 @@ fun main() = application {
         }
         mouse.buttonUp.listen { event ->
             // avoid UI panel
-            if (validDrag && event.button == MouseButton.LEFT && !keyboard.pressedKeys.contains("left-shift")) {
+            if (validDrag && event.button == MouseButton.LEFT && !keyboard.pressedKeys.contains(
+                    "left-shift"
+                )
+            ) {
                 val requested = Polar.fromVector(totalDrag).theta
                 val opposite = requested + 180
 
