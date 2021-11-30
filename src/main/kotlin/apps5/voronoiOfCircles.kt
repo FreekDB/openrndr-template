@@ -113,7 +113,7 @@ fun main() = application {
                         gradient2.color0 = color.shade(random(1.0, 1.2))
                         gradient2.color1 = color.shade(random(0.25, 0.35))
                         shadeStyle = gradient2
-                        circle(c.scaledBy(0.5, 2.0, 2.0))
+                        circle(c.scaledBy(0.5))
                     }
                 }
             }
