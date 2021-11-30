@@ -1,9 +1,7 @@
 package axi
 
-import aBeLibs.geometry.circleish
 import aBeLibs.random.rnd
-import aBeLibs.svg.Pattern
-import aBeLibs.svg.fill
+import aBeLibs.geometry.circleish
 import org.openrndr.KEY_ENTER
 import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
@@ -16,6 +14,8 @@ import org.openrndr.math.map
 import org.openrndr.namedTimestamp
 import org.openrndr.shape.drawComposition
 import org.openrndr.svg.saveToFile
+import aBeLibs.svg.Pattern
+import aBeLibs.svg.fill
 import java.io.File
 
 fun main() = application {

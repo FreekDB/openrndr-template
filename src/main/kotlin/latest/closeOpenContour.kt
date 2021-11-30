@@ -18,7 +18,7 @@ fun main() = application {
     program {
         val square = Rectangle.fromCenter(drawer.bounds.center, 200.0).contour
         val knife = LineSegment(Vector2.ZERO, drawer.bounds.dimensions).contour
-        val result = (square / knife).map { it.close }
+        val result = (square / knife).map { it.close() }
         extend(Screenshots())
         extend {
             drawer.apply {

@@ -4,14 +4,13 @@ import aBeLibs.color.ColorProviderImage
 import aBeLibs.extensions.NoJitter
 import aBeLibs.fx.WideColorCorrection
 import aBeLibs.geometry.contains
-import aBeLibs.geometry.longest
 import aBeLibs.math.angleDiff
 import aBeLibs.shadestyles.Addjust
-import aBeLibs.shadestyles.PerpendicularGradient
 import apps.live.treeShadowTexture
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
+import aBeLibs.geometry.longest
 import org.openrndr.*
 import org.openrndr.color.ColorRGBa
 import org.openrndr.dialogs.openFileDialog
@@ -29,6 +28,7 @@ import org.openrndr.extra.parameters.OptionParameter
 import org.openrndr.math.Polar
 import org.openrndr.math.Vector2
 import org.openrndr.shape.*
+import aBeLibs.shadestyles.PerpendicularGradient
 import kotlin.math.abs
 import kotlin.math.atan2
 import kotlin.math.roundToLong

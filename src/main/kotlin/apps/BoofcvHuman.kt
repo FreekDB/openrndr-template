@@ -5,8 +5,6 @@ import aBeLibs.geometry.Human
 import aBeLibs.geometry.toContours
 import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
-import org.openrndr.boofcv.binding.toGrayF32
-import org.openrndr.boofcv.binding.toVector2s
 import org.openrndr.color.ColorRGBa
 import org.openrndr.dialogs.saveFileDialog
 import org.openrndr.draw.colorBuffer
@@ -190,29 +188,34 @@ fun main() = application {
         }
 
         val actions = @Description("Actions") object {
-            @ActionParameter("new image") @Suppress("unused")
+            @ActionParameter("new image")
+            @Suppress("unused")
             fun doNew() {
                 Random.seed = mouse.position.toString()
                 contours.clear()
                 newImage()
             }
 
-            @ActionParameter("bw") @Suppress("unused")
+            @ActionParameter("bw")
+            @Suppress("unused")
             fun doBW() {
                 showBW = !showBW
             }
 
-            @ActionParameter("to curves") @Suppress("unused")
+            @ActionParameter("to curves")
+            @Suppress("unused")
             fun doCreateContours() {
                 toCurves()
             }
 
-            @ActionParameter("screenshot") @Suppress("unused")
+            @ActionParameter("screenshot")
+            @Suppress("unused")
             fun doScreenshot() {
                 screenshots.trigger()
             }
 
-            @ActionParameter("save svg") @Suppress("unused")
+            @ActionParameter("save svg")
+            @Suppress("unused")
             fun doSaveSVG() {
                 exportSVG()
             }

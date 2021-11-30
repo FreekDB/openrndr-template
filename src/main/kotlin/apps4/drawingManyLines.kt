@@ -1,3 +1,5 @@
+package apps4
+
 import aBeLibs.extensions.FPSDisplay
 import aBeLibs.geometry.randomPoint
 import org.openrndr.application

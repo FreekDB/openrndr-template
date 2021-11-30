@@ -1,8 +1,8 @@
 package live
 
-import aBeLibs.extensions.*
 import aBeLibs.extensions.MidiFighter.Color.BLUE
 import aBeLibs.math.Interpolator
+import aBeLibs.extensions.*
 import org.openrndr.application
 import org.openrndr.color.rgb
 import org.openrndr.extra.noise.random

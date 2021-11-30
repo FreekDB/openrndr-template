@@ -1,6 +1,6 @@
 package apps.simpleTests
 
-import aBeLibs.kotlin.loopRepeat
+import aBeLibs.lang.loopRepeat
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.isolated

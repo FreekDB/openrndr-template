@@ -1,6 +1,6 @@
 package apps
 
-import aBeLibs.kotlin.loopRepeat
+import aBeLibs.lang.loopRepeat
 import aBeLibs.math.TAU
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa

@@ -21,7 +21,7 @@ fun main() = application {
             drawer.fill = ColorRGBa.PINK
             program.keyboard.pressedKeys.forEach { s ->
 //                if(s.length == 1) {
-                    val n = s[0].toByte()
+                    val n = s[0].code.toByte()
                     drawer.text(s,
                         10.0 + (n * 777.0) % (width - 50.0),
                         height - 10.0 - (n * 352.0) % (height - 40.0))

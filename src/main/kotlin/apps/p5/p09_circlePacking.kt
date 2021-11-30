@@ -2,7 +2,6 @@ package apps.p5
 
 import aBeLibs.random.pickWeighted
 import org.openrndr.application
-import org.openrndr.color.ColorRGBa
 import org.openrndr.color.hsl
 import org.openrndr.color.rgb
 import org.openrndr.draw.circleBatch

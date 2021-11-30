@@ -1,16 +1,17 @@
 package latest
 
-import aBeLibs.geometry.circleish
 import aBeLibs.random.pickWeighted
+import aBeLibs.geometry.circleish
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.rgb
 import org.openrndr.draw.isolated
 import org.openrndr.extensions.Screenshots
-import org.openrndr.application
 import org.openrndr.extra.noise.Random
 import org.openrndr.extra.shadestyles.RadialGradient
 import org.openrndr.extra.shadestyles.radialGradient
-import org.openrndr.extras.color.presets.*
+import org.openrndr.extras.color.presets.LAVENDER
+import org.openrndr.extras.color.presets.ORCHID
 import org.openrndr.math.Vector2
 import org.openrndr.math.transforms.transform
 import org.openrndr.shape.Rectangle
@@ -35,7 +36,7 @@ fun main() = application {
         )
         val gradient: RadialGradient = radialGradient(
             ColorRGBa.ORCHID, ColorRGBa.LAVENDER
-        ) as RadialGradient
+        )
 
         fun makeShape() = circleish(
             Vector2.ZERO,

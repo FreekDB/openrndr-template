@@ -116,7 +116,7 @@ fun main() = application {
 | It is also inconceivable that it did not have a beginning . 
 | Thoughts of this kind are not disturbing to sanity , 
 | which is obviously a remarkable phenomenon 
-| that deserves more recognition .""".trimMargin().toLowerCase()
+| that deserves more recognition .""".trimMargin().lowercase()
 
 //    """have most of the important
 //      | things been said already ?

@@ -22,7 +22,7 @@ import org.openrndr.svg.saveToFile
 
 /**
  * A simple *test* seems to **work**
- * ![thumbnail](../docs/a.png)
+ * ![thumbnail](../a.png)
  */
 fun main() {
     application {

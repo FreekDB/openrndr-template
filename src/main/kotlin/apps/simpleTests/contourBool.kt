@@ -1,6 +1,6 @@
 package apps.simpleTests
 
-import aBeLibs.kotlin.loopRepeat
+import aBeLibs.lang.loopRepeat
 import com.soywiz.korma.geom.shape.Shape2d
 import com.soywiz.korma.geom.shape.getAllPoints
 import com.soywiz.korma.geom.shape.ops.minus

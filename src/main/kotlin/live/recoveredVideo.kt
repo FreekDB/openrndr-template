@@ -1,7 +1,6 @@
 package live
 
 import org.openrndr.application
-import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.renderTarget
 import org.openrndr.draw.shadeStyle
 import org.openrndr.extra.fx.blur.BoxBlur

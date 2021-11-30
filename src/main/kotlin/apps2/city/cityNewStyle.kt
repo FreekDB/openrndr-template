@@ -1,7 +1,6 @@
 package apps2.city
 
 import aBeLibs.random.sign
-import aBeLibs.geometry.intersects
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.extensions.Screenshots

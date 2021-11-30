@@ -7,7 +7,6 @@ import org.openrndr.draw.LineJoin
 import org.openrndr.extensions.Screenshots
 import org.openrndr.math.Vector2
 import org.openrndr.shape.Rectangle
-import org.openrndr.shape.contour
 import org.openrndr.shape.draw
 import org.openrndr.shape.drawComposition
 

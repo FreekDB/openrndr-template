@@ -7,11 +7,8 @@ import org.openrndr.color.rgb
 import org.openrndr.draw.LineJoin
 import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.noise.Random
-import org.openrndr.extra.shadestyles.RadialGradient
 import org.openrndr.extra.shadestyles.radialGradient
 import org.openrndr.extras.color.presets.CORNFLOWER_BLUE
-import org.openrndr.extras.color.presets.LAVENDER
-import org.openrndr.extras.color.presets.ORCHID
 import org.openrndr.math.Polar
 import org.openrndr.shape.Segment
 import org.openrndr.shape.draw

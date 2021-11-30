@@ -2,7 +2,6 @@ package apps.simpleTests
 
 import aBeLibs.math.Interpolator
 import org.openrndr.application
-import org.openrndr.math.Vector2
 
 // Click to set target any time. Interpolator has inertia.
 
