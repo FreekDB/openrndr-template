@@ -1,10 +1,8 @@
+
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
-import org.openrndr.draw.loadFont
 import org.openrndr.draw.loadImage
-import org.openrndr.draw.tint
-import kotlin.math.cos
-import kotlin.math.sin
+import org.openrndr.writer
 
 fun main() = application {
     configure {
@@ -14,18 +12,24 @@ fun main() = application {
 
     program {
         val image = loadImage("data/images/pm5544.png")
-        val font = loadFont("data/fonts/default.otf", 64.0)
+        //val font = loadFont("data/fonts/default.otf", 64.0)
 
         extend {
-            drawer.drawStyle.colorMatrix = tint(ColorRGBa.WHITE.shade(0.2))
-            drawer.image(image)
+            //drawer.drawStyle.colorMatrix = tint(ColorRGBa.WHITE.shade(0.2))
+            //drawer.image(image)
 
-            drawer.fill = ColorRGBa.PINK
-            drawer.circle(cos(seconds) * width / 2.0 + width / 2.0, sin(0.5 * seconds) * height / 2.0 + height / 2.0, 140.0)
+            //drawer.fill = ColorRGBa.PINK
+            //drawer.circle(cos(seconds) * width / 2.0 + width / 2.0, sin(0.5 * seconds) * height / 2.0 + height / 2.0, 140.0)
 
-            drawer.fontMap = font
+            //drawer.fontMap = font
             drawer.fill = ColorRGBa.WHITE
-            drawer.text("OPENRNDR", width / 2.0, height / 2.0)
+            //drawer.text("OPENRNDR", width / 2.0, height / 2.0)
+
+            writer {
+                text("Here is a line of text..")
+                newLine()
+                text("Here is another line of text..")
+            }
         }
     }
 }
