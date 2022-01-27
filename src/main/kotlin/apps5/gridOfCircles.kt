@@ -11,6 +11,7 @@ import org.openrndr.extra.noise.Random
 import org.openrndr.extra.noise.random
 import org.openrndr.extra.palette.PaletteStudio
 import org.openrndr.extra.shadestyles.RadialGradient
+import org.openrndr.extra.shapes.grid
 import org.openrndr.math.Vector2
 import kotlin.system.exitProcess
 
@@ -34,15 +35,17 @@ fun main() = application {
         fun makeIt() {
             palettes.randomPalette()
             palettes.randomize()
-            val colorWeights = List(palettes.colors.size) { if(it > 0) 1.0
-                else 20.0 }
+            val colorWeights = List(palettes.colors.size) {
+                if (it > 0) 1.0
+                else 20.0
+            }
             val sizes = listOf(10.0, 13.0, 25.0, 35.0)
             val sizeWeight = listOf(1.0, 2.0, 4.0, 8.0).shuffled()
             drawer.isolatedWithTarget(layer) {
                 clear(palettes.background)
                 stroke = null
-                repeat(8) { x ->
-                    repeat(8) { y ->
+                drawer.bounds.grid(7, 7, 150.0, 150.0).flatten()
+                    .forEach { rect ->
                         val color =
                             palettes.colors.randomWithWeights(colorWeights)
                                 .shade(random(0.8, 1.05))
@@ -61,18 +64,16 @@ fun main() = application {
                             it.exponent = 6.0
                             it.offset = Vector2(-0.1, -0.1)
                         }
-                        val pos = bounds.offsetEdges(-150.0).position(
-                            x / 7.0, y / 7.0
-                        )
-                        if(Random.bool(0.95)) {
+
+                        if (Random.bool(0.95)) {
                             shadeStyle = gradient1
                             val r = sizes.randomWithWeights(sizeWeight)
-                            circle(pos, r)
+                            circle(rect.center, r)
                             shadeStyle = gradient2
-                            circle(pos, r / 2)
+                            circle(rect.center, r / 2)
                         }
                     }
-                }
+
             }
         }
 

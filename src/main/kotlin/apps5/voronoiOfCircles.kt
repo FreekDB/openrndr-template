@@ -47,8 +47,8 @@ fun main() = application {
 
                 val circle = Circle(drawer.bounds.center, width * 0.32)
                 val points = poissonDiskSampling(
-                    width * 1.0, height * 1.0, 15.0
-                ) { _, _, v ->
+                    drawer.bounds, 15.0
+                ) { v ->
                     val perturb = gradientPerturbFractal(
                         seconds.toInt(),
                         position = v * 0.008

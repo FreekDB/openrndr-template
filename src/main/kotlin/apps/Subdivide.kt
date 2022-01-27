@@ -132,14 +132,18 @@ fun main() = application {
         var targetPiece: Piece? = null
         val undo = mutableListOf<Piece>()
         var dirty = false
-        val bufGradients = renderTarget(width, height) {
+
+        // Textures
+        val drawLayer = renderTarget(width, height) {
             colorBuffer(ColorFormat.RGBa, ColorType.FLOAT32)
             depthBuffer()
         }
-        val bufColorCorrected = bufGradients.colorBuffer(0).createEquivalent()
+        val bufColorCorrected = drawLayer.colorBuffer(0).createEquivalent()
         val bufBlurred = bufColorCorrected.createEquivalent()
         val bufGradientsBlurred = bufColorCorrected.createEquivalent()
         val bufFinal = bufColorCorrected.createEquivalent()
+
+        // Effects
         val colorCorrection = WideColorCorrection().apply {
             brightness = -0.5
             contrast = 1.0
@@ -152,13 +156,15 @@ fun main() = application {
             window = 25
             gain = 1.1
         }
+        val add = Add()
+        val addjust = Addjust()
+
         val gradient = PerpendicularGradient(
             ColorRGBa.BLACK, ColorRGBa.WHITE,
             offset = Vector2.ZERO,
             exponent = 0.7
         )
-        val add = Add()
-        val addjust = Addjust()
+
         val screenshot = Screenshots()
         var design = Design(
             "data/images/scratched-and-scraped-metal-texture-12.jpg",
@@ -304,7 +310,7 @@ fun main() = application {
             design.colors.radius = colorParams.colorRadius
 
             if (dirty || frameCount == 5) {
-                drawer.isolatedWithTarget(bufGradients) {
+                drawer.isolatedWithTarget(drawLayer) {
                     stroke = null
                     design.pieces.forEach { piece ->
                         val rgb =
@@ -322,12 +328,12 @@ fun main() = application {
                     }
                 }
                 colorCorrection.apply(
-                    bufGradients.colorBuffer(0),
+                    drawLayer.colorBuffer(0),
                     bufColorCorrected
                 )
                 blur.apply(bufColorCorrected, bufBlurred)
                 add.apply(
-                    arrayOf(bufGradients.colorBuffer(0), bufBlurred),
+                    arrayOf(drawLayer.colorBuffer(0), bufBlurred),
                     bufGradientsBlurred
                 )
                 addjust.apply(
@@ -364,7 +370,7 @@ fun main() = application {
             if (keyboard.pressedKeys.contains("left-alt")) {
                 val w = width * 0.2
                 val h = height * 0.2
-                drawer.image(bufGradients.colorBuffer(0), w * 2, h * 3, w, h)
+                drawer.image(drawLayer.colorBuffer(0), w * 2, h * 3, w, h)
                 drawer.image(bufColorCorrected, w * 3, h * 3, w, h)
                 drawer.image(bufBlurred, w * 4, h * 3, w, h)
             }
