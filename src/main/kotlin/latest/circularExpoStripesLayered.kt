@@ -11,7 +11,7 @@ import org.openrndr.shape.*
 import org.openrndr.svg.saveToFile
 import kotlin.math.pow
 
-fun main() {
+fun main() =
     application {
         configure {
             width = 900
@@ -49,7 +49,7 @@ fun main() {
 
         }
     }
-}
+
 
 private fun Shape.addStripes(num: Int): Composition {
     val shape = this

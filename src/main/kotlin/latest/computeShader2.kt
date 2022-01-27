@@ -5,7 +5,7 @@ import org.openrndr.application
 import org.openrndr.draw.*
 import org.openrndr.extensions.Screenshots
 
-fun main() {
+fun main() =
     application {
         program {
             val triangles = 60
@@ -70,4 +70,3 @@ fun main() {
             }
         }
     }
-}

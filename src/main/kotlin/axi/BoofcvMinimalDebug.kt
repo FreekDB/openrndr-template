@@ -14,7 +14,7 @@ import org.openrndr.shape.drawComposition
  * Test. SVG not showing contours for some reason
  */
 
-fun main() {
+fun main() =
     application {
         program {
             val svg = drawComposition { }
@@ -46,4 +46,3 @@ fun main() {
             }
         }
     }
-}

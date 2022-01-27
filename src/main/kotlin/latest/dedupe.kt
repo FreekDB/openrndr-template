@@ -13,7 +13,7 @@ import org.openrndr.svg.saveToFile
  * An example calling svg.dedupe() to remove duplicate segments
  * after doing boolean operations on closed shapes.
  */
-fun main() {
+fun main() =
     application {
         program {
             val svg = drawComposition {
@@ -36,4 +36,3 @@ fun main() {
             }
         }
     }
-}

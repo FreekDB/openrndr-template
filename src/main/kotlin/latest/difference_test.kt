@@ -6,7 +6,7 @@ import org.openrndr.shape.compound
 
 data class Vec2(val x: Double, val y: Double)
 
-fun main() {
+fun main() =
     application {
         program {
             configure {
@@ -30,4 +30,4 @@ fun main() {
             }
         }
     }
-}
+

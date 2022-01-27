@@ -8,7 +8,7 @@ import org.openrndr.shape.Circle
 import org.openrndr.shape.Rectangle
 import kotlin.math.sin
 
-fun main() {
+fun main() =
     application {
         program {
             val circle = Circle(0.0, 0.0, 10.0)
@@ -38,4 +38,3 @@ fun main() {
             }
         }
     }
-}

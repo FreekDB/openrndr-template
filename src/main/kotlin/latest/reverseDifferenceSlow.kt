@@ -6,7 +6,7 @@ import org.openrndr.shape.Circle
 import org.openrndr.shape.ClipMode
 import org.openrndr.shape.drawComposition
 
-fun main() {
+fun main() =
     application {
         program {
             val sizes = listOf(40, 30, 30, 40, 30, 10, 40, 40, 30, 20, 10, 10, 30, 40, 30, 40, 30, 40, 40, 30)
@@ -30,4 +30,4 @@ fun main() {
             }
         }
     }
-}
+

@@ -9,7 +9,7 @@ import org.openrndr.shape.Circle
 import org.openrndr.shape.ShapeContour
 import org.openrndr.shape.contains
 
-fun main() {
+fun main() =
     application {
         program {
             val poissonArea = Vector2(200.0, 200.0)
@@ -38,4 +38,3 @@ fun main() {
             }
         }
     }
-}

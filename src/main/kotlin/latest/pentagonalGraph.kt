@@ -24,7 +24,7 @@ import org.openrndr.svg.saveToFile
  * A simple *test* seems to **work**
  * ![thumbnail](../a.png)
  */
-fun main() {
+fun main() =
     application {
         configure {
             width = 900
@@ -108,5 +108,4 @@ fun main() {
             }
         }
     }
-}
 

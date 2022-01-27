@@ -19,12 +19,12 @@ import org.openrndr.shape.*
 import org.openrndr.svg.saveToFile
 import java.io.File
 
-fun main() {
     fun circleish(pos: Vector2, radius: Double): ShapeContour =
         CatmullRomChain2(List(5) { it * 72.0 + Random.double0(30.0) }.map {
             Polar(it, radius).cartesian + pos
         }, 0.5, true).toContour()
 
+fun main() =
     application {
         configure {
             width = 1500
@@ -167,4 +167,3 @@ fun main() {
 
         }
     }
-}

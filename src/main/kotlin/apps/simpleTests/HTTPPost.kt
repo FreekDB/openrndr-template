@@ -10,7 +10,7 @@ import java.net.http.HttpResponse.BodyHandlers
 import java.time.Duration
 
 
-fun main() {
+fun main() =
     application {
         configure {
             height = 80
@@ -45,4 +45,4 @@ fun main() {
             }
         }
     }
-}
+

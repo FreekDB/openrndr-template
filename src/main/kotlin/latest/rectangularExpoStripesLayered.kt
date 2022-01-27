@@ -10,7 +10,7 @@ import org.openrndr.svg.saveToFile
 import java.io.File
 import kotlin.math.pow
 
-fun main() {
+fun main() =
     application {
         configure {
             width = 900
@@ -74,7 +74,7 @@ fun main() {
 
         }
     }
-}
+
 
 private infix fun Double.rnd(max: Double) = Random.double(this, max)
 private infix fun Int.rnd(max: Int) = Random.int(this, max)

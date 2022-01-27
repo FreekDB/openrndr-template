@@ -8,7 +8,7 @@ import org.openrndr.draw.isolatedWithTarget
 import org.openrndr.draw.renderTarget
 import org.openrndr.math.Vector2
 
-fun main() {
+fun main() =
     application {
         program {
             // -- build a render target with a single color buffer attachment
@@ -41,4 +41,3 @@ fun main() {
             }
         }
     }
-}

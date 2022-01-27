@@ -24,13 +24,12 @@ import org.openrndr.shape.*
 import org.openrndr.svg.saveToFile
 
 
-fun main() {
-    application {
-        configure {
-            width = 1224
-            height = 1024
-            title = stackRootClassName()
-        }
+fun main() = application {
+    configure {
+        width = 1224
+        height = 1024
+        title = stackRootClassName()
+    }
 
         program {
             Random.seed = System.currentTimeMillis().toString()

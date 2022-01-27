@@ -6,7 +6,7 @@ import org.openrndr.draw.*
 import org.openrndr.math.Vector2
 import java.io.File
 
-fun main() {
+fun main() =
     application {
         program {
             val cs = ComputeShader.fromCode(File("data/shaders/cs1.glsl")
@@ -28,4 +28,3 @@ fun main() {
             }
         }
     }
-}

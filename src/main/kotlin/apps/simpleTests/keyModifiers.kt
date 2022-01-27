@@ -2,7 +2,7 @@ package apps.simpleTests
 
 import org.openrndr.application
 
-fun main() {
+fun main() =
     application {
         program {
             mouse.dragged.listen {
@@ -10,4 +10,3 @@ fun main() {
             }
         }
     }
-}

@@ -14,7 +14,7 @@ import org.openrndr.shape.draw
 import org.openrndr.shape.drawComposition
 import org.openrndr.svg.saveToFile
 
-fun main() {
+fun main() =
     application {
         program {
             Random.seed = System.nanoTime().toString()
@@ -54,4 +54,4 @@ fun main() {
             }
         }
     }
-}
+

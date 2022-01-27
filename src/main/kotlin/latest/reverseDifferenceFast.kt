@@ -10,7 +10,7 @@ import org.openrndr.shape.ClipMode
 import org.openrndr.shape.drawComposition
 import org.openrndr.svg.saveToFile
 
-fun main() {
+fun main() =
     application {
         program {
             val circleShapes = List(20) {
@@ -44,4 +44,4 @@ fun main() {
             }
         }
     }
-}
+

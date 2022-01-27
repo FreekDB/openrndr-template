@@ -16,7 +16,7 @@ import org.openrndr.shape.drawComposition
 import org.openrndr.svg.saveToFile
 import java.io.File
 
-fun main() {
+fun main() =
     application {
         configure {
             width = 900
@@ -80,4 +80,4 @@ fun main() {
             }
         }
     }
-}
+

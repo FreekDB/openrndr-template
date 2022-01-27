@@ -8,7 +8,7 @@ import org.openrndr.math.Vector3
 import kotlin.math.PI
 import kotlin.math.cos
 
-fun main() {
+fun main() =
     application {
         program {
             extend {
@@ -28,4 +28,3 @@ fun main() {
             }
         }
     }
-}

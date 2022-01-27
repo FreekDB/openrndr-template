@@ -8,7 +8,7 @@ import org.openrndr.extra.noise.Random
 import org.openrndr.extra.noise.uniform
 import org.openrndr.math.Vector2
 
-fun main() {
+fun main() =
     application {
         configure {
             width = 1500
@@ -25,7 +25,7 @@ fun main() {
             }
         }
     }
-}
+
 
 fun treeShadowTexture(drawer: Drawer, width: Int, height: Int): ColorBuffer {
     val rt = renderTarget(width, height) {

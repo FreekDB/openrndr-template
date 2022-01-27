@@ -6,7 +6,7 @@ import org.openrndr.draw.*
 import org.openrndr.extensions.Screenshots
 import org.openrndr.shape.Circle
 
-fun main() {
+fun main() =
     application {
         program {
             val multisample = renderTarget(width, height, multisample = BufferMultisample.SampleCount(8)) {
@@ -31,7 +31,7 @@ fun main() {
             }
         }
     }
-}
+
 
 private fun Drawer.drawCircle(fill: ColorRGBa?, stroke: ColorRGBa?, radius: Double, pos: List<Double>) {
     this.fill = fill
