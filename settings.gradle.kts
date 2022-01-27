@@ -1,16 +1,16 @@
 enableFeaturePreview("VERSION_CATALOGS")
 rootProject.name = "openrndr-template"
 
-val openrndrUseSnapshot = false
-val orxUseSnapshot = false
+val openrndrUseSnapshot = true
+val orxUseSnapshot = true
 val ormlUseSnapshot = true
 
 dependencyResolutionManagement {
     versionCatalogs {
         create("libs") {
             version("kotlin", "1.6.0")
-            version("openrndr", if (openrndrUseSnapshot) "0.5.1-SNAPSHOT" else "0.4.0-rc.3")
-            version("orx", if (orxUseSnapshot) "0.5.1-SNAPSHOT" else "0.4.0-rc.4")
+            version("openrndr", if (openrndrUseSnapshot) "0.5.1-SNAPSHOT" else "0.4.0")
+            version("orx", if (orxUseSnapshot) "0.5.1-SNAPSHOT" else "0.4.0")
             version("orml", if (ormlUseSnapshot) "0.5.1-SNAPSHOT" else "0.4.0")
 
             alias("kotlin-jvm").toPluginId("org.jetbrains.kotlin.jvm").version("1.6.0")
@@ -20,7 +20,7 @@ dependencyResolutionManagement {
 
             alias("kotlin-script-runtime").to("org.jetbrains.kotlin", "kotlin-script-runtime").versionRef("kotlin")
 
-            version("slf4j", "1.7.32")
+            version("slf4j", "1.7.33")
             alias("slf4j-nop").to("org.sl4j","slf4j-nop").versionRef("slf4j")
             alias("slf4j-simple").to("org.sl4j","slf4j-simple").versionRef("slf4j")
 
@@ -28,7 +28,7 @@ dependencyResolutionManagement {
             alias("jackson-databind").to("com.fasterxml.jackson.core", "jackson-databind").versionRef("jackson")
             alias("jackson-json").to("com.fasterxml.jackson.dataformat", "jackson-dataformat-yaml").versionRef("jackson")
 
-            version("log4j", "2.14.1")
+            version("log4j", "2.15.0")
             alias("log4j-slf4j").to("org.apache.logging.log4j", "log4j-slf4j-impl").versionRef("log4j")
 
             version("kotlinx-coroutines", "1.5.2")
