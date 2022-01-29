@@ -40,21 +40,21 @@ fun main() = application {
         mf?.controlChanged?.listen {
             when (it.control) {
                 12 -> {
-                    ECState.activeCurve?.numSubcurves = it.value / 4
-                    ECState.refreshCurves()
+                    EditableCurveState.activeCurve?.numSubcurves = it.value / 4
+                    EditableCurveState.refreshCurves()
                 }
                 13 -> {
-                    ECState.activeCurve?.separation = it.value - 64.0
-                    ECState.refreshCurves()
+                    EditableCurveState.activeCurve?.separation = it.value - 64.0
+                    EditableCurveState.refreshCurves()
                 }
                 else -> println("${it.channel} ${it.control} ${it.value}")
             }
         }
 
         // Init ECState
-        ECState.winSize = window.size
+        EditableCurveState.winSize = window.size
         window.sized.listen {
-            ECState.winSize = it.size
+            EditableCurveState.winSize = it.size
         }
 
         extend(NoJitter())
@@ -67,21 +67,21 @@ fun main() = application {
             mf?.controlChanged?.deliver()
 
             // clear
-            drawer.clear(ECState.bgColor)
+            drawer.clear(EditableCurveState.bgColor)
             drawer.fontMap = font
 
             // ---------------------------------
             // export SVG
-            if (ECState.saveSVG) {
+            if (EditableCurveState.saveSVG) {
                 exportSVG()
-                ECState.saveSVG = false
+                EditableCurveState.saveSVG = false
             }
 
             // ----------------------------------
             // Draw everything
-            ECState.segments.forEach { drawer.contour(it) }
-            ECState.curves.forEach { curve ->
-                curve.draw(drawer, curve == ECState.activeCurve)
+            EditableCurveState.segments.forEach { drawer.contour(it) }
+            EditableCurveState.curves.forEach { curve ->
+                curve.draw(drawer, curve == EditableCurveState.activeCurve)
             }
 
             // ----------------------------------
@@ -96,15 +96,15 @@ fun main() = application {
             // -----------------------------------
             // Interaction: mouse
             mouse.buttonDown.listen {
-                ECState.onMouseDown(it.position)
+                EditableCurveState.onMouseDown(it.position)
             }
 
             mouse.dragged.listen {
-                ECState.onMouseDrag(it.position)
+                EditableCurveState.onMouseDrag(it.position)
             }
 
             mouse.buttonUp.listen {
-                ECState.onMouseUp(it.position)
+                EditableCurveState.onMouseUp(it.position)
             }
         }
     }
@@ -116,7 +116,7 @@ fun exportSVG() {
     svg.fill = null
     svg.stroke = ColorRGBa.BLACK
 
-    ECState.segments.forEach { svg.contour(it) }
+    EditableCurveState.segments.forEach { svg.contour(it) }
 
     saveFileDialog(supportedExtensions = listOf("svg")) {
         it.writeText(writeSVG(svg.composition))

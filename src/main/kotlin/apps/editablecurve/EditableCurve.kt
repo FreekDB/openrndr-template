@@ -45,7 +45,7 @@ class EditableCurve {
         return lineCopy.segments.minOf { (it.start - p).squaredLength }
     }
 
-    fun randomize(screenSize: Vector2) {
+    fun randomizePoints(screenSize: Vector2) {
         for (i in 0 until pointCount) {
             controlPoints[i] = Vector2.uniform(
                 Vector2(screenSize.x * 0.1, screenSize.x * 0.1),

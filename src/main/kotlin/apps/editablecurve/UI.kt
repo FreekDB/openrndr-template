@@ -22,22 +22,22 @@ fun Program.setupUI() = controlManager {
         button {
             label = "Add curve"
             clicked {
-                val c = ECState.addCurve()
-                ECState.sNumSubcurves.value = c.numSubcurves.toDouble()
-                ECState.sSeparation.value = c.separation
+                val c = EditableCurveState.addCurve()
+                EditableCurveState.sNumSubcurves.value = c.numSubcurves.toDouble()
+                EditableCurveState.sSeparation.value = c.separation
             }
         }
         button {
             label = "Remove curve"
-            clicked { ECState.removeCurve() }
+            clicked { EditableCurveState.removeCurve() }
         }
         button {
             label = "Clear"
-            clicked { ECState.removeAllCurves() }
+            clicked { EditableCurveState.removeAllCurves() }
         }
         button {
             label = "Save SVG"
-            clicked { ECState.saveSVG = true }
+            clicked { EditableCurveState.saveSVG = true }
         }
         button {
             label = "Save design"
@@ -47,7 +47,7 @@ fun Program.setupUI() = controlManager {
                 // https://github.com/openrndr/orx/blob/master/orx-gui/src/main/kotlin/Gui.kt
                 // and https://github.com/edwinRNDR/panel-examples/tree/master/src/main/kotlin
                 saveFileDialog(supportedExtensions = listOf("json")) {
-                    ECState.saveFile(it)
+                    EditableCurveState.saveFile(it)
                 }
             }
         }
@@ -56,26 +56,26 @@ fun Program.setupUI() = controlManager {
             // show system dialog, load, unserialize
             clicked {
                 openFileDialog(supportedExtensions = listOf("json")) {
-                    ECState.loadFile(it)
+                    EditableCurveState.loadFile(it)
                 }
             }
         }
-        ECState.sNumSubcurves = slider {
+        EditableCurveState.sNumSubcurves = slider {
             label = "Subcurves"
             value = 0.0
             range = Range(0.0, 30.0)
             precision = 0
             events.valueChanged.listen {
-                ECState.setSubcurves(it.newValue)
+                EditableCurveState.setSubcurves(it.newValue)
             }
         }
-        ECState.sSeparation = slider {
+        EditableCurveState.sSeparation = slider {
             label = "Separation"
             value = 1.0
             range = Range(-50.0, 50.0)
             precision = 0
             events.valueChanged.listen {
-                ECState.setSeparation(it.newValue)
+                EditableCurveState.setSeparation(it.newValue)
             }
         }
 

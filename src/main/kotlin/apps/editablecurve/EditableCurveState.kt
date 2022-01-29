@@ -11,9 +11,9 @@ import org.openrndr.panel.elements.Slider
 import org.openrndr.shape.ShapeContour
 import java.io.File
 
-object ECState {
-    var sNumSubcurves = Slider()
-    var sSeparation = Slider()
+object EditableCurveState {
+    lateinit var sNumSubcurves : Slider
+    lateinit var sSeparation : Slider
     var winSize = Vector2(600.0)
     var bgColor = ColorRGBa.WHITE.shade(0.95)
     var activeCurve: EditableCurve? = null
@@ -38,7 +38,7 @@ object ECState {
 
         activeCurve = curves.lastOrNull()
 
-        c.randomize(winSize)
+        c.randomizePoints(winSize)
         c.addSegmentsTo(segments)
         return c
     }
@@ -105,7 +105,7 @@ object ECState {
         activeCurve?.let { curve ->
             curve.mouseDragged(
                 Vector2(
-                    clamp(pos.x, winSize.x * 0.2, winSize.x * 0.9),
+                    clamp(pos.x, winSize.x * 0.1, winSize.x * 0.9),
                     clamp(pos.y, winSize.y * 0.1, winSize.y * 0.9)
                 )
             )
