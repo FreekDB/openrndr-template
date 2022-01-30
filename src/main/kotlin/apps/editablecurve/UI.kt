@@ -22,9 +22,9 @@ fun Program.setupUI() = controlManager {
         button {
             label = "Add curve"
             clicked {
-                val c = EditableCurveState.addCurve()
-                EditableCurveState.sNumSubcurves.value = c.numSubcurves.toDouble()
-                EditableCurveState.sSeparation.value = c.separation
+                val curve = EditableCurveState.addCurve()
+                EditableCurveState.sNumSubcurves.value = curve.numSubcurves.toDouble()
+                EditableCurveState.sSeparation.value = curve.separation
             }
         }
         button {

@@ -70,21 +70,18 @@ fun main() = application {
             drawer.clear(EditableCurveState.bgColor)
             drawer.fontMap = font
 
-            // ---------------------------------
             // export SVG
             if (EditableCurveState.saveSVG) {
                 exportSVG()
                 EditableCurveState.saveSVG = false
             }
 
-            // ----------------------------------
             // Draw everything
             EditableCurveState.segments.forEach { drawer.contour(it) }
             EditableCurveState.curves.forEach { curve ->
                 curve.draw(drawer, curve == EditableCurveState.activeCurve)
             }
 
-            // ----------------------------------
             // Interaction: keyboard
             keyboard.keyDown.listen {
                 if (it.key == KEY_ESCAPE) {
@@ -93,7 +90,6 @@ fun main() = application {
                 //mf.controlChange(0, Random.int0(16), Random.int0(128))
             }
 
-            // -----------------------------------
             // Interaction: mouse
             mouse.buttonDown.listen {
                 EditableCurveState.onMouseDown(it.position)
@@ -122,11 +118,3 @@ fun exportSVG() {
         it.writeText(writeSVG(svg.composition))
     }
 }
-
-//fun File.ensureExtension(ext: String): File {
-//    return if (this.absolutePath.toLowerCase().endsWith(ext)) {
-//        this
-//    } else {
-//        File(this.absolutePath + ext)
-//    }
-//}
