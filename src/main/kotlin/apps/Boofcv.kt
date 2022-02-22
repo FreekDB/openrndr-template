@@ -1,6 +1,7 @@
 package apps
 
 import aBeLibs.geometry.toContours
+import aBeLibs.random.pickWeighted
 import org.openrndr.KEY_ENTER
 import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
@@ -18,12 +19,12 @@ import org.openrndr.math.Vector2
 import org.openrndr.math.map
 import org.openrndr.panel.controlManager
 import org.openrndr.panel.elements.button
+import org.openrndr.panel.elements.clicked
 import org.openrndr.panel.elements.div
 import org.openrndr.panel.style.*
 import org.openrndr.poissonfill.PoissonFill
 import org.openrndr.shape.Rectangle
 import org.openrndr.shape.ShapeContour
-import aBeLibs.random.pickWeighted
 import kotlin.math.pow
 import kotlin.system.exitProcess
 
@@ -43,7 +44,11 @@ fun main() = application {
         height = 1080
     }
     program {
-        val multisample = renderTarget(width, height, multisample = BufferMultisample.SampleCount(8)) {
+        val multisample = renderTarget(
+            width,
+            height,
+            multisample = BufferMultisample.SampleCount(8)
+        ) {
             colorBuffer(type = ColorType.FLOAT32)
             depthBuffer()
         }
@@ -69,7 +74,11 @@ fun main() = application {
         palette.randomPalette()
 
         // Prepare gradients
-        val gradientLin = LinearGradient(ColorRGBa.WHITE, ColorRGBa.WHITE.shade(0.5), Vector2.ZERO)
+        val gradientLin = LinearGradient(
+            ColorRGBa.WHITE,
+            ColorRGBa.WHITE.shade(0.5),
+            Vector2.ZERO
+        )
         gradientLin.exponent = 2.0
         val gradientRad = RadialGradient(rgb(0.2), rgb(0.1))
         gradientRad.exponent = 2.5
@@ -83,12 +92,21 @@ fun main() = application {
                 val amount = 100
                 for (i in 0..amount) {
                     isolated {
-                        translate(Vector2.uniformRing(height * 0.2, height * 0.4))
+                        translate(
+                            Vector2.uniformRing(
+                                height * 0.2,
+                                height * 0.4
+                            )
+                        )
                         rotate(Random.int0(2) * 45.0)
                         val l = Random.double0()
                         val pc = map(0.0, amount * 1.0, 1.0, 0.0, i * 1.0)
                         val sz = height * 0.05 + height * 0.3 * pc.pow(8.0)
-                        val rect = Rectangle.fromCenter(Vector2.ZERO, sz * l * l, sz - sz * l * l)
+                        val rect = Rectangle.fromCenter(
+                            Vector2.ZERO,
+                            sz * l * l,
+                            sz - sz * l * l
+                        )
                         rectangle(rect)
                     }
                 }
@@ -99,11 +117,18 @@ fun main() = application {
                     blur.gain = 1.0
                     blur.sigma = 10.0 - i * 2.0
                     blur.apply(bw.colorBuffer(0), bwBlurred)
-                    extContours.addAll(bwBlurred.toContours(0.3 + i * 0.2, false))
+                    extContours.addAll(
+                        bwBlurred.toContours(
+                            0.3 + i * 0.2,
+                            false
+                        )
+                    )
                 }
 
                 colorIndex = extContours.map {
-                    listOf(0, 1, 2, 3, 4).pickWeighted(palette.colors.mapIndexed { i, _ -> i * i + 1.0 })
+                    listOf(0, 1, 2, 3, 4).pickWeighted(
+                        palette.colors.mapIndexed { i, _ -> i * i + 1.0 }
+                    )
                 }
             }
         }
@@ -116,25 +141,28 @@ fun main() = application {
                 paddingTop = 0.px
                 display = Display.FLEX
                 flexDirection = FlexDirection.Row
+                width = 100.percent
             }
 
             layout {
                 div("horizontal") {
-                    button(label = "cycle colors") {}.events.clicked.listen {
-                        palette.randomize()
+                    button(label = "cycle colors") {
+                        clicked { palette.randomize() }
                     }
-                    button(label = "new palette") {}.events.clicked.listen {
-                        palette.randomPalette()
+                    button(label = "new palette") {
+                        clicked { palette.randomPalette() }
                     }
-                    button(label = "clear") {}.events.clicked.listen {
-                        Random.seed = System.currentTimeMillis().toString()
-                        extContours.clear()
+                    button(label = "clear") {
+                        clicked {
+                            Random.seed = System.currentTimeMillis().toString()
+                            extContours.clear()
+                        }
                     }
-                    button(label = "add") {}.events.clicked.listen {
-                        doit()
+                    button(label = "add") {
+                        clicked { doit() }
                     }
-                    button(label = "screenshot") {}.events.clicked.listen {
-                        screenshots.trigger()
+                    button(label = "screenshot") {
+                        clicked { screenshots.trigger() }
                     }
                 }
             }

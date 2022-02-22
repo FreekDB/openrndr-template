@@ -8,7 +8,6 @@ import org.openrndr.draw.loadFont
 import org.openrndr.draw.renderTarget
 import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.noise.random
-import org.openrndr.extra.videoprofiles.GIFProfile
 import org.openrndr.ffmpeg.MP4Profile
 import org.openrndr.ffmpeg.VideoWriter
 import org.openrndr.math.Polar
@@ -19,7 +18,7 @@ import kotlin.math.max
 
 /**
  * A program that creates a collection of lines, then mutates them randomly
- * trying to create order
+ * trying to create order. Tags: separate
  */
 
 fun main() = application {
@@ -49,35 +48,33 @@ fun main() = application {
         var mid1 = control[0] + Polar(random(360.0), random(amount)).cartesian
         var mid2 = control[1] + Polar(random(360.0), random(amount)).cartesian
         // Keep control points in bounds
-        if (mid1.length > 290.0) {
-            mid1 = mid1.normalized * 290.0
+        val maxDist = 290.0
+        // TODO: I think this is wrong. Distance to what?
+        if (mid1.length > maxDist) {
+            mid1 = mid1.normalized * maxDist
         }
-        if (mid2.length > 290.0) {
-            mid2 = mid2.normalized * 290.0
+        if (mid2.length > maxDist) {
+            mid2 = mid2.normalized * maxDist
         }
         return Segment(start, mid1, mid2, end)
     }
+
     program {
         val font = loadFont("data/fonts/SourceCodePro-Regular.ttf", 16.0)
-        val curves = mutableListOf<Segment>()
-        val videoWriter = VideoWriter
-            .create()
-            .size(width, height)
-            .profile(MP4Profile())
-            .output("/tmp/tidyUpCurves.mp4")
-            .start()
+        val videoWriter: VideoWriter? = null
+//      val videoWriter = VideoWriter.create().size(width, height)
+//      .profile(MP4Profile()).output("/tmp/tidyUpCurves.mp4").start()
         val videoTarget = renderTarget(width, height) {
             colorBuffer()
             depthBuffer()
         }
-        for (i in 1 until 50) {
+        val curves = MutableList(49) { i ->
             val a = 180 * i / 50.0
             val start = Polar(a, 300.0).cartesian
             val end = Polar(-a, 300.0).cartesian
             val mid1 = Polar(random(360.0), random(300.0)).cartesian
             val mid2 = Polar(random(360.0), random(300.0)).cartesian
-            val seg = Segment(start, mid1, mid2, end)
-            curves.add(seg)
+            Segment(start, mid1, mid2, end)
         }
         extend(Screenshots())
         extend {
@@ -102,12 +99,12 @@ fun main() = application {
                 translate(bounds.center)
                 segments(curves)
             }
-            videoWriter.frame(videoTarget.colorBuffer(0))
+            videoWriter?.frame(videoTarget.colorBuffer(0))
             drawer.image(videoTarget.colorBuffer(0))
         }
         keyboard.keyDown.listen {
             if (it.key == KEY_ESCAPE) {
-                videoWriter.stop()
+                videoWriter?.stop()
                 application.exit()
             }
         }

@@ -1,12 +1,13 @@
 package apps
 
 import aBeLibs.extensions.NoJitter
-import aBeLibs.geometry.Human
+import aBeLibs.geometry.smoothed
 import aBeLibs.geometry.toContours
+import aBeLibs.svg.Pattern
+import aBeLibs.svg.fill
 import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
-import org.openrndr.dialogs.saveFileDialog
 import org.openrndr.draw.colorBuffer
 import org.openrndr.draw.isolated
 import org.openrndr.draw.isolatedWithTarget
@@ -19,21 +20,23 @@ import org.openrndr.extra.noise.Random
 import org.openrndr.extra.noise.uniform
 import org.openrndr.extra.parameters.ActionParameter
 import org.openrndr.extra.parameters.Description
+import org.openrndr.extra.parameters.IntParameter
 import org.openrndr.math.Polar
 import org.openrndr.math.Vector2
 import org.openrndr.math.map
-import org.openrndr.shape.Circle
-import org.openrndr.shape.CompositionDrawer
-import org.openrndr.shape.Rectangle
-import org.openrndr.shape.ShapeContour
-import org.openrndr.svg.writeSVG
+import org.openrndr.namedTimestamp
+import org.openrndr.shape.*
+import org.openrndr.svg.saveToFile
 import java.io.File
 import kotlin.math.pow
 import kotlin.system.exitProcess
 
 
 /**
- * Simple BoofCV test. Loads an image, makes it black and white, gets contours
+ * Creates black and white designs. Applies glitchy effect and blur.
+ * Then uses BoofCV to trace contours. Finally, fills contours with patterns.
+ *
+ * Next: create multiple contours. Subtract to remove overlap.
  */
 
 fun main() = application {
@@ -42,7 +45,10 @@ fun main() = application {
         height = 1080
     }
     program {
-        val gui = GUI()
+        val gui = GUI().apply {
+            compartmentsCollapsedByDefault = false
+        }
+
         val bw = renderTarget(width, height) {
             colorBuffer()
         }
@@ -52,49 +58,47 @@ fun main() = application {
         val fx = Perturb()
         val contours = mutableListOf<ShapeContour>()
         val screenshots = Screenshots()
-        var showBW = false
+        val svg = drawComposition { }
+        val patterns = drawComposition { }
 
         Random.seed = System.currentTimeMillis().toString()
+
+        val params = @Description("Params") object {
+            @IntParameter("steps", 5, 100)
+            var steps = 10
+
+            @IntParameter("mirror", 1, 2)
+            var mirror = 1
+        }
 
         fun newImage() {
             drawer.isolatedWithTarget(bw) {
                 clear(ColorRGBa.BLACK)
                 translate(bounds.center)
 
-                val human = Human(width, height)
+                val circles = List(params.steps) {
+                    val pc =
+                        it.toDouble().map(0.0, params.steps - 1.0, 1.0, 0.0)
 
-                val amount = 100
-                val shapes = List(amount) {
-                    val pc = map(0.0, amount * 1.0, 1.0, 0.0, it * 1.0)
-
-//                    val c = Random.pick(human.contours())
-//                    val pos = c.position(Random.double0())
-
-                    val pos = Vector2.uniform(
-                        bounds.dimensions * Vector2(-0.25, -0.25),
-                        bounds.dimensions * Vector2(0.0, 0.25)
-                    )
+                    val pos = bounds.sub(-0.25, -0.25, 0.0, 0.25).uniform()
                     val radius = 20.0 + 180.0 * pc.pow(2.5)
                     Circle(pos, radius)
                 }
 
-                // TODO:
-                // - [x] Add linear repetition of rectangles
-                // - [x] quasi symmetry
-                // - [ ] Replace Circle with Rectangle. If height == 0, it's a circle
-                // - [ ] Create a skeleton and draw shapes in it.
-
-                shapes.forEachIndexed { i, cir ->
+                circles.forEachIndexed { i, cir ->
                     isolated {
-                        fill = if (Random.bool()) ColorRGBa.WHITE else ColorRGBa.BLACK
+                        fill =
+                            if (Random.bool()) ColorRGBa.WHITE else ColorRGBa.BLACK
                         stroke = null
                         if (Random.bool(0.5)) {
                             if (Random.bool(0.75)) {
                                 // A. Most times draw the core circle
                                 isolated {
                                     circle(cir)
-                                    scale(-1.0, 1.0)
-                                    circle(cir)
+                                    if (params.mirror == 2) {
+                                        scale(-1.0, 1.0)
+                                        circle(cir)
+                                    }
                                 }
                             } else {
                                 // B. Polar / Cartesian repetition
@@ -105,16 +109,28 @@ fun main() = application {
                                 val cartesian = Random.bool(0.4)
                                 for (copy in 0 until copies) {
                                     val ang = angleStart + copy * angleDelta
-                                    val rect = Rectangle.fromCenter(Vector2.ZERO, cir.radius * 0.5, cir.radius * 0.2)
-                                    for (mirror in 0..1) {
+                                    val rect = Rectangle.fromCenter(
+                                        Vector2.ZERO,
+                                        cir.radius * 0.5,
+                                        cir.radius * 0.2
+                                    )
+                                    repeat(params.mirror) {
                                         isolated {
-                                            if (mirror == 1) {
+                                            if (it == 1) {
                                                 scale(-1.0, 1.0)
                                             }
                                             if (cartesian) {
-                                                translate(cir.center + Vector2(0.0, ang - 180))
+                                                translate(
+                                                    cir.center + Vector2(
+                                                        0.0, ang - 180
+                                                    )
+                                                )
                                             } else {
-                                                translate(cir.center + Polar(ang, radius).cartesian)
+                                                translate(
+                                                    cir.center + Polar(
+                                                        ang, radius
+                                                    ).cartesian
+                                                )
                                                 rotate(ang)
                                             }
                                             rectangle(rect)
@@ -123,21 +139,27 @@ fun main() = application {
                                 }
                             }
                         } else {
-                            for (mirror in 0..1) {
+                            repeat(params.mirror) {
                                 // Single rectangle, rotated in multiples of 30°
                                 isolated {
-                                    if (mirror == 1) {
+                                    if (it == 1) {
                                         scale(-1.0, 1.0)
                                     }
                                     translate(cir.center)
                                     rotate(Random.int0(8) * 30.0)
-                                    rectangle(Rectangle.fromCenter(Vector2.ZERO, cir.radius * 3.0, cir.radius * 0.5))
+                                    rectangle(
+                                        Rectangle.fromCenter(
+                                            Vector2.ZERO,
+                                            cir.radius * 3.0,
+                                            cir.radius * 0.5
+                                        )
+                                    )
                                 }
                             }
                         }
 
                         if (i > 0 && Random.bool(0.3)) {
-                            val original = Random.pick(shapes.subList(0, i))
+                            val original = Random.pick(circles.subList(0, i))
                             var radius = original.radius
                             when (Random.int0(2)) {
                                 0 -> {
@@ -149,14 +171,17 @@ fun main() = application {
                                 1 -> {
                                     // make whole in the center of previous circle
                                     stroke = null
-                                    fill = if (Random.bool(0.7)) ColorRGBa.BLACK else ColorRGBa.WHITE
+                                    fill =
+                                        if (Random.bool(0.7)) ColorRGBa.BLACK else ColorRGBa.WHITE
                                     radius *= Random.double0(0.6)
                                 }
                             }
                             isolated {
                                 circle(original.center, radius)
-                                scale(-1.0, 1.0)
-                                circle(original.center, radius)
+                                if (params.mirror == 2) {
+                                    scale(-1.0, 1.0)
+                                    circle(original.center, radius)
+                                }
                             }
                         }
                     }
@@ -173,55 +198,57 @@ fun main() = application {
                 blur.sigma = blur.window * 1.0
                 blur.apply(withFX, bwBlurred)
                 val thres = map(0.0, max * 1.0, 0.45, 0.6, i * 1.0)
-                //val thres = 0.3
-                contours.addAll(bwBlurred.toContours(thres))
+                contours.addAll(bwBlurred.toContours(thres).map {
+                    it.smoothed(2)
+                })
+            }
+
+            svg.clear()
+            svg.draw {
+                fill = null
+                stroke = ColorRGBa.BLACK
+                contours(contours)
             }
         }
 
         newImage()
 
         fun exportSVG() {
-            val svg = CompositionDrawer()
-            svg.translate(drawer.bounds.center)
-            svg.fill = null
-            svg.stroke = ColorRGBa.BLACK
-            svg.contours(contours)
-            saveFileDialog(supportedExtensions = listOf("svg")) {
-                it.writeText(writeSVG(svg.composition))
-            }
+            svg.saveToFile(
+                File(program.namedTimestamp("svg", "print"))
+            )
+        }
+
+        fun patternFill() {
+            patterns.clear()
+            val outline = Shape(contours)
+            patterns.fill(outline, Pattern.STRIPES(2.0, 1.0, 30.0))
         }
 
         val actions = @Description("Actions") object {
-            @ActionParameter("new image") @Suppress("unused")
+            @ActionParameter("new image")
             fun doNew() {
                 Random.seed = System.currentTimeMillis().toString()
                 contours.clear()
                 newImage()
             }
 
-            @ActionParameter("bw") @Suppress("unused")
-            fun doBW() {
-                showBW = !showBW
-            }
+            @ActionParameter("to curves")
+            fun doCreateContours() = toCurves()
 
-            @ActionParameter("to curves") @Suppress("unused")
-            fun doCreateContours() {
-                toCurves()
-            }
+            @ActionParameter("screenshot")
+            fun doScreenshot() = screenshots.trigger()
 
-            @ActionParameter("screenshot") @Suppress("unused")
-            fun doScreenshot() {
-                screenshots.trigger()
-            }
+            @ActionParameter("save svg")
+            fun doSaveSVG() = exportSVG()
 
-            @ActionParameter("save svg") @Suppress("unused")
-            fun doSaveSVG() {
-                exportSVG()
-            }
+            @ActionParameter("pattern fill")
+            fun doFill() = patternFill()
         }
 
         extend(gui) {
             add(actions)
+            add(params)
             add(blur)
             add(fx)
         }
@@ -230,16 +257,12 @@ fun main() = application {
         extend {
             drawer.isolated {
                 clear(ColorRGBa.WHITE)
-
-                if (showBW) {
+                if (keyboard.pressedKeys.contains("left-shift")) {
                     fx.apply(bw.colorBuffer(0), withFX)
-                    //blur.apply(withFX, bwBlurred)
                     image(withFX)
-                    //image(bwBlurred)
                 } else {
-                    stroke = ColorRGBa.BLACK
-                    fill = null
-                    contours(contours)
+                    composition(svg)
+                    composition(patterns)
                 }
             }
         }

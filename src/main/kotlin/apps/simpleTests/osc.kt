@@ -14,7 +14,7 @@ fun main() = application {
     program {
         val osc = OSC(portIn = 9996, portOut = 9997)
 
-        osc.listen("/speed") {
+        osc.listen("/speed") { it, _ ->
             println(it)
         }
 

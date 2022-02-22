@@ -1,20 +1,21 @@
 package axi
 
+import aBeLibs.extensions.Handwritten
 import aBeLibs.geometry.circleish
 import aBeLibs.random.rnd
 import aBeLibs.svg.Pattern
 import aBeLibs.svg.fill
-import org.openrndr.KEY_ENTER
-import org.openrndr.KEY_ESCAPE
-import org.openrndr.application
+import org.openrndr.*
 import org.openrndr.color.ColorRGBa
 import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.noise.Random
 import org.openrndr.extra.noise.uniform
 import org.openrndr.extra.shapes.grid
 import org.openrndr.math.Vector2
-import org.openrndr.namedTimestamp
-import org.openrndr.shape.drawComposition
+import org.openrndr.shape.Circle
+import org.openrndr.shape.CompositionDrawer
+import org.openrndr.shape.Shape
+import org.openrndr.shape.draw
 import org.openrndr.svg.saveToFile
 import java.io.File
 
@@ -24,54 +25,93 @@ import java.io.File
  */
 fun main() = application {
     configure {
-        width = 1500
-        height = 500
+        width = 1200
+        height = 600
     }
     program {
-        Random.seed = System.currentTimeMillis().toString()
-
-        val num = 5
-        val svg = drawComposition { }
-        val positions = drawer.bounds.grid(num + 1, 1).flatten().take(num).map {
-            it.position(1.0, 0.5)
+        val handwritten = Handwritten().also {
+            it.scale = 1.5
         }
+        extend(handwritten)
+
+        Random.seed = System.currentTimeMillis().toString()
+        val patterns = listOf(
+            Pattern.STRIPES(
+                1.0 rnd 5.5,
+                0.5 rnd 1.0,
+                0.0 rnd 360.0
+            ),
+            Pattern.HAIR(
+                2.0 rnd 10.0,
+                0.0005 rnd 0.005,
+                4.0 rnd 10.0
+            ),
+            Pattern.PERP(
+                2.0 rnd 10.0,
+                4.0 rnd 10.0
+            ),
+            Pattern.DOTS(
+                0.01,
+                3.0, 10.0,
+                5.0, 3.0
+            ),
+            Pattern.CIRCLES(
+                0.2 rnd 2.0,
+                Vector2.uniform(-Vector2.ONE) * 50.0,
+                0.7
+            ),
+            Pattern.NOISE(
+                1.0,
+                0.4, // 0.8
+                0.0 rnd 360.0,
+                20.0,
+                0.008
+            )
+        )
+
+        val svg = drawComposition { }
+        val cells = drawer.bounds
+            .grid(patterns.size, 3, 50.0, 50.0)
 
         fun newDesign() {
+            Random.seed = System.currentTimeMillis().toString()
+
             svg.clear()
-
             Pattern.stroke = false
-
-            positions.forEachIndexed { i, pos ->
-                val outline = circleish(pos, 100.0).shape
-                svg.fill(
-                    outline, when (i) {
-                        0 -> Pattern.STRIPES(
-                            1.0 rnd 5.5,
-                            0.5 rnd 1.0,
-                            0.0 rnd 360.0
-                        )
-                        1 -> Pattern.HAIR( // FIXME
-                            2.0 rnd 10.0,
-                            0.0005 rnd 0.005,
-                            4.0 rnd 10.0
-                        )
-                        2 -> Pattern.PERP( // FIXME
-                            2.0 rnd 10.0,
-                            4.0 rnd 10.0
-                        )
-                        3 -> Pattern.DOTS(
-                            0.003,
-                            3.0, 15.0,
-                            5.0, 3.0
-                        )
-                        else -> Pattern.CIRCLES(
-                            0.2 rnd 2.0,
-                            Vector2.uniform(-Vector2.ONE) * 50.0,
-                            0.1 rnd 0.5
+            cells.forEachIndexed { y, rects ->
+                rects.forEachIndexed { i, rect ->
+                    val outline = when (y) {
+                        0 -> rect.offsetEdges(-20.0).shape
+                        1 -> Circle(rect.center, rect.width * 0.4).shape
+                        else -> Shape(
+                            listOf(
+                                circleish(rect.center, rect.width * 0.4),
+                                circleish(
+                                    rect.center,
+                                    rect.width * 0.2
+                                ).reversed
+                            )
                         )
                     }
-                )
+                    svg.fill(outline, patterns[i])
+                }
+            }
 
+            // Text
+            handwritten.clear()
+            patterns.forEachIndexed { i, p ->
+                handwritten.add(
+                    p.toString().substringBefore("("),
+                    cells[2][i].position(0.3, 1.1)
+                )
+            }
+            val text = CompositionDrawer().also {
+                it.fill = null
+                it.stroke = ColorRGBa.BLACK
+            }
+            handwritten.drawToSVG(text)
+            svg.draw {
+                composition(text.composition)
             }
         }
 

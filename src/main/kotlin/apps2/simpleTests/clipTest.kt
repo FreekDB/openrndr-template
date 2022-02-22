@@ -3,9 +3,10 @@ package apps2.simpleTests
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.rgba
+import org.openrndr.draw.loadFont
+import org.openrndr.drawComposition
 import org.openrndr.math.Vector2
 import org.openrndr.shape.ClipMode
-import org.openrndr.shape.drawComposition
 
 fun main() = application {
     configure {
@@ -13,6 +14,7 @@ fun main() = application {
         height = 900
     }
     program {
+        val font = loadFont("data/fonts/IBMPlexMono-Regular.ttf", 16.0)
         val svgs = ClipMode.values().mapIndexed { n, mode ->
             val x = width * 0.7
             val y = 50 + n * 100.0
@@ -30,6 +32,7 @@ fun main() = application {
 
         extend {
             drawer.clear(ColorRGBa.WHITE)
+            drawer.fontMap = font
             svgs.forEachIndexed { n, svg ->
                 drawer.composition(svg)
                 drawer.fill = ColorRGBa.BLACK
