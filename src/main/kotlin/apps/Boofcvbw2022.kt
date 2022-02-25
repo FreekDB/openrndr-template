@@ -4,10 +4,14 @@ import aBeLibs.extensions.NoJitter
 import aBeLibs.geometry.pillShape
 import aBeLibs.geometry.smoothed
 import aBeLibs.geometry.toContours
+import aBeLibs.lang.doubleFor
 import aBeLibs.lang.doubleRepeat
+import aBeLibs.lang.loopRepeat
+import aBeLibs.math.map
 import aBeLibs.random.rnd
 import aBeLibs.svg.Pattern
 import aBeLibs.svg.fill
+import com.soywiz.korma.random.randomWithWeights
 import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
@@ -26,10 +30,12 @@ import org.openrndr.extra.parameters.Description
 import org.openrndr.extra.parameters.IntParameter
 import org.openrndr.math.Polar
 import org.openrndr.math.Vector2
+import org.openrndr.math.map
 import org.openrndr.namedTimestamp
 import org.openrndr.shape.*
 import org.openrndr.svg.saveToFile
 import java.io.File
+import kotlin.math.PI
 import kotlin.math.min
 import kotlin.system.exitProcess
 
@@ -66,6 +72,7 @@ fun main() = application {
         val svg = drawComposition { }
         val patterns = drawComposition { }
         var shape = Shape.EMPTY
+        val colors = listOf(ColorRGBa.BLACK, ColorRGBa.WHITE)
 
         Random.seed = System.currentTimeMillis().toString()
 
@@ -75,7 +82,7 @@ fun main() = application {
         }
 
         fun Drawer.parallels(t: List<Pair<Vector2, Vector2>>) {
-            val s = if(Random.bool()) {
+            val s = if (Random.bool()) {
                 val a = Random.double(0.3, 0.7)
                 val b = Random.double(0.3, 0.7)
                 listOf(
@@ -89,7 +96,7 @@ fun main() = application {
                     LineSegment(t[0].second, t[1].second).sub(0.0, lim)
                 )
             }
-            stroke = ColorRGBa.BLACK
+            stroke = colors[0]
             strokeWeight = 6.0
             val rep = min(
                 s[0].start.distanceTo(s[1].start),
@@ -100,14 +107,27 @@ fun main() = application {
             }
         }
 
-        fun newImage2() {
-            val colors = listOf(ColorRGBa.BLACK, ColorRGBa.WHITE)
-            val angles = listOf(0.0, 60.0, 120.0, 180.0, 240.0, 300.0)
-            //val angles = listOf(15.0, 105.0, 195.0, 285.0)
-            val lengths = listOf(125.0, 250.0)
+        fun Drawer.radials(c: Circle) {
+            val sz = Random.double(4.0, 20.0)
+            val radius = c.radius * Random.double(0.5, 1.5)
+            val color = Random.int0(2)
+            val rep = (c.radius * 2 * PI).toInt() / Random.int(20, 40)
+            stroke = colors[color]
+            fill = colors[1 - color]
+            strokeWeight = if(Random.bool()) 6.0 else 0.0
+            loopRepeat(rep, 0.0, 360.0) {
+                circle(c.center + Polar(it, radius).cartesian, sz)
+            }
+        }
 
-            // Populate [segments] (the skeleton of the shape)
+        /**
+         * Populate [segments] (the skeleton of the shape)
+         */
+        fun genSpine(): List<Segment> {
             val spine = mutableListOf<Segment>()
+            //val angles = listOf(0.0, 60.0, 120.0, 180.0, 240.0, 300.0)
+            val angles = listOf(15.0, 105.0, 195.0, 285.0)
+            val lengths = listOf(125.0, 250.0)
             val okArea = drawer.bounds.offsetEdges(-100.0)
             while (spine.size < params.segmentCount) {
                 if (spine.isEmpty()) {
@@ -119,8 +139,7 @@ fun main() = application {
                 } else {
                     // A random point in a spine segment, some segments more likely
                     val start = spine
-                        .random()
-                        //.randomWithWeights(List(spine.size) { i -> 1.0 + i * i })
+                        .randomWithWeights(List(spine.size) { i -> 1.0 + i * i })
                         .position(listOf(0.0, 1.0).random())
 
                     val end = (start + Polar(
@@ -138,7 +157,10 @@ fun main() = application {
                     }
                 }
             }
+            return spine.distinctBy { it.start.toInt() + it.end.toInt() }
+        }
 
+        fun newImage2(spine: List<Segment>) {
             drawer.isolatedWithTarget(bw) {
                 clear(colors.first())
                 stroke = null
@@ -148,9 +170,11 @@ fun main() = application {
                     fill = colors[i % 2]
                     stroke = colors[(i + 1) % 2]
                     strokeWeight = random(8.0, 24.0)
-                    circle(it.start, 120.0 - i * 8)
+                    val pc = 1 - i.toDouble() / (spine.size - 1)
+                    val r = (1 - pc * pc).map(200.0, 20.0)
+                    circle(it.start, r)
                     strokeWeight = random(8.0, 24.0)
-                    circle(it.end, 110.0 - i * 8)
+                    circle(it.end, r * Random.double(0.9, 1.1))
                 }
 
                 // Pills
@@ -169,8 +193,11 @@ fun main() = application {
                         )
                     )
 
-                    val t = c0.tangents(c1) // 0 1 3 2
-                    parallels(t)
+                    when (Random.double0()) {
+                        in 0.00..0.33 -> parallels(c0.tangents(c1))
+                        in 0.33..0.66 -> radials(if(Random.bool()) c0 else c1)
+                    }
+
                 }
 
 
@@ -213,13 +240,11 @@ fun main() = application {
             }
         }
 
-        newImage2()
-
         val actions = @Description("Actions") object {
             @ActionParameter("A1. new image", 1)
             fun doNew() {
                 Random.seed = System.currentTimeMillis().toString()
-                newImage2()
+                newImage2(genSpine())
             }
 
             @ActionParameter("A2. to curves", 2)
@@ -257,9 +282,10 @@ fun main() = application {
             @ActionParameter("B. multilayer shape", 4)
             fun doMultilayer() {
                 svg.clear()
+                val spine = genSpine()
                 val shapes = List(3) {
                     Random.seed = (frameCount + it).toString()
-                    newImage2()
+                    newImage2(spine)
                     imageToShape()
                     shape
                 }
