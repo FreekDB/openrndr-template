@@ -4,6 +4,7 @@ import org.openrndr.KEY_ENTER
 import org.openrndr.WindowMultisample
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
+import org.openrndr.draw.LineJoin
 import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.noise.poissonDiskSampling
 import org.openrndr.extra.shapes.grid
@@ -14,7 +15,7 @@ import kotlin.math.min
 
 fun main() = application {
     configure {
-        width = 1200
+        width = 1500
         height = 1200
         multisample = WindowMultisample.SampleCount(8)
     }
@@ -43,14 +44,15 @@ fun main() = application {
         extend {
             drawer.clear(ColorRGBa.WHITE)
             drawer.stroke = ColorRGBa.BLACK.opacify(0.5).alphaMultiplied
-            drawer.segments(segments)
+            drawer.lineJoin = LineJoin.ROUND
+            segments.forEach { drawer.segment(it) }
         }
 
         keyboard.keyDown.listen {
             if (it.key == KEY_ENTER) {
                 segments.clear()
                 drawer.bounds.grid(
-                    4, 4,
+                    4, 3,
                     30.0, 30.0
                 ).flatten().forEach { rect ->
                     segments.addAll(gen(rect, 5.0))
