@@ -1,28 +1,20 @@
-# OPENRNDR template project
+# aBe's OPENRNDR experiments
 
-Attention: you are using a template for OPENRNDR 0.4, which is currently not been released yet. This template assumes
-that you have build and published `OPENRNDR-0.5.1-SNAPSHOT` and `ORX-0.5.1-SNAPSHOT` to your local maven repository. 
+This repository is a clone of https://github.com/openrndr/openrndr-template
 
-A feature rich template for creating OPENRNDR programs based on Gradle/Kts
+It contains over 200 Kotlin programs which I have written between 2019 and 2022. 
+Some might not be in a working state.
+Some are minimal tests of a certain feature while others are more
+complex and include a user interface, shader effects, etc. Some programs produce SVG
+files as output meant to be used with a pen plotter.
 
-The template consists of a configuration for Gradle and an example OPENRNDR program. The Gradle configuration should serve as the
-go-to starting point for writing OPENRNDR-based software.
+![](https://aws1.discourse-cdn.com/free1/uploads/openrndr/optimized/1X/24dc7193b6c689ec87a4dbf968f516bcf1e6cfee_2_500x500.jpeg)
+![](https://aws1.discourse-cdn.com/free1/uploads/openrndr/optimized/1X/c3858d7b80271e461868d2077421d99278db139a_2_690x388.jpeg)
+![](https://aws1.discourse-cdn.com/free1/uploads/openrndr/optimized/1X/b944f73f16438344764a9ba8bc0349d49c611bf7_2_500x500.png)
+![](https://aws1.discourse-cdn.com/free1/uploads/openrndr/optimized/1X/17f98aa84caf7213be6484292e96294564008b74_2_500x500.jpeg)
+![](https://aws1.discourse-cdn.com/free1/uploads/openrndr/optimized/1X/8d9fc67d9851889c56a22ed5379d210009321586_2_500x500.jpeg)
 
-If you are looking at this from IntelliJ IDEA you can start by expanding the _project_ tab on the left. You will find a template program in `src/main/kotlin/TemplateProgram.kt`
+If you need generative visuals (static, moving or interactive) get in touch:
+![](https://hamoid.com/static/i/addr.png)
 
-You will find some [basic instructions](https://guide.openrndr.org/#/02_Getting_Started_with_OPENRNDR/C00_SetupYourFirstProgram) in the [OPENRNDR guide](https://guide.openrndr.org)
-
-## Gradle tasks
- - `run` runs the TemplateProgram
- - `jar` creates an executable platform specific jar file with all dependencies
- - `zipDistribution` creates a zip file containing the application jar and the data folder
- - `jpackageZip` creates a zip with a stand-alone executable for the current platform (works with Java 14 only)
-
-## Cross builds
-To create runnable jars for a platform different from the platform you use to build one uses `./gradlew jar --PtargetPlatform=<platform>`. The supported platforms are `windows`, `macos`, `linux-x64` and `linux-arm64`. Note that the `linux-arm64` platform will only work with OPENRNDR snapshot builds from master and OPENRNDR 0.3.39 (a future version).
-
-## Github Actions
-
-This repository contains a number of Github Actions in `./github/workflows`. 
-The actions enable a basic build run on commit, plus publication actions that are executed when
-a commit is tagged with a version number like `v0.*` or `v1.*`.
+Find my home page at [hamoid.com](https://hamoid.com).
