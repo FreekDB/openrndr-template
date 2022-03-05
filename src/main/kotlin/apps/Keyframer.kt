@@ -19,8 +19,10 @@ import java.io.File
 import kotlin.system.exitProcess
 
 /**
- * Test the Keyframer
+ * id: 9e916f3c-14ec-4a2c-9e0a-67382c586078
+ * description: Test the Keyframer
  * Produces output.mp4 and quits after 150 frames
+ * tags: #new
  */
 
 class Animation : Keyframer() {
@@ -99,6 +101,5 @@ fun main() = application {
                 KEY_ESCAPE -> exitProcess(0)
             }
         }
-
     }
 }

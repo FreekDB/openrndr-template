@@ -16,6 +16,12 @@ import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
 
+/**
+ * id: e0648c0d-88fd-45e1-9857-95b4bb100a94
+ * description: New sketch
+ * tags: #new
+ */
+
 fun main() = application {
     configure {
         width = 1024
@@ -109,8 +115,8 @@ fun main() = application {
                         start + normal * (it - 0.1) + Random.vector2()
                     }, false
                 )
-                val intCount = contours.count {
-                        other -> intersections(perp, other).isNotEmpty()
+                val intCount = contours.count { other ->
+                    intersections(perp, other).isNotEmpty()
                 }
                 if (intCount == 1) {
                     contours.add(perp)
@@ -174,7 +180,8 @@ fun main() = application {
                 val endInside = cityCenter.contains(it.end)
                 if (startInside != endInside) {
                     val int = cityCenter.intersections(
-                        Segment(it.start, it.end).contour).first().position
+                        Segment(it.start, it.end).contour
+                    ).first().position
                     LineSegment(if (startInside) it.start else it.end, int)
                 } else {
                     it
@@ -200,15 +207,19 @@ fun main() = application {
                     ), true
                 )
                 val noHouseOverlaps = houseContours.all { other ->
-                    intersections(other,current).isEmpty() &&
+                    intersections(other, current).isEmpty() &&
                             !current.contains(other.bounds.center)
                 }
                 val noRoadOverlaps: Boolean by lazy {
                     contours.all { road -> intersections(road, current).isEmpty() }
                 }
                 val noCityCenterOverlaps: Boolean by lazy {
-                    innerCitySegments.all { street -> intersections(current,
-                        street.contour).isEmpty() }
+                    innerCitySegments.all { street ->
+                        intersections(
+                            current,
+                            street.contour
+                        ).isEmpty()
+                    }
                 }
                 return if (noHouseOverlaps && noRoadOverlaps && noCityCenterOverlaps) {
                     houses.add(LineSegment(pos + c0, pos + c1))
@@ -340,4 +351,3 @@ fun main() = application {
         }
     }
 }
-

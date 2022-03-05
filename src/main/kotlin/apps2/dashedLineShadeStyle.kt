@@ -8,9 +8,10 @@ import org.openrndr.math.Polar
 import org.openrndr.shape.contour
 
 /**
- * Animated test for the [DashedLine] shadeStyle
- *
+ * id: b334fe0c-e563-4172-a7d4-e072719804b2
+ * description: Animated test for the [DashedLine] shadeStyle.
  * Shows an edge case for morphing lines with segments turning 180 degrees
+ * tags: #new
  */
 
 fun main() = application {

@@ -5,8 +5,17 @@ import org.openrndr.color.ColorRGBa
 import org.openrndr.dialogs.openFileDialog
 import org.openrndr.dialogs.saveFileDialog
 import org.openrndr.panel.controlManager
-import org.openrndr.panel.elements.*
+import org.openrndr.panel.elements.Range
+import org.openrndr.panel.elements.button
+import org.openrndr.panel.elements.clicked
+import org.openrndr.panel.elements.slider
 import org.openrndr.panel.style.*
+
+/**
+ * id: 4e6ea9d5-4c50-4772-8fcd-fdc5777cc995
+ * description: New sketch
+ * tags: #new
+ */
 
 fun Program.setupUI() = controlManager {
     styleSheet(has type "button") {

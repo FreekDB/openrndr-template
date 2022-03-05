@@ -4,6 +4,12 @@ import org.openrndr.application
 import org.openrndr.draw.colorBuffer
 import org.openrndr.extra.gui.GUI
 
+/**
+ * id: c4f6c148-1889-41d8-92e1-8239f9ac0971
+ * description: New sketch
+ * tags: #new
+ */
+
 fun main() = application {
     configure {
         height = 1500

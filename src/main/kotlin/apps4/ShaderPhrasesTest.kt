@@ -5,6 +5,12 @@ import org.openrndr.extra.shaderphrases.ShaderPhrase
 import org.openrndr.extra.shaderphrases.ShaderPhraseBook
 import org.openrndr.extra.shaderphrases.preprocess
 
+/**
+ * id: a840d763-3a10-44e2-87c2-9b261bf88614
+ * description: New sketch
+ * tags: #new
+ */
+
 fun main() = application {
     program {
         val phrases =
@@ -62,4 +68,3 @@ fun processShaderPhrases(glsl: String, phrases: Map<String, String>) =
             it
         }
     }.joinToString("\n")
-

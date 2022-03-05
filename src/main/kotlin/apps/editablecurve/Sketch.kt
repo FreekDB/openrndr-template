@@ -14,6 +14,12 @@ import org.openrndr.shape.CompositionDrawer
 import org.openrndr.svg.writeSVG
 import kotlin.system.exitProcess
 
+/**
+ * id: 80aeb6c0-9a60-4933-9629-8ae7e91ed7d1
+ * description: New sketch
+ * tags: #new
+ */
+
 fun main() = application {
     configure {
         width = 900

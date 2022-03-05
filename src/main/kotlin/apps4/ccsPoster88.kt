@@ -7,7 +7,13 @@ import org.openrndr.extensions.Screenshots
 import org.openrndr.shape.IntRectangle
 import java.io.File
 import kotlin.math.max
-// OPENRNDR 0.4
+
+/**
+ * id: 90f65f36-1d49-4f57-9eff-4ee1f1b0aa45
+ * description: New sketch
+ * tags: #new
+ */
+
 fun main() = application {
     configure {
         width = 1200

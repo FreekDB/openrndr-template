@@ -7,6 +7,12 @@ import org.openrndr.math.YPolarity
 import org.openrndr.shape.Segment
 import org.openrndr.shape.ShapeContour
 import kotlin.math.abs
+    
+/**
+ * id: 7c5a5f89-478b-4ff9-b1d7-f4cb3ee3cd32
+ * description: New sketch
+ * tags: #new
+ */    
 
 fun main() = application {
     configure {

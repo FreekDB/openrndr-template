@@ -14,7 +14,12 @@ import org.openrndr.svg.loadSVG
 import org.openrndr.svg.writeSVG
 
 /**
- * Click and drag to make a cut on an SVG.
+ * id: cffb5c8a-7e73-44e3-bd25-981460fa73db
+ * description: Click and drag to make a cut on an SVG.
+ * tags: #new
+ */
+
+/**
  * The actual knife shape uses mouse drag start and end plus two randomized control points, to create a curve.
  * The SVG is hardcoded and loaded on start.
  * After creating the cut the program asks where to save the modified SVG.
@@ -72,4 +77,3 @@ fun main() = application {
 
     }
 }
-

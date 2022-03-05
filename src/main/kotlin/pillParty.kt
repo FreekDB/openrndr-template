@@ -14,6 +14,12 @@ import org.openrndr.math.Polar
 import org.openrndr.math.Vector2
 import org.openrndr.shape.*
 
+/**
+ * id: c5356cd8-b2d9-47c9-843b-472117c1716b
+ * description: New sketch
+ * tags: #new
+ */
+
 fun main() = application {
     configure {
         width = 1000
@@ -87,15 +93,15 @@ fun main() = application {
                     fill = colors[i % 2]
                     contour(
                         pillShape(
-                        c0.copy(radius = c0.radius * 0.9),
-                        c1.copy(radius = c1.radius * 0.9)
-                    )
+                            c0.copy(radius = c0.radius * 0.9),
+                            c1.copy(radius = c1.radius * 0.9)
+                        )
                     )
                 }
 
                 // Axis circles
                 spine.forEachIndexed { i, it ->
-                    fill = colors[(i+1) % 2]
+                    fill = colors[(i + 1) % 2]
                     circle(it.start, 60.0 - i * 4)
                     circle(it.end, 40.0 - i * 4)
                 }
@@ -117,4 +123,3 @@ fun main() = application {
         }
     }
 }
-

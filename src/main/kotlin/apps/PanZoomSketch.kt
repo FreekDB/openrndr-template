@@ -11,6 +11,12 @@ import org.openrndr.math.Polar
 import org.openrndr.shape.Rectangle
 import kotlin.random.Random
 
+/**
+ * id: 59e626a1-82bd-4fda-b812-f64afa521928
+ * description: New sketch
+ * tags: #new
+ */
+
 fun main() = application {
     configure {
         width = 600

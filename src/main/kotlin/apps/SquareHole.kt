@@ -18,7 +18,9 @@ import org.openrndr.svg.writeSVG
 import kotlin.system.exitProcess
 
 /**
- * Axidraw
+ * id: 619d0b78-df19-4a67-aae6-3e0963458c16
+ * description: Wavy lines connecting a central circle with the window bounds
+ * tags: #axidraw
  */
 
 fun main() = application {
@@ -26,7 +28,6 @@ fun main() = application {
         width = (800 * 1.3).toInt()
         height = 800
     }
-
 
     program {
         extend(Screenshots())

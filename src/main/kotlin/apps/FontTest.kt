@@ -8,7 +8,12 @@ import org.openrndr.draw.shadeStyle
 import org.openrndr.math.Vector2
 
 /**
- * Font testing. Trying to find out why fonts look blurry.
+ * id: 1edc4b8a-6016-470c-9ca5-7381e420fcd6
+ * description: Font testing. Trying to find out why fonts look blurry.
+ * tags: #new
+ */
+
+/**
  * I suspect some buffer is off by 1 in size, as when I move the mouse to different parts of
  * the screen different letters are sharp or blurry.
  */
@@ -32,7 +37,7 @@ fun main() = application {
             }
             drawer.image(font.texture)
             drawer.fontMap = font
-            for(i in 0 until 20) {
+            for (i in 0 until 20) {
                 val off = i / 20.0
                 val y = 20.0 + 23 * i
                 drawer.text("Hello there! #tags @mentions then 3+4*5-6/7...", Vector2(334.5, y))

@@ -23,6 +23,12 @@ import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.min
 
+/**
+ * id: 1e1a1305-5d84-4fc5-8f50-6e869353f532
+ * description: New sketch
+ * tags: #new
+ */
+
 fun main() = application {
     configure {
         fullscreen = Fullscreen.CURRENT_DISPLAY_MODE

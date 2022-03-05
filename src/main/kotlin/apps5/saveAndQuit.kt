@@ -4,12 +4,13 @@ import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.isolatedWithTarget
 import org.openrndr.draw.renderTarget
-import org.openrndr.extensions.Screenshots
 import java.io.File
 import kotlin.system.exitProcess
 
 /**
- * Example for the forum that saves an image to disk and quits
+ * id: cbbacb38-cb68-4009-82c1-3643a8cd76d7
+ * description: Example for the forum that saves an image to disk and quits
+ * tags: #autoquit
  */
 
 fun main() = application {

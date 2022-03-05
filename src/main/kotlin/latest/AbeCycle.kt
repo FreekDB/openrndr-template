@@ -6,8 +6,11 @@ import org.jgrapht.GraphTests
 import org.jgrapht.Graphs
 
 /**
- * Find cycles with 4 vertices
+ * id: e0450bab-225b-4da8-9968-49ef7f69a6a6
+ * description: Find cycles with 4 vertices
+ * tags: #new
  */
+
 fun <V, E> abeCycle(graph: Graph<V, E>): Set<Set<V>> {
     GraphTests.requireUndirected(graph)
     require(!GraphTests.hasMultipleEdges(graph)) { "Graphs with multiple edges not supported" }
@@ -57,17 +60,21 @@ fun <V, E> abeCycle(graph: Graph<V, E>): Set<Set<V>> {
                     val v0 = listOf(
                         graph.getEdgeSource(edges[0]),
                         graph.getEdgeTarget(edges[0])
-                    ).intersect(listOf(
-                        graph.getEdgeSource(edges[1]),
-                        graph.getEdgeTarget(edges[1])
-                    )).first()
+                    ).intersect(
+                        setOf(
+                            graph.getEdgeSource(edges[1]),
+                            graph.getEdgeTarget(edges[1])
+                        )
+                    ).first()
                     val v1 = listOf(
                         graph.getEdgeSource(edges[2]),
                         graph.getEdgeTarget(edges[2])
-                    ).intersect(listOf(
-                        graph.getEdgeSource(edges[3]),
-                        graph.getEdgeTarget(edges[3])
-                    )).first()
+                    ).intersect(
+                        setOf(
+                            graph.getEdgeSource(edges[3]),
+                            graph.getEdgeTarget(edges[3])
+                        )
+                    ).first()
                     cycles.add(setOf(root, v0, midVertex, v1))
                 }
             }

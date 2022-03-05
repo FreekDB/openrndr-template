@@ -5,6 +5,12 @@ import org.openrndr.application
 import org.openrndr.math.Vector2
 import org.openrndr.shape.Rectangle
 import kotlin.system.exitProcess
+    
+/**
+ * id: aa9d5d71-c7c7-4f1a-89eb-e9ffd015d091
+ * description: New sketch
+ * tags: #unfinished
+ */    
 
 /**
  * March 2020
@@ -22,7 +28,7 @@ import kotlin.system.exitProcess
  * That's good if I'm dragging layers around to not re-render them.
  *
  * Next steps:
- * - [] Make selectable rectangles
+ * - [ ] Make selectable rectangles
  */
 
 fun main() = application {

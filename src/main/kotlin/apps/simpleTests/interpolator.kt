@@ -3,7 +3,11 @@ package apps.simpleTests
 import aBeLibs.math.Interpolator
 import org.openrndr.application
 
-// Click to set target any time. Interpolator has inertia.
+/**
+ * id: 12e8c4e4-d938-4124-a1bd-82d20116fa47
+ * description: Click to set target any time. Interpolator has inertia.
+ * tags: #new
+ */
 
 fun main() = application {
     program {

@@ -18,10 +18,13 @@ import kotlin.math.PI
 import kotlin.math.sin
 
 /**
- * In this example I'm testing if it makes sense to use Blend Mode ADD
+ * id: b5d97270-1623-465c-9837-b73de7e5a14e
+ * description: Testing if it makes sense to use Blend Mode ADD
  * for 3D, as the drawing is currently meant to be used in 2D only.
  * So I'm testing if there are use cases in which 3D is usable.
+ * tags: #new
  */
+
 fun main() = application {
     configure {
         multisample = WindowMultisample.SampleCount(4)

@@ -9,6 +9,12 @@ import org.openrndr.math.Vector2
 import org.openrndr.shape.Rectangle
 import kotlin.math.abs
 
+/**
+ * id: e303d372-fc1f-4c9f-a470-41f5bca36fec
+ * description: New sketch
+ * tags: #new
+ */
+
 private val style = object {
     val margin = 5.0
     val size = Vector2(128.0, 64.0)

@@ -5,6 +5,12 @@ import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.*
 import org.openrndr.extra.integralimage.FastIntegralImage
 
+/**
+ * id: bfbf846d-2126-48bb-ae64-429c0d7b87f7
+ * description: New sketch
+ * tags: #new
+ */
+
 fun main() = application {
     configure {
         width = 1024

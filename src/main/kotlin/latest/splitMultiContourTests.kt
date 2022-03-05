@@ -1,6 +1,5 @@
 package latest
 
-
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.hsl
@@ -9,6 +8,12 @@ import org.openrndr.extra.noise.uniform
 import org.openrndr.math.Vector2
 import org.openrndr.shape.Circle
 import org.openrndr.shape.split
+
+/**
+ * id: 24e96dfd-243e-4be3-a414-634fbe78bafd
+ * description: New sketch
+ * tags: #new
+ */
 
 fun main() = application {
     configure {

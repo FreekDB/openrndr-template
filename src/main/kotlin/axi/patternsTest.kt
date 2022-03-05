@@ -20,9 +20,12 @@ import org.openrndr.svg.saveToFile
 import java.io.File
 
 /**
- * Creates a number of shapes each filled with a different pattern.
+ * id: 4638012b-ffc3-4ff5-8bf1-a14912583175
+ * description: Creates a number of shapes each filled with a different pattern.
  * The shapes are vertically centered and separated from each other.
+ * tags: #new
  */
+
 fun main() = application {
     configure {
         width = 1200

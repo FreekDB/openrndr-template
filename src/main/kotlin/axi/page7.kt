@@ -25,12 +25,14 @@ import kotlin.math.pow
 import kotlin.math.sin
 import kotlin.system.exitProcess
 
-/*
-  1. Create a number of parallel curves.
-  2. Create undulating waves between those curves.
-  3. Duplicate the wavy curves multiple times with a slight offset to produce variable-thickness lines
-
-  From my book, pages 7 and 15.
+/**
+ * id: 8ea115aa-6c1f-4658-9bf7-1251cb6ac22d
+ * description: From my book, pages 7 and 15.
+ * 1. Create a number of parallel curves.
+ * 2. Create undulating waves between those curves.
+ * 3. Duplicate the wavy curves multiple times with a
+ * slight offset to produce variable-thickness lines
+ * tags: #new
  */
 
 fun main() = application {
@@ -112,12 +114,14 @@ fun main() = application {
             val center = drawer.bounds.center
 
             hairContours.addAll(cross(center, 50.0))
-            hairContours.addAll(listOf(
-                cross(center + Vector2(500.0), 20.0),
-                cross(center + Vector2(500.0, -500.0), 20.0),
-                cross(center + Vector2(-500.0, 500.0), 20.0),
-                cross(center + Vector2(-500.0), 20.0)
-            ).flatten())
+            hairContours.addAll(
+                listOf(
+                    cross(center + Vector2(500.0), 20.0),
+                    cross(center + Vector2(500.0, -500.0), 20.0),
+                    cross(center + Vector2(-500.0, 500.0), 20.0),
+                    cross(center + Vector2(-500.0), 20.0)
+                ).flatten()
+            )
         }
 
         populate()
@@ -160,5 +164,3 @@ fun main() = application {
         }
     }
 }
-
-

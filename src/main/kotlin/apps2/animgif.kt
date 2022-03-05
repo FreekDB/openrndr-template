@@ -8,6 +8,12 @@ import java.lang.Math.toDegrees
 import kotlin.math.PI
 import kotlin.math.sin
 
+/**
+ * id: 910ee15e-76e3-482b-8e68-f655d998a5fb
+ * description: New sketch
+ * tags: #new
+ */
+
 fun main() = application {
     configure {
         width = 512

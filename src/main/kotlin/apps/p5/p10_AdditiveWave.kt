@@ -7,6 +7,12 @@ import org.openrndr.shape.Circle
 import kotlin.math.PI
 import kotlin.math.sin
 
+/**
+ * id: c7bd8df4-f6ff-47da-ad3b-533fbc1db561
+ * description: New sketch
+ * tags: #new
+ */
+
 private data class SineWave(val freq: Double, val shift: Double, val amp: Double) {
     fun value(t: Double, x: Double) = amp * sin(t * freq + shift * x)
 }

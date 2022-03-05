@@ -2,6 +2,12 @@ package apps2
 
 import org.openrndr.application
 
+/**
+ * id: f3bc6e18-7cbe-4406-bf78-84a018505fce
+ * description: New sketch
+ * tags: #new
+ */
+
 fun main() = application {
 
     program {

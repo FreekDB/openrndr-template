@@ -16,8 +16,10 @@ import org.openrndr.math.Vector2
 import kotlin.system.exitProcess
 
 /**
- * Simple program creating a grid of circles shaded to look like 3D,
- * even if they are 2D.
+ * id: 48205a2a-05d0-4f09-a813-6f0d5dcc672f
+ * description: Simple program creating a grid of circles
+ * shaded to look like 3D, even if they are 2D.
+ * tags: #new
  */
 
 fun main() = application {

@@ -8,6 +8,12 @@ import org.openrndr.color.rgb
 import org.openrndr.extra.shadestyles.linearGradient
 import kotlin.system.exitProcess
 
+/**
+ * id: e7b2a8e8-8b60-440b-a2d3-e58ebeace5db
+ * description: New sketch
+ * tags: #new
+ */
+
 fun main() = application {
     configure {
         width = 640

@@ -1,5 +1,4 @@
-package latest
-
+package lates
 
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
@@ -9,9 +8,14 @@ import org.openrndr.extras.color.presets.ORANGE
 import org.openrndr.math.Vector3
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
+    
+/**
+ * id: 669cf76f-6d4a-4df1-abff-ae84b0f8e47d
+ * description: Example using index buffer
+ * tags: #new
+ */    
 
 /*
-Example using index buffer
 Draw 2 quads with 6 vertices and 12 indices
  0        1        2
  +--------+--------+
@@ -80,4 +84,3 @@ fun main() = application {
         }
     }
 }
-

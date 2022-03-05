@@ -3,6 +3,12 @@ import org.openrndr.application
 import org.openrndr.draw.loadImage
 import org.openrndr.draw.shadeStyle
 import org.openrndr.extras.color.statistics.calculateHistogramRGB
+    
+/**
+ * id: 6c89674d-a41f-4b3d-afe3-73030f12ddd7
+ * description: Uses `calculateHistogramRGB` to reduce the number of colors in an image
+ * tags: #histogram #posterize
+ */    
 
 /**
  * Reduces the number of colors of an image (posterization style).

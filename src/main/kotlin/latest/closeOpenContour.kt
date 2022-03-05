@@ -11,9 +11,12 @@ import org.openrndr.shape.ShapeContour
 import org.openrndr.shape.split
 
 /**
- * Split a square with a straight line,
+ * id: d0bd71c6-ac4c-4b21-9368-9f120fdd7d58
+ * description: Split a square with a straight line,
  * then .close the two halves of the square with a straight segment.
+ * tags: #new
  */
+
 fun main() = application {
     program {
         val square = Rectangle.fromCenter(drawer.bounds.center, 200.0).contour

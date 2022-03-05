@@ -9,6 +9,12 @@ import org.openrndr.extra.noise.Random
 import org.openrndr.shape.LineSegment
 import org.openrndr.shape.Rectangle
 
+/**
+ * id: 617df781-a748-4447-83ab-4ad5a1c1c24d
+ * description: New sketch
+ * tags: #new
+ */
+
 fun main() = application {
     configure {
         width = 1024

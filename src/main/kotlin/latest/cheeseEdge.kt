@@ -9,6 +9,12 @@ import org.openrndr.shape.Composition
 import org.openrndr.shape.draw
 import org.openrndr.shape.drawComposition
 
+/**
+ * id: 7b9896a8-a6ea-4375-b9e4-327865a0b141
+ * description: New sketch
+ * tags: #new
+ */
+
 fun main() = application {
     program {
         Random.seed = System.nanoTime().toString()
@@ -45,5 +51,3 @@ fun main() = application {
         }
     }
 }
-
-

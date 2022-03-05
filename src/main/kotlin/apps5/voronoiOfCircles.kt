@@ -21,6 +21,12 @@ import org.openrndr.shape.ShapeContour
 import kotlin.system.exitProcess
 
 /**
+ * id: 8aee1cfe-8739-4966-977c-8bce6ef04dff
+ * description: New sketch
+ * tags: #new
+ */
+
+/**
  * A combination of voronoi01.kt and gridOfCircles.kt
  */
 

@@ -7,6 +7,12 @@ import org.openrndr.math.Polar
 import org.openrndr.math.Vector2
 import org.openrndr.shape.LineSegment
 
+/**
+ * id: 88f419d6-543d-4a65-8350-97b7ec9dfc42
+ * description: New sketch
+ * tags: #new
+ */
+
 fun main() = application {
     configure {
         width = 500
@@ -41,4 +47,3 @@ fun main() = application {
         }
     }
 }
-

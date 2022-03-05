@@ -8,6 +8,12 @@ import org.openrndr.draw.isolated
 import org.openrndr.extra.noise.Random
 import org.openrndr.math.Vector2
 import org.openrndr.shape.ShapeContour
+    
+/**
+ * id: 44aa1d11-de2f-4464-8c44-86b00ddffd0b
+ * description: New sketch
+ * tags: #new
+ */    
 
 // activate "orx-noise" in build.gradle.kts
 
@@ -18,7 +24,6 @@ fun main() = application {
     }
 
     program {
-
         var tileSize = 50
         var angle = 0.0
         var sw = 1.0

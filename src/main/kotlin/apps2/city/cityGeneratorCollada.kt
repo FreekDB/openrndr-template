@@ -9,6 +9,12 @@ import org.openrndr.extra.noise.Random
 import org.openrndr.math.Vector2
 import org.openrndr.shape.Rectangle
 
+/**
+ * id: cc92871e-2c1e-4455-b97c-2776e1cbad7b
+ * description: New sketch
+ * tags: #new
+ */
+
 // DONE: export collada mesh with UV maps
 // TODO: decide: grid or no grid?
 // TODO: deform grid and grid contents

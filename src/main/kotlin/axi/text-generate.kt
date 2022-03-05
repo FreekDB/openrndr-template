@@ -15,21 +15,23 @@ import org.openrndr.shape.contour
 import org.openrndr.svg.writeSVG
 import kotlin.system.exitProcess
 
+/**
+ * id: fc679e8a-58a8-4821-a462-0c4d97a00b81
+ * description: Converts text to custom symbols.
+ * tags: #new
+ */
+
+/**
+ * - Inspired by P5 wordsToShapes from 2013/06
+ *   https://github.com/hamoid/Fun-Programming/tree/master/processing/ideas/2013/06/wordsToShapes
+ */
+
 private val Vector2.rnd: Vector2
     get() {
         return this + Vector2.uniformRing(outerRadius = 1.5)
     }
 
 var wordCursor = Vector2.ZERO
-
-/**
- * Converts text to custom symbols
- * - #exhibition
- * - Text by Celia Green
- * - Inspired by P5 wordsToShapes from 2013/06
- *   https://github.com/hamoid/Fun-Programming/tree/master/processing/ideas/2013/06/wordsToShapes
- * -Dopenrndr.gl3.debug=true
- */
 
 fun main() = application {
     configure {
@@ -107,6 +109,7 @@ fun main() = application {
 
     val words = mutableListOf<List<ShapeContour>>()
 
+    // by Celia Green.
     """On the face of it there is something rather strange about 
 | human psychology . Human beings live in a state of mind
 | called sanity , on a small planet in space . They are not 
@@ -118,6 +121,7 @@ fun main() = application {
 | which is obviously a remarkable phenomenon 
 | that deserves more recognition .""".trimMargin().lowercase()
 
+// by aBe
 //    """have most of the important
 //      | things been said already ?
 //      | that will depend on how long
@@ -127,10 +131,10 @@ fun main() = application {
 //      | probably means we have a long
 //      | future ahead of us .""".trimMargin()
 
-            .split(" ")
-            .forEach {
-                words.add(word(it))
-            }
+        .split(" ")
+        .forEach {
+            words.add(word(it))
+        }
 
 //    val distortionData = List(3) {
 //        Triple(0.0, 1.0, 0.3 + 0.3 * it)

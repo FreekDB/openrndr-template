@@ -11,6 +11,12 @@ import org.openrndr.math.Vector2
 import org.openrndr.shape.ShapeContour
 import kotlin.system.exitProcess
 
+/**
+ * id: b4599fcc-9a24-4224-b3f8-a3f2a72a866a
+ * description: New sketch
+ * tags: #new
+ */
+
 
 @ExperimentalStdlibApi
 fun main() = application {

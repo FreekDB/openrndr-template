@@ -13,13 +13,16 @@ import org.openrndr.math.transforms.transform
 import org.openrndr.shape.Circle
 
 /**
+ * id: bb6d60df-09b4-45fe-b0ba-855d731eca08
+ * description: New sketch
+ * tags: #new
+ */
+
+/**
  * Something something
  * <p><img src="https://avatars.githubusercontent.com/u/31103334?s=200&v=4"/></p>
  */
 
-/**
- * What about this one?
- */
 fun main() = application {
     program {
         val grid = drawer.bounds.grid(8, 6, 50.0, 50.0)

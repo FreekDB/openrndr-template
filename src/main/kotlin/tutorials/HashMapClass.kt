@@ -10,7 +10,9 @@ import org.openrndr.shape.IntRectangle
 import java.io.File
 
 /**
- * Port of HashMapClass.pde (Processing example)
+ * id: 0875bd0e-3f5e-4954-9bf1-0bef17c32433
+ * description: Port of HashMapClass.pde (Processing example)
+ * tags: #p5
  */
 
 fun main() = application {

@@ -8,7 +8,6 @@ import org.openrndr.draw.loadFont
 import org.openrndr.draw.renderTarget
 import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.noise.random
-import org.openrndr.ffmpeg.MP4Profile
 import org.openrndr.ffmpeg.VideoWriter
 import org.openrndr.math.Polar
 import org.openrndr.shape.Segment
@@ -17,8 +16,10 @@ import org.openrndr.shape.intersections
 import kotlin.math.max
 
 /**
- * A program that creates a collection of lines, then mutates them randomly
- * trying to create order. Tags: separate
+ * id: e3da455c-33c0-4c47-bb2d-9f54695d655f
+ * description: A program that creates a collection of lines,
+ * then mutates them randomly trying to create order.
+ * tags: #separate
  */
 
 fun main() = application {

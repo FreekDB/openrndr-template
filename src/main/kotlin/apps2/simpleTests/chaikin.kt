@@ -8,6 +8,11 @@ import org.openrndr.math.chaikinSmooth
 import org.openrndr.shape.Rectangle
 import org.openrndr.shape.ShapeContour
 
+/**
+ * id: 9df03895-fd04-49ca-a224-bffe269c4491
+ * description: New sketch
+ * tags: #new
+ */
 
 fun main() = application {
     program {
@@ -28,7 +33,7 @@ fun main() = application {
         extend {
             drawer.clear(rgb(0.7))
             drawer.fill = null
-            drawer.strokeWeight = 0.3
+            drawer.strokeWeight = 6.0
             //drawer.contour(lowpoly)
             drawer.contour(smooth)
         }

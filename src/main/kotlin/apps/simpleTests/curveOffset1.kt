@@ -18,7 +18,9 @@ import org.openrndr.shape.offset
 import kotlin.system.exitProcess
 
 /**
- * Testing recent changes to ShapeContour and .offset()
+ * id: 069381ef-2651-44f6-8b9d-23f61897a3d7
+ * description: Testing recent changes to ShapeContour and .offset()
+ * tags: #new
  */
 
 // A class to store a contour together with two colors used for its gradient

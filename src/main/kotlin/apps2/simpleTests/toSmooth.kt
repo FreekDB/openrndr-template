@@ -8,6 +8,12 @@ import org.openrndr.color.ColorRGBa
 import org.openrndr.color.rgb
 import org.openrndr.svg.loadSVG
 
+/**
+ * id: b6429677-e0dc-4168-b58e-d74e7c076145
+ * description: Load SVG file, apply .beautify(), show original and processed.
+ * tags: #svg
+ */
+
 fun main() = application {
     configure {
         width = 800

@@ -10,8 +10,10 @@ import org.openrndr.shape.ShapeContour
 import kotlin.system.exitProcess
 
 /**
- * lineNormals, ported from
+ * id: 089c59e5-6c8a-44e6-b4bd-0d312745d198
+ * description: lineNormals, ported from
  * https://github.com/hamoid/Fun-Programming/tree/master/processing/ideas/2018/11/lineNormals
+ * tags: #new
  */
 
 fun main() = application {

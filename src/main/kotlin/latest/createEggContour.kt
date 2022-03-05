@@ -1,7 +1,7 @@
 package latest
 
-import aBeLibs.random.pickWeighted
 import aBeLibs.geometry.circleish
+import aBeLibs.random.pickWeighted
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.rgb
@@ -19,8 +19,12 @@ import org.openrndr.shape.ShapeContour
 import org.openrndr.shape.contains
 
 /**
- * Falling potatoes find a good place to rest on top of other potatoes.
+ * id: 6d9d81b5-4b5e-477b-8622-05f2a7d0f0f3
+ * description: Falling potatoes find a good place to rest
+ * on top of other potatoes.
+ * tags: #new
  */
+
 private val ShapeContour.center: Vector2
     get() = segments.map { it.start }
         .reduce { sum, v -> sum + v } / segments.size.toDouble()
@@ -112,6 +116,6 @@ private fun ShapeContour.overlaps(other: ShapeContour) =
             this.bounds.contains(other.center) ||
                     other.bounds.contains(this.center) ||
                     other.contains(this.nearest(other.center).position)
-                    // TODO: I wanted to use .intersections instead of this
-                    // hack but it needs to be fixed first in artifex
+            // TODO: I wanted to use .intersections instead of this
+            // hack but it needs to be fixed first in artifex
             )

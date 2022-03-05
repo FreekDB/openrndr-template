@@ -11,6 +11,12 @@ import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
 
+/**
+ * id: 55cc3450-356f-41eb-a5f6-c8e35a43c911
+ * description: New sketch
+ * tags: #new
+ */
+
 fun main() = application {
     program {
 

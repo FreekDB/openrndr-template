@@ -20,6 +20,12 @@ import kotlin.math.sin
 import kotlin.system.exitProcess
 
 /**
+ * id: 21d24ddd-8d26-4b41-8254-9e61502f94f0
+ * description: New sketch
+ * tags: #broken
+ */
+
+/**
  * .removeIntersections(10.0) is currently broken.
  */
 fun main() = application {

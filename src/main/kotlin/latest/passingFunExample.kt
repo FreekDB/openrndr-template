@@ -2,7 +2,6 @@ package latest
 
 import aBeLibs.extensions.ClipboardScreenshot
 import org.openrndr.application
-
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.LineJoin
 import org.openrndr.extra.noise.Random
@@ -12,6 +11,12 @@ import org.openrndr.shape.ShapeContour
 import kotlin.math.PI
 import kotlin.math.pow
 import kotlin.math.sin
+
+/**
+ * id: 16129e27-e39e-4f0b-ba9e-4d043835f829
+ * description: New sketch
+ * tags: #new
+ */
 
 fun main() = application {
     configure {

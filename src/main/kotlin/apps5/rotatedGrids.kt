@@ -12,6 +12,12 @@ import org.openrndr.extras.color.presets.LIGHT_CORAL
 import org.openrndr.extras.color.presets.LIGHT_SALMON
 import kotlin.random.Random
 
+/**
+ * id: d9ffc08a-9bc9-4caf-9aaa-8e444de96a1c
+ * description: New sketch
+ * tags: #new
+ */
+
 fun main() = application {
     configure {
         width = 900

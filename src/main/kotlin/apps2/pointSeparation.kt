@@ -18,10 +18,13 @@ import kotlin.math.PI
 import kotlin.math.abs
 
 /**
- * Interactive, animated growth algorithm.
+ * id: 5dfaa8dd-4a1f-4ddd-a75d-ad9c5db5a263
+ * description: Interactive, animated growth algorithm.
  * Inserts points on a closed shape trying to maintain a minimum
  * distance and a maximum angle (sharpness) between the points
+ * tags: #new
  */
+
 fun main() = application {
     configure {
         width = 512

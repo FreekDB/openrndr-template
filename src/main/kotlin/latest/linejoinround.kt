@@ -11,18 +11,23 @@ import org.openrndr.shape.Rectangle
 import org.openrndr.shape.contains
 import org.openrndr.svg.loadSVG
 
-fun main() = application {
+/**
+ * id: 97d9bda0-5da4-46e5-b167-09fdd2e807db
+ * description: New sketch
+ * tags: #broken
+ */
 
+fun main() = application {
     program {
         val butterfly =
             loadSVG("/tmp/butterfly.svg").findShapes()[0].effectiveShape
                 .transform(
-                Matrix44.scale(0.25, 0.25, 1.0) * Matrix44.translate(
-                    300.0,
-                    500.0,
-                    0.0
+                    Matrix44.scale(0.25, 0.25, 1.0) * Matrix44.translate(
+                        300.0,
+                        500.0,
+                        0.0
+                    )
                 )
-            )
         val square = Rectangle.fromCenter(
             Vector2(0.75 * width, height / 2.0),
             100.0
@@ -53,4 +58,3 @@ fun main() = application {
         }
     }
 }
-

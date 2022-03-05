@@ -10,7 +10,9 @@ import kotlin.math.PI
 import kotlin.math.sin
 
 /**
- * Animated closed multi-point gradient
+ * id: 81a3f2d0-9557-4b4c-802e-2124d5d4545e
+ * description: Animated closed multi-point gradient
+ * tags: #new
  */
 
 fun main() = application {

@@ -1,6 +1,5 @@
 package latest
 
-
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.isolated
@@ -11,9 +10,11 @@ import org.openrndr.shape.contour
 import org.openrndr.shape.difference
 
 /**
- * ----- ==> -o--- ==> - ---
- * Remove part of a line using a circle
+ * id: 87a1ad7a-454b-49f9-b4a4-587dd7df06e2
+ * description: Remove part of a line using a circle.
  * ShapeContour (line) - Shape (circle) = ShapeContour with missing part
+ * [-----] ==> [-o---] ==> [- ---]
+ * tags: #new
  */
 
 fun main() = application {

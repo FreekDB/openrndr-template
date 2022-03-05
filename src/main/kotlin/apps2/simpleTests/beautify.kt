@@ -9,6 +9,12 @@ import org.openrndr.color.rgb
 import org.openrndr.shape.Circle
 import org.openrndr.shape.offset
 
+/**
+ * id: 3664e5d8-2e33-49e9-99d7-04554aebded0
+ * description: New sketch
+ * tags: #new
+ */
+
 fun main() = application {
     configure {
         width = 800

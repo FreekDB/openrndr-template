@@ -3,6 +3,12 @@ package apps2.city
 import org.openrndr.math.Vector2
 import kotlin.math.min
 
+/**
+ * id: 74ac0ada-b747-4d24-bb43-1f607f7905e8
+ * description: New sketch
+ * tags: #new
+ */
+
 class City(var position: Vector2) {
     private val maxSize = 100.0
     private var shrinkDelay = 150

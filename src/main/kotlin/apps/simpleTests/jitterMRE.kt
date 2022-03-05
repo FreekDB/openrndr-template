@@ -6,6 +6,12 @@ import org.openrndr.draw.renderTarget
 import org.openrndr.extra.fx.color.SetBackground
 import org.openrndr.extra.gui.GUI
 
+/**
+ * id: b61a1eda-c36f-4541-a07e-b8f51f9ccb98
+ * description: New sketch
+ * tags: #new
+ */
+
 fun main() = application {
     configure {
         height = 1000

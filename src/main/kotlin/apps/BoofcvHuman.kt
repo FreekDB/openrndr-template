@@ -31,9 +31,11 @@ import java.io.File
 import kotlin.math.pow
 import kotlin.system.exitProcess
 
-
 /**
- * Simple BoofCV test. Loads an image, makes it black and white, gets contours
+ * id: 4f670f3f-3244-44dc-b082-78e2d982c8a7
+ * description: Generates a black and white image, applies Blur and Perturb,
+ * uses boofcv to convert the bitmap into curves which can then be saved as SVG.
+ * tags: #axi #boofcv
  */
 
 fun main() = application {
@@ -65,7 +67,7 @@ fun main() = application {
                 val amount = 100
                 val shapes = List(amount) {
                     val pc = map(0.0, amount * 1.0, 1.0, 0.0, it * 1.0)
-                    val c = Random.pick(human.contours())
+                    val c = human.contours().random()
                     val pos = c.position(Random.double0())
                     val radius = 20.0 + 180.0 * pc.pow(2.5)
                     Circle(pos, radius)
@@ -73,8 +75,7 @@ fun main() = application {
 
                 shapes.forEachIndexed { i, cir ->
                     isolated {
-                        fill =
-                            if (Random.bool()) ColorRGBa.WHITE else ColorRGBa.BLACK
+                        fill = if (Random.bool()) ColorRGBa.WHITE else ColorRGBa.BLACK
                         stroke = null
                         if (Random.bool(0.5)) {
                             if (Random.bool(0.75)) {
@@ -90,24 +91,19 @@ fun main() = application {
                                 for (copy in 0 until copies) {
                                     isolated {
                                         val ang = angleStart + copy * angleDelta
-                                        val rect =
-                                            Rectangle.fromCenter(
-                                                Vector2.ZERO,
-                                                cir.radius * 0.5,
-                                                cir.radius * 0.2
-                                            )
+                                        val rect = Rectangle.fromCenter(
+                                            Vector2.ZERO, cir.radius * 0.5, cir.radius * 0.2
+                                        )
                                         if (cartesian) {
                                             translate(
                                                 cir.center + Vector2(
-                                                    0.0,
-                                                    ang - 180
+                                                    0.0, ang - 180
                                                 )
                                             )
                                         } else {
                                             translate(
                                                 cir.center + Polar(
-                                                    ang,
-                                                    radius
+                                                    ang, radius
                                                 ).cartesian
                                             )
                                             rotate(ang)
@@ -123,9 +119,7 @@ fun main() = application {
                                 rotate(Random.int0(8) * 30.0)
                                 rectangle(
                                     Rectangle.fromCenter(
-                                        Vector2.ZERO,
-                                        cir.radius * 3.0,
-                                        cir.radius * 0.5
+                                        Vector2.ZERO, cir.radius * 3.0, cir.radius * 0.5
                                     )
                                 )
                             }
@@ -144,8 +138,7 @@ fun main() = application {
                                 1 -> {
                                     // make whole in the center of previous circle
                                     stroke = null
-                                    fill =
-                                        if (Random.bool(0.7)) ColorRGBa.BLACK else ColorRGBa.WHITE
+                                    fill = if (Random.bool(0.7)) ColorRGBa.BLACK else ColorRGBa.WHITE
                                     radius *= Random.double0(0.6)
                                 }
                             }

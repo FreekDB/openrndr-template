@@ -31,11 +31,14 @@ import java.io.File
 import kotlin.math.pow
 import kotlin.system.exitProcess
 
+/**
+ * id: 9a51a2a0-c15c-4441-aa1d-470700fdf612
+ * description: Creates black and white designs. Applies glitchy effect and blur.
+ * Then uses BoofCV to trace contours. Finally, fills contours with patterns.
+ * tags: #new
+ */
 
 /**
- * Creates black and white designs. Applies glitchy effect and blur.
- * Then uses BoofCV to trace contours. Finally, fills contours with patterns.
- *
  * Next: create multiple contours. Subtract to remove overlap.
  */
 

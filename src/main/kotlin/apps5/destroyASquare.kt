@@ -7,7 +7,13 @@ import org.openrndr.extra.noise.Random
 import org.openrndr.extra.shapes.grid
 
 /**
- * A grid of incomplete squares. Uses the new signature of .grid() which I
+ * id: be2a3a2f-f5a1-4d2e-9758-49f9d1f7bfb9
+ * description: A grid of incomplete squares.
+ * tags: #new
+ */
+
+/**
+ * Uses the new signature of .grid() which I
  * developed for this sketch (taking two Double instead of two Int args)
  *
  * Based on
@@ -17,26 +23,26 @@ import org.openrndr.extra.shapes.grid
  */
 
 fun main() = application {
-  configure {
-    width = 800
-    height = 800
-  }
-  program {
-    val squares = drawer.bounds.grid(
-      40.0, 40.0, 80.0, 80.0, 10.0, 10.0
-    ).flatten().map { rect ->
-      val start = Random.int(0, 11) * 0.1
-      val len = Random.int(1, 11) * 0.1
-      rect.contour.sub(start, start + len)
+    configure {
+        width = 800
+        height = 800
     }
+    program {
+        val squares = drawer.bounds.grid(
+            40.0, 40.0, 80.0, 80.0, 10.0, 10.0
+        ).flatten().map { rect ->
+            val start = Random.int(0, 11) * 0.1
+            val len = Random.int(1, 11) * 0.1
+            rect.contour.sub(start, start + len)
+        }
 
-    extend {
-      drawer.isolated {
-        clear(ColorRGBa.WHITE)
-        fill = null
-        stroke = ColorRGBa.BLACK
-        contours(squares)
-      }
+        extend {
+            drawer.isolated {
+                clear(ColorRGBa.WHITE)
+                fill = null
+                stroke = ColorRGBa.BLACK
+                contours(squares)
+            }
+        }
     }
-  }
 }

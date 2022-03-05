@@ -3,6 +3,12 @@ package apps2.simpleTests
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.Drawer
 
+/**
+ * id: b6714624-f9c7-4721-b17c-35896c43094a
+ * description: New sketch
+ * tags: #new
+ */
+
 class SimpleDrawingClass(val drawer: Drawer) {
     fun draw() {
         with(drawer) {

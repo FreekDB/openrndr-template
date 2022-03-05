@@ -6,7 +6,9 @@ import org.openrndr.draw.shadeStyle
 import org.openrndr.extensions.Screenshots
 
 /**
- * Example porting a shadertoy program to OPENRNDR
+ * id: 270c0331-5010-4c2b-b8e6-11677ea5d30b
+ * description: porting a shadertoy program to OPENRNDR
+ * tags: #new
  */
 
 fun main() = application {

@@ -12,7 +12,12 @@ import org.openrndr.extra.noise.Random
 import org.openrndr.extra.noise.simplex3D
 import org.openrndr.extra.noise.withVector2Output
 
-// openrndr 0.4
+/**
+ * id: 6b2df5a1-407c-4a68-b901-22b6bb879c49
+ * description: New sketch
+ * tags: #new
+ */
+
 fun main() = application {
     configure {
         width = 800

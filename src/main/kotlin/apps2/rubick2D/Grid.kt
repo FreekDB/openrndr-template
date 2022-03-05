@@ -5,6 +5,12 @@ import org.openrndr.draw.Drawer
 import org.openrndr.extra.noise.Random
 import kotlin.math.sign
 
+/**
+ * id: e1f1e468-c08a-4019-88ca-f9b3241c878d
+ * description: New sketch
+ * tags: #new
+ */
+
 class Grid {
     private val grid = List(columns * rows) { Cell(it) }
     private val history = CircularArray(4, Pair(grid[0], grid[0]))
@@ -66,7 +72,7 @@ class Grid {
                     selection.last().clear()
                 }
             }
-        } while(!found)
+        } while (!found)
     }
 
     fun draw(drawer: Drawer) {
@@ -80,6 +86,7 @@ typealias CellRange = Pair<Cell, Cell>
 
 private fun CellRange.hasWidth(): Boolean = first.x() != second.x()
 private fun CellRange.hasHeight(): Boolean = first.y() != second.y()
+
 // Note: it doesn't actually calculate motion overlap, but motion
 // direction in the same row or column.
 private fun CellRange.isCounterMove(other: CellRange): Boolean {
@@ -100,4 +107,3 @@ private fun CellRange.isCounterMove(other: CellRange): Boolean {
     }
     return false
 }
-

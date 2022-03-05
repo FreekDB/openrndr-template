@@ -15,10 +15,13 @@ import kotlin.math.cos
 import kotlin.math.sin
 
 /**
- * Animated closed contour with multiple self intersections.
+ * id: ace602f6-c749-4f69-88c8-83dda9d53c12
+ * description: Animated closed contour with multiple self intersections.
  * - Highlights distinct intersections
  * - Shows intersection coordinates
+ * tags: #new
  */
+
 fun main() = application {
     program {
         val points = 200

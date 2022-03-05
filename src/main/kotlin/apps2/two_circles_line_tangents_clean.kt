@@ -18,9 +18,11 @@ import org.openrndr.shape.Rectangle
 import org.openrndr.shape.map
 
 /**
- * Ported from
+ * id: c3103ebe-6971-48c5-9fd4-913e14ea1a28
+ * description: Ported from
  * https://github.com/hamoid/Fun-Programming/tree/master/processing/ideas/2016/07/two_circles_line_tangents
  * then added concave and convex circle tangents.
+ * tags: #new
  */
 
 fun main() = application {
@@ -99,7 +101,7 @@ fun main() = application {
                                         p1.map(from, to),
                                         to.height * 0.1 - found * to.height * 0.01
                                     )
-                                    if(leftCirc.radius < 1 || rightCirc.radius < 1) {
+                                    if (leftCirc.radius < 1 || rightCirc.radius < 1) {
                                         break
                                     }
                                     contour(

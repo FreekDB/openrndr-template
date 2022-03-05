@@ -3,7 +3,6 @@ package latest
 import aBeLibs.geometry.randomPoint
 import aBeLibs.geometry.symmetrize
 import org.openrndr.application
-
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.rgb
 import org.openrndr.draw.isolated
@@ -13,6 +12,12 @@ import org.openrndr.math.IntVector2
 import org.openrndr.math.Vector2
 import org.openrndr.shape.*
 import java.lang.Double.min
+
+/**
+ * id: 0cbe7e41-aef0-4a58-9139-930e9f656771
+ * description: New sketch
+ * tags: #new
+ */
 
 /**
  * In this program I'm going to work with a contour.
@@ -39,8 +44,7 @@ fun main() = application {
                 val center = points.bounds.center
                 val maxSize = 480.0 / side
                 val scale = min(
-                    maxSize / points.bounds.width,
-                    maxSize / points.bounds.height
+                    maxSize / points.bounds.width, maxSize / points.bounds.height
                 )
                 val pointsCentered = points.map { (it - center) * scale }
                 val c = ShapeContour.fromPoints(pointsCentered, true)
@@ -53,20 +57,16 @@ fun main() = application {
                 // NOTE2: it's checking if the source shape has intersections
                 // but not if the symmetrized versions do.
                 if (c.intersections(c).isEmpty()) {
-                    val result =
-                        mutableListOf<Pair<ShapeContour, List<LineSegment>>>()
+                    val result = mutableListOf<Pair<ShapeContour, List<LineSegment>>>()
                     var tries = 0
                     while (result.size < side * side) {
                         val cSym = c.symmetrize { i ->
                             val n = Random.simplex(
-                                result.size * 0.3,
-                                i * 0.3 + tries * 7.17
+                                result.size * 0.3, i * 0.3 + tries * 7.17
                             ) * 0.4 + 0.5
                             Pair(n, n)
                         }
-                        if (cSym.first.intersections(cSym.first).isEmpty() ||
-                            tries++ > 5
-                        ) {
+                        if (cSym.first.intersections(cSym.first).isEmpty() || tries++ > 5) {
                             result.add(cSym)
                         }
                     }
@@ -83,8 +83,7 @@ fun main() = application {
             softies.forEachIndexed { i, it ->
                 drawer.isolated {
                     val pos = (IntVector2(
-                        i % side,
-                        i / side
+                        i % side, i / side
                     ).vector2 + 1.0) / (side + 1.0)
                     translate(bounds.position(pos.x, pos.y))
                     rotate(180 * Random.simplex(pos * 0.2))

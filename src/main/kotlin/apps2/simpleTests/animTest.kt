@@ -7,6 +7,12 @@ import org.openrndr.color.ColorHSVa
 import org.openrndr.color.ColorRGBa
 import org.openrndr.extra.noise.Random
 
+/**
+ * id: d563ab01-d448-472b-90e2-d12e48c53108
+ * description: New sketch
+ * tags: #new
+ */
+
 fun main() = application {
     program {
         var bg = ColorRGBa.BLACK
@@ -28,7 +34,8 @@ fun main() = application {
                 ::x.animate(
                     Random.double0(width * 1.0),
                     2000,
-                    Easing.QuadInOut)
+                    Easing.QuadInOut
+                )
                 ::x.complete()
                 ::y.animate(
                     Random.double0(height * 1.0),

@@ -11,6 +11,12 @@ import org.openrndr.shape.contour
 import kotlin.math.sin
 
 /**
+ * id: 68d8bdbf-2d0e-436b-ac0c-74c51e2bf3b2
+ * description: New sketch
+ * tags: #new
+ */
+
+/**
  * Port of
  * https://github.com/hamoid/Fun-Programming/blob/master/processing/ideas/2017/10/copycat_gears/Gear.pde
  */

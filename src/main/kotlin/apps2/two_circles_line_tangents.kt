@@ -16,9 +16,11 @@ import org.openrndr.shape.Segment
 import org.openrndr.shape.contour
 
 /**
- * Ported from
+ * id: 1b25f9a9-1fd4-4ca4-b1e1-c8df150bb208
+ * description: Ported from
  * [github](https://github.com/hamoid/Fun-Programming/tree/master/processing/ideas/2016/07/two_circles_line_tangents)
  * then added concave and convex circle tangents.
+ * tags: #new
  */
 
 fun main() = application {

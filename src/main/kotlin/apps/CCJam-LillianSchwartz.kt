@@ -1,15 +1,17 @@
 package apps
 
+import aBeLibs.shadestyles.PushAway
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.*
 import org.openrndr.extra.jumpfill.directionFieldFromBitmap
 import org.openrndr.extra.jumpfill.distanceFieldFromBitmap
-import aBeLibs.shadestyles.PushAway
 
 /**
- * Creative Code Jam June 20th, 2020
- * With Deniz - Based on https://vimeo.com/56480534
+ * id: 23fb599f-7587-4bc4-93f7-19e5dea01224
+ * description: Creative Code Jam June 20th, 2020
+ * With Deniz - Based on this video: https://vimeo.com/56480534
+ * tags: #ccj
  */
 
 fun main() = application {
@@ -80,7 +82,7 @@ fun main() = application {
             }
         }
         keyboard.keyDown.listen {
-            if(it.name == "delete") {
+            if (it.name == "delete") {
                 drawer.isolatedWithTarget(rt) {
                     clear(ColorRGBa.BLACK)
                 }

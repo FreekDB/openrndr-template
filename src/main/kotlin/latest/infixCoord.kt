@@ -6,10 +6,16 @@ import org.openrndr.extensions.Screenshots
 import org.openrndr.math.Vector2
 import org.openrndr.shape.contour
 
+/**
+ * id: 9123d438-98ee-4e49-a4b4-e4367b2d1786
+ * description: New sketch
+ * tags: #new
+ */
+
 fun main() = application {
     configure {
-        width = 1280
-        height = 640
+        width = 600
+        height = 300
     }
     program {
         val c = contour {

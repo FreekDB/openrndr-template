@@ -1,6 +1,5 @@
 package latest
 
-
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.hsl
@@ -8,6 +7,12 @@ import org.openrndr.draw.isolated
 import org.openrndr.math.IntVector2
 import org.openrndr.math.Vector2
 import org.openrndr.shape.*
+
+/**
+ * id: a8c0c1f0-1efc-4739-819c-27eb943fe048
+ * description: New sketch
+ * tags: #new
+ */
 
 fun main() = application {
     configure {
@@ -40,8 +45,10 @@ fun main() = application {
             knives.forEachIndexed { x, knife ->
                 targets.forEachIndexed { y, target ->
                     drawer.isolated {
-                        translate(b.dimensions / 2.0 +
-                                b.dimensions * IntVector2(x, y).vector2)
+                        translate(
+                            b.dimensions / 2.0 +
+                                    b.dimensions * IntVector2(x, y).vector2
+                        )
                         fill = ColorRGBa.BLACK.opacify(0.1)
                         stroke = ColorRGBa.BLACK.opacify(0.2)
                         contour(target)

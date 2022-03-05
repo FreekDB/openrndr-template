@@ -6,6 +6,12 @@ import org.openrndr.color.ColorRGBa
 import org.openrndr.color.mix
 import org.openrndr.extensions.Screenshots
 
+/**
+ * id: fd097256-df17-4c06-ad96-4430242065de
+ * description: New sketch
+ * tags: #new
+ */
+
 fun main() = application {
     configure {
         width = 300

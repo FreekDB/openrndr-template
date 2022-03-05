@@ -2,6 +2,12 @@ import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.shape.Circle
 
+/**
+ * id: 9548b935-1c31-47cf-b718-bb6ad1320130
+ * description: New sketch
+ * tags: #new
+ */
+
 fun main() = application {
     configure { }
     program {

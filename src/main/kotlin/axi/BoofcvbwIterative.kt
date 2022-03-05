@@ -31,9 +31,13 @@ import org.openrndr.svg.writeSVG
 import kotlin.system.exitProcess
 
 /**
- * BoofCV BW Iterative. Grows concentric shapes by converting vector
+ * id: 137ba8b1-cbf5-4127-9eb7-3cf422cd86b9
+ * description: BoofCV BW Iterative. Grows concentric shapes by converting vector
  * shapes to bitmap and back.
- *
+ * tags: #new
+ */
+
+/**
  * Note: Blur .window and .sigma are ignored from the gui as they are re-set
  * when converting to curves.
  */
@@ -86,18 +90,21 @@ fun main() = application {
         }
 
         val guiData = @Description("Actions") object {
-            @ActionParameter("new") @Suppress("unused")
+            @ActionParameter("new")
+            @Suppress("unused")
             fun doNew() {
                 final.clearColor(0, ColorRGBa.WHITE)
                 contours.clear()
             }
 
-            @ActionParameter("screenshot") @Suppress("unused")
+            @ActionParameter("screenshot")
+            @Suppress("unused")
             fun doScreenshot() {
                 screenshots.trigger()
             }
 
-            @ActionParameter("save svg") @Suppress("unused")
+            @ActionParameter("save svg")
+            @Suppress("unused")
             fun doSaveSVG() {
                 exportSVG()
             }
@@ -155,16 +162,16 @@ fun main() = application {
                             }
                             1 -> {
                                 rectangle(
-                                        Rectangle.fromCenter(
-                                                Vector2.ZERO,
-                                                50 + 10.0 * Random.int0(5), 10.0
-                                        )
+                                    Rectangle.fromCenter(
+                                        Vector2.ZERO,
+                                        50 + 10.0 * Random.int0(5), 10.0
+                                    )
                                 )
                                 rectangle(
-                                        Rectangle.fromCenter(
-                                                Vector2(10.0 * Random.int0(5), Random.double(-5.0, 5.0)),
-                                                Random.double(10.0, 30.0), Random.double(15.0, 30.0)
-                                        )
+                                    Rectangle.fromCenter(
+                                        Vector2(10.0 * Random.int0(5), Random.double(-5.0, 5.0)),
+                                        Random.double(10.0, 30.0), Random.double(15.0, 30.0)
+                                    )
                                 )
                             }
                         }
@@ -205,12 +212,18 @@ fun main() = application {
             drawer.run {
                 image(final.colorBuffer(0), 0.0, 0.0)
                 if (keyboard.pressedKeys.contains("left-alt")) {
-                    image(bw.colorBuffer(0), 200.0, 100.0,
-                            buffPrevSz.x, buffPrevSz.y)
-                    image(bwBlurred, 200.0, 100.0 + buffPrevSz.y * 1.1,
-                            buffPrevSz.x, buffPrevSz.y)
-                    image(withFX, 200.0, 100.0 + buffPrevSz.y * 2.2,
-                            buffPrevSz.x, buffPrevSz.y)
+                    image(
+                        bw.colorBuffer(0), 200.0, 100.0,
+                        buffPrevSz.x, buffPrevSz.y
+                    )
+                    image(
+                        bwBlurred, 200.0, 100.0 + buffPrevSz.y * 1.1,
+                        buffPrevSz.x, buffPrevSz.y
+                    )
+                    image(
+                        withFX, 200.0, 100.0 + buffPrevSz.y * 2.2,
+                        buffPrevSz.x, buffPrevSz.y
+                    )
                 }
                 stroke = ColorRGBa.RED
                 fill = null

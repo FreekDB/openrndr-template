@@ -8,36 +8,41 @@ import org.openrndr.draw.isolatedWithTarget
 import org.openrndr.draw.renderTarget
 import org.openrndr.math.Vector2
 
-fun main() =
-    application {
-        program {
-            // -- build a render target with a single color buffer attachment
-            val rt = renderTarget(width, height, multisample = BufferMultisample.SampleCount(8)) {
-                colorBuffer()
-                depthBuffer()
-            }
+/**
+ * id: 13f0b14c-1d7b-4284-b5a9-48d67ef9d789
+ * description: New sketch
+ * tags: #new
+ */
 
-            val resolved = colorBuffer(width, height)
+fun main() = application {
+    program {
+        // -- build a render target with a single color buffer attachment
+        val rt = renderTarget(width, height, multisample = BufferMultisample.SampleCount(8)) {
+            colorBuffer()
+            depthBuffer()
+        }
 
-            extend {
-                drawer.isolatedWithTarget(rt) {
-                    drawer.clear(ColorRGBa.BLACK)
-                    
-                    drawer.fill = ColorRGBa.WHITE
-                    drawer.stroke = null
-                    drawer.circle(Vector2.ZERO, 400.0)
-                }
+        val resolved = colorBuffer(width, height)
 
-                // -- resolve the render target attachment to `resolved`
-                rt.colorBuffer(0).copyTo(resolved)
+        extend {
+            drawer.isolatedWithTarget(rt) {
+                drawer.clear(ColorRGBa.BLACK)
 
-                // draw the backing color buffer to the screen
-                drawer.image(resolved)
-
-                // draw a second circle with no multisampling to compare
                 drawer.fill = ColorRGBa.WHITE
                 drawer.stroke = null
-                drawer.circle(width * 1.0, height * 1.0, 400.0)
+                drawer.circle(Vector2.ZERO, 400.0)
             }
+
+            // -- resolve the render target attachment to `resolved`
+            rt.colorBuffer(0).copyTo(resolved)
+
+            // draw the backing color buffer to the screen
+            drawer.image(resolved)
+
+            // draw a second circle with no multisampling to compare
+            drawer.fill = ColorRGBa.WHITE
+            drawer.stroke = null
+            drawer.circle(width * 1.0, height * 1.0, 400.0)
         }
     }
+}

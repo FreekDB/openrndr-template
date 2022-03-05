@@ -9,6 +9,12 @@ import org.openrndr.math.Vector2
 import org.openrndr.shape.Circle
 import org.openrndr.shape.Shape
 
+/**
+ * id: a7b916d8-e4b7-41ca-a781-b490fdb4fa84
+ * description: New sketch
+ * tags: #new
+ */
+
 fun main() = application {
     program {
         val bw = renderTarget(width, height) {

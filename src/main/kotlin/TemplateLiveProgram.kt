@@ -3,15 +3,15 @@ import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.*
 import org.openrndr.extra.color.spaces.ColorHSLUVa
 import org.openrndr.extra.noise.Random
+import org.openrndr.extra.olive.oliveProgram
 import org.openrndr.math.Polar
 import org.openrndr.poissonfill.PoissonFill
 import kotlin.math.sin
 
 /**
- *  This is a template for a live program.
- *
- *  It uses oliveProgram {} instead of program {}. All code inside the
- *  oliveProgram {} can be changed while the program is running.
+ * id: 1e6de5f2-7c08-4e22-b24a-e70bf5ec0cff
+ * description: oliveProgram using PoissonFill and a shader
+ * tags: #poissonFill #shader
  */
 
 fun main() = application {
@@ -19,7 +19,7 @@ fun main() = application {
         width = 800
         height = 800
     }
-    program {
+    oliveProgram {
         val dry = renderTarget(width, height) {
             colorBuffer(type = ColorType.FLOAT32)
         }
@@ -39,16 +39,20 @@ fun main() = application {
                     drawer.stroke = ColorHSLUVa(
                         (Random.int0(3) * 190.0) % 360.0,
                         Random.double0(0.5),
-                        0.5 + 0.5 * sin(x + seconds)).toRGBa()
-                    val pos =
-                        c + Polar(x * 30 + seconds *
-                                Random.double(-10.0, 10.0), 300.0).cartesian
+                        0.5 + 0.5 * sin(x + seconds)
+                    ).toRGBa()
+                    val pos = c + Polar(
+                        x * 30 + seconds * Random.double(-10.0, 10.0),
+                        300.0
+                    ).cartesian
                     List(3) {
                         Random.int(-3, 3) * 20.0
                     }.forEachIndexed { i, s ->
                         lineSegment(
-                            pos, pos + Polar(seconds * s, 300.0 / (1 + i))
-                                .cartesian
+                            pos, pos + Polar(
+                                seconds * s,
+                                300.0 / (1 + i)
+                            ).cartesian
                         )
                     }
                 }

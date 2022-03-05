@@ -26,12 +26,13 @@ import kotlin.math.sign
 import kotlin.system.exitProcess
 
 /**
- * Curves with few points.
+ * id: 6a513f49-b13a-4bc1-aca7-c9212f1ccafb
+ * description: Curves with few points.
  * Create a method for adding localized divergence in the line.
+ * tags: #new
  */
 
 fun main() = application {
-
     configure {
         width = 1500
         height = 800

@@ -7,12 +7,13 @@ import org.openrndr.draw.isolatedWithTarget
 import org.openrndr.draw.renderTarget
 import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.palette.PaletteStudio
-import org.openrndr.extra.palette.getLuminance
 import org.openrndr.extra.shapes.grid
 import kotlin.system.exitProcess
 
 /**
- * Test palette sorting
+ * id: 1093deca-4348-467b-98a0-9b2ce037327c
+ * description: Test palette sorting
+ * tags: #sorting #colors
  */
 
 fun main() = application {

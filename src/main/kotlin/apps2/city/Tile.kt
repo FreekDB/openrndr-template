@@ -7,6 +7,12 @@ import org.openrndr.extra.noise.Random
 import org.openrndr.math.Vector2
 import org.openrndr.shape.LineSegment
 
+/**
+ * id: a4ff7112-9670-4e39-ad4d-ca1f7f044ee9
+ * description: New sketch
+ * tags: #new
+ */
+
 val streetInventory = listOf(
     LineSegment(-hf, 0.0, 0.0, 0.0), //ch
     LineSegment(0.0, 0.0, hf, 0.0), //ch

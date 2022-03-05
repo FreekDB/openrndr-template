@@ -10,6 +10,12 @@ import org.openrndr.math.Vector2
 import org.openrndr.shape.Segment
 import org.openrndr.shape.ShapeContour
 
+/**
+ * id: bb05a8b3-5c8f-4872-97f6-cfb176883801
+ * description: New sketch
+ * tags: #new
+ */
+
 fun main() = application {
     program {
         // helper to get screen locations using normalized uv values

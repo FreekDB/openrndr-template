@@ -9,6 +9,12 @@ import org.openrndr.extra.noise.random
 import org.openrndr.math.Vector2
 import org.openrndr.shape.Rectangle
 import kotlin.math.max
+    
+/**
+ * id: 47cf76a7-064e-4767-8310-fd0431e49b42
+ * description: New sketch
+ * tags: #new
+ */    
 
 /**
  * Here I'm considering if it makes sense to use annotations

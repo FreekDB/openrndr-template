@@ -10,6 +10,11 @@ import org.openrndr.extras.camera.Orbital
 import org.openrndr.extras.meshgenerators.boxMesh
 import org.openrndr.math.Vector3
 
+/**
+ * id: f9f33c54-8f89-4929-afe2-348d6c785b39
+ * description: New sketch
+ * tags: #new
+ */
 
 fun main() = application {
     configure {
@@ -19,7 +24,7 @@ fun main() = application {
     }
     program {
         val cube = boxMesh()
-        val tex = loadImage("/usr/share/processing/modes/java/examples/Topics/Textures/TextureCube/data/berlin-1.jpg")
+        val tex = loadImage("data/images/cheeta.jpg")
         val cam = Orbital()
         cam.eye = -Vector3.UNIT_Z * 150.0
 

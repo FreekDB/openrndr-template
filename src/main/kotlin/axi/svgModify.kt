@@ -9,6 +9,12 @@ import org.openrndr.shape.split
 import org.openrndr.svg.loadSVG
 import org.openrndr.svg.writeSVG
 
+/**
+ * id: 8793a56b-eb71-4532-9a45-c8afdf045b65
+ * description: New sketch
+ * tags: #new
+ */
+
 fun main() = application {
     configure {
         width = 1920
@@ -56,4 +62,3 @@ fun main() = application {
         }
     }
 }
-

@@ -1,3 +1,9 @@
+    
+/**
+ * id: c8ec3faf-e02f-4127-9075-56e62c975331
+ * description: New sketch
+ * tags: #new
+ */    
 package apps.simpleTests
 
 //import kotlinx.serialization.Serializable

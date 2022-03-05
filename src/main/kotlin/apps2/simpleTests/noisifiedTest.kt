@@ -7,6 +7,12 @@ import org.openrndr.color.ColorRGBa
 import org.openrndr.shape.Circle
 import org.openrndr.shape.ShapeContour
 
+/**
+ * id: c963f331-4208-404f-89e9-e493b6412b7b
+ * description: New sketch
+ * tags: #new
+ */
+
 fun main() = application {
     program {
         val c = ShapeContour.fromPoints(

@@ -6,6 +6,12 @@ import org.openrndr.draw.loadFont
 import org.openrndr.extra.noise.Random
 import org.openrndr.shape.Circle
 
+/**
+ * id: d4a09cc6-5d8d-44da-96ef-40d6d5732c0f
+ * description: New sketch
+ * tags: #new
+ */
+
 fun main() = application {
     configure {
         width = 800

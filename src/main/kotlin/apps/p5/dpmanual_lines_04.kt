@@ -7,7 +7,13 @@ import org.openrndr.math.Polar
 import org.openrndr.math.Vector2
 import org.openrndr.math.map
 
-// activate "orx-noise" in build.grtadle.kts
+/**
+ * id: 18cfdcc0-5245-458d-b323-d3d6cb608673
+ * description: New sketch
+ * tags: #new
+ */
+
+// activate "orx-noise" in build.gradle.kts
 
 fun main() = application {
     configure {

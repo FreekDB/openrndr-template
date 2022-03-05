@@ -14,9 +14,11 @@ import kotlin.math.floor
 import kotlin.math.sin
 
 /**
- * Test dodecahedron, camera.
+ * id: 5d9bcf03-845d-45e9-806b-e8033efa2876
+ * description: Test dodecahedron, camera.
  * Show font bitmap which looks unsharp in my system.
  * Combine ortho with perspective.
+ * tags: #new
  */
 
 fun main() = application {
@@ -29,7 +31,7 @@ fun main() = application {
 
     program {
         val image = loadImage("data/images/pm5544.png")
-        val font = loadFont("data/fonts/slkscr.ttf",20.0)
+        val font = loadFont("data/fonts/slkscr.ttf", 20.0)
 
         var curves = emptyList<apps.editablecurve.EditableCurve>()
 

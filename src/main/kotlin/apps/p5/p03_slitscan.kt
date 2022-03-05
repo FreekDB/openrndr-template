@@ -5,6 +5,12 @@ import org.openrndr.draw.loadImage
 import org.openrndr.draw.shadeStyle
 import org.openrndr.extensions.Screenshots
 
+/**
+ * id: e1be20e8-dbd4-44b5-b3fe-281d4c37b35e
+ * description: New sketch
+ * tags: #new
+ */
+
 fun main() = application {
     configure {
         width = 1280

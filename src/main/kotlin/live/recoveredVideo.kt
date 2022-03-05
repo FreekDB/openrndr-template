@@ -9,6 +9,12 @@ import org.openrndr.shape.Circle
 import kotlin.math.cos
 import kotlin.math.sin
 
+/**
+ * id: b41c8e34-897a-49d3-a121-df5d01ce16b6
+ * description: New sketch
+ * tags: #new
+ */
+
 fun main() = application {
     configure {
         width = 1920

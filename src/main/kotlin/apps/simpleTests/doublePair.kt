@@ -1,3 +1,8 @@
+/**
+ * id: a97f5084-9530-430a-8dc2-d67f79e35404
+ * description: New sketch
+ * tags: #new
+ */
 package apps.simpleTests
 
 data class DoublePair(private var _a: Double) {

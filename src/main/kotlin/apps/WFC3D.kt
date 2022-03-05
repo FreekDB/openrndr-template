@@ -7,7 +7,10 @@ import org.openrndr.extensions.Screenshots
 import kotlin.system.exitProcess
 
 /**
- * Basic template
+ * id: 15ed4336-8282-40d8-8ef2-d04cf21034b1
+ * description: Here I planned to port https://github.com/action-script/ofxWFC3D which uses
+ * Wave Function Collapse. Didn't get very far :) Just created an Array3D data type.
+ * tags: #wfc
  */
 
 fun main() = application {

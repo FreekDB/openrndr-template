@@ -10,7 +10,12 @@ import org.openrndr.extensions.Screenshots
 import org.openrndr.math.IntVector2
 import org.openrndr.shape.Rectangle
 import org.openrndr.shape.Segment
-
+    
+/**
+ * id: 01494348-a86b-479b-844b-51ba24bf263b
+ * description: New sketch
+ * tags: #new
+ */
 
 private fun Drawer.image(colorBuffer: ColorBuffer, bounds: Rectangle) =
     image(colorBuffer, bounds.x, bounds.y, bounds.width, bounds.height)

@@ -7,6 +7,12 @@ import org.openrndr.draw.DrawPrimitive
 import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.noise.Random
 
+/**
+ * id: 61e26d1c-63e7-4076-a920-a471a17fbe9a
+ * description: New sketch
+ * tags: #new
+ */
+
 fun main() = application {
     configure {
         width = 900

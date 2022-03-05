@@ -7,6 +7,12 @@ import org.openrndr.color.rgb
 import org.openrndr.draw.isolatedWithTarget
 import org.openrndr.draw.renderTarget
 
+/**
+ * id: 49270065-6248-4efb-89c6-18443b7fd679
+ * description: New sketch
+ * tags: #new
+ */
+
 fun main() = application {
     configure {
         width = 400

@@ -8,6 +8,12 @@ import org.openrndr.math.Polar
 import org.openrndr.shape.Circle
 import org.openrndr.shape.contour
 
+/**
+ * id: 1773849f-dbe8-4db9-b9cb-9b9ffbcf3925
+ * description: New sketch
+ * tags: #new
+ */
+
 fun main() = application {
     program {
         extend {

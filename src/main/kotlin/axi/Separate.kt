@@ -26,10 +26,11 @@ import kotlin.math.sin
 import kotlin.system.exitProcess
 
 /**
- * Create a set of random positions on a 2D ring.
+ * id: 70426b63-2639-430d-b2c5-c87fec5528bb
+ * description: Create a set of random positions on a 2D ring.
  * Iterate separating those positions to avoid overlaps.
- *
  * Printed of page 16.
+ * tags: #new
  */
 
 fun main() = application {
@@ -96,4 +97,3 @@ fun main() = application {
         }
     }
 }
-

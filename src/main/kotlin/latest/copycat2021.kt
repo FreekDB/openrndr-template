@@ -14,7 +14,12 @@ import org.openrndr.math.Vector2
 import kotlin.math.sin
 import kotlin.math.sqrt
 
-// Copycat game, Creative Code Jam 20.02.2021
+/**
+ * id: e01ef1e2-a349-413c-9278-411fc1bd50d0
+ * description: Copycat game, Creative Code Jam 20.02.2021
+ * tags: #new
+ */
+
 // Coded based on an oral description of
 // https://beesandbombs.tumblr.com/post/57971648339/hexagons-pulsin
 // by Claudine
@@ -41,8 +46,9 @@ fun main() = application {
                             translate(xd, yd)
                             val k = 0.5 + 0.5 * sin(Random.simplex(xd, yd) * 3 + seconds * 3)
                             scale(k)
-                            gradient.color1 = ColorRGBa.YELLOW.mix(ColorRGBa
-                                .MAGENTA, k).shade(0.8)
+                            gradient.color1 = ColorRGBa.YELLOW.mix(
+                                ColorRGBa.MAGENTA, k
+                            ).shade(0.8)
                             gradient.color0 = gradient.color1.shade(1.5)
                             gradient.exponent = 4.0
                             gradient.rotation = 60.0 * ((x + y * 17) % 6)

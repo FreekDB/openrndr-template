@@ -9,24 +9,31 @@ import org.openrndr.draw.LineJoin
 import org.openrndr.draw.isolated
 import org.openrndr.extensions.Screenshots
 import org.openrndr.math.transforms.transform
-import org.openrndr.shape.*
+import org.openrndr.shape.CompositionDrawer
+import org.openrndr.shape.Rectangle
+import org.openrndr.shape.ShapeContour
+import org.openrndr.shape.bounds
 import org.openrndr.svg.loadSVG
 import org.openrndr.svg.writeSVG
 import java.util.*
 import kotlin.system.exitProcess
 
 /**
- * Writing text
+ * id: 33a20597-6457-4c12-8f23-51b55832bab8
+ * description: Writing handwritten text
+ * tags: #axi #svg
+ */
+
+/**
  * - Inspiration: https://duckduckgo.com/?t=ffab&q=patent+drawing&iax=images&ia=images
  * - Inspiration: https://stackoverflow.com/questions/27893042/text-to-phonemes-converter
- *
  * - in inkscape, have labeled rectangles and draw on top of them.
  *   then openrndr scans the file, makes a list of rectangles, looks at their IDs,
  *   finds shapes inside them, stores them on a dictionary, then I can write
  *   using that hand writing without creating a font. Also, the shapes are made out
  *   of lines, better for the axidraw
  *
- * See ===> `Handwritten` class used in page3-Extinct.kt
+ * See `Handwritten` class used in page3-Extinct.kt
  */
 
 fun main() = application {

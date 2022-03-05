@@ -9,7 +9,9 @@ import org.openrndr.math.Polar
 import org.openrndr.shape.toContour
 
 /**
- * Interactive. Mouse position sets alpha for CatmullRom.
+ * id: d4423268-0f1e-4ebe-9c7b-9cc4c4ffcc07
+ * description: Interactive. Mouse position sets alpha for CatmullRom.
+ * tags: #new
  */
 
 fun main() = application {

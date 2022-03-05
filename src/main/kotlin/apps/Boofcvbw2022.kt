@@ -4,7 +4,6 @@ import aBeLibs.extensions.NoJitter
 import aBeLibs.geometry.pillShape
 import aBeLibs.geometry.smoothed
 import aBeLibs.geometry.toContours
-import aBeLibs.lang.doubleFor
 import aBeLibs.lang.doubleRepeat
 import aBeLibs.lang.loopRepeat
 import aBeLibs.math.map
@@ -30,7 +29,6 @@ import org.openrndr.extra.parameters.Description
 import org.openrndr.extra.parameters.IntParameter
 import org.openrndr.math.Polar
 import org.openrndr.math.Vector2
-import org.openrndr.math.map
 import org.openrndr.namedTimestamp
 import org.openrndr.shape.*
 import org.openrndr.svg.saveToFile
@@ -39,11 +37,15 @@ import kotlin.math.PI
 import kotlin.math.min
 import kotlin.system.exitProcess
 
+/**
+ * id: 9231f41d-6600-4c20-b3bc-84c0d8a48922
+ * description: Creates black and white designs. Applies glitchy effect and blur.
+ * Then uses BoofCV to trace contours. Finally, fills contours with patterns.
+ * tags: #new
+ */
+
 
 /**
- * Creates black and white designs. Applies glitchy effect and blur.
- * Then uses BoofCV to trace contours. Finally, fills contours with patterns.
- *
  * Next: create multiple contours. Subtract to remove overlap.
  */
 
@@ -114,7 +116,7 @@ fun main() = application {
             val rep = (c.radius * 2 * PI).toInt() / Random.int(20, 40)
             stroke = colors[color]
             fill = colors[1 - color]
-            strokeWeight = if(Random.bool()) 6.0 else 0.0
+            strokeWeight = if (Random.bool()) 6.0 else 0.0
             loopRepeat(rep, 0.0, 360.0) {
                 circle(c.center + Polar(it, radius).cartesian, sz)
             }
@@ -195,7 +197,7 @@ fun main() = application {
 
                     when (Random.double0()) {
                         in 0.00..0.33 -> parallels(c0.tangents(c1))
-                        in 0.33..0.66 -> radials(if(Random.bool()) c0 else c1)
+                        in 0.33..0.66 -> radials(if (Random.bool()) c0 else c1)
                     }
 
                 }

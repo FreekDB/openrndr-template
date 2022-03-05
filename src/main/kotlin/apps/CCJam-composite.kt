@@ -21,6 +21,12 @@ import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.system.exitProcess
 
+/**
+ * id: ac34c0ab-5e58-45e3-8d79-a2414fbbcde8
+ * description: New sketch
+ * tags: #ccj
+ */
+
 fun main() = application {
     configure {
         width = 600

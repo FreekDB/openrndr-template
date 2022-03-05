@@ -4,6 +4,12 @@ import org.openrndr.application
 import org.openrndr.math.transforms.transform
 import org.openrndr.shape.Circle
 
+/**
+ * id: 8bf857d0-e924-4d61-8414-518be886477d
+ * description: Draw ellipse by using non-uniform scaling
+ * tags: #ellipse
+ */
+
 fun main() = application {
     program {
 

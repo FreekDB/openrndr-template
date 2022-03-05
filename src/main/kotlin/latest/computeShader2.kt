@@ -5,21 +5,26 @@ import org.openrndr.application
 import org.openrndr.draw.*
 import org.openrndr.extensions.Screenshots
 
-fun main() =
-    application {
-        program {
-            val triangles = 60
-            val vb = vertexBuffer(
-                vertexFormat {
-                    // Must be multiple of 8! 3+3+2 = 8
-                    position(3)
-                    attribute("pad1", VertexElementType.FLOAT32)
-                    color(3)
-                    attribute("pad2", VertexElementType.FLOAT32)
-                },triangles * 3
-            )
+/**
+ * id: 3a624732-6261-433c-b9a8-3db009c78dcd
+ * description: New sketch
+ * tags: #new
+ */
 
-            val computeShaderCode = """
+fun main() = application {
+    program {
+        val triangles = 60
+        val vb = vertexBuffer(
+            vertexFormat {
+                // Must be multiple of 8! 3+3+2 = 8
+                position(3)
+                attribute("pad1", VertexElementType.FLOAT32)
+                color(3)
+                attribute("pad2", VertexElementType.FLOAT32)
+            }, triangles * 3
+        )
+
+        val computeShaderCode = """
             #version 430
             layout(local_size_x = 1, local_size_y = 1) in;
             
@@ -40,8 +45,8 @@ fun main() =
                 for (int i=0; i<$triangles; ++i) {
                     int ii = i*3;
                     float r = 100.0 + i;
-                    float x = ${width/2.0} + r * sin(time + i);
-                    float y = ${height/2.0} + r * cos(time + i); 
+                    float x = ${width / 2.0} + r * sin(time + i);
+                    float y = ${height / 2.0} + r * cos(time + i); 
                     
                     vertices[ii  ].position = vec3(x, y-10, 0.0);
                     vertices[ii+1].position = vec3(x, y+10, 0.0);
@@ -54,19 +59,19 @@ fun main() =
             }
             """.trimIndent()
 
-            val computeShader = ComputeShader.fromCode(computeShaderCode, "cs2")
+        val computeShader = ComputeShader.fromCode(computeShaderCode, "cs2")
 
-            extend(Screenshots())
-            extend {
-                computeShader.buffer("outputBuffer", vb)
-                computeShader.uniform("time", seconds)
-                computeShader.execute()
+        extend(Screenshots())
+        extend {
+            computeShader.buffer("outputBuffer", vb)
+            computeShader.uniform("time", seconds)
+            computeShader.execute()
 
-                drawer.shadeStyle = shadeStyle {
-                    fragmentTransform = "x_fill.rgb = va_color;"
-                }
-
-                drawer.vertexBuffer(vb, DrawPrimitive.TRIANGLES)
+            drawer.shadeStyle = shadeStyle {
+                fragmentTransform = "x_fill.rgb = va_color;"
             }
+
+            drawer.vertexBuffer(vb, DrawPrimitive.TRIANGLES)
         }
     }
+}

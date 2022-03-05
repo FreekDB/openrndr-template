@@ -9,8 +9,10 @@ import org.openrndr.shape.Shape
 import org.openrndr.shape.contains
 
 /**
- * Shows that Shape.contains(Vector2) does take into account holes
+ * id: 45c30b86-05b4-44e2-a6ed-a91553a61310
+ * description: Shows that Shape.contains(Vector2) does take into account holes
  * if they have the correct winding (use .reversed!)
+ * tags: #insidie
  */
 
 fun main() = application {

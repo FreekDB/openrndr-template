@@ -7,8 +7,12 @@ import kotlin.math.PI
 import kotlin.math.abs
 import kotlin.math.cos
 
-// A port of a Processing example
-// https://github.com/processing/processing-docs/blob/master/content/examples/Basics/Arrays/Array/Array.pde
+/**
+ * id: 59e671d3-237d-44b5-a566-ba8527456aa5
+ * description: A port of a Processing example
+ * https://github.com/processing/processing-docs/blob/master/content/examples/Basics/Arrays/Array/Array.pde
+ * tags: #new
+ */
 
 fun main() = application {
     configure {

@@ -15,7 +15,9 @@ import java.nio.ByteBuffer
 import kotlin.math.sin
 
 /**
- * Streaming webcam to jitsi
+ * id: 440272d5-b376-43f5-881c-38fac65b74e6
+ * description: Streaming webcam to jitsi
+ * tags: #webcam
  */
 
 const val virtualCamDevice = "/dev/video2"

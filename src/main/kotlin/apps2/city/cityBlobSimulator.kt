@@ -7,6 +7,12 @@ import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.noise.Random
 import org.openrndr.math.Vector2
 
+/**
+ * id: c4af1a35-ac42-46bf-87dd-b509f2110805
+ * description: New sketch
+ * tags: #new
+ */
+
 const val blobFeedsCityDistance = 100.0
 
 fun main() = application {

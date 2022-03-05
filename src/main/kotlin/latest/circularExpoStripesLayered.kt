@@ -11,6 +11,12 @@ import org.openrndr.shape.*
 import org.openrndr.svg.saveToFile
 import kotlin.math.pow
 
+/**
+ * id: b197578d-3063-422d-9c0e-d50123331321
+ * description: New sketch
+ * tags: #new
+ */
+
 fun main() =
     application {
         configure {

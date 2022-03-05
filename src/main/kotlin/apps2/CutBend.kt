@@ -11,12 +11,13 @@ import org.openrndr.shape.ShapeContour
 import org.openrndr.shape.split
 
 /**
- * Example of splitting ShapeContours with a ShapeContour
+ * id: d5ee516c-a8d9-4dc1-9dc3-04387d636763
+ * description: Example of splitting ShapeContours with a ShapeContour
+ * tags: #new
  */
 
 fun main() = application {
     program {
-
         Random.seed = System.currentTimeMillis().toString()
 
         val lines = mutableListOf<ShapeContour>()
@@ -45,4 +46,3 @@ fun main() = application {
         }
     }
 }
-

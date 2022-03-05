@@ -11,7 +11,9 @@ import java.lang.Math.toDegrees
 import kotlin.math.sin
 
 /**
- *
+ * id: 04849610-ff0f-4e19-aafa-18f3cd2bc2ec
+ * description: New sketch
+ * tags: #new
  */
 
 fun main() = application {

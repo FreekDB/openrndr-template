@@ -5,6 +5,12 @@ import org.openrndr.color.ColorRGBa
 import org.openrndr.math.Vector2
 import org.openrndr.shape.Rectangle
 
+/**
+ * id: a38aea46-799d-4971-a490-70c842831e3d
+ * description: New sketch
+ * tags: #new
+ */
+
 fun main() = application {
     program {
         extend {

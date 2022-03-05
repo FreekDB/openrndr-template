@@ -18,9 +18,16 @@ import org.openrndr.math.Polar
 import org.openrndr.math.Vector2
 import org.openrndr.shape.Circle
 
+/**
+ * id: b64a5d56-ec5c-4e6a-8483-fe57a1045b6b
+ * description: New sketch
+ * tags: #new
+ */
+
 private data class ColoredCircle(
     val color: ColorRGBa = rgb(listOf("D1313D", "E5625C", "F9BF76", "8EB2C5", "615375").random()),
-    var circle: Circle = Circle(Vector2.ZERO,
+    var circle: Circle = Circle(
+        Vector2.ZERO,
         listOf(25.0, 50.0, 200.0).pickWeighted(listOf(10.0, 5.0, 1.0))
     )
 )
@@ -51,8 +58,11 @@ fun main() = application {
                     fill = null
                     stroke = it.color
                     strokeWeight = 2.0
-                    val p = gradientPerturbFractal(i, position = Vector2(
-                        i * 0.1, seconds * 0.002))
+                    val p = gradientPerturbFractal(
+                        i, position = Vector2(
+                            i * 0.1, seconds * 0.002
+                        )
+                    )
                     val theta = seconds * (i - 4) * 0.4 + simplex(i, p) * 180
                     val radius = simplex(i, p.copy(x = p.x + 0.2)) * 150 + 200
                     it.circle = it.circle.movedTo(

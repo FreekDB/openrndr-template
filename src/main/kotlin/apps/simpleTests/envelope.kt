@@ -4,6 +4,11 @@ import aBeLibs.anim.Envelope
 import org.openrndr.application
 import org.openrndr.extra.noise.Random
 
+/**
+ * id: 48e86e5a-c14d-4034-9869-48e83944dbe2
+ * description: New sketch
+ * tags: #new
+ */
 
 fun main() = application {
     program {
@@ -22,7 +27,7 @@ fun main() = application {
         }
 
         keyboard.keyDown.listen {
-            when(it.name) {
+            when (it.name) {
                 "b" -> {
                     x.boomerang(100.0, width * 0.5, 2000.0)
                     y.boomerang(200.0, height * 0.5, 1900.0)

@@ -9,9 +9,13 @@ import org.openrndr.math.Vector4
 import org.openrndr.math.transforms.transform
 
 /**
- * Figure out how to add a `color` to the `transforms` buffer so each
- * shape has a unique color, accessible as `vi_color` in the fragment shader.
+ * id: c1d2df7e-bf58-4a6f-a4ba-c433d4f26f5f
+ * description: Figure out how to add a `color` to the `transforms`
+ * buffer so each shape has a unique color, accessible as `vi_color`
+ * in the fragment shader.
+ * tags: #new
  */
+
 fun main() = application {
     configure { }
     program {

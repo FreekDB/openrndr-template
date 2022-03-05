@@ -22,6 +22,12 @@ import java.io.File
 import kotlin.math.pow
 
 /**
+ * id: a4ebf148-f058-4146-b866-5f91bce30227
+ * description: Page 52
+ * tags: #axi
+ */
+
+/**
  * Feb 6, 2022 - Page 52
  * Draw with black pen over colored page.
  *

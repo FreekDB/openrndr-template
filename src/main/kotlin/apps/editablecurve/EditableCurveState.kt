@@ -11,9 +11,15 @@ import org.openrndr.panel.elements.Slider
 import org.openrndr.shape.ShapeContour
 import java.io.File
 
+/**
+ * id: 37010faa-a0c7-4907-81f6-20ea846d3256
+ * description: New sketch
+ * tags: #new
+ */
+
 object EditableCurveState {
-    lateinit var sNumSubcurves : Slider
-    lateinit var sSeparation : Slider
+    lateinit var sNumSubcurves: Slider
+    lateinit var sSeparation: Slider
     var winSize = Vector2(600.0)
     var bgColor = ColorRGBa.WHITE.shade(0.95)
     var activeCurve: EditableCurve? = null

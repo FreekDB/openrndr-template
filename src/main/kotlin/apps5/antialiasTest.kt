@@ -3,11 +3,12 @@ package apps5
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.extensions.Screenshots
-import org.openrndr.math.Vector2
 import org.openrndr.shape.Circle
 
 /**
- * Test antialias of Circle and ShapeContour
+ * id: 896f0ca3-d09d-47d3-a34a-d9cc1b98efdf
+ * description: Test antialias of Circle and ShapeContour
+ * tags: #new
  */
 
 fun main() = application {
@@ -18,10 +19,12 @@ fun main() = application {
             drawer.circle(pTop, 70.0)
             drawer.contour(Circle(pBottom, 70.0).contour)
         }
-        println("""
+        println(
+            """
             circle:  stroke=WHITE | strokeWeight=0 | stroke=null
             contour: stroke=WHITE | strokeWeight=0 | stroke=null
-        """.trimIndent())
+        """.trimIndent()
+        )
 
         extend(Screenshots())
         extend {

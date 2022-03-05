@@ -9,6 +9,12 @@ import org.openrndr.extra.glslify.preprocessGlslify
 import org.openrndr.math.Vector2
 import kotlin.math.absoluteValue
 
+/**
+ * id: 0ac50341-897d-4815-8341-c73214b7f626
+ * description: New sketch
+ * tags: #new
+ */
+
 const val sz = 160.0
 const val hf = sz / 2.0
 

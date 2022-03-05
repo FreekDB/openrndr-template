@@ -9,6 +9,12 @@ import org.openrndr.shape.Circle
 import org.openrndr.shape.Shape
 import org.openrndr.shape.compound
 
+/**
+ * id: 818a8890-54d4-40ab-be21-7e71c7aeb703
+ * description: New sketch
+ * tags: #new
+ */
+
 fun main() = application {
     program {
         var shp = Circle(drawer.bounds.center, 200.0).shape

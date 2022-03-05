@@ -8,6 +8,12 @@ import org.openrndr.drawComposition
 import org.openrndr.math.Vector2
 import org.openrndr.shape.ClipMode
 
+/**
+ * id: cd82340b-6f95-4de7-8be5-48c3dec8458a
+ * description: New sketch
+ * tags: #new
+ */
+
 fun main() = application {
     configure {
         width = 400

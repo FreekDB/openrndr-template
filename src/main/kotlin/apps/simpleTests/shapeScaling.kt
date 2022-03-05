@@ -2,39 +2,44 @@ package apps.simpleTests
 
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
-import org.openrndr.draw.*
+import org.openrndr.draw.isolated
 import org.openrndr.extensions.Screenshots
 import org.openrndr.shape.Circle
 import org.openrndr.shape.Rectangle
 import kotlin.math.sin
 
-fun main() =
-    application {
-        program {
-            val circle = Circle(0.0, 0.0, 10.0)
+/**
+ * id: 100ec6c5-c307-4500-ab83-b46f370eb4dd
+ * description: New sketch
+ * tags: #new
+ */
 
-            extend(Screenshots())
-            extend {
-                drawer.stroke = null
-                val k = 11.0 + 10 * sin(seconds)
+fun main() = application {
+    program {
+        val circle = Circle(0.0, 0.0, 10.0)
 
-                drawer.isolated {
-                    translate(bounds.position(0.2, 0.5))
-                    scale(k)
-                    shape(circle.shape)
-                }
+        extend(Screenshots())
+        extend {
+            drawer.stroke = null
+            val k = 11.0 + 10 * sin(seconds)
 
-                drawer.isolated {
-                    translate(bounds.position(0.8, 0.5))
-                    scale(k)
-                    circle(circle)
-                }
+            drawer.isolated {
+                translate(bounds.position(0.2, 0.5))
+                scale(k)
+                shape(circle.shape)
+            }
 
-                drawer.isolated {
-                    stroke = ColorRGBa.WHITE
-                    fill = null
-                    rectangle(Rectangle.fromCenter(bounds.center, 2000.0, 2 * 10.0 * k))
-                }
+            drawer.isolated {
+                translate(bounds.position(0.8, 0.5))
+                scale(k)
+                circle(circle)
+            }
+
+            drawer.isolated {
+                stroke = ColorRGBa.WHITE
+                fill = null
+                rectangle(Rectangle.fromCenter(bounds.center, 2000.0, 2 * 10.0 * k))
             }
         }
     }
+}

@@ -1,24 +1,21 @@
 package apps5
 
 import aBeLibs.geometry.smoothed
-import aBeLibs.geometry.symmetrize
-import aBeLibs.geometry.symmetrizeSimple
 import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
-import org.openrndr.color.rgb
 import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.noise.Random
 import org.openrndr.extra.shapes.grid
 import org.openrndr.extra.shapes.hobbyCurve
-import org.openrndr.extras.color.presets.ALICE_BLUE
-import org.openrndr.extras.color.presets.AQUA
 import org.openrndr.extras.color.presets.LIGHT_SKY_BLUE
 import org.openrndr.shape.ShapeContour
 import kotlin.system.exitProcess
 
 /**
- * Grid of soft rectangles
+ * id: 01da6a33-0a6a-43d5-ae5e-a2276621a723
+ * description: Grid of soft rectangles
+ * tags: #new
  */
 
 fun main() = application {

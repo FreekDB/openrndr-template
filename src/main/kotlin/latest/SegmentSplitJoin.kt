@@ -14,6 +14,12 @@ import org.openrndr.shape.Segment
 import org.openrndr.shape.draw
 import org.openrndr.shape.drawComposition
 
+/**
+ * id: 9d9fff34-9164-4e05-a20f-b8481efdf612
+ * description: New sketch
+ * tags: #new
+ */
+
 fun main() = application {
     configure { width = 1024; height = 1024 }
 

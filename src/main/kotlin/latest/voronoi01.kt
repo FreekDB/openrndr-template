@@ -16,68 +16,72 @@ import org.openrndr.shape.drawComposition
 import org.openrndr.svg.saveToFile
 import java.io.File
 
-fun main() =
-    application {
-        configure {
-            width = 900
-            height = 900
-        }
-        program {
-            val svg = drawComposition { }
+/**
+ * id: 775e5ce9-6627-4851-a648-7013bc2f99f6
+ * description: New sketch
+ * tags: #new
+ */
 
-            fun newDesign() {
-                val circle = Circle(drawer.bounds.center, width * 0.32)
-                val points = poissonDiskSampling(
-                    drawer.bounds, 15.0
-                ) { v ->
-                    val perturb = gradientPerturbFractal(
-                        seconds.toInt(),
-                        position = v * 0.008
-                    )
-                    Random.simplex(perturb) < Random.double(-1.0, 0.0)
-                }
-                val delaunay = Delaunay.from(
-                    points + circle.contour.equidistantPositions(40)
+fun main() = application {
+    configure {
+        width = 900
+        height = 900
+    }
+    program {
+        val svg = drawComposition { }
+
+        fun newDesign() {
+            val circle = Circle(drawer.bounds.center, width * 0.32)
+            val points = poissonDiskSampling(
+                drawer.bounds, 15.0
+            ) { v ->
+                val perturb = gradientPerturbFractal(
+                    seconds.toInt(),
+                    position = v * 0.008
                 )
-                val voronoi = delaunay.voronoi(drawer.bounds.scale(0.8))
-                val contours = voronoi.cellsPolygons()
-                val centers = contours.map { contour ->
-                    contour.segments.map { it.start }.reduce { sum, element ->
-                        sum + element
-                    } / contour.segments.size.toDouble()
-                }
-                val radii = contours.mapIndexed { i, c ->
-                    c.nearest(centers[i]).position.distanceTo(centers[i])
-                }
-
-                svg.clear()
-                svg.draw {
-                    fill = null
-                    stroke = ColorRGBa.PINK
-                    //contours(contours)
-                    circles(centers, radii)
-                }
+                Random.simplex(perturb) < Random.double(-1.0, 0.0)
+            }
+            val delaunay = Delaunay.from(
+                points + circle.contour.equidistantPositions(40)
+            )
+            val voronoi = delaunay.voronoi(drawer.bounds.scale(0.8))
+            val contours = voronoi.cellsPolygons()
+            val centers = contours.map { contour ->
+                contour.segments.map { it.start }.reduce { sum, element ->
+                    sum + element
+                } / contour.segments.size.toDouble()
+            }
+            val radii = contours.mapIndexed { i, c ->
+                c.nearest(centers[i]).position.distanceTo(centers[i])
             }
 
-            extend {
-                drawer.clear(ColorRGBa.BLACK)
-                drawer.composition(svg)
+            svg.clear()
+            svg.draw {
+                fill = null
+                stroke = ColorRGBa.PINK
+                //contours(contours)
+                circles(centers, radii)
             }
+        }
 
-            mouse.buttonDown.listen {
-                newDesign()
-            }
+        extend {
+            drawer.clear(ColorRGBa.BLACK)
+            drawer.composition(svg)
+        }
 
-            keyboard.keyDown.listen {
-                when (it.key) {
-                    KEY_ENTER -> {
-                        val fileName = program.namedTimestamp("svg", "print")
-                        svg.dedupe().saveToFile(File(fileName))
-                        println("Saved as $fileName")
-                    }
-                    KEY_ESCAPE -> application.exit()
+        mouse.buttonDown.listen {
+            newDesign()
+        }
+
+        keyboard.keyDown.listen {
+            when (it.key) {
+                KEY_ENTER -> {
+                    val fileName = program.namedTimestamp("svg", "print")
+                    svg.dedupe().saveToFile(File(fileName))
+                    println("Saved as $fileName")
                 }
+                KEY_ESCAPE -> application.exit()
             }
         }
     }
-
+}

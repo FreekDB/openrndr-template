@@ -8,24 +8,28 @@ import org.openrndr.extra.noise.Random
 import org.openrndr.extra.noise.uniform
 import org.openrndr.math.Vector2
 
-fun main() =
-    application {
-        configure {
-            width = 1500
-            height = 900
-        }
-        program {
-            var cb = colorBuffer(width, height)
+/**
+ * id: 2a293410-7e3a-49bf-b7df-34b3837b712c
+ * description: New sketch
+ * tags: #new
+ */
 
-            extend {
-                if (frameCount % 60 == 0) {
-                    cb = treeShadowTexture(drawer, width, height)
-                }
-                drawer.image(cb)
+fun main() = application {
+    configure {
+        width = 1500
+        height = 900
+    }
+    program {
+        var cb = colorBuffer(width, height)
+
+        extend {
+            if (frameCount % 60 == 0) {
+                cb = treeShadowTexture(drawer, width, height)
             }
+            drawer.image(cb)
         }
     }
-
+}
 
 fun treeShadowTexture(drawer: Drawer, width: Int, height: Int): ColorBuffer {
     val rt = renderTarget(width, height) {

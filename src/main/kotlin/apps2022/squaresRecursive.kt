@@ -15,6 +15,12 @@ import org.openrndr.shape.ShapeContour
 import org.openrndr.shape.intersections
 import kotlin.math.max
 
+/**
+ * id: 24edabd8-6807-4416-bf1a-07e8a8dcdcae
+ * description: New sketch
+ * tags: #new
+ */
+
 fun main() = application {
     configure {
         width = 1500

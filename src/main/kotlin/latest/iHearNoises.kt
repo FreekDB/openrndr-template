@@ -1,12 +1,17 @@
 package latest
 
-
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.rgba
 import org.openrndr.extra.noclear.NoClear
 import org.openrndr.extra.noise.Random
 import org.openrndr.math.Polar
+
+/**
+ * id: 65b787c5-1cec-4dc9-ac59-be02f22d8865
+ * description: New sketch
+ * tags: #new
+ */
 
 fun main() = application {
     configure {

@@ -5,6 +5,11 @@ import org.openrndr.animatable.easing.Easing
 import org.openrndr.application
 import org.openrndr.extra.noise.Random
 
+/**
+ * id: 9059fe85-9c74-4eb7-950c-9c615289b054
+ * description: New sketch
+ * tags: #new
+ */
 
 fun main() = application {
     program {
@@ -34,8 +39,10 @@ fun main() = application {
                     y.boomerang(2000, height * 0.5, 2000)
                 }
                 "a" -> {
-                    x.animateTo(Random.double0(width * 1.0),
-                        easing = Random.pick(listOf(Easing.QuadIn, Easing.QuadOut)))
+                    x.animateTo(
+                        Random.double0(width * 1.0),
+                        easing = Random.pick(listOf(Easing.QuadIn, Easing.QuadOut))
+                    )
                 }
                 "d" -> {
                     x.addDelay(4000)

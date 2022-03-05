@@ -11,7 +11,9 @@ import org.openrndr.shape.draw
 import org.openrndr.shape.drawComposition
 
 /**
- * Test. SVG not showing contours for some reason
+ * id: a7bbfc65-240a-41e7-a845-795ee1932f5b
+ * description: SVG not showing contours for some reason
+ * tags: #test
  */
 
 fun main() =

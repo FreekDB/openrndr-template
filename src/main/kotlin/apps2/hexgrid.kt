@@ -7,7 +7,9 @@ import org.openrndr.extra.noise.Random
 import org.openrndr.math.Vector2
 
 /**
- * Simple non-configurable hex grid
+ * id: 423646ef-0198-4372-8580-902376e1a0be
+ * description: Simple non-configurable hex grid
+ * tags: #new
  */
 
 fun main() = application {
@@ -43,8 +45,8 @@ fun main() = application {
                     val src = waypoints[i]
                     it.forEach { other ->
                         lineSegment(
-                                src + Random.vector2() * 5.0,
-                                waypoints[other] + Random.vector2() * 5.0
+                            src + Random.vector2() * 5.0,
+                            waypoints[other] + Random.vector2() * 5.0
                         )
                     }
                 }
@@ -52,4 +54,3 @@ fun main() = application {
         }
     }
 }
-

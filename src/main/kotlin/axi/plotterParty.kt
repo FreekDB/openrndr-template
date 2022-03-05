@@ -19,8 +19,13 @@ import kotlin.math.pow
 import kotlin.math.sign
 
 /**
- * Plotter party
+ * id: ba566ffc-cf8a-4d0f-a8b0-7c10466c4382
+ * description: Plotter party.
  * I did this at Raphaël's home with him and Deniz
+ * tags: #axi
+ */
+
+/**
  * We all created designs using the same 7 points in 2D space,
  * with the idea of plotting all 3 designs on the same paper.
  * By sharing those 7 points the designs, even if different, would
@@ -112,4 +117,3 @@ fun main() = application {
         }
     }
 }
-

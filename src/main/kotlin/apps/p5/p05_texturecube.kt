@@ -11,6 +11,11 @@ import org.openrndr.extras.meshgenerators.boxMesh
 import org.openrndr.math.Vector2
 import org.openrndr.math.Vector3
 
+/**
+ * id: 40214e10-983c-40a7-8fef-2990b979c7ca
+ * description: New sketch
+ * tags: #new
+ */
 
 fun main() = application {
     configure {

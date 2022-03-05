@@ -7,6 +7,12 @@ import org.openrndr.shape.ShapeContour
 import java.io.File
 import java.time.LocalDateTime
 
+/**
+ * id: 7790614c-cc7e-49fb-b906-65de5ae14e7c
+ * description: New sketch
+ * tags: #new
+ */
+
 class Collada {
     private val geometries = mutableListOf<String>()
     private val nodes = mutableListOf<String>()
@@ -324,5 +330,4 @@ class Collada {
 """
         file.writeText(xml)
     }
-
 }

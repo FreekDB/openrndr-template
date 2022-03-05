@@ -20,6 +20,12 @@ import org.openrndr.shape.Circle
 import org.openrndr.shape.ShapeContour
 
 /**
+ * id: 3b988083-ad68-431c-abf6-488ed6633103
+ * description: Naoto Nuño Abe collaboration
+ * tags: #collab
+ */
+
+/**
  * Description I received:
  *
  * The composition consists of a pair of blobs.
@@ -96,10 +102,10 @@ fun main() = application {
                         when (i) {
                             0, 1 -> shape(shp)
                             else -> {
-                                for(rep in 0 until armLength) {
+                                for (rep in 0 until armLength) {
                                     circle(pos + (normal + rot * rep.toDouble()).cartesian, radius - rep)
                                 }
-                                for(rep in 0 until 10) {
+                                for (rep in 0 until 10) {
                                     circle(pos - (normal + rot * rep.toDouble()).cartesian, radius - rep)
                                 }
                             }
@@ -151,10 +157,10 @@ fun main() = application {
                 fill = ColorRGBa(0.200, 0.655, 0.525)
                 contours(yang)
 
-                if(keyboard.pressedKeys.contains("a")) {
+                if (keyboard.pressedKeys.contains("a")) {
                     image(bwL.colorBuffer(0))
                 }
-                if(keyboard.pressedKeys.contains("o")) {
+                if (keyboard.pressedKeys.contains("o")) {
                     image(bwR.colorBuffer(0))
                 }
             }

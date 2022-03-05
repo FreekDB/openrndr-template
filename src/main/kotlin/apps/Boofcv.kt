@@ -28,9 +28,14 @@ import org.openrndr.shape.ShapeContour
 import kotlin.math.pow
 import kotlin.system.exitProcess
 
+/**
+ * id: 3cf88713-7687-4653-b704-0c950be62d68
+ * description: BoofCV experiment.
+ * tags: #new
+ */
+
 
 /**
- * BoofCV experiment.
  * 1. Generates a circular pattern made out of rectangles rotated in increments of 45°.
  * 2. Blurs that pattern and uses BoofCV to get the contours.
  * 3. Draws the contours with gradients, colors coming from the palette generator.

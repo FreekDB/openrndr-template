@@ -13,6 +13,12 @@ import org.openrndr.shape.ShapeContour
 import org.openrndr.shape.drawComposition
 import kotlin.math.PI
 import kotlin.math.tan
+    
+/**
+ * id: 4e67d8e7-0569-4e34-9864-563d8b21e5ea
+ * description: New sketch
+ * tags: #new
+ */    
 
 fun main() = application {
     configure { width = 1100; height = 1100 }

@@ -11,13 +11,19 @@ import org.openrndr.extra.noise.Random
 import org.openrndr.math.Polar
 import org.openrndr.shape.ShapeContour
 
+/**
+ * id: eb657652-8087-41ad-b909-d49bd377edbb
+ * description: New sketch
+ * tags: #new
+ */
+
 fun main() = application {
     configure {
         width = 800
         height = 800
     }
     program {
-         val geometry = vertexBuffer(vertexFormat {
+        val geometry = vertexBuffer(vertexFormat {
             position(3)
             color(4)
         }, 100)

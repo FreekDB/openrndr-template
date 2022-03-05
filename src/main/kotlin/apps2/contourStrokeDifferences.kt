@@ -6,7 +6,10 @@ import org.openrndr.extensions.Screenshots
 import org.openrndr.shape.Circle
 
 /**
- * stroke color looks different on contours depending on presence of fill
+ * id: 552a3806-3210-482a-bcd2-aee7b4652dca
+ * description: Issue: stroke color looks different on contours
+ * depending on presence of fill.
+ * tags: #new
  */
 
 fun main() = application {
@@ -26,4 +29,3 @@ fun main() = application {
         }
     }
 }
-

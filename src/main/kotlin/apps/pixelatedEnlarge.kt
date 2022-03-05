@@ -7,8 +7,10 @@ import org.openrndr.draw.colorBuffer
 import org.openrndr.extra.noise.Random
 
 /**
- * Generate a 8x8 pixel black and white pattern
+ * id: 65da6333-23d9-4fc7-812b-80dfb2ee904e
+ * description: Generate a 8x8 pixel black and white pattern
  * and enlarge it (QR code style)
+ * tags: #pixel
  */
 
 fun main() = application {

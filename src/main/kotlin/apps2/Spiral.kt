@@ -9,8 +9,10 @@ import org.openrndr.math.Vector2
 import org.openrndr.shape.Circle
 
 /**
- * Create a spiral connecting two points in two concentric circles.
- * Interactive.
+ * id: ce3c4813-d9a7-4cd3-a878-791ceff3e85a
+ * description: Create a spiral connecting two points
+ * in two concentric circles. Interactive.
+ * tags: #spiral
  */
 
 fun main() = application {
@@ -53,4 +55,3 @@ fun main() = application {
         }
     }
 }
-

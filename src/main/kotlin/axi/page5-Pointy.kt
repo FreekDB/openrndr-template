@@ -19,6 +19,12 @@ import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.system.exitProcess
+    
+/**
+ * id: 999253d6-7269-4341-8518-4d24c366408f
+ * description: New sketch
+ * tags: #axi
+ */    
 
 /**
  * 1. Create main shape - mother
@@ -152,4 +158,3 @@ fun main() = application {
         }
     }
 }
-

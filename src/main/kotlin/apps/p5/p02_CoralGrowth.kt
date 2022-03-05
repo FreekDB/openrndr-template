@@ -6,6 +6,12 @@ import org.openrndr.color.rgb
 import org.openrndr.math.Polar
 import org.openrndr.shape.Circle
 
+/**
+ * id: 91dea73c-1c15-42e8-ae5b-4a174a24833c
+ * description: New sketch
+ * tags: #new
+ */
+
 fun main() = application {
     configure {
         fullscreen = Fullscreen.CURRENT_DISPLAY_MODE

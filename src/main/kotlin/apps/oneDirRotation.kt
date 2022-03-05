@@ -17,8 +17,10 @@ import org.openrndr.shape.contour
 import kotlin.system.exitProcess
 
 /**
- * One direction rotation doodles
+ * id: e53f85f9-810b-46da-9356-5aef83d1849a
+ * description: One direction rotation doodles
  * Looks like paper-clips
+ * tags: #new
  */
 
 fun main() = application {
@@ -40,9 +42,9 @@ fun main() = application {
                 var base = Vector2.ZERO
                 var dir = Polar(Random.double0(360.0))
                 var dist = 0.0
-                for(j in 0 until 10) {
+                for (j in 0 until 10) {
                     points.add(base + dir.cartesian * dist)
-                    if(Random.bool(0.33)) {
+                    if (Random.bool(0.33)) {
                         base += Vector2.uniformRing(90.0, 110.0)
                         dir = Polar(Random.double0(360.0))
                         dist = 0.0
@@ -120,4 +122,3 @@ fun main() = application {
         }
     }
 }
-

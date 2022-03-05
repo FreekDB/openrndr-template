@@ -6,11 +6,15 @@ import javax.swing.*
 import kotlin.system.exitProcess
 
 /**
- * Test using Swing from Kotlin. No OPENRNDR here yet.
+ * id: ef3d356b-6f12-4ea3-bcb6-e94cb6508870
+ * description: Test using Swing from Kotlin. No OPENRNDR here yet.
  * I thought that maybe it's interesting for designing complex UIs
  * and then somehow communicating the UI application with the
  * OPENRNDR application.
- *
+ * tags: #swing #ui
+ */
+
+/**
  * Passing lots of variables via OSC or some other method is not as
  * convenient as having direct access to variables and methods, as
  * one has when writing only one program instead of two. Is that solvable?
@@ -22,11 +26,9 @@ class KotlinSwingSimpleEx(title: String) : JFrame() {
     }
 
     private fun createUI(title: String) {
-
         setTitle(title)
 
         val closeBtn = JButton("Close")
-
         closeBtn.addActionListener { exitProcess(0) }
 
         createLayout(closeBtn)
@@ -39,7 +41,6 @@ class KotlinSwingSimpleEx(title: String) : JFrame() {
 
 
     private fun createLayout(vararg arg: JComponent) {
-
         val gl = GroupLayout(contentPane)
         contentPane.layout = gl
 
@@ -59,7 +60,6 @@ class KotlinSwingSimpleEx(title: String) : JFrame() {
     }
 
     private fun createMenuBar() {
-
         val menubar = JMenuBar()
         val icon = ImageIcon("src/main/resources/exit.png")
 

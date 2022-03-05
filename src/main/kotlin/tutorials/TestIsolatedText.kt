@@ -6,6 +6,12 @@ import org.openrndr.color.rgb
 import org.openrndr.draw.isolatedWithTarget
 import org.openrndr.draw.loadFont
 import org.openrndr.draw.renderTarget
+    
+/**
+ * id: 4dcdc4de-169c-4fa2-b4af-e53c26f1d287
+ * description: New sketch
+ * tags: #new
+ */    
 
 fun main() = application {
     program {

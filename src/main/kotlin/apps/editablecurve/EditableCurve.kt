@@ -14,6 +14,12 @@ import kotlin.math.PI
 import kotlin.math.abs
 import kotlin.math.cos
 
+/**
+ * id: 67b8e34d-6e54-43ee-a41c-cb01bc522205
+ * description: New sketch
+ * tags: #new
+ */
+
 class EditableCurve {
     companion object {
         const val pointCount = 4
@@ -28,8 +34,10 @@ class EditableCurve {
     private var separations = mutableListOf<Double>()
     var numSubcurves = 1
     var separation = 25.0
+
     @Transient
     private var line: ShapeContour = ShapeContour(emptyList(), false)
+
     @Transient
     private var activePoint = pointCount
 
@@ -103,8 +111,8 @@ class EditableCurve {
             val end = 0.98 - abs(0.2 * simplex(i * 0.03, 3.0))
             dist += 1 + separation * sep * sep * sep
             //val c2 = makeParallelCurve(line.sub(start, end), dist)
-            val c2 = lineCopy.sub(start, end).makeParallelCurve {
-                    pc -> dist * (0.5 - 0.5 * cos(pc * PI * 2))
+            val c2 = lineCopy.sub(start, end).makeParallelCurve { pc ->
+                dist * (0.5 - 0.5 * cos(pc * PI * 2))
             }
             addSegmentsOfLineTo(c2, segments)
         }

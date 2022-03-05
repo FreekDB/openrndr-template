@@ -8,7 +8,12 @@ import org.openrndr.shape.Circle
 import org.openrndr.shape.LineSegment
 import kotlin.math.sqrt
 
-// see https://stackoverflow.com/questions/1073336/circle-line-segment-collision-detection-algorithm
+/**
+ * id: 4a9ba717-32cb-422d-8a31-729421795a31
+ * description: see
+ * https://stackoverflow.com/questions/1073336/circle-line-segment-collision-detection-algorithm
+ * tags: #new
+ */
 
 fun main() = application {
     program {

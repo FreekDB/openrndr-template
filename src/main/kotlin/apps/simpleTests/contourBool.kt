@@ -13,18 +13,24 @@ import org.openrndr.math.Polar
 import org.openrndr.math.Vector2
 import org.openrndr.shape.ShapeContour
 
+/**
+ * id: 441c9db3-1888-4fd9-9fb4-be488d501fe1
+ * description: New sketch
+ * tags: #new
+ */
+
 //implementation("com.soywiz.korlibs.korma","korma-jvm","2.0.9")
 //implementation("com.soywiz.korlibs.korma","korma-shape","2.0.9")
 
 fun main() = application {
     program {
         var s1: Shape2d = Shape2d.Circle(width * 0.5, height * 0.5, 200.0, 60)
-        loopRepeat (8, to = 360.0) { a ->
+        loopRepeat(8, to = 360.0) { a ->
             val pos = Polar(a, 200.0).cartesian + drawer.bounds.center
             val cookieCutter: Shape2d = Shape2d.Circle(pos.x, pos.y, 70.0)
             s1 = cookieCutter - s1 // s1 xor cookieCutter
         }
-        loopRepeat (8, to = 360.0) { a ->
+        loopRepeat(8, to = 360.0) { a ->
             val pos = Polar(a + 22.5, 200.0).cartesian + drawer.bounds.center
             val cookieCutter: Shape2d = Shape2d.Circle(pos.x, pos.y, 30.0)
             s1 = cookieCutter + s1

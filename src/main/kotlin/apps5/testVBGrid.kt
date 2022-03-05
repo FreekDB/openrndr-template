@@ -7,7 +7,9 @@ import org.openrndr.extra.shapes.grid
 import org.openrndr.extras.meshgenerators.toMesh
 
 /**
- * Simple program to test vertexBuffer rectangles
+ * id: 356fcc23-93ef-417c-aaa2-2c82d7d8ac17
+ * description: Simple program to test vertexBuffer rectangles
+ * tags: #test
  */
 
 fun main() = application {

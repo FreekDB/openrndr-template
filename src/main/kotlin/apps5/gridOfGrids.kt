@@ -23,8 +23,9 @@ import org.openrndr.shape.Rectangle
 import kotlin.system.exitProcess
 
 /**
- * Simple program creating a grid of circles shaded to look like 3D,
- * even if they are 2D.
+ * id: c8804e1c-49bb-4df9-9a7f-23bde8b5bb46
+ * description: deformed grid, shaded with multiple effects.
+ * tags: #vasarely
  */
 
 fun main() = application {

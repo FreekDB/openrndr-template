@@ -4,8 +4,11 @@ import org.openrndr.application
 import org.openrndr.draw.writer
 
 /**
- * Test the default font (new feature)
+ * id: d045e587-6b53-40af-888c-d2c724cca2ff
+ * description: Test the default font (new feature). Broken in OPENRNDR 0.4
+ * tags: #broken
  */
+
 fun main() = application {
     program {
         extend {
@@ -20,4 +23,3 @@ fun main() = application {
         }
     }
 }
-

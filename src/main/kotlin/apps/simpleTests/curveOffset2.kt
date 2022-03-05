@@ -16,7 +16,9 @@ import kotlin.math.sin
 import kotlin.system.exitProcess
 
 /**
- * Testing recent changes to ShapeContour and .offset()
+ * id: 085fec3c-6ebd-40ad-a142-080205b2178f
+ * description: Testing recent changes to ShapeContour and .offset()
+ * tags: #new
  */
 
 fun main() = application {

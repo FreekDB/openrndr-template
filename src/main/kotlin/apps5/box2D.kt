@@ -14,9 +14,10 @@ import org.openrndr.shape.ShapeContour
 import kotlin.random.Random
 
 /**
- * Code shared by Edwin in Slack
- * Interactive Box2D simulation, dropping square collections and letting
- * gravity do its thing.
+ * id: d456399b-d436-4bdb-8e69-1c3fe5d1e101
+ * description: Code shared by Edwin in Slack
+ * Interactive Box2D simulation, dropping square collections and letting gravity do its thing.
+ * tags: #box2D #physics
  */
 
 fun main() = application {

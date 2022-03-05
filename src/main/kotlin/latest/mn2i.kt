@@ -18,6 +18,12 @@ import org.openrndr.shape.drawComposition
 import org.openrndr.svg.saveToFile
 import kotlin.math.PI
 
+/**
+ * id: 7c235ed0-9c4c-4322-8fde-73028bc1447c
+ * description: New sketch
+ * tags: #new
+ */
+
 fun main() = application {
     configure {
         width = 900

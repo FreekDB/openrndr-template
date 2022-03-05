@@ -8,6 +8,12 @@ import org.openrndr.math.Vector2
 import org.openrndr.shape.ShapeContour
 import kotlin.math.sin
 
+/**
+ * id: 6dda61b9-375c-4cf2-8b26-f74fb27609dd
+ * description: New sketch
+ * tags: #new
+ */
+
 fun main() = application {
     configure {
         width = 400

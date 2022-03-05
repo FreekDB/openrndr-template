@@ -9,6 +9,12 @@ import org.openrndr.extensions.Screenshots
 import org.openrndr.extras.meshgenerators.toMesh
 import org.openrndr.math.Vector2
 
+/**
+ * id: 04141314-4f70-4f6f-9891-4d4a718d1f60
+ * description: New sketch
+ * tags: #new
+ */
+
 fun main() = application {
     configure {
         width = 800

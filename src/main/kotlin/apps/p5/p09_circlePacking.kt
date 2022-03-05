@@ -10,8 +10,10 @@ import org.openrndr.extra.noise.Random
 import org.openrndr.shape.Circle
 
 /**
- * example from
+ * id: b20fc191-27fa-494d-8e75-d69e2a5cebe6
+ * description: example from
  * https://discourse.processing.org/t/writing-processing-in-kotlin/3957
+ * tags: #new
  */
 
 private fun Circle.overlaps(other: Circle) =

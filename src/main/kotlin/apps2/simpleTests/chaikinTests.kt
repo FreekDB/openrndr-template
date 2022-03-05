@@ -6,6 +6,12 @@ import org.openrndr.application
 import org.openrndr.math.Vector2
 import kotlin.system.measureNanoTime
 
+/**
+ * id: 2b49bc9b-d4cf-4e55-8627-a732dbbb112f
+ * description: New sketch
+ * tags: #new
+ */
+
 // the initial number of points on each curve
 const val numPoints = 50
 

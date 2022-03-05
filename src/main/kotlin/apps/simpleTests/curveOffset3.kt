@@ -1,6 +1,7 @@
 package apps.simpleTests
 
-import org.openrndr.*
+import org.openrndr.KEY_ESCAPE
+import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.isolated
 import org.openrndr.draw.loadFont
@@ -15,7 +16,9 @@ import org.openrndr.shape.offset
 import kotlin.system.exitProcess
 
 /**
- * Testing recent changes to ShapeContour and .offset()
+ * id: 4ed1ae22-6e3a-40ba-afd5-6c87aa603195
+ * description: Testing recent changes to ShapeContour and .offset()
+ * tags: #new
  */
 
 fun main() = application {
@@ -37,7 +40,7 @@ fun main() = application {
         fun populate(type: Int) {
             curves.clear()
 
-            headline = when(type) {
+            headline = when (type) {
                 5 -> "pointy concave shape"
                 4 -> "concave shape"
                 3 -> "curves, increasing angle"
@@ -70,7 +73,7 @@ fun main() = application {
                     }
                     2 -> contour {
                         moveTo(0.toCartesian())
-                        for (it in sides-1 downTo 0) {
+                        for (it in sides - 1 downTo 0) {
                             curveTo(
                                 ((it * 2 + 1) * (180 / sides)).toCartesian(),
                                 (it * (360 / sides)).toCartesian()
@@ -128,7 +131,7 @@ fun main() = application {
                     )
                     fill = ColorRGBa.PINK.opacify(0.4)
                     contour(curves[itemsPerSet * (i / itemsPerSet)])
-                    if(x > 0) {
+                    if (x > 0) {
                         fill = ColorRGBa.GREEN.opacify(0.4)
                         contour(c)
                     }
@@ -155,7 +158,7 @@ fun main() = application {
         keyboard.keyDown.listen {
             when (it.key) {
                 KEY_ESCAPE -> exitProcess(0)
-                else -> when(it.name) {
+                else -> when (it.name) {
                     "0" -> populate(0)
                     "1" -> populate(1)
                     "2" -> populate(2)

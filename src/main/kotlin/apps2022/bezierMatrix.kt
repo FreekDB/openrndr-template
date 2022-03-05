@@ -13,6 +13,12 @@ import org.openrndr.shape.Rectangle
 import org.openrndr.shape.Segment
 import kotlin.math.min
 
+/**
+ * id: 7045d6c1-6f23-4b23-9ab6-5a1d1faa243c
+ * description: New sketch
+ * tags: #new
+ */
+
 fun main() = application {
     configure {
         width = 1500

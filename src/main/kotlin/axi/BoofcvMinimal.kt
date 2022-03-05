@@ -21,7 +21,9 @@ import org.openrndr.svg.saveToFile
 import java.io.File
 
 /**
- * BoofCV BW minimal example for converting shapes into curves.
+ * id: 825bb2db-54c4-4e47-ad45-d91d8914a81d
+ * description: BoofCV BW minimal example for converting shapes into curves.
+ * tags: #new
  */
 
 fun main() = application {

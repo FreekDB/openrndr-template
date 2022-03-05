@@ -17,7 +17,9 @@ import org.openrndr.svg.writeSVG
 import kotlin.system.exitProcess
 
 /**
- * Converts text to handwritten text and makes it follow a contour
+ * id: 81f0957c-45bc-4112-ba97-3a3f3d8f87de
+ * description: Converts text to handwritten text and makes it follow a contour
+ * tags: #new
  */
 
 fun main() = application {
@@ -64,8 +66,10 @@ believe that a different solution is necessary.
                     drawer.bounds.position(
                         0.15 + 0.8 * pc,
                         0.15 + 0.7 * y / handwritten.lineCount +
-                                (0.05 + 0.05 * pc) * Random.simplex(x * 0.05,
-                            y * 0.1)
+                                (0.05 + 0.05 * pc) * Random.simplex(
+                            x * 0.05,
+                            y * 0.1
+                        )
                     )
                 }, false
             ).hobbyCurve()

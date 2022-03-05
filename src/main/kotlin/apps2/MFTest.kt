@@ -2,14 +2,20 @@ package apps2
 
 import aBeLibs.extensions.Description
 import aBeLibs.extensions.MFAction
-import aBeLibs.extensions.MidiFighter
 import aBeLibs.extensions.MFSigned
+import aBeLibs.extensions.MidiFighter
 import aBeLibs.extensions.MidiFighter.Color.BLUE
 import org.openrndr.application
 import org.openrndr.color.rgb
 import org.openrndr.math.Vector2
 import org.openrndr.shape.Rectangle
 import kotlin.math.max
+
+/**
+ * id: d0da096f-8755-4309-897d-217b0c8f0384
+ * description: New sketch
+ * tags: #new
+ */
 
 /**
  * Here I'm considering if it makes sense to use annotations

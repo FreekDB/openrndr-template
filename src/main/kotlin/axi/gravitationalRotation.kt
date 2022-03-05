@@ -24,7 +24,9 @@ import kotlin.math.sin
 import kotlin.system.exitProcess
 
 /**
- * Gravitational rotation
+ * id: e2c29ea7-2274-4b83-8519-7d612bc8189c
+ * description: Gravitational rotation
+ * tags: #new
  */
 
 class Thing(drawer: Drawer) {
@@ -72,8 +74,10 @@ class Thing(drawer: Drawer) {
                     d > 0.1 && d < sep * 1.1
                 }.shuffled().take(if (Random.bool(0.5)) 3 else 2)
             }
-        } while(!waypointsNext.flatten().sorted().toSet().containsAll(
-                        (0 until numPoints).toList()))
+        } while (!waypointsNext.flatten().sorted().toSet().containsAll(
+                (0 until numPoints).toList()
+            )
+        )
     }
 
     private val maxSpeed = 0.02
@@ -143,7 +147,7 @@ class Thing(drawer: Drawer) {
         turns += angleDiff(Math.toDegrees(bRad), Math.toDegrees(aRad))
 
         radius[waypointId] += //map(0.0, 45000.0, radiusIncStart, radiusIncEnd, history.size.toDouble(), true)
-                map(radius[waypointId] * 1.1, radius[waypointId], 0.0, 0.1 / radius[waypointId], distanceToOrbit, true)
+            map(radius[waypointId] * 1.1, radius[waypointId], 0.0, 0.1 / radius[waypointId], distanceToOrbit, true)
 
         attractToRadius(waypoints[waypointId], radius[waypointId] * (1 + 0.5 * sin(bRad * 6)))
         orbit(waypoints)

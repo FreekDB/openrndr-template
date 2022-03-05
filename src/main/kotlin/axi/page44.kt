@@ -23,6 +23,12 @@ import org.openrndr.math.Vector2
 import org.openrndr.shape.*
 import org.openrndr.svg.saveToFile
 
+/**
+ * id: be11aa72-5d3a-4752-bcab-20b452baf9b5
+ * description: New sketch
+ * tags: #new
+ */
+
 
 fun main() = application {
     configure {
