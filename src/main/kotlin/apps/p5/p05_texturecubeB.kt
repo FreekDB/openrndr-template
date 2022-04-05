@@ -32,7 +32,13 @@ fun main() = application {
         extend {
             drawer.clear(ColorRGBa.WHITE)
             drawer.shadeStyle = shadeStyle {
-                fragmentTransform = "x_fill = texture(p_tex, va_texCoord0.xy);"
+                fragmentTransform = """
+                    x_fill = texture(p_tex, va_texCoord0.xy);
+                    
+                    // silly vertical light simulation
+                    vec3 n = (u_viewNormalMatrix * vec4(va_normal, 1.0)).xyz;
+                    x_fill.rgb += dot(n, vec3(0.0, 1.0, 0.0)) * 0.5;
+                """
                 parameter("tex", tex)
             }
             drawer.scale(90.0)

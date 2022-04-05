@@ -46,7 +46,7 @@ import org.openrndr.draw.renderTarget
 import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.fx.blur.ApproximateGaussianBlur
 import org.openrndr.extra.fx.color.ColorCorrection
-import org.openrndr.extra.gui.GUI
+import org.openrndr.extra.gui.aBeLibs.gui.GUI
 import org.openrndr.extra.noise.Random
 import org.openrndr.extra.parameters.ActionParameter
 import org.openrndr.extra.parameters.Description
@@ -59,7 +59,6 @@ import org.openrndr.shape.CompositionDrawer
 import org.openrndr.shape.Rectangle
 import org.openrndr.shape.ShapeContour
 import org.openrndr.svg.writeSVG
-import kotlin.system.exitProcess    
 
 /**
  * BoofCV BW Iterative. Grows concentric shapes by converting vector
@@ -75,7 +74,7 @@ fun main() = application {
         height = 1680
     }
     program {
-        val gui = GUI().apply {
+        val gui = aBeLibs.gui.GUI().apply {
             compartmentsCollapsedByDefault = false
         }
         val bwBlurred = colorBuffer(width, height)

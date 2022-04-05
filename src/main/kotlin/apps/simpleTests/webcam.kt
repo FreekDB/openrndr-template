@@ -20,6 +20,7 @@ fun main() = application {
     program {
         val cube = boxMesh()
         val screen = VideoPlayerFFMPEG.fromScreen(
+            ":0",
             frameRate = 15.0,
             imageWidth = 300,
             imageHeight = 300

@@ -23,7 +23,7 @@ fun main() = application {
             colorBuffer()
         }
         drawer.isolatedWithTarget(canvas) {
-            //ortho(canvas) // changes projection matrix
+            ortho(canvas) // changes projection matrix
             clear(ColorRGBa.PINK)
             circle(190.0, 190.0, 20.0)
         }

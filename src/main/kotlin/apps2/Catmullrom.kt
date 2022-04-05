@@ -4,6 +4,7 @@ import aBeLibs.geometry.randomPoint
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.extensions.Screenshots
+import org.openrndr.extra.noise.uniform
 import org.openrndr.math.CatmullRomChain2
 import org.openrndr.math.Polar
 import org.openrndr.shape.toContour
@@ -17,7 +18,7 @@ import org.openrndr.shape.toContour
 fun main() = application {
     program {
         // clockwise sorting
-        val points = List(9) { drawer.bounds.randomPoint() }.sortedBy {
+        val points = List(9) { drawer.bounds.uniform(100.0) }.sortedBy {
             Polar.fromVector(it - drawer.bounds.center).theta
         }
 

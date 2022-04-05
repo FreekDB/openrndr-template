@@ -3,6 +3,7 @@ package latest
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.extra.noise.poissonDiskSampling
+import org.openrndr.extra.shapes.regularPolygon
 import org.openrndr.math.Polar
 import org.openrndr.shape.Circle
 import org.openrndr.shape.Rectangle
@@ -17,15 +18,9 @@ import org.openrndr.shape.contains
 
 fun main() = application {
     program {
-        val poissonArea = Rectangle(0.0, 0.0, 200.0, 200.0)
-        val shp = ShapeContour.fromPoints(
-            List(5) {
-                Polar(it * 72.0, 100.0).cartesian +
-                        poissonArea.center
-            }, true
-        )
+        val shp = regularPolygon(5, drawer.bounds.center, 150.0)
         val points = poissonDiskSampling(
-            poissonArea,
+            shp.bounds,
             5.0, 20
         ) {
             shp.contains(it)
@@ -37,8 +32,13 @@ fun main() = application {
             drawer.clear(ColorRGBa.BLACK)
             drawer.stroke = null
             drawer.fill = ColorRGBa.PINK
-            drawer.translate(drawer.bounds.center)
             drawer.circles(theCircles)
+
+            if(mouse.pressedButtons.isNotEmpty()) {
+                drawer.stroke = ColorRGBa.WHITE
+                drawer.fill = null
+                drawer.contour(shp)
+            }
         }
     }
 }

@@ -14,8 +14,12 @@ import org.openrndr.draw.renderTarget
  */    
 
 fun main() = application {
+    configure {
+        width = 640
+        height = 200
+    }
     program {
-        val font = loadFont("data/fonts/SourceCodePro-Regular.ttf", 48.0)
+        val font = loadFont("data/fonts/SourceCodePro-Regular.ttf", 96.0)
 
         val rt = renderTarget(200, 200) {
             colorBuffer()
@@ -24,18 +28,14 @@ fun main() = application {
         drawer.isolatedWithTarget(rt) {
             ortho(rt)
             clear(ColorRGBa.TRANSPARENT)
-            fill = ColorRGBa.WHITE
+            fill = ColorRGBa.BLACK
             scale(0.5)
-            text("hello", 50.0, rt.height * 1.0)
-        }
-
-        configure {
-            width = 640
-            height = 360
+            fontMap = font
+            text("test isolatedWithTarget text", 50.0, rt.height * 1.0)
         }
 
         extend {
-            drawer.clear(rgb(0.49))
+            drawer.clear(ColorRGBa.WHITE)
             drawer.image(rt.colorBuffer(0))
         }
     }

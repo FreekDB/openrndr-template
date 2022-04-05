@@ -2,6 +2,7 @@ package apps2
 
 import aBeLibs.geometry.circler
 import aBeLibs.geometry.spiralContour
+import org.openrndr.animatable.easing.Easing
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.extensions.Screenshots
@@ -35,10 +36,9 @@ fun main() = application {
                 stroke = ColorRGBa.BLACK
                 contour(
                     spiralContour(
-                        p0,
-                        p1,
-                        center,
-                        if (keyboard.pressedKeys.contains("left-shift")) 2 else -2
+                        p0, p1, center,
+                        if (keyboard.pressedKeys.contains("left-shift")) 5 else -5,
+                        Easing.SineInOut.easer
                     )
                 )
             }
