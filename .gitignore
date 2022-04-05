@@ -14,4 +14,4 @@ src/main/kotlin/recovered/
 src/main/kotlin/other/
 ffmpegOutput.txt
 ShaderError.txt
-
+gui-parameters/
