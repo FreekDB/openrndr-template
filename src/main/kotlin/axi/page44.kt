@@ -4,6 +4,8 @@ import aBeLibs.data.ImageData
 import aBeLibs.extensions.NoJitter
 import aBeLibs.extensions.TransRotScale
 import aBeLibs.math.cosEnv
+import aBeLibs.svg.saveToInkscapeFile
+import aBeLibs.svg.setInkscapeLayer
 import org.openrndr.KEY_ENTER
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
@@ -19,13 +21,14 @@ import org.openrndr.extras.color.presets.DARK_SALMON
 import org.openrndr.extras.color.presets.DARK_TURQUOISE
 import org.openrndr.math.Polar
 import org.openrndr.math.Vector2
+import org.openrndr.math.map
 import org.openrndr.shape.*
-import org.openrndr.svg.saveToFile
 
 /**
  * id: be11aa72-5d3a-4752-bcab-20b452baf9b5
- * description: New sketch
- * tags: #new
+ * description: Design that connects two circles with multiple curves.
+ * A UI allows changing design parameters.
+ * tags: #axi
  */
 
 
@@ -163,9 +166,9 @@ fun main() = application {
             svg.clear()
             svg.draw {
                 stroke = ColorRGBa.BLACK
-                sorted.forEachIndexed { groupId, it ->
-                    it.forEachIndexed { i, (_, s) ->
-                        val iNorm = (0.5 + i) / it.size
+                sorted.forEachIndexed { groupId, group ->
+                    group.forEachIndexed { i, (_, s) ->
+                        val iNorm = (0.5 + i) / group.size
                         if (settings.useColor) stroke =
                             (if (groupId == 0) ColorRGBa.DARK_SALMON else
                                 ColorRGBa.DARK_TURQUOISE).shade(iNorm)
@@ -201,11 +204,10 @@ fun main() = application {
                         val distorted = cPoints.mapIndexed { index, p ->
                             val amt = cosEnv(index * 1.0, 0.0, 999.0)
                             val pc = (index * 1.0) / 999.0
-                            val color = img.getColor(
-                                Vector2(
-                                    pc, iNorm * sign * 0.5 + 0.5
-                                )
-                            )
+                            val zoom = 0.2
+                            val loc = Vector2(pc, iNorm * sign * 0.5 + 0.5)
+                                .mix(Vector2(0.5, 0.5), 1 - zoom)
+                            val color = img.getColor(loc)
                             p + Vector2(color.r, color.g) *
                                     (settings.imageAmount * amt)
                         }
@@ -213,7 +215,19 @@ fun main() = application {
                             distorted,
                             false
                         )
-                        contour(cntr2)
+
+                        val h = i.toDouble().map(
+                            0.0, group.size - 1.0, 35.0, 52.0
+                        ).toInt()
+
+                        val layerName = if (i > 0)
+                            "!+D3000+H$h layer$i"
+                        else
+                            "+H$h layer$i"
+
+                        group {
+                            contour(cntr2)
+                        }.setInkscapeLayer(layerName)
                     }
                 }
 
@@ -234,10 +248,9 @@ fun main() = application {
             fun newImage() = img.loadNext()
 
             @ActionParameter("svg | ctrl+s", order = 2)
-            fun exportSVG() =
-                saveFileDialog(supportedExtensions = listOf("svg")) { file ->
-                    svg.saveToFile(file)
-                }
+            fun exportSVG() = saveFileDialog(supportedExtensions = listOf("svg")) { file ->
+                svg.saveToInkscapeFile(file)
+            }
 
             @ActionParameter("exit | esc", order = 3)
             fun quit() = application.exit()
