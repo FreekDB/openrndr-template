@@ -1,7 +1,6 @@
 package axi
 
 import aBeLibs.geometry.localDistortion
-import org.openrndr.KEY_ESCAPE
 import org.openrndr.KEY_INSERT
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
@@ -179,7 +178,6 @@ fun main() = application {
 
         keyboard.keyDown.listen {
             when (it.key) {
-                KEY_ESCAPE -> exitProcess(0)
                 KEY_INSERT -> exportSVG()
             }
         }

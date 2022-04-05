@@ -18,8 +18,7 @@ import org.openrndr.svg.writeSVG
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
-import kotlin.system.exitProcess
-    
+
 /**
  * id: 999253d6-7269-4341-8518-4d24c366408f
  * description: New sketch
@@ -151,7 +150,6 @@ fun main() = application {
 
         keyboard.keyDown.listen {
             when (it.key) {
-                KEY_ESCAPE -> exitProcess(0)
                 KEY_INSERT -> exportSVG()
                 KEY_ENTER -> bgcolor = ColorXSVa(Random.double0(360.0), 0.3, 0.95).toRGBa()
             }

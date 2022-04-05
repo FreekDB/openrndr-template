@@ -1,7 +1,6 @@
 package axi
 
 import aBeLibs.extensions.Handwritten
-import org.openrndr.KEY_ESCAPE
 import org.openrndr.KEY_INSERT
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
@@ -11,7 +10,6 @@ import org.openrndr.extensions.Screenshots
 import org.openrndr.math.Vector2
 import org.openrndr.shape.CompositionDrawer
 import org.openrndr.svg.writeSVG
-import kotlin.system.exitProcess
 
 /**
  * Converts to hand written text the source code of a program,
@@ -37,7 +35,6 @@ import aBeLibs.extensions.NoJitter
 import aBeLibs.geometry.smoothed
 import aBeLibs.geometry.toContours
 import org.openrndr.KEY_ENTER
-import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.dialogs.saveFileDialog
@@ -61,7 +58,7 @@ import org.openrndr.shape.CompositionDrawer
 import org.openrndr.shape.Rectangle
 import org.openrndr.shape.ShapeContour
 import org.openrndr.svg.writeSVG
-import kotlin.system.exitProcess
+import kotlin.system.exitProcess    
 
 /**
  * BoofCV BW Iterative. Grows concentric shapes by converting vector
@@ -252,7 +249,6 @@ fun main() = application {
         }
         keyboard.keyDown.listen {
             when (it.key) {
-                KEY_ESCAPE -> exitProcess(0)
                 KEY_ENTER -> addShape()
             }
         }
@@ -290,7 +286,6 @@ fun main() = application {
 
         keyboard.keyDown.listen {
             when (it.key) {
-                KEY_ESCAPE -> exitProcess(0)
                 KEY_INSERT -> exportSVG()
             }
         }

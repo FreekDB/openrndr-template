@@ -5,7 +5,6 @@ import aBeLibs.random.rnd
 import aBeLibs.svg.Pattern
 import aBeLibs.svg.fill
 import org.openrndr.KEY_ENTER
-import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.extensions.Screenshots
@@ -166,7 +165,6 @@ fun main() = application {
                         program.namedTimestamp("svg", "print")
                     )
                 )
-                KEY_ESCAPE -> application.exit()
             }
         }
 

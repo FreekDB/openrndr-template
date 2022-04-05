@@ -1,7 +1,6 @@
 package latest
 
 import org.openrndr.KEY_ENTER
-import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.dialogs.saveFileDialog
@@ -49,7 +48,6 @@ fun main() =
                     KEY_ENTER -> saveFileDialog(supportedExtensions = listOf("svg")) { file ->
                         svg.saveToFile(file)
                     }
-                    KEY_ESCAPE -> application.exit()
                 }
             }
 

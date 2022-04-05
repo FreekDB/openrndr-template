@@ -215,7 +215,6 @@ fun main() = application {
                         program.namedTimestamp("svg", "print")
                     )
                 )
-                KEY_ESCAPE -> application.exit()
                 else -> when (it.name) {
                     "n" -> newDesign()
                 }

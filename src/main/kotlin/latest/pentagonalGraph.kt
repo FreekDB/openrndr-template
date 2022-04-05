@@ -6,7 +6,6 @@ import aBeLibs.geometry.round
 import org.jgrapht.graph.DefaultEdge
 import org.jgrapht.graph.DefaultUndirectedGraph
 import org.openrndr.KEY_ENTER
-import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.rgb
@@ -112,7 +111,6 @@ fun main() = application {
                 KEY_ENTER -> saveFileDialog(supportedExtensions = listOf("svg")) { file ->
                     svg.saveToFile(file)
                 }
-                KEY_ESCAPE -> application.exit()
             }
         }
     }

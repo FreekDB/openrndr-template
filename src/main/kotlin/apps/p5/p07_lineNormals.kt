@@ -1,13 +1,11 @@
 package apps.p5
 
-import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.noise.Random
 import org.openrndr.math.Vector2
 import org.openrndr.shape.ShapeContour
-import kotlin.system.exitProcess
 
 /**
  * id: 089c59e5-6c8a-44e6-b4bd-0d312745d198
@@ -89,12 +87,6 @@ fun main() = application {
                 thick.segments.forEach {
                     circle(it.start, 4.0)
                 }
-            }
-        }
-
-        keyboard.keyDown.listen {
-            when (it.key) {
-                KEY_ESCAPE -> exitProcess(0)
             }
         }
     }

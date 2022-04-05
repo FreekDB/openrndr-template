@@ -1,7 +1,6 @@
 package apps5
 
 import com.soywiz.korma.random.randomWithWeights
-import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
 import org.openrndr.boofcv.binding.resizeTo
 import org.openrndr.color.ColorRGBa
@@ -20,7 +19,6 @@ import org.openrndr.extra.shapes.grid
 import org.openrndr.extras.meshgenerators.toMesh
 import org.openrndr.math.Vector2
 import org.openrndr.shape.Rectangle
-import kotlin.system.exitProcess
 
 /**
  * id: c8804e1c-49bb-4df9-9a7f-23bde8b5bb46
@@ -246,9 +244,6 @@ fun main() = application {
             display?.run { drawer.image(this) }
         }
         keyboard.keyUp.listen {
-            if (it.key == KEY_ESCAPE) {
-                exitProcess(0)
-            }
             if (it.name == "n") {
                 makeIt()
             }

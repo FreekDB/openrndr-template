@@ -1,11 +1,9 @@
 package apps
 
-import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
 import org.openrndr.math.Vector2
 import org.openrndr.shape.Rectangle
-import kotlin.system.exitProcess
-    
+
 /**
  * id: aa9d5d71-c7c7-4f1a-89eb-e9ffd015d091
  * description: New sketch
@@ -44,12 +42,5 @@ fun main() = application {
         extend {
             drawer.rectangle(rect)
         }
-
-        keyboard.keyDown.listen {
-            when (it.key) {
-                KEY_ESCAPE -> exitProcess(0)
-            }
-        }
-
     }
 }

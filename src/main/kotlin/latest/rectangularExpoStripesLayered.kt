@@ -72,7 +72,6 @@ fun main() = application {
                         program.namedTimestamp("svg", "print")
                     )
                 )
-                KEY_ESCAPE -> application.exit()
                 KEY_DELETE -> svg.clear()
             }
         }

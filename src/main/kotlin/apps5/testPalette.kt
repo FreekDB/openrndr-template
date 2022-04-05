@@ -1,6 +1,5 @@
 package apps5
 
-import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
 import org.openrndr.color.rgb
 import org.openrndr.draw.isolatedWithTarget
@@ -8,7 +7,6 @@ import org.openrndr.draw.renderTarget
 import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.palette.PaletteStudio
 import org.openrndr.extra.shapes.grid
-import kotlin.system.exitProcess
 
 /**
  * id: 1093deca-4348-467b-98a0-9b2ce037327c
@@ -51,9 +49,6 @@ fun main() = application {
             drawer.image(drawLayer.colorBuffer(0))
         }
         keyboard.keyUp.listen {
-            if (it.key == KEY_ESCAPE) {
-                exitProcess(0)
-            }
             if (it.name == "n") {
                 makeIt()
             }

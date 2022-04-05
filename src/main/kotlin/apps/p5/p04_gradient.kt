@@ -1,12 +1,10 @@
 package apps.p5
 
-import org.openrndr.KEY_ESCAPE
 import org.openrndr.PresentationMode
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.rgb
 import org.openrndr.extra.shadestyles.linearGradient
-import kotlin.system.exitProcess
 
 /**
  * id: e7b2a8e8-8b60-440b-a2d3-e58ebeace5db
@@ -41,10 +39,6 @@ fun main() = application {
             drawer.rectangle(50.0, 90.0, 540.0, 80.0)
             drawer.shadeStyle = linearGradient(c1, c2, rotation = 90.0)
             drawer.rectangle(50.0, 190.0, 540.0, 80.0)
-        }
-
-        keyboard.keyDown.listen {
-            if (it.key == KEY_ESCAPE) exitProcess(0)
         }
     }
 }

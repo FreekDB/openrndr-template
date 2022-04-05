@@ -1,6 +1,5 @@
 package apps.dodefont
 
-import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.*
@@ -109,12 +108,5 @@ fun main() = application {
                 floor(height / 2.0) + 0.5
             )
         }
-
-        keyboard.keyDown.listen {
-            if (it.key == KEY_ESCAPE) {
-                application.exit()
-            }
-        }
-
     }
 }

@@ -4,7 +4,6 @@ import aBeLibs.extensions.NoJitter
 import aBeLibs.geometry.smoothed
 import aBeLibs.geometry.toContours
 import org.openrndr.KEY_ENTER
-import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.dialogs.saveFileDialog
@@ -232,7 +231,6 @@ fun main() = application {
         }
         keyboard.keyDown.listen {
             when (it.key) {
-                KEY_ESCAPE -> exitProcess(0)
                 KEY_ENTER -> addShape()
             }
         }

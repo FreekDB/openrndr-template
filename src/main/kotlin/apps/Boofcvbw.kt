@@ -5,7 +5,6 @@ import aBeLibs.geometry.smoothed
 import aBeLibs.geometry.toContours
 import aBeLibs.svg.Pattern
 import aBeLibs.svg.fill
-import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.colorBuffer
@@ -267,11 +266,6 @@ fun main() = application {
                     composition(svg)
                     composition(patterns)
                 }
-            }
-        }
-        keyboard.keyDown.listen {
-            when (it.key) {
-                KEY_ESCAPE -> exitProcess(0)
             }
         }
         gui.loadParameters(File("data/parameters/Boofcvbw001.json"))

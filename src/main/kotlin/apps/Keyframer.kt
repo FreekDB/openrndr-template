@@ -1,6 +1,5 @@
 package apps
 
-import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
 import org.openrndr.color.rgb
 import org.openrndr.draw.DrawPrimitive
@@ -93,12 +92,6 @@ fun main() = application {
             if (frameCount >= 150) {
                 videoWriter.stop()
                 exitProcess(0)
-            }
-        }
-
-        keyboard.keyDown.listen {
-            when (it.key) {
-                KEY_ESCAPE -> exitProcess(0)
             }
         }
     }

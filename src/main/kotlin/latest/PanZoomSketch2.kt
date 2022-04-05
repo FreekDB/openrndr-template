@@ -1,7 +1,6 @@
 package latest
 
 import aBeLibs.panzoom.PanZoomCanvas
-import org.openrndr.KEY_ESCAPE
 import org.openrndr.KEY_SPACEBAR
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
@@ -51,7 +50,6 @@ fun main() = application {
 
         keyboard.keyDown.listen {
             when (it.key) {
-                KEY_ESCAPE -> application.exit()
                 KEY_SPACEBAR -> {
                     val pos = canvas.globalToLocal(mouse.position)
                     drawer.isolatedWithTarget(canvas.rt) {

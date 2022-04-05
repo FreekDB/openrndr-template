@@ -1,7 +1,6 @@
 import aBeLibs.geometry.pillShape
 import com.soywiz.korma.random.randomWithWeights
 import org.openrndr.KEY_ENTER
-import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.isolatedWithTarget
@@ -118,7 +117,6 @@ fun main() = application {
         keyboard.keyDown.listen {
             when (it.key) {
                 KEY_ENTER -> nu()
-                KEY_ESCAPE -> application.exit()
             }
         }
     }

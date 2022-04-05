@@ -5,7 +5,6 @@ import aBeLibs.extensions.NoJitter
 import aBeLibs.extensions.TransRotScale
 import aBeLibs.math.cosEnv
 import org.openrndr.KEY_ENTER
-import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.dialogs.saveFileDialog
@@ -260,7 +259,6 @@ fun main() = application {
         }
         keyboard.keyDown.listen {
             when (it.key) {
-                KEY_ESCAPE -> application.exit()
                 KEY_ENTER -> actions.newImage()
             }
             if (keyboard.pressedKeys.contains("left-control")) {

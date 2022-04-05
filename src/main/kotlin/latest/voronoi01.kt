@@ -2,7 +2,6 @@ package latest
 
 import aBeLibs.geometry.dedupe
 import org.openrndr.KEY_ENTER
-import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.extra.noise.Random
@@ -80,7 +79,6 @@ fun main() = application {
                     svg.dedupe().saveToFile(File(fileName))
                     println("Saved as $fileName")
                 }
-                KEY_ESCAPE -> application.exit()
             }
         }
     }

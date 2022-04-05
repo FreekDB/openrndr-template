@@ -1,6 +1,5 @@
 package apps
 
-import org.openrndr.KEY_ESCAPE
 import org.openrndr.KEY_INSERT
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
@@ -16,7 +15,6 @@ import org.openrndr.shape.bounds
 import org.openrndr.svg.loadSVG
 import org.openrndr.svg.writeSVG
 import java.util.*
-import kotlin.system.exitProcess
 
 /**
  * id: 33a20597-6457-4c12-8f23-51b55832bab8
@@ -131,7 +129,6 @@ fun main() = application {
 
         keyboard.keyDown.listen {
             when (it.key) {
-                KEY_ESCAPE -> exitProcess(0)
                 KEY_INSERT -> exportSVG()
             }
         }

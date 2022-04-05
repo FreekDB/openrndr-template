@@ -2,7 +2,6 @@ package apps
 
 import aBeLibs.color.ColorProviderTetrahedron
 import aBeLibs.math.doubleExponentialSigmoid
-import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.extensions.Screenshots
@@ -95,11 +94,6 @@ fun main() = application {
             }
         }
 
-        keyboard.keyDown.listen {
-            when (it.key) {
-                KEY_ESCAPE -> exitProcess(0)
-            }
-        }
     }
 }
 

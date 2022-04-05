@@ -4,7 +4,6 @@ import aBeLibs.geometry.circleish2
 import aBeLibs.geometry.smoothed
 import aBeLibs.geometry.toContours
 import aBeLibs.lang.doubleRepeat
-import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.ColorBuffer
@@ -117,12 +116,6 @@ fun main() = application {
             drawer.image(img, drawer.bounds)
             //drawer.contours(curvesContours)
             //drawer.composition(textSVG.composition)
-        }
-
-        keyboard.keyDown.listen {
-            if (it.key == KEY_ESCAPE) {
-                application.exit()
-            }
         }
     }
 }

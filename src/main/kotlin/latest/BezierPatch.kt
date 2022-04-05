@@ -1,6 +1,5 @@
 package latest
 
-import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.isolated
@@ -85,14 +84,6 @@ fun main() = application {
                 }
                 stroke = ColorRGBa.BLACK
                 contours(curves)
-            }
-        }
-
-        keyboard.keyDown.listen {
-            when (it.key) {
-                KEY_ESCAPE -> {
-                    application.exit()
-                }
             }
         }
     }

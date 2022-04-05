@@ -1,6 +1,5 @@
 package apps.simpleTests
 
-import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.extensions.Screenshots
@@ -54,12 +53,5 @@ fun main() = application {
                 drawer.contour(curves[i])
             }
         }
-
-        keyboard.keyDown.listen {
-            if (it.key == KEY_ESCAPE) {
-                exitProcess(0)
-            }
-        }
-
     }
 }

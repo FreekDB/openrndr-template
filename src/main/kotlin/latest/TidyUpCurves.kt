@@ -1,6 +1,5 @@
 package latest
 
-import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.isolatedWithTarget
@@ -8,7 +7,7 @@ import org.openrndr.draw.loadFont
 import org.openrndr.draw.renderTarget
 import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.noise.random
-import org.openrndr.ffmpeg.VideoWriter
+import org.openrndr.ffmpeg.ScreenRecorder
 import org.openrndr.math.Polar
 import org.openrndr.shape.Segment
 import org.openrndr.shape.ShapeContour
@@ -62,9 +61,6 @@ fun main() = application {
 
     program {
         val font = loadFont("data/fonts/SourceCodePro-Regular.ttf", 16.0)
-        val videoWriter: VideoWriter? = null
-//      val videoWriter = VideoWriter.create().size(width, height)
-//      .profile(MP4Profile()).output("/tmp/tidyUpCurves.mp4").start()
         val videoTarget = renderTarget(width, height) {
             colorBuffer()
             depthBuffer()
@@ -77,6 +73,7 @@ fun main() = application {
             val mid2 = Polar(random(360.0), random(300.0)).cartesian
             Segment(start, mid1, mid2, end)
         }
+        //extend(ScreenRecorder()) { outputFile = "/tmp/tidyUpCurves.mp4" }
         extend(Screenshots())
         extend {
             var count = 0
@@ -100,14 +97,7 @@ fun main() = application {
                 translate(bounds.center)
                 segments(curves)
             }
-            videoWriter?.frame(videoTarget.colorBuffer(0))
             drawer.image(videoTarget.colorBuffer(0))
-        }
-        keyboard.keyDown.listen {
-            if (it.key == KEY_ESCAPE) {
-                videoWriter?.stop()
-                application.exit()
-            }
         }
     }
 }

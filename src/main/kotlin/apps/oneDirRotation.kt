@@ -1,7 +1,6 @@
 package apps
 
 import org.openrndr.KEY_ENTER
-import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.LineJoin
@@ -14,7 +13,6 @@ import org.openrndr.math.Vector2
 import org.openrndr.math.map
 import org.openrndr.shape.ShapeContour
 import org.openrndr.shape.contour
-import kotlin.system.exitProcess
 
 /**
  * id: e53f85f9-810b-46da-9356-5aef83d1849a
@@ -113,7 +111,6 @@ fun main() = application {
 
         keyboard.keyDown.listen {
             when (it.key) {
-                KEY_ESCAPE -> exitProcess(0)
                 KEY_ENTER -> rebuild()
             }
         }

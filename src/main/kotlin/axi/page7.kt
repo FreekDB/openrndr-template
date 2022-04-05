@@ -23,7 +23,6 @@ import kotlin.math.PI
 import kotlin.math.abs
 import kotlin.math.pow
 import kotlin.math.sin
-import kotlin.system.exitProcess
 
 /**
  * id: 8ea115aa-6c1f-4658-9bf7-1251cb6ac22d
@@ -153,7 +152,6 @@ fun main() = application {
 
         keyboard.keyDown.listen {
             when (it.key) {
-                KEY_ESCAPE -> exitProcess(0)
                 KEY_INSERT -> exportSVG()
                 KEY_ENTER -> {
                     bgcolor = ColorRGBa.WHITE

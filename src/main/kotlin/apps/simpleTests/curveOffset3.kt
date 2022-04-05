@@ -1,6 +1,5 @@
 package apps.simpleTests
 
-import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.isolated
@@ -13,7 +12,6 @@ import org.openrndr.shape.SegmentJoin
 import org.openrndr.shape.ShapeContour
 import org.openrndr.shape.contour
 import org.openrndr.shape.offset
-import kotlin.system.exitProcess
 
 /**
  * id: 4ed1ae22-6e3a-40ba-afd5-6c87aa603195
@@ -156,16 +154,13 @@ fun main() = application {
         }
 
         keyboard.keyDown.listen {
-            when (it.key) {
-                KEY_ESCAPE -> exitProcess(0)
-                else -> when (it.name) {
-                    "0" -> populate(0)
-                    "1" -> populate(1)
-                    "2" -> populate(2)
-                    "3" -> populate(3)
-                    "4" -> populate(4)
-                    "5" -> populate(5)
-                }
+            when (it.name) {
+                "0" -> populate(0)
+                "1" -> populate(1)
+                "2" -> populate(2)
+                "3" -> populate(3)
+                "4" -> populate(4)
+                "5" -> populate(5)
             }
         }
     }

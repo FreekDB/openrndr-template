@@ -3,7 +3,6 @@ package apps
 import aBeLibs.extensions.NoJitter
 import aBeLibs.geometry.Human
 import aBeLibs.geometry.toContours
-import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.dialogs.saveFileDialog
@@ -236,11 +235,6 @@ fun main() = application {
                     fill = null
                     contours(contours)
                 }
-            }
-        }
-        keyboard.keyDown.listen {
-            when (it.key) {
-                KEY_ESCAPE -> exitProcess(0)
             }
         }
         gui.loadParameters(File("data/parameters/Boofcvbw001.json"))

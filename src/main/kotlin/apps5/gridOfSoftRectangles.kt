@@ -1,7 +1,6 @@
 package apps5
 
 import aBeLibs.geometry.smoothed
-import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.extensions.Screenshots
@@ -10,7 +9,6 @@ import org.openrndr.extra.shapes.grid
 import org.openrndr.extra.shapes.hobbyCurve
 import org.openrndr.extras.color.presets.LIGHT_SKY_BLUE
 import org.openrndr.shape.ShapeContour
-import kotlin.system.exitProcess
 
 /**
  * id: 01da6a33-0a6a-43d5-ae5e-a2276621a723
@@ -44,11 +42,6 @@ fun main() = application {
             drawer.clear(ColorRGBa.LIGHT_SKY_BLUE)
             drawer.stroke = ColorRGBa.WHITE
             drawer.contours(rects)
-        }
-        keyboard.keyUp.listen {
-            if (it.key == KEY_ESCAPE) {
-                exitProcess(0)
-            }
         }
     }
 }

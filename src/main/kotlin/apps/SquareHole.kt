@@ -3,7 +3,6 @@ package apps
 import aBeLibs.geometry.angleToSquare
 import aBeLibs.geometry.fromIrregularLine
 import org.openrndr.KEY_ENTER
-import org.openrndr.KEY_ESCAPE
 import org.openrndr.KEY_INSERT
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
@@ -15,7 +14,6 @@ import org.openrndr.math.Vector2
 import org.openrndr.shape.CompositionDrawer
 import org.openrndr.shape.shape
 import org.openrndr.svg.writeSVG
-import kotlin.system.exitProcess
 
 /**
  * id: 619d0b78-df19-4a67-aae6-3e0963458c16
@@ -73,7 +71,6 @@ fun main() = application {
 
         keyboard.keyDown.listen {
             when (it.key) {
-                KEY_ESCAPE -> exitProcess(0)
                 KEY_ENTER -> populate()
                 KEY_INSERT -> exportSVG()
             }

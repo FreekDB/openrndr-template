@@ -11,7 +11,6 @@ import aBeLibs.random.rnd
 import aBeLibs.svg.Pattern
 import aBeLibs.svg.fill
 import com.soywiz.korma.random.randomWithWeights
-import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.*
@@ -35,7 +34,6 @@ import org.openrndr.svg.saveToFile
 import java.io.File
 import kotlin.math.PI
 import kotlin.math.min
-import kotlin.system.exitProcess
 
 /**
  * id: 9231f41d-6600-4c20-b3bc-84c0d8a48922
@@ -352,11 +350,6 @@ fun main() = application {
                     composition(svg)
                     composition(patterns)
                 }
-            }
-        }
-        keyboard.keyDown.listen {
-            when (it.key) {
-                KEY_ESCAPE -> exitProcess(0)
             }
         }
         gui.loadParameters(File("data/parameters/Boofcvbw001.json"))

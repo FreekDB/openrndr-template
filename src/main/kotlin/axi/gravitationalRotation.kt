@@ -5,7 +5,6 @@ package axi
 import aBeLibs.extensions.Handwritten
 import aBeLibs.math.angleDiff
 import org.openrndr.KEY_ENTER
-import org.openrndr.KEY_ESCAPE
 import org.openrndr.KEY_INSERT
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
@@ -261,7 +260,6 @@ fun main() = application {
         }
         keyboard.keyDown.listen {
             when (it.key) {
-                KEY_ESCAPE -> exitProcess(0)
                 KEY_ENTER -> thing.nextWaypoint()
                 KEY_INSERT -> exportSVG()
             }

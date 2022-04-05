@@ -2,7 +2,6 @@ package axi
 
 import aBeLibs.geometry.separated
 import org.openrndr.KEY_ENTER
-import org.openrndr.KEY_ESCAPE
 import org.openrndr.KEY_INSERT
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
@@ -23,7 +22,6 @@ import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.pow
 import kotlin.math.sin
-import kotlin.system.exitProcess
 
 /**
  * id: 70426b63-2639-430d-b2c5-c87fec5528bb
@@ -90,7 +88,6 @@ fun main() = application {
 
         keyboard.keyDown.listen {
             when (it.key) {
-                KEY_ESCAPE -> exitProcess(0)
                 KEY_INSERT -> exportSVG()
                 KEY_ENTER -> bgcolor = ColorXSVa(Random.double0(360.0), 0.3, 0.95).toRGBa()
             }

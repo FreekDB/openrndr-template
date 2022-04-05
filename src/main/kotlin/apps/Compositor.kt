@@ -1,6 +1,5 @@
 package apps
 
-import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.rgb
@@ -13,7 +12,6 @@ import org.openrndr.extra.compositor.post
 import org.openrndr.extra.fx.blur.ApproximateGaussianBlur
 import org.openrndr.extra.noise.Random
 import org.openrndr.math.Vector3
-import kotlin.system.exitProcess
 
 /**
  * id: de6cf8bf-1b61-4418-a134-f14613feebe1
@@ -92,10 +90,5 @@ fun main() = application {
             composite.draw(drawer)
         }
 
-        keyboard.keyDown.listen {
-            when (it.key) {
-                KEY_ESCAPE -> exitProcess(0)
-            }
-        }
     }
 }

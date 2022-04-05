@@ -2,7 +2,6 @@ package axi
 
 import aBeLibs.extensions.Handwritten
 import org.openrndr.KEY_ENTER
-import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.dialogs.saveFileDialog
@@ -14,7 +13,6 @@ import org.openrndr.math.Vector2
 import org.openrndr.shape.CompositionDrawer
 import org.openrndr.shape.ShapeContour
 import org.openrndr.svg.writeSVG
-import kotlin.system.exitProcess
 
 /**
  * id: 81f0957c-45bc-4112-ba97-3a3f3d8f87de
@@ -92,7 +90,6 @@ believe that a different solution is necessary.
 
         keyboard.keyDown.listen {
             when (it.key) {
-                KEY_ESCAPE -> exitProcess(0)
                 KEY_ENTER -> exportSVG()
             }
         }

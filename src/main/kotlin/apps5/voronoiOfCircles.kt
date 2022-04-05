@@ -1,7 +1,6 @@
 package apps5
 
 import com.soywiz.korma.random.randomWithWeights
-import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.isolatedWithTarget
@@ -133,9 +132,6 @@ fun main() = application {
             drawer.image(layer.colorBuffer(0))
         }
         keyboard.keyUp.listen {
-            if (it.key == KEY_ESCAPE) {
-                exitProcess(0)
-            }
             when (it.name) {
                 "n" -> makeIt()
                 "p" -> {

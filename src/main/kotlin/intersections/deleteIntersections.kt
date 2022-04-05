@@ -1,7 +1,6 @@
 package intersections
 
 import org.openrndr.KEY_ENTER
-import org.openrndr.KEY_ESCAPE
 import org.openrndr.KEY_INSERT
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
@@ -17,7 +16,6 @@ import org.openrndr.shape.bounds
 import org.openrndr.svg.writeSVG
 import kotlin.math.roundToInt
 import kotlin.math.sin
-import kotlin.system.exitProcess
 
 /**
  * id: 21d24ddd-8d26-4b41-8254-9e61502f94f0
@@ -142,7 +140,6 @@ fun main() = application {
                     saveFileDialog(supportedExtensions = listOf("svg")) { f ->
                         f.writeText(writeSVG(svg.composition))
                     }
-                KEY_ESCAPE -> exitProcess(0)
             }
         }
     }

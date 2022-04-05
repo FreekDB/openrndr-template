@@ -135,7 +135,6 @@ fun main() = application {
                 KEY_ENTER -> svg.saveToFile(
                     File(program.namedTimestamp("svg", "print"))
                 )
-                KEY_ESCAPE -> application.exit()
             }
         }
 

@@ -2,14 +2,12 @@ package apps
 
 import aBeLibs.geometry.convexHull
 import org.openrndr.KEY_ENTER
-import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.noise.uniformRing
 import org.openrndr.math.Vector2
 import org.openrndr.shape.ShapeContour
-import kotlin.system.exitProcess
 
 /**
  * id: b4599fcc-9a24-4224-b3f8-a3f2a72a866a
@@ -68,7 +66,6 @@ fun main() = application {
         }
         keyboard.keyDown.listen {
             when (it.key) {
-                KEY_ESCAPE -> exitProcess(0)
                 KEY_ENTER -> populate()
             }
         }

@@ -1,7 +1,6 @@
 package apps2022
 
 import org.openrndr.KEY_ENTER
-import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.rgb
@@ -88,7 +87,6 @@ fun main() = application {
         keyboard.keyDown.listen {
             when (it.key) {
                 KEY_ENTER -> doit()
-                KEY_ESCAPE -> application.exit()
             }
         }
     }

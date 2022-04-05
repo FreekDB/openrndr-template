@@ -1,7 +1,6 @@
 package latest
 
 import aBeLibs.geometry.bentFromPoints
-import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.dialogs.saveFileDialog
@@ -89,9 +88,6 @@ fun main() = application {
         }
 
         keyboard.keyDown.listen {
-            if (it.key == KEY_ESCAPE) {
-                application.exit()
-            }
             if (it.name == "h") {
                 horiz.display = if (horiz.display == Display.NONE)
                     Display.FLEX else Display.NONE

@@ -3,7 +3,6 @@ package apps
 import aBeLibs.geometry.toContours
 import aBeLibs.random.pickWeighted
 import org.openrndr.KEY_ENTER
-import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.color.rgb
@@ -208,7 +207,6 @@ fun main() = application {
         }
         keyboard.keyDown.listen {
             when (it.key) {
-                KEY_ESCAPE -> exitProcess(0)
                 KEY_ENTER -> palette.randomize()
             }
         }

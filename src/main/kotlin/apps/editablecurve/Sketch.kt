@@ -2,7 +2,6 @@ package apps.editablecurve
 
 import aBeLibs.extensions.FPSDisplay
 import aBeLibs.extensions.NoJitter
-import org.openrndr.KEY_ESCAPE
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.dialogs.saveFileDialog
@@ -12,7 +11,6 @@ import org.openrndr.extra.midi.MidiTransceiver
 import org.openrndr.math.IntVector2
 import org.openrndr.shape.CompositionDrawer
 import org.openrndr.svg.writeSVG
-import kotlin.system.exitProcess
 
 /**
  * id: 80aeb6c0-9a60-4933-9629-8ae7e91ed7d1
@@ -90,9 +88,6 @@ fun main() = application {
 
             // Interaction: keyboard
             keyboard.keyDown.listen {
-                if (it.key == KEY_ESCAPE) {
-                    exitProcess(0)
-                }
                 //mf.controlChange(0, Random.int0(16), Random.int0(128))
             }
 
