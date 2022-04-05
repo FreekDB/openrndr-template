@@ -107,6 +107,7 @@ dependencies {
     // implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.0-RC")
     implementation("com.soywiz.korlibs.korma", "korma-jvm", "2.0.9")
     implementation("com.soywiz.korlibs.korma", "korma-shape", "2.0.9")
+    implementation("com.fazecast", "jSerialComm", "2.9.1")
     //implementation("net.compartmental.code", "minim", "2.2.2")
     //implementation("de.sciss:scalacollider_3:2.7.4")
     implementation("org.jbox2d:jbox2d-library:2.2.1.1")
