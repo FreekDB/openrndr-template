@@ -39,12 +39,7 @@ import kotlin.math.min
  * id: 9231f41d-6600-4c20-b3bc-84c0d8a48922
  * description: Creates black and white designs. Applies glitchy effect and blur.
  * Then uses BoofCV to trace contours. Finally, fills contours with patterns.
- * tags: #new
- */
-
-
-/**
- * Next: create multiple contours. Subtract to remove overlap.
+ * tags: #axi
  */
 
 fun main() = application {

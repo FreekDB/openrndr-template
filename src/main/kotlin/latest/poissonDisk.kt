@@ -11,8 +11,8 @@ import org.openrndr.shape.contains
 
 /**
  * id: b18014a0-a196-4edc-b941-6a0d56b3591b
- * description: New sketch
- * tags: #new
+ * description: points randomly distributed in a pentagon using [poissonDiskSampling]
+ * tags: #simple
  */
 
 fun main() = application {

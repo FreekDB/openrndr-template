@@ -8,8 +8,8 @@ import org.openrndr.extra.gui.GUI
 
 /**
  * id: b61a1eda-c36f-4541-a07e-b8f51f9ccb98
- * description: New sketch
- * tags: #new
+ * description: Graphics used to flicker when hovering UI. Seems to be fixed.
+ * tags: #bugfixing
  */
 
 fun main() = application {

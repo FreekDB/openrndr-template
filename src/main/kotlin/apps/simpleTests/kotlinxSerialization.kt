@@ -14,7 +14,7 @@ package apps.simpleTests
  * Interesting that kotlinx.serialization runs init {} when deserializing.
  * That is useful.
  * But I can't figure out how to serialize more complex objects, like a list
- * of Vector2 or `lateinit var guiState: Map<String, Map<String, GUI.ParameterValue>>`
+ * of Vector2 or `lateinit var guiState: Map<String, Map<String, aBeLibs.gui.GUI.ParameterValue>>`
  * So I'll leave this for now.
  */
 

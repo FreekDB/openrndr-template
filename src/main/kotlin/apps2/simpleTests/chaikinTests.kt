@@ -8,9 +8,18 @@ import kotlin.system.measureNanoTime
 
 /**
  * id: 2b49bc9b-d4cf-4e55-8627-a732dbbb112f
- * description: New sketch
- * tags: #new
+ * description: chaikinSmooth performance test using 3 different approaches
+ * tags: #performance #test
  */
+
+/*
+[testOriginal] time: 485ms for 16000000 points (closed)
+[testOriginal] time: 486ms for 16000000 points (open)
+[testArrayList] time: 414ms for 16000000 points (closed)
+[testArrayList] time: 398ms for 16000000 points (open)
+[testIdiomatic] time: 1042ms for 16000000 points (closed)
+[testIdiomatic] time: 1074ms for 16000000 points (open)
+*/
 
 // the initial number of points on each curve
 const val numPoints = 50

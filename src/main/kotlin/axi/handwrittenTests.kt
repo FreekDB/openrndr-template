@@ -12,8 +12,9 @@ import org.openrndr.shape.CompositionDrawer
 import org.openrndr.svg.writeSVG
 
 /**
- * Converts to hand written text the source code of a program,
- * exports SVG
+ * id: 2b42b86e-b8e8-4dc5-a800-f29a5329f03e
+ * description: Converts to handwritten text the source code of a program, exports SVG
+ * tags: #new
  */
 
 fun main() = application {
